@@ -184,7 +184,7 @@ st.plotly_chart(fig)
 
 
 matrix_df = pd.concat(results)
-#matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
+matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
 
 #visualise in streamlit
 #st.title("📋 Churn Rate Matrix")
