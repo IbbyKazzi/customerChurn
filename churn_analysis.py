@@ -62,7 +62,7 @@ fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              color="Predicted Churn Rate", color_continuous_scale="OrRd"
 )
 
-#st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 # Sample data yearly contract
 data = {
@@ -119,7 +119,7 @@ fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              color="Predicted Churn Rate", color_continuous_scale="OrRd"
 )
 
-#st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
 
@@ -177,14 +177,14 @@ fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              color="Predicted Churn Rate", color_continuous_scale="OrRd"
 )
 
-#st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
 matrix_df = pd.concat(results)
 matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
 
 #visualise in streamlit
-st.title("📋 Churn Rate Matrix by Plan and Contract Type")
+st.title("📋 Churn Rate Matrix")
 st.subheader("   By Plan and Contract Type")
 st.dataframe(matrix_df)
 #st.dataframe(matrix_df.style.format("{:.2%}"))
