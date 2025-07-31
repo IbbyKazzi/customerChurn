@@ -183,14 +183,33 @@ fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
 st.plotly_chart(fig)
 
 
-matrix_df = pd.concat(results)
-matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
+#matrix_df = pd.concat(results)
+#matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
 
 #visualise in streamlit
+#st.title("📋 Churn Rate Matrix")
+#st.subheader("   By Plan and Contract Type")
+#st.dataframe(matrix_df)
+#st.dataframe(matrix_df.style.format("{:.2%}"))
+
+################
+# Define the desired order
+plan_order = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
+
+# Convert 'Plan' to a categorical type with the specified order
+matrix_df["Plan"] = pd.Categorical(matrix_df["Plan"], categories=plan_order, ordered=True)
+
+# Sort the DataFrame by the ordered 'Plan'
+matrix_df = matrix_df.sort_values("Plan")
+
+# Visualise in Streamlit
 st.title("📋 Churn Rate Matrix")
 st.subheader("   By Plan and Contract Type")
 st.dataframe(matrix_df)
-#st.dataframe(matrix_df.style.format("{:.2%}"))
+
+###############
+
+
 
 st.subheader("Heat-map visual")
 heatmap_df = matrix_df.set_index("Plan")
@@ -202,7 +221,7 @@ fig = px.imshow(heatmap_df,
                 text_auto=True,
                 width=900,   # Increase width
     height=600,   # Increase height
-                category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
+                
 )
 
 st.plotly_chart(fig)
