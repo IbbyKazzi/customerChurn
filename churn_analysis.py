@@ -51,16 +51,16 @@ results.append(churn_by_plan)
 
 
 #visualize using streamlit
-#import streamlit as st
-#import plotly.express as px
+import streamlit as st
+import plotly.express as px
 
-#st.title("📈 Churn Rate by Monthly Plan")
-#st.subheader("    Month-to-Month Contract")
+st.title("📈 Churn Rate by Monthly Plan")
+st.subheader("    Month-to-Month Contract")
 
-#fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-#             title="Which Plan Drives Churn?",
-#             color="Predicted Churn Rate", color_continuous_scale="OrRd"
-#)
+fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
+             title="Which Plan Drives Churn?",
+             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+)
 
 #st.plotly_chart(fig)
 
@@ -187,7 +187,8 @@ matrix_df = pd.concat(results)
 matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
 
 #visualise in streamlit
-#st.title("📋 Churn Rate Matrix by Plan and Contract Type")
+st.title("📋 Churn Rate Matrix by Plan and Contract Type")
+st.dataframe(matrix_df)
 #st.dataframe(matrix_df.style.format("{:.2%}"))
 
 import plotly.express as px
