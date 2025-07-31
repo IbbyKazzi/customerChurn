@@ -188,6 +188,7 @@ matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predic
 
 #visualise in streamlit
 st.title("📋 Churn Rate Matrix by Plan and Contract Type")
-st.dataframe(matrix_df.style.format("{:.2%}".format(float(value))
-))
+matrix_df = matrix_df.astype(float)
+st.dataframe(matrix_df.style.format("{:.2%}"))
+
 
