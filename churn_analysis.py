@@ -170,7 +170,7 @@ churn_by_plan["ContractType"] = "2-Year"
 results.append(churn_by_plan)
 
 #visualize using streamlit
-#import streamlit as st
+import streamlit as st
 #import plotly.express as px
 
 #st.title("📈 Churn Rate by Monthly Plan")
