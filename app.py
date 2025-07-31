@@ -4,7 +4,8 @@ import pickle
 
 with open("model_top3.pkl", "rb") as file:
     model = pickle.load(file)
-st.title("Churn Prediction Model")
+st.title("Churn Prediction Model - UTS P1 - 2025")
+st.subheader("Authors: Murray Atkin, Ibrahim Kassem, Bradley Moore, Preeti Sowrab")
 tenure = st.number_input("Tenure")
 monthly_charges = st.number_input("Monthly Charges")
 contract_type = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two year"])
