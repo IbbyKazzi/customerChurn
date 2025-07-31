@@ -187,8 +187,17 @@ matrix_df = pd.concat(results)
 matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
 
 #visualise in streamlit
-st.title("📋 Churn Rate Matrix by Plan and Contract Type")
-matrix_df = matrix_df.astype(float)
-st.dataframe(matrix_df.style.format("{:.2%}"))
+#st.title("📋 Churn Rate Matrix by Plan and Contract Type")
+#st.dataframe(matrix_df.style.format("{:.2%}"))
 
+import plotly.express as px
 
+heatmap_df = matrix_df.set_index("Plan")
+fig = px.imshow(heatmap_df,
+                labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
+                x=heatmap_df.columns,
+                y=heatmap_df.index,
+                color_continuous_scale="Reds",
+                text_auto=True)
+
+st.plotly_chart(fig)
