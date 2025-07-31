@@ -18,20 +18,20 @@ if st.button("Predict"):
     prediction = model.predict(input_data)
     st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
 
-#if st.button("Go to Churn Analysis 📊"):
-#    st.switch_page("churn_analysis.py")  
+if st.button("Go to Churn Analysis 📊"):
+    st.switch_page("churn_analysis.py")  
 
-github_url = "https://github.com/ibbykazzi/customerChurn/churn_analysis.py"
+#github_url = "https://github.com/ibbykazzi/customerChurn/churn_analysis.py"
 
-st.markdown(
-    f"""
-    <a href="{github_url}" target="_blank">
-        <button style="background-color:#1f77b4; color:white; padding:10px 24px; font-size:16px; border:none; border-radius:5px;">
-            🚀 Go to Churn Analysis 📊
-        </button>
-    </a>
-    """,
-    unsafe_allow_html=True
-)
+#st.markdown(
+#    f"""
+#    <a href="{github_url}" target="_blank">
+#        <button style="background-color:#1f77b4; color:white; padding:10px 24px; font-size:16px; border:none; border-radius:5px;">
+#            🚀 Go to Churn Analysis 📊
+#        </button>
+#    </a>
+#    """,
+#    unsafe_allow_html=True
+#)
 
 
