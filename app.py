@@ -17,3 +17,7 @@ input_data = np.array([[tenure, monthly_charges, contract_map[contract_type]]])
 if st.button("Predict"):
     prediction = model.predict(input_data)
     st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
+
+if st.button("Go to Churn Analysis 📊"):
+    st.switch_page("pages/churn_analysis.py")  # The file must exist inside `pages/`
+
