@@ -47,7 +47,8 @@ churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
 import streamlit as st
 import plotly.express as px
 
-st.title("📈 Churn Rate by Monthly Plan - Month-to-Month Contract")
+st.title("📈 Churn Rate by Monthly Plan")
+st.subtitle("    Month-to-Month Contract")
 
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
