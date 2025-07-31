@@ -1,5 +1,13 @@
 #define 5 monthly plan tires
 import pandas as pd
+
+# Sample data
+data = {
+    "MonthlyCharges": [25, 55, 85, 115, 145]
+}
+# Create the DataFrame
+df = pd.DataFrame(data)
+
 monthly_plans = {
     "Basic": 29,
     "Standard": 59,
