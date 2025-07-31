@@ -51,6 +51,7 @@ st.title("📈 Churn Rate by Monthly Plan")
 
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd")
+             color="Predicted Churn Rate", color_continuous_scale="OrRd", text="Predicted Churn Rate"  # Add this line to show labels
+)
 
 st.plotly_chart(fig)
