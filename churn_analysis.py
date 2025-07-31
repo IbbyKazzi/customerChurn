@@ -117,7 +117,8 @@ st.title("📈 Churn Rate by Monthly Plan")
 st.subheader("    Yearly Contract")
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+             color="Predicted Churn Rate", color_continuous_scale="OrRd",
+             category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
 )
 
 st.plotly_chart(fig)
@@ -175,7 +176,8 @@ st.title("📈 Churn Rate by Monthly Plan")
 st.subheader("    2 Years Contract")
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+             color="Predicted Churn Rate", color_continuous_scale="OrRd",
+             category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
 )
 
 st.plotly_chart(fig)
@@ -199,7 +201,8 @@ fig = px.imshow(heatmap_df,
                 color_continuous_scale="Reds",
                 text_auto=True,
                 width=900,   # Increase width
-    height=600   # Increase height
+    height=600,   # Increase height
+                category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
 )
 
 st.plotly_chart(fig)
