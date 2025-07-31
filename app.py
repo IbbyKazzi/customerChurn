@@ -19,5 +19,5 @@ if st.button("Predict"):
     st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
 
 if st.button("Go to Churn Analysis 📊"):
-    st.switch_page("churn_analysis.py")  # The file must exist inside `pages/`
+    st.switch_page("churn_analysis.py")  
 
