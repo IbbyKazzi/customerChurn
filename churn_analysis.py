@@ -48,7 +48,7 @@ import streamlit as st
 import plotly.express as px
 
 st.title("📈 Churn Rate by Monthly Plan")
-st.subtitle("    Month-to-Month Contract")
+st.subheader("    Month-to-Month Contract")
 
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
@@ -103,8 +103,8 @@ churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
 import streamlit as st
 import plotly.express as px
 
-st.title("📈 Churn Rate by Monthly Plan - Yearly Contract")
-
+st.title("📈 Churn Rate by Monthly Plan")
+st.subheader("    Yearly Contract")
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
              color="Predicted Churn Rate", color_continuous_scale="OrRd"
