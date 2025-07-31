@@ -110,15 +110,14 @@ churn_by_plan["ContractType"] = "Yearly"
 results.append(churn_by_plan)
 
 #visualize using streamlit
-#import streamlit as st
-#import plotly.express as px
 
-#st.title("📈 Churn Rate by Monthly Plan")
-#st.subheader("    Yearly Contract")
-#fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-#             title="Which Plan Drives Churn?",
-#             color="Predicted Churn Rate", color_continuous_scale="OrRd"
-#)
+
+st.title("📈 Churn Rate by Monthly Plan")
+st.subheader("    Yearly Contract")
+fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
+             title="Which Plan Drives Churn?",
+             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+)
 
 #st.plotly_chart(fig)
 
@@ -170,15 +169,13 @@ churn_by_plan["ContractType"] = "2-Year"
 results.append(churn_by_plan)
 
 #visualize using streamlit
-import streamlit as st
-#import plotly.express as px
 
-#st.title("📈 Churn Rate by Monthly Plan")
-#st.subheader("    2 Years Contract")
-#fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-#             title="Which Plan Drives Churn?",
-#             color="Predicted Churn Rate", color_continuous_scale="OrRd"
-#)
+st.title("📈 Churn Rate by Monthly Plan")
+st.subheader("    2 Years Contract")
+fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
+             title="Which Plan Drives Churn?",
+             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+)
 
 #st.plotly_chart(fig)
 
@@ -188,11 +185,11 @@ matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predic
 
 #visualise in streamlit
 st.title("📋 Churn Rate Matrix by Plan and Contract Type")
+st.subheader("   By Plan and Contract Type")
 st.dataframe(matrix_df)
 #st.dataframe(matrix_df.style.format("{:.2%}"))
 
-import plotly.express as px
-
+st.subheader("Heat-map visual")
 heatmap_df = matrix_df.set_index("Plan")
 fig = px.imshow(heatmap_df,
                 labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
