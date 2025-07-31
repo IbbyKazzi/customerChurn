@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import pickle
 
-with open("model_t3.pkl", "rb") as file:
+with open("model_top3.pkl", "rb") as file:
     model = pickle.load(file)
 st.title("Churn Prediction Model")
 tenure = st.number_input("Tenure")
