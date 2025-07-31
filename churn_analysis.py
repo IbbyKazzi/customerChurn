@@ -59,7 +59,8 @@ st.subheader("    Month-to-Month Contract")
 
 fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
              title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+             color="Predicted Churn Rate", color_continuous_scale="OrRd",
+             category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
 )
 
 st.plotly_chart(fig)
