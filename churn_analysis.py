@@ -3,7 +3,9 @@ import pandas as pd
 
 # Sample data
 data = {
-    "MonthlyCharges": [25, 55, 85, 115, 145]
+    "MonthlyCharges": [25, 55, 85, 115, 145],
+    "tenure":[1,1,1,1,1],
+    "Contract":[0,0,0,0,0]
 }
 # Create the DataFrame
 df = pd.DataFrame(data)
