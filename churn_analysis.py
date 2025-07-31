@@ -198,6 +198,9 @@ fig = px.imshow(heatmap_df,
                 x=heatmap_df.columns,
                 y=heatmap_df.index,
                 color_continuous_scale="Reds",
-                text_auto=True)
+                text_auto=True,
+                width=900,   # Increase width
+    height=600   # Increase height
+)
 
 st.plotly_chart(fig)
