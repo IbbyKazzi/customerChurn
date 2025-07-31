@@ -44,8 +44,6 @@ churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
 churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
 
 #visualize using streamlit
-!pip install plotly
-
 import streamlit as st
 import plotly.express as px
 
