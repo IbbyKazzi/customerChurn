@@ -25,7 +25,7 @@ github_url = "https://customerchurn-utsp1-analysis.streamlit.app/"
 
 st.markdown(
     f"""
-    <a href="{github_url}" target="_self">
+    <a href="{github_url}" target="_blank">
         <button style="background-color:#1f77b4; color:white; padding:10px 24px; font-size:16px; border:none; border-radius:5px;">
             🚀 Go to Churn Analysis 📊
         </button>
