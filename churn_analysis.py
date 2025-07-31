@@ -1,6 +1,9 @@
 #define 5 monthly plan tires
 import pandas as pd
 
+results = []
+
+
 # Sample data
 data = {
     "MonthlyCharges": [25, 55, 85, 115, 145],
@@ -43,19 +46,23 @@ df["PredictedChurn"] = model.predict(X)
 churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
 churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
 
+churn_by_plan["ContractType"] = "Month-to-Month" 
+results.append(churn_by_plan)
+
+
 #visualize using streamlit
-import streamlit as st
-import plotly.express as px
+#import streamlit as st
+#import plotly.express as px
 
-st.title("📈 Churn Rate by Monthly Plan")
-st.subheader("    Month-to-Month Contract")
+#st.title("📈 Churn Rate by Monthly Plan")
+#st.subheader("    Month-to-Month Contract")
 
-fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-             title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd"
-)
+#fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
+#             title="Which Plan Drives Churn?",
+#             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+#)
 
-st.plotly_chart(fig)
+#st.plotly_chart(fig)
 
 # Sample data yearly contract
 data = {
@@ -99,18 +106,23 @@ df["PredictedChurn"] = model.predict(X)
 churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
 churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
 
+churn_by_plan["ContractType"] = "Yearly" 
+results.append(churn_by_plan)
+
 #visualize using streamlit
-import streamlit as st
-import plotly.express as px
+#import streamlit as st
+#import plotly.express as px
 
-st.title("📈 Churn Rate by Monthly Plan")
-st.subheader("    Yearly Contract")
-fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-             title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd"
-)
+#st.title("📈 Churn Rate by Monthly Plan")
+#st.subheader("    Yearly Contract")
+#fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
+#             title="Which Plan Drives Churn?",
+#             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+#)
 
-st.plotly_chart(fig)
+#st.plotly_chart(fig)
+
+
 
 # Sample data 2 years contract
 data = {
@@ -154,15 +166,27 @@ df["PredictedChurn"] = model.predict(X)
 churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
 churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
 
+churn_by_plan["ContractType"] = "2-Year" 
+results.append(churn_by_plan)
+
 #visualize using streamlit
-import streamlit as st
-import plotly.express as px
+#import streamlit as st
+#import plotly.express as px
 
-st.title("📈 Churn Rate by Monthly Plan")
-st.subheader("    2 Years Contract")
-fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-             title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd"
-)
+#st.title("📈 Churn Rate by Monthly Plan")
+#st.subheader("    2 Years Contract")
+#fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
+#             title="Which Plan Drives Churn?",
+#             color="Predicted Churn Rate", color_continuous_scale="OrRd"
+#)
 
-st.plotly_chart(fig)
+#st.plotly_chart(fig)
+
+
+matrix_df = pd.concat(results)
+matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
+
+#visualise in streamlit
+st.title("📋 Churn Rate Matrix by Plan and Contract Type")
+st.dataframe(matrix_df.style.format("{:.2%}"))
+
