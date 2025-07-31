@@ -205,7 +205,8 @@ matrix_df = matrix_df.sort_values("Plan")
 # Visualise in Streamlit
 st.title("📋 Churn Rate Matrix")
 st.subheader("   By Plan and Contract Type")
-st.dataframe(matrix_df)
+st.dataframe(matrix_df, hide_index=True)
+
 
 ###############
 
