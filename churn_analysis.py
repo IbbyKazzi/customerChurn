@@ -22,10 +22,10 @@ df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
 #use our deployed model to predict churn for the above 5 plans
 import pickle
 
-with open("model.pkl", "rb") as f:
+with open("model_top3.pkl", "rb") as f:
     model = pickle.load(f)
 
-X = df[["MonthlyCharges", "Tenure", "ContractType", ...]]  # Use the right features
+X = df[["tenure", "MonthlyCharges", "Contract"]]  # Use the right features
 df["PredictedChurn"] = model.predict(X)
 
 #analyse churn rates by plan
