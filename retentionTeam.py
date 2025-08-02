@@ -70,7 +70,7 @@ churn_probs = model.predict_proba(df_encoded)[:, 1]
 
 
 # Add the prediction back into your DataFrame
-df["churn_probability"] = churn_probs
+df_encoded["churn_probability"] = churn_probs
 
 #set risk tires and generat tags
 def categorize_risk(prob):
@@ -81,12 +81,12 @@ def categorize_risk(prob):
     else:
         return "Low Risk ✅"
         
-df["risk_category"] = df["churn_probability"].apply(categorize_risk)
+df_encoded["risk_category"] = df_encoded["churn_probability"].apply(categorize_risk)
 
 #visualize in streamlit
 import plotly.express as px
 
-risk_counts = df["risk_category"].value_counts().reset_index()
+risk_counts = df_encoded["risk_category"].value_counts().reset_index()
 fig = px.pie(risk_counts, names="index", values="risk_category", title="Churn Risk Distribution")
 st.plotly_chart(fig)
 
