@@ -11,7 +11,7 @@ tenure = st.number_input("Tenure", min_value=0, step=1, format="%d") #get tenure
 monthly_charges = st.number_input("Monthly Charges") #get monthly charges as a decimal number
 contract_type = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two year"])
 
-# Example: encode categorical input if needed
+# encode categorical input of contract
 contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}
 input_data = np.array([[tenure, monthly_charges, contract_map[contract_type]]])
 if st.button("Predict"):
@@ -33,6 +33,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
 
