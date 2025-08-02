@@ -36,7 +36,8 @@ def tenure_group(tenure):
 df['tenure_group'] = df['tenure'].apply(tenure_group)
 
 #remove unwated features
-df = df.drop(columns=["Churn", "customerID", "tenure"], errors="ignore")
+cols_to_drop = ["customerID", "tenure", "Churn"]
+df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
 
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
 
