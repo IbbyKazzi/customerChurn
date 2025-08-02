@@ -27,8 +27,9 @@ st.subheader(f"Customer ID: {customer_id}")
 st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
+'''
 st.markdown("#### Key Factors Driving Churn")
-feature_importance = np.abs(shap_values[0].values).mean(axis=0)
+feature_importance = np.abs(shap_values.values).mean(axis=0)
 feature_names = X.columns
 
 fig = go.Figure(go.Bar(
@@ -38,7 +39,17 @@ fig = go.Figure(go.Bar(
 ))
 
 st.plotly_chart(fig)
+'''
+# Choose the customer index
+i = 42  # Replace with your target customer's index
 
+# Create a waterfall plot for that customer
+fig, ax = plt.subplots()
+shap.plots.waterfall(shap_values[i], show=False)
+st.pyplot(fig)
+
+st.write("Customer Features:")
+st.dataframe(X.iloc[i:i+1])
 
 
 #Recommend Plan
