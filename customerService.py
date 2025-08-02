@@ -1,6 +1,11 @@
 import streamlit as st
 import numpy as np
-#set the page menu
+import pickle
+
+with open("model_all.pkl", "rb") as f:
+    model = pickle.load(f)
+
+#set the page menu  Customer-Churn-dataset.csv
 st.sidebar.header("Customer Filter")
 customer_id = st.sidebar.text_input("Enter Customer ID")
 contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Year", "Two Year"])
