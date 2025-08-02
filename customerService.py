@@ -3,6 +3,7 @@ import numpy as np
 import pickle
 import pandas as pd
 import shap
+import matplotlib.pyplot as plt
 
 
 #get the prediction model
@@ -25,7 +26,10 @@ st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
 st.markdown("#### Key Factors Driving Churn")
-st.pyplot(shap_values)
+fig, ax = plt.subplots()
+shap.summary_plot(shap_values, X, show=False)
+st.pyplot(fig)
+
 
 #Recommend Plan
 
