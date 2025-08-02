@@ -36,8 +36,8 @@ df['tenure_group'] = df['tenure'].apply(tenure_group)
 df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
 
 #remove unwated features
-#cols_to_drop = ["customerID", "tenure", "Churn"]
-#df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
+cols_to_drop = ["customerID", "tenure", "Churn"]
+df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
 
 st.write("🔎 Columns currently in df:")
 st.write(df.columns.tolist())
