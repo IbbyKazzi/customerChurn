@@ -1,9 +1,17 @@
 import streamlit as st
 import numpy as np
 import pickle
+import pandas as pd
+import shap
 
+
+#get the prediction model
 with open("model_all.pkl", "rb") as f:
     model = pickle.load(f)
+#import the dataset
+X = pd.read_csv("Customer-Churn-dataset.csv")
+explainer = shap.Explainer(model, X)
+shap_values = explainer(X)
 
 #set the page menu  Customer-Churn-dataset.csv
 st.sidebar.header("Customer Filter")
@@ -17,7 +25,7 @@ st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
 st.markdown("#### Key Factors Driving Churn")
-st.plotly_chart(churn_driver_chart)
+st.plotly_chart(shap_values[0])
 
 #Recommend Plan
 
