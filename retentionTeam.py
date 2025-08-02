@@ -19,7 +19,7 @@ df = pd.read_csv("Customer-Churn-dataset.csv")
 df = df[df['Churn'] == 'No']
 
 #print model's feature order
-print(model.feature_names_in_)
+st.write(model.feature_names_in_)
 
 # Recreate MonthlyCharges_Tenure if it was a product
 df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
