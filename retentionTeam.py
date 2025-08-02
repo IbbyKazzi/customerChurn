@@ -39,8 +39,8 @@ df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
 #cols_to_drop = ["customerID", "tenure", "Churn"]
 #df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
 
-#st.write("🔎 Columns currently in df:")
-#st.write(df.columns.tolist())
+st.write("🔎 Columns currently in df:")
+st.write(df.columns.tolist())
 
 feature_cols = df.columns.tolist()
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
