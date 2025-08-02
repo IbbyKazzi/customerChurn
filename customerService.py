@@ -6,8 +6,6 @@ import shap
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
-
-
 #get the prediction model
 with open("model_all.pkl", "rb") as f:
     model = pickle.load(f)
@@ -33,9 +31,6 @@ selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=custome
 i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]
 
 
-
-
-
 #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
 tenure = df.iloc[i]["tenure"]
 monthly_charges = df.iloc[i]["MonthlyCharges"]
@@ -55,8 +50,6 @@ churn_percent = f"{churn_probability:.0%}"
 st.title("Churn Prevention & Plan Recommendation App")
 st.subheader(f"Customer ID: {selected_customer_id}")
 st.metric(label="Churn Risk", value=churn_percent, delta="-3% from last month")
-
-
 
 #factors of churn
 # Create a waterfall plot for that customer
