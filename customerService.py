@@ -24,7 +24,7 @@ customer_ids = df["customerID"].unique().tolist()
 
 #set the page menu  Customer-Churn-dataset.csv
 st.sidebar.header("Customer Filter")
-customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids)
+selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids)
 contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Year", "Two Year"])
 
 #add summary to the top of the page
