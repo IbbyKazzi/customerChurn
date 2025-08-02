@@ -30,7 +30,7 @@ contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Y
 i = customer_ids.index(selected_customer_id)
 
 #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
-tenure = df[i]["tenure"]
+tenure = df.iloc[i]["tenure"]
 monthlyCharge = df[i]["MonthlyCharges"]
 contract = df[i]["Contract"]
 #get the top 3 prediction model
