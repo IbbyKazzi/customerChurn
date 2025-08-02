@@ -1,3 +1,5 @@
+import streamlit as st
+import numpy as np
 #set the page menu
 st.sidebar.header("Customer Filter")
 customer_id = st.sidebar.text_input("Enter Customer ID")
