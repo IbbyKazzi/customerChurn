@@ -87,6 +87,6 @@ df_encoded["risk_category"] = df_encoded["churn_probability"].apply(categorize_r
 import plotly.express as px
 
 risk_counts = df_encoded["risk_category"].value_counts().reset_index()
-fig = px.pie(risk_counts, names="index", values="risk_category", title="Churn Risk Distribution")
+fig = px.pie(risk_counts, names="risk_category", values="count", title="Churn Risk Distribution")
 st.plotly_chart(fig)
 
