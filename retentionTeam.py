@@ -47,8 +47,12 @@ def align_features(df, model):
 
 df_aligned = align_features(df, model)
 
+st.write(churn_probs)
+
 # Predict probabilities
 churn_probs = model.predict_proba(df_aligned)[:, 1]
+
+
 
 # Add the prediction back into your DataFrame
 df["churn_probability"] = churn_probs
