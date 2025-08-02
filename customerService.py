@@ -45,7 +45,7 @@ prediction = model_t3.predict(input_data)
 #add summary to the top of the page
 st.title("Churn Prevention & Plan Recommendation App")
 st.subheader(f"Customer ID: {selected_customer_id}")
-st.metric(label="Churn Risk", value=prediction[0], delta="-3% from last month")
+st.metric(label="Churn Risk", value={'Yes' if prediction[0] == 1 else 'No'}, delta="-3% from last month")
 
 
 
