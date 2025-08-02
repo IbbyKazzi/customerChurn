@@ -51,6 +51,7 @@ st.markdown("### Recommended Retention Plan")
 st.info("Switch to 'SecureNet Plus': 24-month contract, free upgrade, loyalty rewards.")
 
 # Optional dropdown to allow manual override
+available_plans = ["Basic", "Premium", "Family", "Enterprise"]
 override = st.selectbox("Override Plan Suggestion", options=available_plans)
   
 #customer info display
