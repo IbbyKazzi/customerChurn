@@ -17,9 +17,6 @@ X = pd.read_csv("encoded-dataset.csv")
 # Load your dataset to extract customer ids
 df = pd.read_csv("Customer-Churn-dataset.csv")
 df = df[df['Churn'] == 'No']
-feature_cols = df.columns.tolist()
-st.write("📊 Selected Features for Modeling:")
-st.write(feature_cols)
 
 # Recreate MonthlyCharges_Tenure if it was a product
 df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
@@ -39,6 +36,9 @@ df['tenure_group'] = df['tenure'].apply(tenure_group)
 cols_to_drop = ["customerID", "tenure", "Churn"]
 df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
 
+st.write("🔎 Columns currently in df:")
+st.write(df.columns.tolist())
+feature_cols = df.columns.tolist()
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
 
 #set risk tires and generat tags
