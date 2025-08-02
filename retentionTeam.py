@@ -65,7 +65,7 @@ df_encoded.dropna(inplace=True)
 #st.write(df_encoded)
 
 # Predict probabilities
-churn_probs = model.predict_proba(df_aligned)[:, 1]
+churn_probs = model.predict_proba(df_encoded)[:, 1]
 
 
 
