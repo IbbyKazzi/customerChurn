@@ -74,9 +74,9 @@ df_encoded["churn_probability"] = churn_probs
 
 #set risk tires and generat tags
 def categorize_risk(prob):
-    if prob >= 0.80:
+    if prob >= 0.70:
         return "High Risk 🚨"
-    elif prob >= 0.50:
+    elif prob >= 0.40:
         return "Medium Risk ⚠️"
     else:
         return "Low Risk ✅"
