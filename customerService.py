@@ -32,28 +32,10 @@ st.title("Churn Prevention & Plan Recommendation App")
 st.subheader(f"Customer ID: {selected_customer_id}")
 st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
-#factors of churn
-"""
-st.markdown("#### Key Factors Driving Churn")
-feature_importance = np.abs(shap_values.values).mean(axis=0)
-feature_names = X.columns
-
-fig = go.Figure(go.Bar(
-    x=feature_importance,
-    y=feature_names,
-    orientation='h'
-))
-
-st.plotly_chart(fig)
-"""
-
 # Choose the customer index
 i = customer_ids.index(selected_customer_id)
 
-st.write("Selected Customer ID:", selected_customer_id)
-st.write("Index of Selected ID:", i)
-
-
+#factors of churn
 # Create a waterfall plot for that customer
 fig, ax = plt.subplots()
 shap.plots.waterfall(shap_values[i], show=False)
@@ -73,7 +55,7 @@ override = st.selectbox("Override Plan Suggestion", options=available_plans)
   
 #customer info display
 with st.expander("Customer History", expanded=False):
-    st.write(customer_profile_df)
+    st.write(df[i])
 
 #check recommandation outcome
 st.markdown("#### Recommendation Outcome")
