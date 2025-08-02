@@ -21,19 +21,12 @@ df = pd.read_csv("Customer-Churn-dataset.csv")
 df_filtered = df[df['Churn'] == 'No']
 
 # Extract unique customer IDs
-#customer_ids = df["customerID"].unique().tolist()
-customer_ids = df_filtered['customerID'].reset_index()
+customer_ids_df = df_filtered['customerID'].reset_index()
 
 
 #set the page menu  Customer-Churn-dataset.csv
 st.sidebar.header("Customer Filter")
-#selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids)
-#contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Year", "Two Year"])
 # Choose the customer index
-#i = customer_ids.index(selected_customer_id)
-
-customer_ids_df = df_filtered['customerID'].reset_index()
-
 selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids_df['customerID'])
 
 # Now get the original index from the df
