@@ -9,8 +9,8 @@ import shap
 with open("model_all.pkl", "rb") as f:
     model = pickle.load(f)
 #import the dataset
-X = pd.read_csv("Customer-Churn-dataset.csv")
-X_encoded = pd.get_dummies(X)  # One-hot encoding
+X = pd.read_csv("encoded-dataset.csv")
+
 
 explainer = shap.Explainer(model, X_encoded)
 shap_values = explainer(X)
