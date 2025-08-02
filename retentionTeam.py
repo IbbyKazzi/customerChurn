@@ -17,6 +17,7 @@ shap_values = explainer(X)
 # Load your dataset to extract customer ids
 df = pd.read_csv("Customer-Churn-dataset.csv")
 df = df[df['Churn'] == 'No']
+feature_cols = ["tenure", "MonthlyCharges", "Contract"]
 
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
 
