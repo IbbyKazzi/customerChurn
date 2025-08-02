@@ -18,6 +18,8 @@ X = pd.read_csv("encoded-dataset.csv")
 df = pd.read_csv("Customer-Churn-dataset.csv")
 df = df[df['Churn'] == 'No']
 feature_cols = df.columns.tolist()
+st.write("📊 Selected Features for Modeling:")
+st.write(feature_cols)
 
 
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
