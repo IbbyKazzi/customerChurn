@@ -16,9 +16,15 @@ X = pd.read_csv("encoded-dataset.csv")
 explainer = shap.Explainer(model, X)
 shap_values = explainer(X)
 
+# Load your dataset to extract customer ids
+df = pd.read_csv("Customer-Churn-dataset.csv")
+# Extract unique customer IDs
+customer_ids = df["customerID"].unique().tolist()
+
+
 #set the page menu  Customer-Churn-dataset.csv
 st.sidebar.header("Customer Filter")
-customer_id = st.sidebar.text_input("Enter Customer ID")
+customer_id = st.sidebar.text_input("Enter Customer ID", options=customer_ids)
 contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Year", "Two Year"])
 
 #add summary to the top of the page
@@ -27,7 +33,7 @@ st.subheader(f"Customer ID: {customer_id}")
 st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
-'''
+"""
 st.markdown("#### Key Factors Driving Churn")
 feature_importance = np.abs(shap_values.values).mean(axis=0)
 feature_names = X.columns
@@ -39,9 +45,14 @@ fig = go.Figure(go.Bar(
 ))
 
 st.plotly_chart(fig)
-'''
+"""
+
 # Choose the customer index
-i = 42  # Replace with your target customer's index
+i = customer_ids.index(selected_customer_id)
+
+st.write("Selected Customer ID:", selected_customer_id)
+st.write("Index of Selected ID:", selected_index)
+
 
 # Create a waterfall plot for that customer
 fig, ax = plt.subplots()
