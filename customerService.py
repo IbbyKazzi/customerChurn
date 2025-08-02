@@ -56,7 +56,7 @@ override = st.selectbox("Override Plan Suggestion", options=available_plans)
   
 #customer info display
 with st.expander("Customer History", expanded=False):
-    st.write(df[i])
+    st.write(df.iloc[i])
 
 #check recommandation outcome
 st.markdown("#### Recommendation Outcome")
