@@ -4,6 +4,8 @@ import pickle
 import pandas as pd
 import shap
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+
 
 
 #get the prediction model
@@ -26,9 +28,17 @@ st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
 st.markdown("#### Key Factors Driving Churn")
-fig, ax = plt.subplots()
-shap.summary_plot(shap_values, X, show=False)
-st.pyplot(fig)
+feature_importance = np.abs(shap_values.values).mean(axis=0)
+feature_names = X.columns
+
+fig = go.Figure(go.Bar(
+    x=feature_importance,
+    y=feature_names,
+    orientation='h'
+))
+
+st.plotly_chart(fig)
+
 
 
 #Recommend Plan
