@@ -51,7 +51,7 @@ st.plotly_chart(fig)
 i = customer_ids.index(selected_customer_id)
 
 st.write("Selected Customer ID:", selected_customer_id)
-st.write("Index of Selected ID:", selected_index)
+st.write("Index of Selected ID:", i)
 
 
 # Create a waterfall plot for that customer
