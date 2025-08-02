@@ -40,7 +40,7 @@ with open("model_top3.pkl", "rb") as f:
 contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}
 input_data = np.array([[tenure, monthly_charges, contract_map[contract]]])
 prediction = model_t3.predict_proba(input_data)
-risk_score = prediction[0][1]
+churn_probability = prediction[0][1]
 churn_percent = f"{churn_probability:.0%}"
 #st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
 
