@@ -21,9 +21,6 @@ df = df[df['Churn'] == 'No']
 #print model's feature order
 st.write(model.feature_names_in_)
 
-# Recreate MonthlyCharges_Tenure if it was a product
-df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
-
 # tenure group in 3 categories, New - Loyal - Long-term
 def tenure_group(tenure):
     if tenure <= 12:
@@ -35,12 +32,16 @@ def tenure_group(tenure):
 
 df['tenure_group'] = df['tenure'].apply(tenure_group)
 
-#remove unwated features
-cols_to_drop = ["customerID", "tenure", "Churn"]
-df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
+# Recreate MonthlyCharges_Tenure if it was a product
+df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
 
-st.write("🔎 Columns currently in df:")
-st.write(df.columns.tolist())
+#remove unwated features
+#cols_to_drop = ["customerID", "tenure", "Churn"]
+#df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
+
+#st.write("🔎 Columns currently in df:")
+#st.write(df.columns.tolist())
+
 feature_cols = df.columns.tolist()
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
 
