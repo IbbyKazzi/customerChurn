@@ -34,7 +34,7 @@ df["risk_category"] = df["churn_probability"].apply(categorize_risk)
 #visualize in streamlit
 import plotly.express as px
 
-risk_counts = non_churn_df["risk_category"].value_counts().reset_index()
+risk_counts = df["risk_category"].value_counts().reset_index()
 fig = px.pie(risk_counts, names="index", values="risk_category", title="Churn Risk Distribution")
 st.plotly_chart(fig)
 
