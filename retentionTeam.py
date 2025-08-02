@@ -42,8 +42,11 @@ df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
 st.write("🔎 Columns currently in df:")
 st.write(df.columns.tolist())
 
-feature_cols = df.columns.tolist()
-df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
+trained_feature_order = model.feature_names_in_.tolist()
+df_ordered = df[trained_feature_order]
+
+#feature_cols = df.columns.tolist()
+df["churn_probability"] = model.predict_proba(df_ordered)[:, 1]
 
 #set risk tires and generat tags
 def categorize_risk(prob):
