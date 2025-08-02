@@ -7,8 +7,8 @@ with open("model_top3.pkl", "rb") as file:
 st.title("Churn Prediction Model")
 st.title("UTS P1 - 2025")
 st.subheader("Authors: Murray Atkin, Ibrahim Kassem, Bradley Moore, Preeti Sowrab")
-tenure = st.number_input("Tenure")
-monthly_charges = st.number_input("Monthly Charges")
+tenure = st.number_input("Tenure", min_value=0, step=1, format="%d") #get tenure as a whole number
+monthly_charges = st.number_input("Monthly Charges") #get monthly charges as a decimal number
 contract_type = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two year"])
 
 # Example: encode categorical input if needed
@@ -33,5 +33,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 
