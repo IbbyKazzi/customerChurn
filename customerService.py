@@ -25,7 +25,7 @@ st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
 st.markdown("#### Key Factors Driving Churn")
-st.plotly_chart(shap_values[0])
+st.plotly_chart(shap_values)
 
 #Recommend Plan
 
