@@ -29,7 +29,7 @@ contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Y
 
 #add summary to the top of the page
 st.title("Churn Prevention & Plan Recommendation App")
-st.subheader(f"Customer ID: {customer_id}")
+st.subheader(f"Customer ID: {selected_customer_id}")
 st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
