@@ -21,9 +21,6 @@ feature_cols = df.columns.tolist()
 st.write("📊 Selected Features for Modeling:")
 st.write(feature_cols)
 
-#remove unwated features
-df = df.drop(columns=["Churn", "customerID", "tenure"], errors="ignore")
-
 # Recreate MonthlyCharges_Tenure if it was a product
 df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
 
@@ -37,6 +34,9 @@ def tenure_group(tenure):
         return 'Long-term'
 
 df['tenure_group'] = df['tenure'].apply(tenure_group)
+
+#remove unwated features
+df = df.drop(columns=["Churn", "customerID", "tenure"], errors="ignore")
 
 df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
 
