@@ -10,9 +10,7 @@ with open("model_all.pkl", "rb") as f:
     model = pickle.load(f)
 #import the dataset
 X = pd.read_csv("encoded-dataset.csv")
-
-
-explainer = shap.Explainer(model, X_encoded)
+explainer = shap.Explainer(model, X)
 shap_values = explainer(X)
 
 #set the page menu  Customer-Churn-dataset.csv
