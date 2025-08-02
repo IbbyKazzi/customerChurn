@@ -28,7 +28,7 @@ st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
 #factors of churn
 st.markdown("#### Key Factors Driving Churn")
-feature_importance = np.abs(shap_values.values).mean(axis=0)
+feature_importance = np.abs(shap_values[0].values).mean(axis=0)
 feature_names = X.columns
 
 fig = go.Figure(go.Bar(
