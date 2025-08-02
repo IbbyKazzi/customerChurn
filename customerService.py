@@ -26,23 +26,33 @@ customer_ids = df["customerID"].unique().tolist()
 st.sidebar.header("Customer Filter")
 selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids)
 contract_type = st.sidebar.selectbox("Contract Type", options=["Monthly", "One Year", "Two Year"])
+# Choose the customer index
+i = customer_ids.index(selected_customer_id)
+
+#get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
+tenure = df[i]["tenure"]
+monthlyCharge = df[i]["MonthlyCharges"]
+contract = df[i]["Contract"]
+#get the top 3 prediction model
+with open("model_top3.pkl", "rb") as f:
+    model_t3 = pickle.load(f)
+
 
 #add summary to the top of the page
 st.title("Churn Prevention & Plan Recommendation App")
 st.subheader(f"Customer ID: {selected_customer_id}")
 st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
 
-# Choose the customer index
-i = customer_ids.index(selected_customer_id)
+
 
 #factors of churn
 # Create a waterfall plot for that customer
 fig, ax = plt.subplots()
 shap.plots.waterfall(shap_values[i], show=False)
 st.pyplot(fig)
-
-st.write("Customer Features:")
-st.dataframe(X.iloc[i:i+1])
+#Below we can display the customers feature in a table form
+#st.write("Customer Features:")
+#st.dataframe(X.iloc[i:i+1])
 
 
 #Recommend Plan
