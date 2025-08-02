@@ -31,14 +31,14 @@ i = customer_ids.index(selected_customer_id)
 
 #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
 tenure = df.iloc[i]["tenure"]
-monthlyCharge = df.iloc[i]["MonthlyCharges"]
+monthly_charges = df.iloc[i]["MonthlyCharges"]
 contract = df.iloc[i]["Contract"]
 #get the top 3 prediction model
 with open("model_top3.pkl", "rb") as f:
     model_t3 = pickle.load(f)
 # encode categorical input of contract
 contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}
-input_data = np.array([[tenure, monthly_charges, contract_map[contract_type]]])
+input_data = np.array([[tenure, monthly_charges, contract_map[contract]]])
 prediction = model.predict(input_data)
 #st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
 
