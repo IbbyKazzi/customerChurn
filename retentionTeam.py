@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
 #get the prediction model
-with open("model_all.pkl", "rb") as f:
+with open("model_top3.pkl", "rb") as f:
     model = pickle.load(f)
 #import the dataset
 X = pd.read_csv("encoded-dataset.csv")
