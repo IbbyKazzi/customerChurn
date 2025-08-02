@@ -36,12 +36,16 @@ contract = df[i]["Contract"]
 #get the top 3 prediction model
 with open("model_top3.pkl", "rb") as f:
     model_t3 = pickle.load(f)
-
+# encode categorical input of contract
+contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}
+input_data = np.array([[tenure, monthly_charges, contract_map[contract_type]]])
+prediction = model.predict(input_data)
+#st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
 
 #add summary to the top of the page
 st.title("Churn Prevention & Plan Recommendation App")
 st.subheader(f"Customer ID: {selected_customer_id}")
-st.metric(label="Churn Risk", value="82%", delta="-3% from last month")
+st.metric(label="Churn Risk", value=prediction[0], delta="-3% from last month")
 
 
 
