@@ -18,7 +18,7 @@ shap_values = explainer(X)
 df = pd.read_csv("Customer-Churn-dataset.csv")
 df = df[df['Churn'] == 'No']
 
-df["churn_probability"] = model.predict_proba(non_churn_df[feature_cols])[:, 1]
+df["churn_probability"] = model.predict_proba(df[feature_cols])[:, 1]
 
 #set risk tires and generat tags
 def categorize_risk(prob):
