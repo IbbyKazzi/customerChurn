@@ -42,11 +42,16 @@ df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
 st.write("🔎 Columns currently in df:")
 st.write(df.columns.tolist())
 
-trained_feature_order = model.feature_names_in_.tolist()
-df_ordered = df[trained_feature_order]
+def align_features(df, model):
+    return df[model.feature_names_in_]
 
-#feature_cols = df.columns.tolist()
-df["churn_probability"] = model.predict_proba(df_ordered)[:, 1]
+df_aligned = align_features(df, model)
+
+# Predict probabilities
+churn_probs = model.predict_proba(df_aligned)[:, 1]
+
+# Add the prediction back into your DataFrame
+df["churn_probability"] = churn_probs
 
 #set risk tires and generat tags
 def categorize_risk(prob):
