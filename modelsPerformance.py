@@ -27,7 +27,7 @@ def run():
     
     # Drop rows with NaN values created by the conversion
     df_encoded.dropna(inplace=True)
-    X = df_encoded(['tenure', 'MonthlyCharges', 'Contract'])
+    X = df_encoded['tenure', 'MonthlyCharges', 'Contract']
     y = df_encoded['Churn']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
