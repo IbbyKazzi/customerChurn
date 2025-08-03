@@ -21,7 +21,7 @@ selected = option_menu(
 
 if selected == "Home":
     st.title("🏠 Home Page")
-    this.run_home()
+    runHome()
 elif selected == "Analysis":
     st.title("📊 Analysis Page")
 elif selected == "Cust Service":
@@ -31,7 +31,7 @@ elif selected == "Retention":
     run_retention()
 
 
-def run_home():    
+def runHome():    
     with open("model_top3.pkl", "rb") as file:
         model = pickle.load(file)
     st.title("Churn Prediction Model")
@@ -63,6 +63,7 @@ def run_home():
         """,
         unsafe_allow_html=True
     )
+
 
 
 
