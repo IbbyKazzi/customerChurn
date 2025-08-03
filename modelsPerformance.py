@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 
 def run():    
     with open("model_top3.pkl", "rb") as f:
@@ -13,7 +14,19 @@ def run():
         model_all = pickle.load(f)
     
     #get the dataset
-    df_encoded = pd.read_csv("encoded-dataset.csv")
+    df_encoded = pd.read_csv("Customer-Churn-dataset.csv")
+    # Encode categorical variables
+    df_encoded = df.copy()
+    for col in df_encoded.select_dtypes(include='object').columns:
+        # Exclude 'TotalCharges' for now as it seems to have non-numeric values that need handling
+        if col not in ['customerID', 'TotalCharges']:
+            df_encoded[col] = LabelEncoder().fit_transform(df_encoded[col])
+    
+    # Convert 'TotalCharges' to numeric, coercing errors to NaN
+    df_encoded['TotalCharges'] = pd.to_numeric(df_encoded['TotalCharges'], errors='coerce')
+    
+    # Drop rows with NaN values created by the conversion
+    df_encoded.dropna(inplace=True)
     X = df_encoded.drop(['Churn', 'customerID'], axis=1)
     y = df_encoded['Churn']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
