@@ -80,10 +80,7 @@ def run():
     df_encoded['TotalCharges'] = pd.to_numeric(df_encoded['TotalCharges'], errors='coerce')
     
     # Drop rows with NaN values created by the conversion
-    df_encoded.dropna(inplace=True)
-    
-    
-    #st.write(df_encoded)
+    df_encoded.dropna(inplace=True) 
     
     # Predict probabilities
     churn_probs = model.predict_proba(df_encoded)[:, 1]
