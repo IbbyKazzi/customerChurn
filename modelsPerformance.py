@@ -14,7 +14,7 @@ def run():
         model_all = pickle.load(f)
     
     #get the dataset
-    df_encoded = pd.read_csv("Customer-Churn-dataset.csv")
+    df = pd.read_csv("Customer-Churn-dataset.csv")
     # Encode categorical variables
     df_encoded = df.copy()
     for col in df_encoded.select_dtypes(include='object').columns:
