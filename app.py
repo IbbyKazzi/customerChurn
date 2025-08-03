@@ -353,16 +353,22 @@ selected = option_menu(
     orientation="horizontal"
 )
 
+def run_customerService():
+    
+
 if selected == "Home":
     st.title("🏠 Home Page")
     runHome()
 elif selected == "Analysis":
     st.title("📊 Analysis Page")
+    run_analysis()
 elif selected == "Cust Service":
     st.title("👤 Customer Service Page")
+    run_customerService()
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
