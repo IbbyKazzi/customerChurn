@@ -11,8 +11,8 @@ import streamlit as st
 
 selected = option_menu(
     menu_title=None,
-    options=["Home", "Analysis", "Settings"],
-    icons=["house", "bar-chart", "gear"],
+    options=["Home", "Analysis", "Customer Service", "Retention"],
+    icons=["house", "bar-chart", "person-lines-fill","shield-check" ],
     orientation="horizontal"
 )
 
@@ -20,8 +20,10 @@ if selected == "Home":
     st.title("🏠 Home Page")
 elif selected == "Analysis":
     st.title("📊 Analysis Page")
-elif selected == "Settings":
-    st.title("⚙️ Settings Page")
+elif selected == "Customer Service":
+    st.title("👤 Customer Service Page")
+elif selected == "Retention":
+    st.title("🛡️ Retention Page")
 
 #get the prediction model
 with open("model_all.pkl", "rb") as f:
