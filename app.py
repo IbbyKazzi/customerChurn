@@ -12,24 +12,6 @@ from sklearn.preprocessing import LabelEncoder
 from streamlit_option_menu import option_menu
 import streamlit as st
 
-selected = option_menu(
-    menu_title=None,
-    options=["Home", "Analysis", "Cust Service", "Retention"],
-    icons=["house", "bar-chart", "person-lines-fill","shield-check" ],
-    orientation="horizontal"
-)
-
-if selected == "Home":
-    st.title("🏠 Home Page")
-    runHome()
-elif selected == "Analysis":
-    st.title("📊 Analysis Page")
-elif selected == "Cust Service":
-    st.title("👤 Customer Service Page")
-elif selected == "Retention":
-    st.title("🛡️ Retention Page")
-    run_retention()
-
 
 def runHome():    
     with open("model_top3.pkl", "rb") as file:
@@ -64,6 +46,23 @@ def runHome():
         unsafe_allow_html=True
     )
 
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Analysis", "Cust Service", "Retention"],
+    icons=["house", "bar-chart", "person-lines-fill","shield-check" ],
+    orientation="horizontal"
+)
+
+if selected == "Home":
+    st.title("🏠 Home Page")
+    runHome()
+elif selected == "Analysis":
+    st.title("📊 Analysis Page")
+elif selected == "Cust Service":
+    st.title("👤 Customer Service Page")
+elif selected == "Retention":
+    st.title("🛡️ Retention Page")
+    run_retention()
 
 
 
