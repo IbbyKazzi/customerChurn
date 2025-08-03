@@ -21,7 +21,7 @@ selected = option_menu(
 
 if selected == "Home":
     st.title("🏠 Home Page")
-    run_home()
+    this.run_home()
 elif selected == "Analysis":
     st.title("📊 Analysis Page")
 elif selected == "Cust Service":
@@ -63,6 +63,7 @@ def run_home():
         """,
         unsafe_allow_html=True
     )
+
 
 
 
