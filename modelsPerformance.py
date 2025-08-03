@@ -49,6 +49,6 @@ def run():
     ax.set_title("ROC Curve")
     ax.legend()
     
-    st.subheader("📊 ROC Curve Performance", key="per_sh1")
+    st.subheader("📊 ROC Curve Performance")
     st.pyplot(fig, key="per_pt1")
-    st.metric(label="ROC AUC Score", value=f"{auc_score:.2f}", key="per_mt1")
+    st.metric(label="ROC AUC Score", value=f"{auc_score:.2f}")
