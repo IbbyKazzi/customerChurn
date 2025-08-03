@@ -244,7 +244,7 @@ def run_analysis():
     
     #visualize using streamlit   
     
-    st.title("📈 Churn Rate by Monthly Plan")
+    #st.title("📈 Churn Rate by Monthly Plan")
     st.subheader("    Yearly Contract")
     fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
                  title="Which Plan Drives Churn?",
@@ -436,6 +436,7 @@ elif selected == "Cust Service":
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
