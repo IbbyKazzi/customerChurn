@@ -96,7 +96,7 @@ risk_counts = df_encoded["risk_category"].value_counts().reset_index()
 fig = px.pie(risk_counts, names="risk_category", values="count", title="Churn Risk Distribution")
 st.plotly_chart(fig)
 
-risk_counts = df["risk_category"].value_counts()
+risk_counts = df_encoded["risk_category"].value_counts()
 
 st.subheader("Risk Tier Distribution")
 
