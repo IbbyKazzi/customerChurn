@@ -27,7 +27,7 @@ def run():
     
     # Drop rows with NaN values created by the conversion
     df_encoded.dropna(inplace=True)
-    st.write(df_encoded.columns)
+    df_encoded.columns = df_encoded.columns.str.strip()
     top_features = ['tenure', 'MonthlyCharges', 'Contract']
     X_top3 = df_encoded[top_features]    
     y = df_encoded['Churn']
