@@ -51,4 +51,10 @@ def run():
     
     st.subheader("📊 ROC Curve Performance")
     st.pyplot(fig)
-    st.metric(label="ROC AUC Score", value=f"{auc_score:.2f}")
+    delta_color = "normal"
+    if auc_score >= 0.90:
+        delta_color = "inverse"
+    elif auc_score < 0.70:
+        delta_color = "off"
+    
+    st.metric(label="ROC AUC Score", value=f"{auc_score * 100:.2f}%", delta=None, delta_color=delta_color)
