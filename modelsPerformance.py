@@ -13,7 +13,7 @@ def run():
         model_all = pickle.load(f)
     
     #get the dataset
-    df = pd.read_csv("encoded-dataset.csv")
+    df_encoded = pd.read_csv("encoded-dataset.csv")
     X = df_encoded.drop(['Churn', 'customerID'], axis=1)
     y = df_encoded['Churn']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
