@@ -4,6 +4,8 @@ pandas
 plotly
 shap
 matplotlib
+option_menu
+
 
 
 
