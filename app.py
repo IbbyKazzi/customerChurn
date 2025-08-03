@@ -189,7 +189,7 @@ def run_analysis():
     
     #visualize using streamlit  
     
-    st.title("📈 Churn Rate by Monthly Plan")
+    #st.title("📈 Churn Rate by Monthly Plan")
     st.subheader("    Month-to-Month Contract")
     
     fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
@@ -300,7 +300,7 @@ def run_analysis():
     
     #visualize using streamlit
     
-    st.title("📈 Churn Rate by Monthly Plan")
+    #st.title("📈 Churn Rate by Monthly Plan")
     st.subheader("    2 Years Contract")
     fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
                  title="Which Plan Drives Churn?",
@@ -322,8 +322,8 @@ def run_analysis():
     matrix_df = matrix_df.sort_values("Plan")
     
     # Visualise in Streamlit
-    st.title("📋 Churn Rate Matrix")
-    st.subheader("   By Plan and Contract Type")
+    #st.title("📋 Churn Rate Matrix")
+    st.subheader("📋 Churn Rate Matrix By Plan and Contract Type")
     st.dataframe(matrix_df, hide_index=True)
         
     st.subheader("Heat-map visual")
@@ -436,6 +436,7 @@ elif selected == "Cust Service":
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
