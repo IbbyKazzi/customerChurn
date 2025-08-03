@@ -72,11 +72,17 @@ churn_probs = model.predict_proba(df_encoded)[:, 1]
 # Add the prediction back into your DataFrame
 df_encoded["churn_probability"] = churn_probs
 
+#Set the risk thresholds via streamlit slider for a dynamic input
+st.sidebar.header("Set Risk Thresholds")
+
+high_threshold = st.sidebar.slider("High Risk Threshold", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
+medium_threshold = st.sidebar.slider("Medium Risk Threshold", min_value=0.0, max_value=high_threshold, value=0.4, step=0.01)
+
 #set risk tires and generat tags
 def categorize_risk(prob):
-    if prob >= 0.70:
+    if prob >= high_threshold:
         return "High Risk 🚨"
-    elif prob >= 0.40:
+    elif prob >= medium_threshold:
         return "Medium Risk ⚠️"
     else:
         return "Low Risk ✅"
