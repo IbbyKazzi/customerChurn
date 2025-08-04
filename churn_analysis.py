@@ -102,7 +102,7 @@ fig = px.bar(
         "ContractType": "Contract Type",
         "Churn Probability (%)": "Churn Probability (%)"
     },
-    #text=plan_data["Churn Probability (%)"].apply(lambda x: f"{x:.2f}%")
+    text=plan_data["Churn Probability (%)"].apply(lambda x: f"{x:.2f}%")
 )
 
 fig.update_traces(textposition="outside")
