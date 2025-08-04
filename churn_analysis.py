@@ -79,11 +79,11 @@ plan_data = matrix_df[matrix_df["Plan"] == selected_plan]
 fig = px.bar(
     plan_data,
     x="ContractType",
-    y="Predicted Churn Rate",
-    color="Predicted Churn Rate",
+    y="Churn Probability",
+    color="Churn Probability",
     color_continuous_scale="OrRd",
     title=f"Churn Rate for {selected_plan} Plan",
-    labels={"ContractType": "Contract Type", "Predicted Churn Rate": "Churn Rate"}
+    labels={"ContractType": "Contract Type", "Predicted Churn Probability": "Churn Probability"}
 )
 st.plotly_chart(fig)
 
