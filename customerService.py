@@ -108,8 +108,9 @@ def styled_metric(label, value):
             border-radius: 8px;
             border-left: 5px solid {color};
         '>
-            <h4 style='margin: 0; font-size: 18px;'>{label}</h4>
-            <p style='margin: 0; font-size: 24px; color: {color};'><strong>{value:.1f}%</strong></p>
+            <span style='font-size: 18px; font-weight: bold;'>{label}</span>
+            <span style='font-size: 24px; color: {color}; font-weight: bold;'>{value:.1f}%</span>
+
         </div>
         """,
         unsafe_allow_html=True
