@@ -56,9 +56,17 @@ def run():
     
     #factors of churn
     # Create a waterfall plot for that customer
-    fig, ax = plt.subplots()
-    shap.plots.waterfall(shap_values[i], show=False)
-    st.pyplot(fig)
+    show_plot = st.checkbox("Show churn factor waterfall")
+
+    if show_plot:
+        st.markdown("### Factors of Churn")
+        fig, ax = plt.subplots()
+        shap.plots.waterfall(shap_values[i], show=False)
+        st.pyplot(fig)
+
+    #fig, ax = plt.subplots()
+    #shap.plots.waterfall(shap_values[i], show=False)
+    #st.pyplot(fig)
     #Below we can display the customers feature in a table form
     #st.write("Customer Features:")
     #st.dataframe(X.iloc[i:i+1])
