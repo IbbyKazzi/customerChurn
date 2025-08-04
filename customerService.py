@@ -99,7 +99,21 @@ def run():
 def get_newProb(val):
     with open("model_top3.pkl", "rb") as f:
         model = pickle.load(f)
-    
+    monthly_charges = [25, 55, 85, 115, 145]    
+    plan_labels = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
+    plan_charge_df = pd.DataFrame({
+    "Plan": plan_labels,
+    "Monthly Charge": monthly_charges
+    })
+    selected_charge = plan_charge_df.loc[plan_charge_df["Plan"] == override, "Monthly Charge"].values[0]
+    tenure = df.iloc[i]["tenure"]
+    monthly_charges = df.iloc[i]["MonthlyCharges"]
+    contract = df.iloc[i]["Contract"]
+    input_data = np.array([[tenure, monthly_charges, contract_map[contract]]])
+    prediction = model_t3.predict_proba(input_data)
+    new_churn_probability = prediction[0][1]
+    return new_churn_probability
+
 
 
 
