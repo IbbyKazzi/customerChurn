@@ -84,12 +84,11 @@ def run():
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
     new_prob = get_newProb(override)
     st.write(new_prob)
-    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
+    #st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
     
     #customer info display
     with st.expander("Customer History", expanded=False):
-        st.write(df.iloc[i])
-    
+        st.write(df.iloc[i])    
     #check recommandation outcome
     st.markdown("#### Recommendation Outcome")
     st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
@@ -114,8 +113,6 @@ def get_newProb(val):
     prediction = model_t3.predict_proba(input_data)
     new_churn_probability = prediction[0][1]
     return new_churn_probability
-
-
 
 
 def recommend_action(prob):
