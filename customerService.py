@@ -48,9 +48,9 @@ def run():
     #st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
     
     #add summary to the top of the page
-    st.title("Churn Prevention & Plan Recommendation App")
+    st.subheader("Churn Prevention & Plan Recommendation App")
     st.subheader(f"Customer ID: {selected_customer_id}")
-    st.metric(label="Churn Risk", value=churn_percent, delta="-3% from last month")
+    st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")
     
     #factors of churn
     # Create a waterfall plot for that customer
