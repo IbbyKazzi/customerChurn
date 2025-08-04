@@ -109,7 +109,7 @@ def run():
         "Enterprise": "$145"    
     }
     st.sidebar.header("📦 Available Plans")
-    for plan in pivot_df["Plan"].unique():
+    for plan in df["Plan"].unique():
         price = plan_prices.get(plan, "Price not available")
         st.sidebar.write(f"- {plan}: {price}")
 
