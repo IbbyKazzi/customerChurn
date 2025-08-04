@@ -81,7 +81,7 @@ def run():
     override = st.selectbox("Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
-    new_prob = get_newProb(override)
+    new_prob = get_newProb(override, df)
     st.write(new_prob)
     #st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
     
@@ -95,7 +95,7 @@ def run():
     st.button("Submit Feedback")
 
 #get new prob of the overrided plan
-def get_newProb(val):
+def get_newProb(val, df):
     with open("model_top3.pkl", "rb") as f:
         model = pickle.load(f)    
     monthly_charges = [25, 55, 85, 115, 145]    
