@@ -52,7 +52,7 @@ def run():
     st.subheader(f"Customer ID: {selected_customer_id}")
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
-    styled_metric("Churn Risk  ", churn_percent )
+    styled_metric("Churn Risk", churn_percent )
     
     #factors of churn
     # Create a waterfall plot for that customer
@@ -109,7 +109,7 @@ def styled_metric(label, value):
             border-left: 5px solid {color};
             gap: 20px;
         '>
-            <span style='font-size: 24px; font-weight: bold;'>{label}</span>
+            <span style='font-size: 24px; font-weight: bold; margin-right: 20px;'>{label}</span>
             <span style='font-size: 24px; color: {color}; font-weight: bold;'>{value:.0f}%</span>
 
         </div>
