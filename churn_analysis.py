@@ -98,14 +98,14 @@ fig = px.bar(
     color="Churn Probability (%)",
     color_continuous_scale="OrRd",
     title=f"Churn Rate for {selected_plan} Plan",
-    labels={
-        "ContractType": "Contract Type",
-        "Churn Probability (%)": "Churn Probability (%)"
-    },
+    #labels={
+    #    "ContractType": "Contract Type",
+    #    "Churn Probability (%)": "Churn Probability (%)"
+    #},
     text=plan_data["Churn Probability (%)"].apply(lambda x: f"{x:.2f}%")
 )
 
-fig.update_traces(textposition="outside")
+fig.update_traces(textposition="inside")
 st.plotly_chart(fig, use_container_width=True)
 
 
