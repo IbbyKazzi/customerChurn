@@ -232,10 +232,13 @@ elif selected == "Analysis":
     churn_analysis.run()
 elif selected == "Cust Service":
     st.title("👤 Customer Service Page")
-    run_customerService()
+    import customerService
+    customerService.run()
+    #run_customerService()
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
