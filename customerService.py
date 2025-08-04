@@ -56,13 +56,12 @@ def run():
     
     #factors of churn
     # Create a waterfall plot for that customer
-    show_plot = st.checkbox("Show churn factor waterfall")
+    if st.toggle("Show churn factor waterfall"):
+    st.markdown("### Factors of Churn")
+    fig, ax = plt.subplots()
+    shap.plots.waterfall(shap_values[i], show=False)
+    st.pyplot(fig)
 
-    if show_plot:
-        st.markdown("### Factors of Churn")
-        fig, ax = plt.subplots()
-        shap.plots.waterfall(shap_values[i], show=False)
-        st.pyplot(fig)
 
     #fig, ax = plt.subplots()
     #shap.plots.waterfall(shap_values[i], show=False)
