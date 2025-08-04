@@ -72,7 +72,7 @@ st.plotly_chart(fig)
 for col in pivot_df.columns[1:]:  # Skip 'Plan' column
     pivot_df[col] = pd.to_numeric(pivot_df[col], errors="coerce")
 
-st.write(pivot_df.describe())
+st.write(pivot_df.columns)
 
 #Add heatmap with matrix view
 st.subheader("📋 Full Churn Rate Matrix")
