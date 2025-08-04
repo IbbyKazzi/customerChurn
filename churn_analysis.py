@@ -124,21 +124,43 @@ st.subheader("🧯 Heatmap View")
 
 #Below will dispaly heatmap as percentages
 import plotly.graph_objects as go
+import numpy as np
 
+# Convert values to percentage
+percent_values = pivot_df.drop("Plan", axis=1).values * 100
+
+# Create annotations for each cell
+annotations = [
+    dict(
+        text=f"{percent_values[i][j]:.1f}%",
+        x=pivot_df.columns[1:][j],
+        y=pivot_df["Plan"][i],
+        xref="x1",
+        yref="y1",
+        showarrow=False,
+        font=dict(color="black", size=12)
+    )
+    for i in range(percent_values.shape[0])
+    for j in range(percent_values.shape[1])
+]
+
+# Plot heatmap
 fig = go.Figure(data=go.Heatmap(
-    z=pivot_df.drop("Plan", axis=1).values * 100,  # scale to percentage
-    x=pivot_df.columns[1:],                        # exclude 'Plan'
-    y=pivot_df["Plan"],                            # use 'Plan' as y-axis labels
-    text=[[f"{val:.2f}%" for val in row] for row in pivot_df.drop("Plan", axis=1).values * 100],
-    hoverinfo="text",
+    z=percent_values,
+    x=pivot_df.columns[1:],
+    y=pivot_df["Plan"],
     colorscale="Reds",
-    showscale=True
+    showscale=True,
+    hoverinfo="text",
+    text=[[f"{val:.2f}%" for val in row] for row in percent_values]
 ))
 
 fig.update_layout(
     title="Churn Risk by Plan",
     xaxis_title="Contract Type",
     yaxis_title="Monthly Plan",
+    annotations=annotations
 )
+
 st.plotly_chart(fig, use_container_width=True)
 
