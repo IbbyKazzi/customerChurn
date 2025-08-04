@@ -63,7 +63,6 @@ def run():
         shap.plots.waterfall(shap_values[i], show=False)
         st.pyplot(fig)
 
-
     #fig, ax = plt.subplots()
     #shap.plots.waterfall(shap_values[i], show=False)
     #st.pyplot(fig)
@@ -98,14 +97,14 @@ def run():
 #get new prob of the overrided plan
 def get_newProb(val):
     with open("model_top3.pkl", "rb") as f:
-        model = pickle.load(f)
+        model = pickle.load(f)    
     monthly_charges = [25, 55, 85, 115, 145]    
     plan_labels = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
     plan_charge_df = pd.DataFrame({
     "Plan": plan_labels,
     "Monthly Charge": monthly_charges
     })
-    selected_charge = plan_charge_df.loc[plan_charge_df["Plan"] == override, "Monthly Charge"].values[0]
+    selected_charge = plan_charge_df.loc[plan_charge_df["Plan"] == val, "Monthly Charge"].values[0]
     tenure = df.iloc[i]["tenure"]
     monthly_charges = df.iloc[i]["MonthlyCharges"]
     contract = df.iloc[i]["Contract"]
