@@ -67,7 +67,7 @@ for col in pivot_df.columns[1:]:  # Skip 'Plan' column
 import streamlit as st
 import plotly.express as px
 
-st.title("📊 Churn Rate by Plan and Contract Type")
+st.subheader("📊 Churn Rate by Plan and Contract Type")
 
 # Dropdown to select plan
 selected_plan = st.selectbox("Select a Monthly Plan", plan_labels)
@@ -104,11 +104,10 @@ formatters = {
 
 # Apply style with targeted formatting
 styled_df = pivot_df.style.format(formatters).background_gradient(cmap="Reds", axis=None)
-st.dataframe(styled_df, hide_index=True)    
-
 # Display in Streamlit
-st.dataframe(styled_df, hide_index=True)
+st.dataframe(styled_df, hide_index=True)  
 
+#Dispaly a heat map for all plans
 st.subheader("🧯 Heatmap View")
 #below will display heatmap values as decimals
 #heatmap_df = pivot_df.set_index("Plan")
