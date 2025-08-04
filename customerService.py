@@ -64,8 +64,8 @@ def run():
     
     #Recommend Plan
     
-    st.markdown("### Recommended Retention Plan")
-    st.info("Switch to 'SecureNet Plus': 24-month contract, free upgrade, loyalty rewards.")
+    st.markdown("### 🛠️ Recommended Retention Actions")
+    st.info(recommend_action(churn_probability))
     
     # Optional dropdown to allow manual override
     available_plans = ["Basic", "Premium", "Family", "Enterprise"]
@@ -80,4 +80,11 @@ def run():
     st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
     st.text_area("Agent Notes")
     st.button("Submit Feedback")
-      
+
+def recommend_action(prob):
+    if prob >= 0.70:
+        return "Offer personalized retention plan with discounts or loyalty perks"
+    elif prob >= 0.40:
+        return "Send targeted engagement emails and check-in via customer service"
+    else:
+        return "Maintain relationship with regular updates and appreciation messages"
