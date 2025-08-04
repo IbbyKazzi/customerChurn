@@ -92,7 +92,7 @@ def recommend_action(prob):
         return "Maintain relationship with regular updates and appreciation messages"
 
 def styled_metric(label, value):
-    value = float(value)
+    value = int(value)
     if value < 25:
         color = "green"
     elif value < 50:
