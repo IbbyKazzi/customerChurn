@@ -76,17 +76,37 @@ selected_plan = st.selectbox("Select a Monthly Plan", plan_labels)
 plan_data = matrix_df[matrix_df["Plan"] == selected_plan]
 
 # Bar chart across contract types
+#fig = px.bar(
+#    plan_data,
+#    x="ContractType",
+#    y="Churn Probability",
+#    color="Churn Probability",
+#    color_continuous_scale="OrRd",
+#    title=f"Churn Rate for {selected_plan} Plan",
+#    labels={"ContractType": "Contract Type", "Predicted Churn Probability": "Churn Probability"}
+#)
+#st.plotly_chart(fig)
+
+# Convert churn probability to percentage
+plan_data["Churn Probability (%)"] = plan_data["Churn Probability"] * 100
+
+# Create bar chart using the new percentage column
 fig = px.bar(
     plan_data,
     x="ContractType",
-    y="Churn Probability",
-    color="Churn Probability",
+    y="Churn Probability (%)",
+    color="Churn Probability (%)",
     color_continuous_scale="OrRd",
     title=f"Churn Rate for {selected_plan} Plan",
-    labels={"ContractType": "Contract Type", "Predicted Churn Probability": "Churn Probability"}
+    labels={
+        "ContractType": "Contract Type",
+        "Churn Probability (%)": "Churn Probability (%)"
+    },
+    text=plan_data["Churn Probability (%)"].apply(lambda x: f"{x:.2f}%")
 )
-st.plotly_chart(fig)
 
+fig.update_traces(textposition="outside")
+st.plotly_chart(fig, use_container_width=True)
 
 
 #Add heatmap with matrix view
