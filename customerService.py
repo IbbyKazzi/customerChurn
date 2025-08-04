@@ -83,7 +83,7 @@ def run():
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
     selected_contract = st.radio(
         "📝 Select Contract",
-        ["Month-to-Month", "One Year", "Two Year"],
+        ["Month-to-month", "One year", "Two year"],
         horizontal=True
     )
     customer_contract = contract_map[selected_contract]
