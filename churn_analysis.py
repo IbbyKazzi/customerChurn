@@ -95,7 +95,7 @@ st.subheader("📋 Full Churn Rate Matrix")
 #st.dataframe(pivot_df, hide_index=True)
 
 st.write(pivot_df.dtypes)
-
+st.write(pivot_df.head())
 
 # Convert all churn probability columns to float
 for col in pivot_df.columns:
