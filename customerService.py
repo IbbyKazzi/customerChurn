@@ -77,10 +77,13 @@ def run():
     st.markdown("### 🛠️ Recommended Retention Actions")
     st.info(recommend_action(churn_probability))
     
-    # Optional dropdown to allow manual override
+    # dropdown to allow manual override
     available_plans = ["Basic", "Premium", "Family", "Enterprise"]
     override = st.selectbox("Override Plan Suggestion", options=available_plans)
-      
+    # get the new prob of this customer for the selected plan
+    new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
+    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
+    
     #customer info display
     with st.expander("Customer History", expanded=False):
         st.write(df.iloc[i])
