@@ -40,8 +40,7 @@ def run():
     with open("model_top3.pkl", "rb") as f:
         model_t3 = pickle.load(f)
     # encode categorical input of contract
-    contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}
-    customer_contract = contract_map[contract]
+    contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}    
     input_data = np.array([[tenure, monthly_charges, contract_map[contract]]])
     prediction = model_t3.predict_proba(input_data)
     churn_probability = prediction[0][1]
@@ -82,6 +81,12 @@ def run():
     override = st.selectbox("Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
+    selected_contract = st.radio(
+        "📝 Select Contract",
+        ["Month-to-Month", "One Year", "Two Year"],
+        horizontal=True
+    )
+    customer_contract = contract_map[selected_contract]
     new_prob = get_newProb(override, tenure, customer_contract, model_t3)
     #st.write(new_prob)
     st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
