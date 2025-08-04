@@ -94,6 +94,9 @@ st.subheader("📋 Full Churn Rate Matrix")
 #st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
 #st.dataframe(pivot_df, hide_index=True)
 
+st.write(pivot_df.dtypes)
+
+
 # Convert all churn probability columns to float
 for col in pivot_df.columns:
     if col != "Plan":
