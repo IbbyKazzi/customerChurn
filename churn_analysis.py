@@ -94,8 +94,8 @@ st.subheader("📋 Full Churn Rate Matrix")
 #st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
 #st.dataframe(pivot_df, hide_index=True)
 
-st.write(pivot_df.dtypes)
-st.write(pivot_df.head())
+#st.write(pivot_df.dtypes)
+#st.write(pivot_df.head())
 
 # Build formatter dictionary for non-'Plan' columns
 formatters = {
@@ -110,13 +110,35 @@ st.dataframe(styled_df, hide_index=True)
 st.dataframe(styled_df, hide_index=True)
 
 st.subheader("🧯 Heatmap View")
-heatmap_df = pivot_df.set_index("Plan")
-fig = px.imshow(
-    heatmap_df,
-    labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
-    color_continuous_scale="Reds",
-    text_auto=True,
-    width=900,
-    height=600
+#below will display heatmap values as decimals
+#heatmap_df = pivot_df.set_index("Plan")
+#fig = px.imshow(
+#    heatmap_df,
+#    labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
+#    color_continuous_scale="Reds",
+#    text_auto=True,
+#    width=900,
+#    height=600
+#)
+#st.plotly_chart(fig)
+
+#Below will dispaly heatmap as percentages
+import plotly.graph_objects as go
+
+fig = go.Figure(data=go.Heatmap(
+    z=pivot_df.drop("Plan", axis=1).values * 100,  # scale to percentage
+    x=pivot_df.columns[1:],                        # exclude 'Plan'
+    y=pivot_df["Plan"],                            # use 'Plan' as y-axis labels
+    text=[[f"{val:.2f}%" for val in row] for row in pivot_df.drop("Plan", axis=1).values * 100],
+    hoverinfo="text",
+    colorscale="Reds",
+    showscale=True
+))
+
+fig.update_layout(
+    title="Churn Risk by Plan",
+    xaxis_title="Contract Type",
+    yaxis_title="Monthly Plan",
 )
-st.plotly_chart(fig)
+st.plotly_chart(fig, use_container_width=True)
+
