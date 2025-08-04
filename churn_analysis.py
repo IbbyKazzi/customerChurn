@@ -1,25 +1,11 @@
-#define 5 monthly plan tires
 import pandas as pd
+import pickle
 
-results = []
+# Define plans and contract types
+monthly_charges = [25, 55, 85, 115, 145]
+contract_types = {0: "Month-to-Month", 1: "Yearly", 2: "2-Year"}
+plan_labels = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
 
-
-# Sample data
-data = {
-    "MonthlyCharges": [25, 55, 85, 115, 145],
-    "tenure":[1,1,1,1,1],
-    "Contract":[0,0,0,0,0]
-}
-# Create the DataFrame
-df = pd.DataFrame(data)
-
-monthly_plans = {
-    "Basic": 29,
-    "Standard": 59,
-    "Premium": 89,
-    "Family": 119,
-    "Enterprise": 159
-}
 def assign_plan(charge):
     if charge <= 39:
         return "Basic"
@@ -32,210 +18,68 @@ def assign_plan(charge):
     else:
         return "Enterprise"
 
-df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
-#use our deployed model to predict churn for the above 5 plans
-import pickle
-
+# Load model
 with open("model_top3.pkl", "rb") as f:
     model = pickle.load(f)
 
-X = df[["tenure", "MonthlyCharges", "Contract"]]  # Use the right features
-df["PredictedChurn"] = model.predict(X)
+# Generate churn data across contracts
+results = []
+for contract_code, contract_label in contract_types.items():
+    df = pd.DataFrame({
+        "MonthlyCharges": monthly_charges,
+        "tenure": [1]*5,
+        "Contract": [contract_code]*5
+    })
+    df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
+    X = df[["tenure", "MonthlyCharges", "Contract"]]
+    df["PredictedChurn"] = model.predict(X)
+    churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
+    churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
+    churn_by_plan["ContractType"] = contract_label
+    results.append(churn_by_plan)
 
-#analyse churn rates by plan
-churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
-churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
+# Combine into matrix
+matrix_df = pd.concat(results)
+matrix_df["Plan"] = pd.Categorical(matrix_df["Plan"], categories=plan_labels, ordered=True)
+matrix_df = matrix_df.sort_values("Plan")
+pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
 
-churn_by_plan["ContractType"] = "Month-to-Month" 
-results.append(churn_by_plan)
-
-
-#visualize using streamlit
+#streamlit UI with plan selector
 import streamlit as st
 import plotly.express as px
 
-st.title("📈 Churn Rate by Monthly Plan")
-st.subheader("    Month-to-Month Contract")
+st.title("📊 Churn Rate by Plan and Contract Type")
 
-fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-             title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd",
-             category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
+# Dropdown to select plan
+selected_plan = st.selectbox("Select a Monthly Plan", plan_labels)
+
+# Filter data for selected plan
+plan_data = matrix_df[matrix_df["Plan"] == selected_plan]
+
+# Bar chart across contract types
+fig = px.bar(
+    plan_data,
+    x="ContractType",
+    y="Predicted Churn Rate",
+    color="Predicted Churn Rate",
+    color_continuous_scale="OrRd",
+    title=f"Churn Rate for {selected_plan} Plan",
+    labels={"ContractType": "Contract Type", "Predicted Churn Rate": "Churn Rate"}
 )
-
 st.plotly_chart(fig)
 
-# Sample data yearly contract
-data = {
-    "MonthlyCharges": [25, 55, 85, 115, 145],
-    "tenure":[1,1,1,1,1],
-    "Contract":[1,1,1,1,1]
-}
-# Create the DataFrame
-df = pd.DataFrame(data)
+#Add heatmap with matrix view
+st.subheader("📋 Full Churn Rate Matrix")
+st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
 
-monthly_plans = {
-    "Basic": 29,
-    "Standard": 59,
-    "Premium": 89,
-    "Family": 119,
-    "Enterprise": 159
-}
-def assign_plan(charge):
-    if charge <= 39:
-        return "Basic"
-    elif charge <= 69:
-        return "Standard"
-    elif charge <= 99:
-        return "Premium"
-    elif charge <= 129:
-        return "Family"
-    else:
-        return "Enterprise"
-
-df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
-#use our deployed model to predict churn for the above 5 plans
-import pickle
-
-with open("model_top3.pkl", "rb") as f:
-    model = pickle.load(f)
-
-X = df[["tenure", "MonthlyCharges", "Contract"]]  # Use the right features
-df["PredictedChurn"] = model.predict(X)
-
-#analyse churn rates by plan
-churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
-churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
-
-churn_by_plan["ContractType"] = "Yearly" 
-results.append(churn_by_plan)
-
-#visualize using streamlit
-
-
-st.title("📈 Churn Rate by Monthly Plan")
-st.subheader("    Yearly Contract")
-fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-             title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd",
-             category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
+st.subheader("🧯 Heatmap View")
+heatmap_df = pivot_df.set_index("Plan")
+fig = px.imshow(
+    heatmap_df,
+    labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
+    color_continuous_scale="Reds",
+    text_auto=True,
+    width=900,
+    height=600
 )
-
 st.plotly_chart(fig)
-
-
-
-# Sample data 2 years contract
-data = {
-    "MonthlyCharges": [25, 55, 85, 115, 145],
-    "tenure":[1,1,1,1,1],
-    "Contract":[2,2,2,2,2]
-}
-# Create the DataFrame
-df = pd.DataFrame(data)
-
-monthly_plans = {
-    "Basic": 29,
-    "Standard": 59,
-    "Premium": 89,
-    "Family": 119,
-    "Enterprise": 159
-}
-def assign_plan(charge):
-    if charge <= 39:
-        return "Basic"
-    elif charge <= 69:
-        return "Standard"
-    elif charge <= 99:
-        return "Premium"
-    elif charge <= 129:
-        return "Family"
-    else:
-        return "Enterprise"
-
-df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
-#use our deployed model to predict churn for the above 5 plans
-import pickle
-
-with open("model_top3.pkl", "rb") as f:
-    model = pickle.load(f)
-
-X = df[["tenure", "MonthlyCharges", "Contract"]]  # Use the right features
-df["PredictedChurn"] = model.predict(X)
-
-#analyse churn rates by plan
-churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
-churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
-
-churn_by_plan["ContractType"] = "2-Year" 
-results.append(churn_by_plan)
-
-#visualize using streamlit
-
-st.title("📈 Churn Rate by Monthly Plan")
-st.subheader("    2 Years Contract")
-fig = px.bar(churn_by_plan, x="Plan", y="Predicted Churn Rate",
-             title="Which Plan Drives Churn?",
-             color="Predicted Churn Rate", color_continuous_scale="OrRd",
-             category_orders={"Plan": ["Basic", "Standard", "Premium", "Family", "Enterprise"]}
-)
-
-st.plotly_chart(fig)
-
-
-matrix_df = pd.concat(results)
-matrix_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
-
-#visualise in streamlit
-#st.title("📋 Churn Rate Matrix")
-#st.subheader("   By Plan and Contract Type")
-#st.dataframe(matrix_df)
-#st.dataframe(matrix_df.style.format("{:.2%}"))
-
-################
-# Define the desired order
-plan_order = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
-
-# Convert 'Plan' to a categorical type with the specified order
-matrix_df["Plan"] = pd.Categorical(matrix_df["Plan"], categories=plan_order, ordered=True)
-
-# Sort the DataFrame by the ordered 'Plan'
-matrix_df = matrix_df.sort_values("Plan")
-
-# Visualise in Streamlit
-st.title("📋 Churn Rate Matrix")
-st.subheader("   By Plan and Contract Type")
-st.dataframe(matrix_df, hide_index=True)
-
-
-###############
-
-
-
-st.subheader("Heat-map visual")
-heatmap_df = matrix_df.set_index("Plan")
-fig = px.imshow(heatmap_df,
-                labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
-                x=heatmap_df.columns,
-                y=heatmap_df.index,
-                color_continuous_scale="Reds",
-                text_auto=True,
-                width=900,   # Increase width
-    height=600,   # Increase height
-                
-)
-
-st.plotly_chart(fig)
-
-github_url = "https://customerchurn-utsp1.streamlit.app/"
-
-st.markdown(
-    f"""
-    <a href="{github_url}" target="_blank">
-        <button style="background-color:#1f77b4; color:white; padding:10px 24px; font-size:16px; border:none; border-radius:5px;">
-            🚀 Go to prediction model 📊
-        </button>
-    </a>
-    """,
-    unsafe_allow_html=True
-)
