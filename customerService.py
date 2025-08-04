@@ -90,7 +90,7 @@ def run():
     new_prob = get_newProb(override, tenure, customer_contract, model_t3)
     #st.write(new_prob)
     st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
-    styled_metric("Estimated Churn Probability for {override} Plan:", churn_percent )
+    styled_metric(f"Estimated Churn Probability for {override} Plan:", new_prob )
     
     #customer info display
     with st.expander("Customer History", expanded=False):
