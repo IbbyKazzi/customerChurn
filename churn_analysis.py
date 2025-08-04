@@ -163,3 +163,24 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
+# Display plan values in sidebar
+st.sidebar.header("📦 Available Plans")
+for plan in pivot_df["Plan"].unique():
+    st.sidebar.write(f"- {plan}")
+
+# Example with grouped tiers
+high_risk = ["Gold Unlimited", "Platinum Premium"]
+medium_risk = ["Silver Plus", "Bronze Value"]
+low_risk = ["Basic Flex", "Essential Start"]
+
+st.sidebar.subheader("🔥 High Risk Plans")
+for plan in high_risk:
+    st.sidebar.write(f"- {plan}")
+
+st.sidebar.subheader("⚖️ Medium Risk Plans")
+for plan in medium_risk:
+    st.sidebar.write(f"- {plan}")
+
+st.sidebar.subheader("🟢 Low Risk Plans")
+for plan in low_risk:
+    st.sidebar.write(f"- {plan}")
