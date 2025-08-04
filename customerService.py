@@ -99,19 +99,22 @@ def run():
     st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
     st.text_area("Agent Notes")
     st.button("Submit Feedback")
-
-    # Display plan values in sidebar
+    
+    # Display plan data on the side bar
     plan_prices = {
         "Basic": "$25",
         "Standard": "$55",
         "Premium": "$85",
         "Family": "$115",
-        "Enterprise": "$145"    
+        "Enterprise": "$145"
     }
+    
+    # Sidebar header
     st.sidebar.header("📦 Available Plans")
-    for plan in df["Plan"].unique():
-        price = plan_prices.get(plan, "Price not available")
-        st.sidebar.write(f"- {plan}: {price}")
+    
+    # Display each plan
+    for plan, price in plan_prices.items():
+        st.sidebar.write(f"**{plan}**: {price}")
 
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract, model_t3):
