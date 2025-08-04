@@ -52,7 +52,7 @@ def run():
     st.subheader(f"Customer ID: {selected_customer_id}")
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
-    styled_metric("Churn Risk", churn_probability)
+    styled_metric("Churn Risk", churn_percent )
     
     #factors of churn
     # Create a waterfall plot for that customer
@@ -91,7 +91,8 @@ def recommend_action(prob):
     else:
         return "Maintain relationship with regular updates and appreciation messages"
 
-def styled_metric(label, value):    
+def styled_metric(label, value): 
+    value = float(value.strip("%")) 
     if value < 25:
         color = "green"
     elif value < 50:
