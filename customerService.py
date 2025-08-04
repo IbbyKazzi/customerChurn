@@ -100,6 +100,19 @@ def run():
     st.text_area("Agent Notes")
     st.button("Submit Feedback")
 
+    # Display plan values in sidebar
+    plan_prices = {
+        "Basic": "$25",
+        "Standard": "$55",
+        "Premium": "$85",
+        "Family": "$115",
+        "Enterprise": "$145"    
+    }
+    st.sidebar.header("📦 Available Plans")
+    for plan in pivot_df["Plan"].unique():
+        price = plan_prices.get(plan, "Price not available")
+        st.sidebar.write(f"- {plan}: {price}")
+
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract, model_t3):
     with open("model_top3.pkl", "rb") as f:
