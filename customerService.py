@@ -56,6 +56,7 @@ def run():
     
     #factors of churn
     # Create a waterfall plot for that customer
+    st.markdown("<div style='margin-top: 20px'></div>", unsafe_allow_html=True)
     if st.toggle("Show churn factor waterfall"):
         st.markdown("### Factors of Churn")
         fig, ax = plt.subplots()
