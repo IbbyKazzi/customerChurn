@@ -50,30 +50,7 @@ def run():
     #add summary to the top of the page
     st.subheader("Churn Prevention & Plan Recommendation App")
     st.subheader(f"Customer ID: {selected_customer_id}")
-    #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")
-
-    def styled_metric(label, value):
-    if value < 25:
-        color = "green"
-    elif value < 50:
-        color = "orange"
-    else:
-        color = "red"
-
-    st.markdown(
-        f"""
-        <div style='
-            background-color: rgba(0,0,0,0.03);
-            padding: 10px;
-            border-radius: 8px;
-            border-left: 5px solid {color};
-        '>
-            <h4 style='margin: 0; font-size: 18px;'>{label}</h4>
-            <p style='margin: 0; font-size: 24px; color: {color};'><strong>{value:.1f}%</strong></p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
     styled_metric("Churn Risk", churn_percent)
     
@@ -113,3 +90,27 @@ def recommend_action(prob):
         return "Send targeted engagement emails and check-in via customer service"
     else:
         return "Maintain relationship with regular updates and appreciation messages"
+
+def styled_metric(label, value):
+    if value < 25:
+        color = "green"
+    elif value < 50:
+        color = "orange"
+    else:
+        color = "red"
+
+    st.markdown(
+        f"""
+        <div style='
+            background-color: rgba(0,0,0,0.03);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 5px solid {color};
+        '>
+            <h4 style='margin: 0; font-size: 18px;'>{label}</h4>
+            <p style='margin: 0; font-size: 24px; color: {color};'><strong>{value:.1f}%</strong></p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
