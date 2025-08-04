@@ -83,6 +83,7 @@ def run():
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
     new_prob = get_newProb(override)
+    st.write(new_prob)
     st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
     
     #customer info display
