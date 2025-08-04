@@ -76,7 +76,8 @@ st.write(pivot_df.columns)
 
 #Add heatmap with matrix view
 st.subheader("📋 Full Churn Rate Matrix")
-st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
+#st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
+st.dataframe(pivot_df, hide_index=True)
 
 st.subheader("🧯 Heatmap View")
 heatmap_df = pivot_df.set_index("Plan")
