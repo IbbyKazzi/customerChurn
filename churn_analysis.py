@@ -94,12 +94,12 @@ st.subheader("📋 Full Churn Rate Matrix")
 #st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
 #st.dataframe(pivot_df, hide_index=True)
 
-# Ensure churn probability columns are numeric
-for col in pivot_df.columns[1:]:  # Skip 'Plan'
-    pivot_df[col] = pd.to_numeric(pivot_df[col], errors="coerce")
-
-# Format as percentage and apply gradient
+# Convert all churn probability columns to float
+for col in pivot_df.columns:
+    if col != "Plan":
+        pivot_df[col] = pd.to_numeric(pivot_df[col], errors="coerce")
 styled_df = pivot_df.style.format("{:.2%}").background_gradient(cmap="Reds", axis=None)
+st.dataframe(styled_df, hide_index=True)        
 
 # Display in Streamlit
 st.dataframe(styled_df, hide_index=True)
