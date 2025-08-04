@@ -68,6 +68,10 @@ fig = px.bar(
 )
 st.plotly_chart(fig)
 
+# Convert churn rate columns to float
+for col in pivot_df.columns[1:]:  # Skip 'Plan' column
+    pivot_df[col] = pd.to_numeric(pivot_df[col], errors="coerce")
+
 #Add heatmap with matrix view
 st.subheader("📋 Full Churn Rate Matrix")
 st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
