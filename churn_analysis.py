@@ -70,7 +70,7 @@ def run():
     
     #streamlit UI with plan selector
     
-    st.subheader("📊 Churn Rate by Plan and Contract Type")
+    st.subheader("Churn Rate by Plan and Contract Type")
     
     # Dropdown to select plan
     selected_plan = st.selectbox("Select a Monthly Plan", plan_labels)
