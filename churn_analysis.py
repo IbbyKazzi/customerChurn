@@ -32,9 +32,19 @@ for contract_code, contract_label in contract_types.items():
     })
     df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
     X = df[["tenure", "MonthlyCharges", "Contract"]]
-    df["PredictedChurn"] = model.predict(X)
-    churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
-    churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
+
+    # check which one is better present, chrun classification or churn probability
+    
+    #df["PredictedChurn"] = model.predict(X)
+    # Get churn probability (assuming binary classification: [No Churn, Churn])
+    df["ChurnProbability"] = model.predict_proba(X)[:, 1]  # Probability of class '1' (churn)
+    
+    #churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
+    #churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
+
+    churn_by_plan = df.groupby("Plan")["ChurnProbability"].mean().reset_index()
+    churn_by_plan.columns = ["Plan", "Churn Probability"]
+    
     churn_by_plan["ContractType"] = contract_label
     results.append(churn_by_plan)
 
@@ -42,7 +52,16 @@ for contract_code, contract_label in contract_types.items():
 matrix_df = pd.concat(results)
 matrix_df["Plan"] = pd.Categorical(matrix_df["Plan"], categories=plan_labels, ordered=True)
 matrix_df = matrix_df.sort_values("Plan")
-pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
+
+pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Churn Probability").reset_index()
+
+#pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
+
+# Convert churn rate columns to float
+for col in pivot_df.columns[1:]:  # Skip 'Plan' column
+    pivot_df[col] = pd.to_numeric(pivot_df[col], errors="coerce")
+
+#st.write(pivot_df.columns)
 
 #streamlit UI with plan selector
 import streamlit as st
@@ -68,11 +87,7 @@ fig = px.bar(
 )
 st.plotly_chart(fig)
 
-# Convert churn rate columns to float
-for col in pivot_df.columns[1:]:  # Skip 'Plan' column
-    pivot_df[col] = pd.to_numeric(pivot_df[col], errors="coerce")
 
-st.write(pivot_df.columns)
 
 #Add heatmap with matrix view
 st.subheader("📋 Full Churn Rate Matrix")
