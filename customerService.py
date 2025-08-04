@@ -81,7 +81,8 @@ def run():
     available_plans = ["Basic", "Premium", "Family", "Enterprise"]
     override = st.selectbox("Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
-    new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
+    #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
+    new_prob = 30;
     st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
     
     #customer info display
