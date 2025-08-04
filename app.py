@@ -211,6 +211,15 @@ def recommend_action(prob):
         return "Maintain relationship with regular updates and appreciation messages"
     
 
+#add menu tab to navigate between pages
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Analysis", "Cust Service", "Retention"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check"],
+    orientation="horizontal"
+)
+
+
 if selected == "Home":
     st.title("🏠 Home Page")
     runHome()
