@@ -82,7 +82,7 @@ def run():
     override = st.selectbox("Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
-    new_prob = 0.3;
+    new_prob = get_newProb(override)
     st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
     
     #customer info display
@@ -94,6 +94,14 @@ def run():
     st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
     st.text_area("Agent Notes")
     st.button("Submit Feedback")
+
+#get new prob of the overrided plan
+def get_newProb(val):
+    with open("model_top3.pkl", "rb") as f:
+        model = pickle.load(f)
+    
+
+
 
 def recommend_action(prob):
     if prob >= 0.70:
