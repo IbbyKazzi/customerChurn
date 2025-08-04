@@ -81,7 +81,7 @@ def run():
     override = st.selectbox("Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
-    new_prob = get_newProb(override, df)
+    new_prob = get_newProb(override, tenure, contract)
     st.write(new_prob)
     #st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")
     
@@ -95,7 +95,7 @@ def run():
     st.button("Submit Feedback")
 
 #get new prob of the overrided plan
-def get_newProb(val, df):
+def get_newProb(val, tenure, contract):
     with open("model_top3.pkl", "rb") as f:
         model = pickle.load(f)    
     monthly_charges = [25, 55, 85, 115, 145]    
@@ -104,11 +104,9 @@ def get_newProb(val, df):
     "Plan": plan_labels,
     "Monthly Charge": monthly_charges
     })
-    selected_charge = plan_charge_df.loc[plan_charge_df["Plan"] == val, "Monthly Charge"].values[0]
-    tenure = df.iloc[i]["tenure"]
-    monthly_charges = df.iloc[i]["MonthlyCharges"]
-    contract = df.iloc[i]["Contract"]
-    input_data = np.array([[tenure, monthly_charges, contract_map[contract]]])
+    selected_charge = plan_charge_df.loc[plan_charge_df["Plan"] == val, "Monthly Charge"].values[0]   
+
+    input_data = np.array([[tenure, selected_charge, contract_map[contract]]])
     prediction = model_t3.predict_proba(input_data)
     new_churn_probability = prediction[0][1]
     return new_churn_probability
