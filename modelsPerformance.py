@@ -80,5 +80,6 @@ def run():
         delta_color = "inverse"
     elif auc_score < 0.70:
         delta_color = "off"
-    
-    st.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.2f}%", delta=None, delta_color=delta_color)
+
+    st.sidebar.header("📦 Modle Version: 3")
+    st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.2f}%", delta=None, delta_color=delta_color)
