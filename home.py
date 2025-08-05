@@ -14,7 +14,7 @@ import os
 
 def run():  
     path = r"/mount/src/customerchurn/models/model_3_v2.pkl"
-    #st.write(os.getcwd())
+    st.write(os.getcwd())
     with open(path, "rb") as file:
         model = pickle.load(file)
     st.subheader("Churn Prediction Model")
