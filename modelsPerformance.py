@@ -7,10 +7,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 def run():    
-    with open("model_top3.pkl", "rb") as f:
+    with open("models\model_3_v2.pkl", "rb") as f:
         model_t3 = pickle.load(f)
     
-    with open("model_all.pkl", "rb") as f:
+    with open("models\model_20_v2.pkl", "rb") as f:
         model_all = pickle.load(f)
     
     #get the dataset
