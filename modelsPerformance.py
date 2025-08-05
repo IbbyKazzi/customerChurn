@@ -9,7 +9,7 @@ from sklearn.preprocessing import LabelEncoder
 def run(): 
     path1 = r"/mount/src/customerchurn/models/model_3_v2.pkl"
     path2 = r"/mount/src/customerchurn/models/model_20_v2.pkl"
-    st.write(path2)
+    #st.write(path2)
     with open(path1, "rb") as f:
         model_t3 = pickle.load(f)
     
@@ -34,10 +34,10 @@ def run():
     top_features = ['tenure', 'MonthlyCharges', 'Contract']
     X_top3 = df_encoded[top_features]    
     y = df_encoded['Churn']
-    X_train, X_test, y_train, y_test = train_test_split(X_top3, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(df_encoded, y, test_size=0.2, random_state=42)
     
     # Get predicted probabilities
-    y_probs = model_t3.predict_proba(X_test.values)[:, 1]
+    y_probs = model_all.predict_proba(X_test.values)[:, 1]
     
     # Compute ROC curve
     fpr, tpr, thresholds = roc_curve(y_test.values, y_probs)
