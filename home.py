@@ -11,7 +11,7 @@ import plotly.express as px
 
 path = r"models\model_3_v2.pkl"
 def run():    
-    with open(path, "rb") as file:
+    with open(this.path, "rb") as file:
         model = pickle.load(file)
     st.subheader("Churn Prediction Model")
     st.subheader("UTS P1 - 2025")
