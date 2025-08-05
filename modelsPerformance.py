@@ -18,6 +18,16 @@ def run():
     
     #get the dataset
     df = pd.read_csv("Customer-Churn-dataset.csv")
+    # tenure group in 3 categories, New - Loyal - Long-term
+    def tenure_group(tenure):
+        if tenure <= 12:
+            return 'New'
+        elif 12 < tenure <= 24:
+            return 'Loyal'
+        else:
+            return 'Long-term'
+    
+    df['tenure_group'] = df['tenure'].apply(tenure_group)
     # Encode categorical variables
     df_encoded = df.copy()
     for col in df_encoded.select_dtypes(include='object').columns:
