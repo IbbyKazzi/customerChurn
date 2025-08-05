@@ -73,7 +73,7 @@ def run():
     ax.set_title("ROC Curve")
     ax.legend()
     
-    st.subheader("📈 Model's ROC Curve Performance:")
+    #st.subheader("📈 Model's ROC Curve Performance:")
     #st.pyplot(fig)
     delta_color = "normal"
     if auc_score >= 0.85:
