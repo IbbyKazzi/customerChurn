@@ -77,7 +77,7 @@ def run():
     #st.pyplot(fig)
     delta_color = "normal"
     if auc_score >= 0.85:
-        delta_color = "green"
+        delta_color = "inverse"
     elif auc_score < 0.70:
         delta_color = "off"
 
