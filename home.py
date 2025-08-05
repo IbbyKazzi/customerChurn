@@ -13,7 +13,7 @@ import os
 
 
 def run():  
-    path = r"models\model_3_v2.pkl"
+    path = r"/mount/src/customerchurn/models/model_3_v2.pkl"
     st.write(os.getcwd())
     with open(path, "rb") as file:
         model = pickle.load(file)
