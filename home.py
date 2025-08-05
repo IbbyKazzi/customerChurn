@@ -8,10 +8,13 @@ import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from streamlit_option_menu import option_menu
 import plotly.express as px
+import os
+
 
 
 def run():  
     path = r"models\model_3_v2.pkl"
+    print(os.getcwd())
     with open(path, "rb") as file:
         model = pickle.load(file)
     st.subheader("Churn Prediction Model")
