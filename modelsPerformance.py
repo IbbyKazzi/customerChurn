@@ -36,13 +36,13 @@ def run():
     X_train, X_test, y_train, y_test = train_test_split(X_top3, y, test_size=0.2, random_state=42)
     
     # Get predicted probabilities
-    y_probs = model_t3.predict_proba(X_test)[:, 1]
+    y_probs = model_t3.predict_proba(X_test.values)[:, 1]
     
     # Compute ROC curve
-    fpr, tpr, thresholds = roc_curve(y_test, y_probs)
+    fpr, tpr, thresholds = roc_curve(y_test.values, y_probs)
     
     # Compute AUC score
-    auc_score = roc_auc_score(y_test, y_probs)
+    auc_score = roc_auc_score(y_test.values, y_probs)
     fig, ax = plt.subplots()
     ax.plot(fpr, tpr, label=f"AUC = {auc_score:.2f}")
     ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
