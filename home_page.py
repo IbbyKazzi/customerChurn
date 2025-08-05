@@ -34,4 +34,4 @@ def run():
         prediction = model.predict(input_data)
         st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
     import modelsPerformance
-    #modelsPerformance.run()    
+    modelsPerformance.run()    
