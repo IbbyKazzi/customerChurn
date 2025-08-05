@@ -36,7 +36,7 @@ def run():
     X_train, X_test, y_train, y_test = train_test_split(X_top3, y, test_size=0.2, random_state=42)
     
     # Get predicted probabilities
-    y_probs = model_t3.predict_proba(X_test.values)[:, 1]
+    y_probs = model_t3.predict_proba(X_test)[:, 1]
     
     # Compute ROC curve
     fpr, tpr, thresholds = roc_curve(y_test, y_probs)
