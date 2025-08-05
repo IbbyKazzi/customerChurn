@@ -9,9 +9,10 @@ from sklearn.preprocessing import LabelEncoder
 from streamlit_option_menu import option_menu
 import plotly.express as px
 
-path = r"models\model_3_v2.pkl"
-def run():    
-    with open(this.path, "rb") as file:
+
+def run():  
+    path = r"models\model_3_v2.pkl"
+    with open(path, "rb") as file:
         model = pickle.load(file)
     st.subheader("Churn Prediction Model")
     st.subheader("UTS P1 - 2025")
