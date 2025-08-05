@@ -10,7 +10,7 @@ from streamlit_option_menu import option_menu
 import plotly.express as px
 
 
-def runHome():    
+def run():    
     with open("models\model_3_v2.pkl", "rb") as file:
         model = pickle.load(file)
     st.subheader("Churn Prediction Model")
