@@ -10,7 +10,7 @@ from streamlit_option_menu import option_menu
 import plotly.express as px
 
 
-def runHome2():    
+#def runHome2():    
     #with open("model_top3.pkl", "rb") as file:
     #    model = pickle.load(file)
     #st.subheader("Churn Prediction Model")
@@ -154,6 +154,7 @@ elif selected == "Cust Service":
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
