@@ -59,4 +59,4 @@ def run():
     elif auc_score < 0.70:
         delta_color = "off"
     
-    st.metric(label="ROC AUC Score", value=f"{auc_score * 100:.2f}%", delta=None, delta_color=delta_color)
+    st.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.2f}%", delta=None, delta_color=delta_color)
