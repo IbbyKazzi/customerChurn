@@ -74,10 +74,10 @@ def run():
     ax.legend()
     
     st.subheader("📈 Model's ROC Curve Performance:")
-    st.pyplot(fig)
+    #st.pyplot(fig)
     delta_color = "normal"
-    if auc_score >= 0.80:
-        delta_color = "inverse"
+    if auc_score >= 0.85:
+        delta_color = "green"
     elif auc_score < 0.70:
         delta_color = "off"
 
