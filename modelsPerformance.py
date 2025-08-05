@@ -6,11 +6,13 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-def run():    
-    with open("models/model_3_v2.pkl", "rb") as f:
+def run(): 
+    path1 = r"/mount/src/customerchurn/models/model_3_v2.pkl"
+    path2 = r"/mount/src/customerchurn/models/model_20_v2.pkl"
+    with open(path1, "rb") as f:
         model_t3 = pickle.load(f)
     
-    with open("models/model_20_v2.pkl", "rb") as f:
+    with open(path2, "rb") as f:
         model_all = pickle.load(f)
     
     #get the dataset
