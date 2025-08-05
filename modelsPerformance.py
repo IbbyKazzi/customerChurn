@@ -7,8 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 def run(): 
-    path1 = r"/mount/src/customerchurn/models/model_3_v3.pkl"
-    path2 = r"/mount/src/customerchurn/models/model_20_v3.pkl"
+    path1 = r"/mount/src/customerchurn/models/model_3_v2.pkl"
+    path2 = r"/mount/src/customerchurn/models/model_20_v2.pkl"
     #st.write(path2)
     with open(path1, "rb") as f:
         model_t3 = pickle.load(f)
