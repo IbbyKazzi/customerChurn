@@ -31,6 +31,9 @@ def run():
     # Drop rows with NaN values created by the conversion
     df_encoded.dropna(inplace=True)
     df_encoded.columns = df_encoded.columns.str.strip()
+    df_encoded.drop('customerID', axis=1, inplace=True)
+    X_All = df_encoded.drop(['Churn'], axis=1)
+    
     top_features = ['tenure', 'MonthlyCharges', 'Contract']
     X_top3 = df_encoded[top_features]    
     y = df_encoded['Churn']
