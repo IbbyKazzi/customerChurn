@@ -28,6 +28,14 @@ def run():
             return 'Long-term'
     
     df['tenure_group'] = df['tenure'].apply(tenure_group)
+
+    # Convert column to numeric (in case it's still object type) and fill in missing values
+    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+    
+    # Fill NaNs with median
+    median_value = df['TotalCharges'].median()
+    df['TotalCharges'].fillna(median_value)
+    
     # Encode categorical variables
     df_encoded = df.copy()
     for col in df_encoded.select_dtypes(include='object').columns:
