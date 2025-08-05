@@ -55,7 +55,7 @@ def run_retention():
             return 'Loyal'
         else:
             return 'Long-term'
-    
+
     df['tenure_group'] = df['tenure'].apply(tenure_group)
     
     # Recreate MonthlyCharges_Tenure if it was a product
@@ -153,6 +153,7 @@ elif selected == "Cust Service":
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
