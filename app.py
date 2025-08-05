@@ -141,7 +141,7 @@ selected = option_menu(
 if selected == "Home":
     st.title("🏠 Home Page")
     import home
-    home.run()
+    #home.run()
 elif selected == "Analysis":
     st.title("📊 Analysis Page")
     import churn_analysis
@@ -154,6 +154,7 @@ elif selected == "Cust Service":
 elif selected == "Retention":
     st.title("🛡️ Retention Page")
     run_retention()
+
 
 
 
