@@ -87,16 +87,6 @@ def run():
     override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
-    # Inject CSS to style the radio label
-    st.markdown("""
-        <style>
-        div[data-testid="stRadio"] > label {
-            font-size: 28px;
-            font-weight: bold;
-            color: #333333;
-        }
-        </style>
-        """, unsafe_allow_html=True)
     
     # add radio widget
     selected_contract = st.radio(
