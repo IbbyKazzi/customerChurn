@@ -1,15 +1,24 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
+# Inject custom CSS to control width
+st.markdown("""
+    <style>
+    .option-menu-container {
+        max-width: 800px;
+        margin: auto;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-#add menu tab to navigate between pages
-selected = option_menu(
-    menu_title=None,
-    options=["Home", "Analysis", "Cust Service", "Retention"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check"],
-    orientation="horizontal"
-)
-
+# Wrap the menu in a container
+with st.container():
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "Analysis", "Cust Service", "Retention"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check"],
+        orientation="horizontal"
+    )
 
 if selected == "Home":
     st.sidebar.header("🏠 Home")
@@ -28,6 +37,7 @@ elif selected == "Retention":
     st.sidebar.header("🛡️ Retention")
     import retention
     retention.run()
+
 
 
 
