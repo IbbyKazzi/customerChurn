@@ -23,6 +23,9 @@ def run():
     df = pd.read_csv("Customer-Churn-dataset.csv")
     df = df[df['Churn'] == 'No']
 
+    # Convert column to numeric (in case it's still object type) and fill in missing values
+    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+    
     # Fill NaNs with median
     median_value = df['TotalCharges'].median()
     df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
