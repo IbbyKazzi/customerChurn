@@ -15,13 +15,17 @@ def run():
     with open(path, "rb") as f:
         model = pickle.load(f)
     #import the dataset
-    X = pd.read_csv("encoded-dataset.csv")
+    #X = pd.read_csv("encoded-dataset.csv")
     #explainer = shap.Explainer(model, X)
     #shap_values = explainer(X)
     
     # Load your dataset to extract customer ids
     df = pd.read_csv("Customer-Churn-dataset.csv")
     df = df[df['Churn'] == 'No']
+
+    # Fill NaNs with median
+    median_value = df['TotalCharges'].median()
+    df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
     
     #print model's feature order
     #st.write(model.feature_names_in_)
