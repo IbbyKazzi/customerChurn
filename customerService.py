@@ -55,10 +55,11 @@ def run():
     #add summary to the top of the page
     st.subheader("Churn Prevention & Plan Recommendation App")
     st.write(" ")
-    st.subheader(f"Customer ID: {selected_customer_id}")
+    #st.subheader(f"Customer ID: {selected_customer_id}")
+    selectedCustomer = f"Customer ID: {selected_customer_id}"
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
-    styled_metric("Churn Risk", churn_percent )
+    styled_metric("Churn Risk", churn_percent, selectedCustomer )
     
     #factors of churn
     # Create a waterfall plot for that customer
@@ -151,7 +152,7 @@ def recommend_action(prob):
     else:
         return "Maintain relationship with regular updates and appreciation messages"
 
-def styled_metric(label, value): 
+def styled_metric(label, value, customerID): 
     value = float(value.strip("%")) 
     if value < 25:
         color = "green"
@@ -162,6 +163,18 @@ def styled_metric(label, value):
 
     st.markdown(
         f"""
+
+        <div style='
+            background-color: rgba(0,0,0,0.03);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 5px solid {color};
+            gap: 20px;
+        '>
+            <span style='font-size: 24px; font-weight: bold; margin-right: 20px;'>{customerID}</span>            
+        </div>
+
+        
         <div style='
             background-color: rgba(0,0,0,0.03);
             padding: 10px;
@@ -171,7 +184,6 @@ def styled_metric(label, value):
         '>
             <span style='font-size: 24px; font-weight: bold; margin-right: 20px;'>{label}</span>
             <span style='font-size: 28px; color: {color}; font-weight: bold;'>{value:.0f}%</span>
-
         </div>
         """,
         unsafe_allow_html=True
