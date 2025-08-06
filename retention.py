@@ -8,11 +8,12 @@ import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from streamlit_option_menu import option_menu
 import plotly.express as px
+from settings import MODEL_PATH_T3, MODEL_PATH_T21
 
 def run():
     #get the prediction model    
-    path = r"/mount/src/customerchurn/models/model_21_v4.pkl"
-    with open(path, "rb") as f:
+    
+    with open(MODEL_PATH_T21, "rb") as f:
         model = pickle.load(f)
     #import the dataset
     #X = pd.read_csv("encoded-dataset.csv")
