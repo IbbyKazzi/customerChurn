@@ -7,8 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
 def run(): 
-    path1 = r"/mount/src/customerchurn/models/model_3_v3.pkl"
-    path2 = r"/mount/src/customerchurn/models/model_20_v3.pkl"
+    path1 = r"/mount/src/customerchurn/models/model_3_v4.pkl"
+    path2 = r"/mount/src/customerchurn/models/model_21_v4.pkl"
     #st.write(path2)
     with open(path1, "rb") as f:
         model_t3 = pickle.load(f)
@@ -28,6 +28,9 @@ def run():
             return 'Long-term'
     
     df['tenure_group'] = df['tenure'].apply(tenure_group)
+
+    #add another feature eng
+    df['charge_ratio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
 
     # Convert column to numeric (in case it's still object type) and fill in missing values
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
