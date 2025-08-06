@@ -182,6 +182,7 @@ def styled_metric(label, value, customerID):
             border-left: 5px solid {color};
             gap: 20px;
         '>
+            <span style='font-size: 24px; font-weight: bold; margin-right: 20px;'>{customerID}</span>
             <span style='font-size: 24px; font-weight: bold; margin-right: 20px;'>{label}</span>
             <span style='font-size: 28px; color: {color}; font-weight: bold;'>{value:.0f}%</span>
         </div>
