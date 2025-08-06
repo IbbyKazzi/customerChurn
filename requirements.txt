@@ -5,6 +5,8 @@ plotly
 shap
 matplotlib
 streamlit-option-menu
+github
+
 
 
 
