@@ -11,7 +11,7 @@ import plotly.express as px
 
 def run():
     #get the prediction model    
-    path = r"/mount/src/customerchurn/models/model_20_v3.pkl"
+    path = r"/mount/src/customerchurn/models/model_21_v4.pkl"
     with open(path, "rb") as f:
         model = pickle.load(f)
     #import the dataset
@@ -33,6 +33,7 @@ def run():
     #print model's feature order
     #st.write(model.feature_names_in_)
     
+    #Features Engineering
     # tenure group in 3 categories, New - Loyal - Long-term
     def tenure_group(tenure):
         if tenure <= 12:
@@ -41,11 +42,14 @@ def run():
             return 'Loyal'
         else:
             return 'Long-term'
-
+    
     df['tenure_group'] = df['tenure'].apply(tenure_group)
+
+    #add another feature
+    df['charge_ratio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
     
     # Recreate MonthlyCharges_Tenure if it was a product
-    df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
+    #df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
     
     #remove unwated features
     cols_to_drop = ["customerID", "Churn"]
