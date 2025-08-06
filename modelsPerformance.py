@@ -55,7 +55,11 @@ def run():
     df_encoded.dropna(inplace=True)
     df_encoded.columns = df_encoded.columns.str.strip()
     df_encoded.drop('customerID', axis=1, inplace=True)
-    X_All = df_encoded.drop(['Churn'], axis=1)
+
+    import load-dataset
+    X_All = load-dataset.run()
+    X_All = X_All.drop(['Churn'], axis=1)
+    #X_All = df_encoded.drop(['Churn'], axis=1)
     
     top_features = ['tenure', 'MonthlyCharges', 'Contract']
     X_top3 = df_encoded[top_features]    
