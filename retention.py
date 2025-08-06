@@ -85,6 +85,17 @@ def run():
         df = pd.read_csv(uploaded_file)
         st.success("CSV file loaded successfully!")
         st.dataframe(df.head())
+        # Show basic statistics
+        st.subheader("📈 Dataset Overview")
+        st.write(f"**Number of rows:** {df.shape[0]}")
+        st.write(f"**Number of columns:** {df.shape[1]}")
+        st.write(f"**Column names:** {list(df.columns)}")
+        st.write(f"**Missing values:** {df.isnull().sum().sum()}")
+        st.write(f"**Duplicate rows:** {df.duplicated().sum()}")
+        st.subheader("🔍 Descriptive Statistics")
+        st.dataframe(df.describe())
+
+
     
         # Confirm overwrite
         if os.path.exists(DATA_PATH) and not st.session_state.overwrite_done:
