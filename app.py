@@ -16,7 +16,7 @@ elif selected == "Analysis":
     st.sidebar.header("📊 Analysis")
     import churn_analysis
     churn_analysis.run()
-elif selected == "Cust Service":
+elif selected == "Service":
     st.sidebar.header("👤 Customer Service")
     import customerService
     customerService.run()
@@ -25,6 +25,7 @@ elif selected == "Retention":
     st.sidebar.header("🛡️ Retention")
     import retention
     retention.run()
+
 
 
 
