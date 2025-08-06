@@ -10,8 +10,9 @@ from streamlit_option_menu import option_menu
 import plotly.express as px
 
 def run():
-    #get the prediction model
-    with open("model_all.pkl", "rb") as f:
+    #get the prediction model    
+    path = r"/mount/src/customerchurn/models/model_20_v3.pkl"
+    with open(path, "rb") as f:
         model = pickle.load(f)
     #import the dataset
     X = pd.read_csv("encoded-dataset.csv")
