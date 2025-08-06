@@ -20,62 +20,15 @@ def run():
     #explainer = shap.Explainer(model, X)
     #shap_values = explainer(X)
     
-    # Load your dataset to extract customer ids
-    df = pd.read_csv("Customer-Churn-dataset.csv")
-    df = df[df['Churn'] == 'No']
-
-    # Convert column to numeric (in case it's still object type) and fill in missing values
-    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+    #load the dataset
+    import load_dataset
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
+    df_encoded = df_encoded.drop(['Churn'], axis=1) 
     
-    # Fill NaNs with median
-    median_value = df['TotalCharges'].median()
-    df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
+    #def align_features(df, model):
+    #    return df[model.feature_names_in_]
     
-    #print model's feature order
-    #st.write(model.feature_names_in_)
-    
-    #Features Engineering
-    # tenure group in 3 categories, New - Loyal - Long-term
-    def tenure_group(tenure):
-        if tenure <= 12:
-            return 'New'
-        elif 12 < tenure <= 24:
-            return 'Loyal'
-        else:
-            return 'Long-term'
-    
-    df['tenure_group'] = df['tenure'].apply(tenure_group)
-
-    #add another feature
-    df['charge_ratio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
-    
-    # Recreate MonthlyCharges_Tenure if it was a product
-    #df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
-    
-    #remove unwated features
-    cols_to_drop = ["customerID", "Churn"]
-    df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
-    
-    #st.write("🔎 Columns currently in df:")
-    #st.write(df.columns.tolist())
-    
-    def align_features(df, model):
-        return df[model.feature_names_in_]
-    
-    df_aligned = align_features(df, model)
-    
-    #encode the dataset
-    df_encoded = df_aligned.copy()
-    for col in df_encoded.select_dtypes(include='object').columns:
-        # Exclude 'TotalCharges' for now as it seems to have non-numeric values that need handling
-        if col not in ['customerID', 'TotalCharges']:
-            df_encoded[col] = LabelEncoder().fit_transform(df_encoded[col])
-    
-    # Convert 'TotalCharges' to numeric, coercing errors to NaN
-    df_encoded['TotalCharges'] = pd.to_numeric(df_encoded['TotalCharges'], errors='coerce')
-    
-    # Drop rows with NaN values created by the conversion
-    df_encoded.dropna(inplace=True) 
+    #df_aligned = align_features(df, model)
     
     # Predict probabilities
     churn_probs = model.predict_proba(df_encoded)[:, 1]   
