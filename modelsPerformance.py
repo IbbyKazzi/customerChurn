@@ -5,15 +5,15 @@ import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 def run(): 
-    path1 = r"/mount/src/customerchurn/models/model_3_v4.pkl"
-    path2 = r"/mount/src/customerchurn/models/model_21_v4.pkl"
+    
     #st.write(path2)
-    with open(path1, "rb") as f:
+    with open(MODEL_PATH_T3, "rb") as f:
         model_t3 = pickle.load(f)
     
-    with open(path2, "rb") as f:
+    with open(MODEL_PATH_T21, "rb") as f:
         model_all = pickle.load(f)
     
     
