@@ -89,13 +89,13 @@ def run():
         # Step 2: Confirm overwrite
         if os.path.exists(DATA_PATH) and not st.session_state.overwrite_done:
             st.warning("⚠️ A file already exists at the save location.")
-            if st.button("✅ Overwrite existing file"):
+            if st.button("🔄 Commit Data Change"):
                 df.to_csv(DATA_PATH, index=False)
                 st.session_state.overwrite_done = True
                 st.success(f"File overwritten and saved to: {DATA_PATH}")
                 st.rerun()
         elif not os.path.exists(DATA_PATH):
-            if st.button("💾 Save file"):
+            if st.button("🔄 Commit Data Change"):
                 df.to_csv(DATA_PATH, index=False)
                 st.session_state.overwrite_done = True
                 st.success(f"File saved to: {DATA_PATH}")
