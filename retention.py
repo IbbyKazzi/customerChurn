@@ -8,7 +8,10 @@ import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from streamlit_option_menu import option_menu
 import plotly.express as px
-from settings import MODEL_PATH_T3, MODEL_PATH_T21
+import streamlit as st
+import pandas as pd
+import os
+from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 def run():
     #get the prediction model    
@@ -69,17 +72,30 @@ def run():
         count = risk_counts.get(tier, 0)
         percent = count / len(df_encoded)
         st.write(f"{tier}: {count} customers")
-        st.progress(percent)  
-
-
-    # Prompt user to upload a CSV file
+        st.progress(percent)     
+    
+    
+    
+    # Step 1: Upload CSV
     uploaded_file = st.file_uploader("📂 Upload your CSV file", type=["csv"])
     
-    # Load and display the data
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
         st.success("CSV file loaded successfully!")
-        st.dataframe(df.head())  # Show first few rows
+        st.dataframe(df.head())
+    
+        # Step 2: Confirm overwrite
+        if os.path.exists(DATA_PATH):
+            st.warning("⚠️ A file already exists at the save location.")
+            if st.button("✅ Overwrite existing file"):
+                df.to_csv(DATA_PATH, index=False)
+                st.success(f"File overwritten and saved to: {DATA_PATH}")
+                st.experimental_rerun()
+        else:
+            if st.button("💾 Save file"):
+                df.to_csv(DATA_PATH, index=False)
+                st.success(f"File saved to: {DATA_PATH}")
+                st.experimental_rerun()
     else:
         st.info("Please upload a CSV file to proceed.")
-
+    
