@@ -4,7 +4,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+from settings import MODEL_PATH_T3, MODEL_PATH_T21
 
 def run():
     # Define plans and contract types
