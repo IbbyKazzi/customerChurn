@@ -101,6 +101,6 @@ def run():
                 st.success(f"File saved to: {DATA_PATH}")
                 st.rerun()
         else:            
-            st.success("Please upload a CSV file to proceed.")
+            st.info("Please upload a CSV file to proceed.")
 
     
