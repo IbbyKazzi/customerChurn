@@ -24,7 +24,7 @@ def run():
             return "Enterprise"
     
     # Load model
-    with open("model_top3.pkl", "rb") as f:
+    with open("model_.pkl", "rb") as f:
         model = pickle.load(f)
     
     # Generate churn data across contracts
