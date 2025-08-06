@@ -87,4 +87,4 @@ def run():
         delta_color = "off"
 
     st.sidebar.header("📦 Modle Version: 3")
-    st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.2f}%", delta=None, delta_color=delta_color)
+    st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.0f}%", delta=None, delta_color=delta_color)
