@@ -8,7 +8,9 @@ import plotly.graph_objects as go
 
 def run():
     #get the prediction model
-    with open("model_all.pkl", "rb") as f:
+    path1 = r"/mount/src/customerchurn/models/model_3_v4.pkl"
+    path2 = r"/mount/src/customerchurn/models/model_21_v4.pkl"
+    with open(path2, "rb") as f:
         model = pickle.load(f)
     #import the dataset
     X = pd.read_csv("encoded-dataset.csv")
@@ -37,7 +39,7 @@ def run():
     monthly_charges = df.iloc[i]["MonthlyCharges"]
     contract = df.iloc[i]["Contract"]
     #get the top 3 prediction model
-    with open("model_top3.pkl", "rb") as f:
+    with open(path1, "rb") as f:
         model_t3 = pickle.load(f)
     # encode categorical input of contract
     contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}    
