@@ -67,6 +67,6 @@ def run():
     
     for tier in ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"]:
         count = risk_counts.get(tier, 0)
-        percent = count / len(df)
+        percent = count / len(df_encoded)
         st.write(f"{tier}: {count} customers")
         st.progress(percent)  
