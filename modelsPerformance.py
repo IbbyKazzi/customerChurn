@@ -19,7 +19,7 @@ def run():
     
     #load the dataset
     import load_dataset
-    df_encoded = load_dataset.run()    
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
     X_All = df_encoded.drop(['Churn'], axis=1)   
     
     top_features = ['tenure', 'MonthlyCharges', 'Contract']
