@@ -54,7 +54,7 @@ def run():
     
     #add summary to the top of the page
     st.subheader("Churn Prevention & Plan Recommendation App")
-    st.subheader(" ")
+    st.write(" ")
     st.subheader(f"Customer ID: {selected_customer_id}")
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
@@ -91,14 +91,14 @@ def run():
     st.markdown("""
         <style>
         div[data-testid="stRadio"] > label {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #333333;
         }
         </style>
         """, unsafe_allow_html=True)
     
-    # Your radio widget
+    # add radio widget
     selected_contract = st.radio(
         "📝 Select Contract",
         ["Month-to-month", "One year", "Two year"],
