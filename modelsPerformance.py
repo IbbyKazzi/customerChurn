@@ -56,8 +56,8 @@ def run():
     df_encoded.columns = df_encoded.columns.str.strip()
     df_encoded.drop('customerID', axis=1, inplace=True)
 
-    import load-dataset
-    X_All = load-dataset.run()
+    import load_dataset
+    X_All = load_dataset.run()
     X_All = X_All.drop(['Churn'], axis=1)
     #X_All = df_encoded.drop(['Churn'], axis=1)
     
