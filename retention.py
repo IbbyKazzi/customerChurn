@@ -100,7 +100,8 @@ def run():
                 st.session_state.overwrite_done = True
                 st.success(f"File saved to: {DATA_PATH}")
                 st.rerun()
-        else:            
-            st.info("Please upload a CSV file to proceed.")
+        else:   
+            if not st.session_state.overwrite_done:
+                st.info("Please upload a CSV file to proceed.")
 
     
