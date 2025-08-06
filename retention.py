@@ -117,32 +117,32 @@ def run():
             if not st.session_state.overwrite_done:
                 st.info("Please upload a CSV file to proceed.")
 
-    def saveToGithub(df):
-        from github import Github
-        import pandas as pd
-        import io
+def saveToGithub(df):
+    from github import Github
+    import pandas as pd
+    import io
         
-        # GitHub credentials
-        token = "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"
-        repo_name = "IbbyKazzi/customerchurn"
-        file_path = "data/customer_churn_data.csv"
-        commit_message = "Update churn data to Github"
+    # GitHub credentials
+    token = "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"
+    repo_name = "IbbyKazzi/customerchurn"
+    file_path = "data/customer_churn_data.csv"
+    commit_message = "Update churn data to Github"
         
-        # Authenticate
-        g = Github(token)
-        repo = g.get_repo(repo_name)
+    # Authenticate
+    g = Github(token)
+    repo = g.get_repo(repo_name)
         
-        # Load updated DataFrame        
-        csv_buffer = io.StringIO()
-        df.to_csv(csv_buffer, index=False)
+    # Load updated DataFrame        
+    csv_buffer = io.StringIO()
+    df.to_csv(csv_buffer, index=False)
         
-        # Get current file content
-        contents = repo.get_contents(file_path)
-        repo.update_file(
+    # Get current file content
+    contents = repo.get_contents(file_path)
+    repo.update_file(
             path=file_path,
             message=commit_message,
             content=csv_buffer.getvalue(),
             sha=contents.sha
-        )
+    )
 
     
