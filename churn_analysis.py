@@ -23,9 +23,10 @@ def run():
         else:
             return "Enterprise"
     
-    # Load model
-    with open("model_.pkl", "rb") as f:
-        model = pickle.load(f)
+    path = r"/mount/src/customerchurn/models/model_3_v4.pkl"  
+    
+    with open(path, "rb") as f:
+        model_t3 = pickle.load(f)
     
     # Generate churn data across contracts
     results = []
@@ -40,9 +41,9 @@ def run():
     
         # check which one is better present, chrun classification or churn probability
         
-        #df["PredictedChurn"] = model.predict(X)
+        #df["PredictedChurn"] = model_t3.predict(X)
         # Get churn probability (assuming binary classification: [No Churn, Churn])
-        df["ChurnProbability"] = model.predict_proba(X)[:, 1]  # Probability of class '1' (churn)
+        df["ChurnProbability"] = model_t3.predict_proba(X)[:, 1]  # Probability of class '1' (churn)
         
         #churn_by_plan = df.groupby("Plan")["PredictedChurn"].mean().reset_index()
         #churn_by_plan.columns = ["Plan", "Predicted Churn Rate"]
