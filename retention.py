@@ -115,4 +115,33 @@ def run():
             if not st.session_state.overwrite_done:
                 st.info("Please upload a CSV file to proceed.")
 
+    def saveToGithub():
+        from github import Github
+        import pandas as pd
+        import io
+        
+        # GitHub credentials
+        token = "your_github_token"
+        repo_name = "your_username/your_repo"
+        file_path = "data/customer_churn_data.csv"
+        commit_message = "Update churn data from Streamlit app"
+        
+        # Authenticate
+        g = Github(token)
+        repo = g.get_repo(repo_name)
+        
+        # Load updated DataFrame
+        df = pd.read_csv("your_local_or_uploaded_file.csv")
+        csv_buffer = io.StringIO()
+        df.to_csv(csv_buffer, index=False)
+        
+        # Get current file content
+        contents = repo.get_contents(file_path)
+        repo.update_file(
+            path=file_path,
+            message=commit_message,
+            content=csv_buffer.getvalue(),
+            sha=contents.sha
+        )
+
     
