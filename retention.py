@@ -86,7 +86,7 @@ def run():
         st.success("CSV file loaded successfully!")
         st.dataframe(df.head())
     
-        # Step 2: Confirm overwrite
+        # Confirm overwrite
         if os.path.exists(DATA_PATH) and not st.session_state.overwrite_done:
             st.warning("⚠️ A file already exists at the save location.")
             if st.button("🔄 Commit Data Change"):
