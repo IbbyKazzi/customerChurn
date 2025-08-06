@@ -97,9 +97,11 @@ def run():
         elif not os.path.exists(DATA_PATH):
             if st.button("💾 Save file"):
                 df.to_csv(DATA_PATH, index=False)
+                st.session_state.overwrite_done = True
                 st.success(f"File saved to: {DATA_PATH}")
                 st.rerun()
         else:
-            st.info("Please upload a CSV file to proceed.")
+            st.session_state.overwrite_done = True
+            st.success("Please upload a CSV file to proceed.")
 
     
