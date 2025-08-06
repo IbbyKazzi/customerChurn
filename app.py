@@ -117,22 +117,23 @@ selected = option_menu(
 
 
 if selected == "Home":
-    #st.subheader("🏠 Home Page")
+    st.sidebar.header("🏠 Home")
     import home_page
     home_page.run()
 elif selected == "Analysis":
-    #st.subheader("📊 Analysis Page")
+    st.sidebar.header("📊 Analysis")
     import churn_analysis
     churn_analysis.run()
 elif selected == "Cust Service":
-    #st.subheader("👤 Customer Service Page")
+    st.sidebar.header("👤 Customer Service")
     import customerService
     customerService.run()
     #run_customerService()
 elif selected == "Retention":
-    #st.subheader("🛡️ Retention Page")
+    st.sidebar.header("🛡️ Retention")
     import retention
     retention.run()
+
 
 
 
