@@ -127,10 +127,14 @@ def saveToGithub(df):
     repo_name = "IbbyKazzi/customerChurn "
     file_path = "data/customer_churn_data.csv"
     commit_message = "Update churn data to Github"
-        
+
+   
     # Authenticate
     g = Github(token)
     repo = g.get_repo(repo_name)
+
+    user = g.get_user()
+    st.write(user.login)
         
     # Load updated DataFrame        
     csv_buffer = io.StringIO()
