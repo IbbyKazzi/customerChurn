@@ -163,18 +163,6 @@ def styled_metric(label, value, customerID):
 
     st.markdown(
         f"""
-
-        <div style='
-            background-color: rgba(0,0,0,0.03);
-            padding: 10px;
-            border-radius: 8px;
-            border-left: 5px solid {color};
-            gap: 20px;
-        '>
-            <span style='font-size: 24px; font-weight: bold; margin-right: 20px;'>{customerID}</span>            
-        </div>
-
-        
         <div style='
             background-color: rgba(0,0,0,0.03);
             padding: 10px;
