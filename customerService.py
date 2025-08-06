@@ -5,12 +5,11 @@ import pandas as pd
 import shap
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 def run():
-    #get the prediction model
-    path1 = r"/mount/src/customerchurn/models/model_3_v4.pkl"
-    path2 = r"/mount/src/customerchurn/models/model_21_v4.pkl"
-    with open(path2, "rb") as f:
+    #get the prediction model    
+    with open(MODEL_PATH_T21, "rb") as f:
         model = pickle.load(f)
     
     #load the dataset
@@ -128,7 +127,7 @@ def run():
 
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract, model_t3):
-    with open("model_top3.pkl", "rb") as f:
+    with open(MODEL_PATH_T3, "rb") as f:
         model = pickle.load(f)    
     monthly_charges = [25, 55, 85, 115, 145]    
     plan_labels = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
