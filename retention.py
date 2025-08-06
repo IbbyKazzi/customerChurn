@@ -98,7 +98,7 @@ def run():
             df.to_csv(DATA_PATH, index=False)
             st.success(f"File saved to: {DATA_PATH}")
             st.rerun()
-else:
-    st.info("Please upload a CSV file to proceed.")
+    else:
+        st.info("Please upload a CSV file to proceed.")
 
     
