@@ -23,8 +23,7 @@ def run():
         else:
             return "Enterprise"
     
-    path = r"/mount/src/customerchurn/models/model_3_v4.pkl"  
-    
+    path = r"/mount/src/customerchurn/models/model_3_v4.pkl" 
     with open(path, "rb") as f:
         model_t3 = pickle.load(f)
     
