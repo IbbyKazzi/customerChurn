@@ -41,7 +41,7 @@ def run():
     df["MonthlyCharges_Tenure"] = df["MonthlyCharges"] * df["tenure"]
     
     #remove unwated features
-    cols_to_drop = ["customerID", "tenure", "Churn"]
+    cols_to_drop = ["customerID", "Churn"]
     df = df.drop(columns=[col for col in cols_to_drop if col in df.columns])
     
     #st.write("🔎 Columns currently in df:")
