@@ -77,8 +77,7 @@ def run():
     
     
     # Step 1: Upload CSV
-    st.write("")
-    st.write(DATA_PATH)
+    st.write("")    
     uploaded_file = st.file_uploader("📂 Upload your CSV file", type=["csv"])
     
     if uploaded_file is not None:
@@ -92,12 +91,14 @@ def run():
             if st.button("✅ Overwrite existing file"):
                 df.to_csv(DATA_PATH, index=False)
                 st.success(f"File overwritten and saved to: {DATA_PATH}")
-                st.rerun()
+                #st.rerun()
+                this.run()
         else:
             if st.button("💾 Save file"):
                 df.to_csv(DATA_PATH, index=False)
                 st.success(f"File saved to: {DATA_PATH}")
-                st.rerun()
+                #st.rerun()
+                this.run()
     else:
         st.info("Please upload a CSV file to proceed.")
     
