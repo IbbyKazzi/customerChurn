@@ -5,11 +5,11 @@ import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-
+from settings import DATA_PATH
 
 def run():
   #get the dataset
-    df = pd.read_csv("Customer-Churn-dataset.csv")
+    df = pd.read_csv(DATA_PATH)
   
     # Convert column to numeric (in case it's still object type) and fill in missing values
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
