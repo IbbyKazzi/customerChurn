@@ -17,7 +17,16 @@ def run():
         model_all = pickle.load(f)
     
     #get the dataset
-    df = pd.read_csv("Customer-Churn-dataset.csv")
+    df = pd.read_csv("Customer-Churn-dataset.csv")  
+
+    # Convert column to numeric (in case it's still object type) and fill in missing values
+    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
+    
+    # Fill NaNs with median
+    median_value = df['TotalCharges'].median()
+    df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
+
+    #Features Engineering
     # tenure group in 3 categories, New - Loyal - Long-term
     def tenure_group(tenure):
         if tenure <= 12:
@@ -29,15 +38,8 @@ def run():
     
     df['tenure_group'] = df['tenure'].apply(tenure_group)
 
-    #add another feature eng
+    #add another feature
     df['charge_ratio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
-
-    # Convert column to numeric (in case it's still object type) and fill in missing values
-    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
-    
-    # Fill NaNs with median
-    median_value = df['TotalCharges'].median()
-    df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
     
     # Encode categorical variables
     df_encoded = df.copy()
