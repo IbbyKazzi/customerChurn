@@ -3,7 +3,7 @@ from streamlit_option_menu import option_menu
 
 selected = option_menu(
         menu_title=None,
-        options=["Home", "Analysis", "Cust Service", "Retention"],
+        options=["Home", "Analysis", "Service", "Retention"],
         icons=["house", "bar-chart", "person-lines-fill", "shield-check"],
         orientation="horizontal"
 )
@@ -25,6 +25,7 @@ elif selected == "Retention":
     st.sidebar.header("🛡️ Retention")
     import retention
     retention.run()
+
 
 
 
