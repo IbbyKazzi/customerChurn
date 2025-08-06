@@ -54,6 +54,7 @@ def run():
     
     #add summary to the top of the page
     st.subheader("Churn Prevention & Plan Recommendation App")
+    st.subheader(" ")
     st.subheader(f"Customer ID: {selected_customer_id}")
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
@@ -86,11 +87,24 @@ def run():
     override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
+    # Inject CSS to style the radio label
+    st.markdown("""
+        <style>
+        div[data-testid="stRadio"] > label {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333333;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+    
+    # Your radio widget
     selected_contract = st.radio(
         "📝 Select Contract",
         ["Month-to-month", "One year", "Two year"],
         horizontal=True
     )
+
     customer_contract = contract_map[selected_contract]
     new_prob = get_newProb(override, tenure, customer_contract, model_t3)
     #st.write(new_prob)
