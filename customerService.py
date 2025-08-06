@@ -41,7 +41,7 @@ def run():
     monthly_charges = df.iloc[i]["MonthlyCharges"]
     contract = df.iloc[i]["Contract"]
     #get the top 3 prediction model
-    with open(path1, "rb") as f:
+    with open(MODEL_PATH_T3, "rb") as f:
         model_t3 = pickle.load(f)
     # encode categorical input of contract
     contract_map = {"Month-to-month": 0, "One year": 1, "Two year": 2}    
