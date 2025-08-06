@@ -12,8 +12,11 @@ def run():
     path2 = r"/mount/src/customerchurn/models/model_21_v4.pkl"
     with open(path2, "rb") as f:
         model = pickle.load(f)
-    #import the dataset
-    X = pd.read_csv("encoded-dataset.csv")
+    
+    #load the dataset
+    import load_dataset
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
+    X = df_encoded
     explainer = shap.Explainer(model, X)
     shap_values = explainer(X)
     
