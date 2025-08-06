@@ -5,7 +5,7 @@ from streamlit_option_menu import option_menu
 st.markdown("""
     <style>
     .option-menu-container {
-        min-width: 100%;
+        min-width: 1000px;
         margin: auto;
     }
     </style>
@@ -37,6 +37,7 @@ elif selected == "Retention":
     st.sidebar.header("🛡️ Retention")
     import retention
     retention.run()
+
 
 
 
