@@ -70,3 +70,16 @@ def run():
         percent = count / len(df_encoded)
         st.write(f"{tier}: {count} customers")
         st.progress(percent)  
+
+
+    # Prompt user to upload a CSV file
+    uploaded_file = st.file_uploader("📂 Upload your CSV file", type=["csv"])
+    
+    # Load and display the data
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file)
+        st.success("CSV file loaded successfully!")
+        st.dataframe(df.head())  # Show first few rows
+    else:
+        st.info("Please upload a CSV file to proceed.")
+
