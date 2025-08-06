@@ -1,3 +1,14 @@
+import streamlit as st
+import numpy as np
+import pickle
+import pandas as pd
+import shap
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+from sklearn.preprocessing import LabelEncoder
+from streamlit_option_menu import option_menu
+import plotly.express as px
+
 def run():
     #get the prediction model
     with open("model_all.pkl", "rb") as f:
