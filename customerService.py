@@ -53,7 +53,7 @@ def run():
     #st.success(f"Predicted Churn: {'Yes' if prediction[0] == 1 else 'No'}")
     
     #add summary to the top of the page
-    st.subheader("Churn Prevention & Plan Recommendation App")
+    st.subheader("Churn Prevention & Plan Recommendation")
     st.write(" ")
     #st.subheader(f"Customer ID: {selected_customer_id}")
     selectedCustomer = f"Customer ID: {selected_customer_id}"
