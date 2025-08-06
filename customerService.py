@@ -20,7 +20,7 @@ def run():
     shap_values = explainer(X)
     
     # Load your dataset to extract customer ids
-    df = pd.read_csv("Customer-Churn-dataset.csv")
+    df = pd.read_csv(DATA_PATH)
     df_filtered = df[df['Churn'] == 'No']
     
     # Extract unique customer IDs
