@@ -22,28 +22,25 @@ def run():
       st.subheader("🔍 Descriptive Statistics")
       st.dataframe(df.describe())
 
-
-    
   # Confirm overwrite
-    if os.path.exists(DATA_PATH) and not st.session_state.overwrite_done:
-      st.warning("⚠️ A file already exists at the save location.")
+  if os.path.exists(DATA_PATH) and not st.session_state.overwrite_done:
+    st.warning("⚠️ A file already exists at the save location.")
+    if st.button("🔄 Commit Data Change"):
+      df.to_csv(DATA_PATH, index=False)
+      st.session_state.overwrite_done = True
+      st.success(f"File overwritten and saved to: {DATA_PATH}")
+      saveToGithub(df)
+      st.rerun()
+    elif not os.path.exists(DATA_PATH):
       if st.button("🔄 Commit Data Change"):
         df.to_csv(DATA_PATH, index=False)
         st.session_state.overwrite_done = True
-        st.success(f"File overwritten and saved to: {DATA_PATH}")
+        st.success(f"File saved to: {DATA_PATH}")
         saveToGithub(df)
         st.rerun()
-          
-      elif not os.path.exists(DATA_PATH):
-        if st.button("🔄 Commit Data Change"):
-          df.to_csv(DATA_PATH, index=False)
-          st.session_state.overwrite_done = True
-          st.success(f"File saved to: {DATA_PATH}")
-          saveToGithub(df)
-          st.rerun()
-        else:
-          if not st.session_state.overwrite_done:
-            st.info("Please upload a CSV file to proceed.")
+      else:
+        if not st.session_state.overwrite_done:
+          st.info("Please upload a CSV file to proceed.")
 
 def saveToGithub(df):
     from github import Github
