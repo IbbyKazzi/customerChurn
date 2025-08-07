@@ -12,9 +12,7 @@
     },
     "notes": "Baseline model with tuned depth and learning rate",
     "name": "model_3_v4.pkl"
-  }
-]
-[
+  },
   {
     "version": "v4.0",
     "date": "2025-08-06",
