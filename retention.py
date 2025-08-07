@@ -123,7 +123,7 @@ def saveToGithub(df):
     import io
         
     # GitHub credentials    
-    repo_name = "IbbyKazzi/customerChurn "
+    repo_name = "IbbyKazzi/customerChurn"
     file_path = "data/customer_churn_data.csv"
     commit_message = "Update churn data to Github"
 
