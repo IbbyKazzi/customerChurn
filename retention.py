@@ -130,12 +130,12 @@ def saveToGithub(df):
    
     # Authenticate
     token = st.secrets["GITHUB_TOKEN"]    
-    g = Github(token)
-    st.write(g)
-    repo = g.get_repo(repo_name)
-
+    g = Github(token) 
     user = g.get_user()
     st.write(user.login)
+    repo = g.get_repo(repo_name)
+
+    
         
     # Load updated DataFrame        
     csv_buffer = io.StringIO()
