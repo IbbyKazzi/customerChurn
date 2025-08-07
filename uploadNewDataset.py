@@ -1,3 +1,8 @@
+import streamlit as st
+import pandas as pd
+import os
+from settings import DATA_PATH
+
 # Upload a new dataset
 def run():
   uploaded_file = st.file_uploader("📂 Upload a new dataset", type=["csv"])
