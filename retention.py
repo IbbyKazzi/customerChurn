@@ -129,9 +129,9 @@ def saveToGithub(df):
 
    
     # Authenticate
-    token = st.secrets["GITHUB_TOKEN"]
-    st.write(token)
+    token = st.secrets["GITHUB_TOKEN"]    
     g = Github(token)
+    st.write(g)
     repo = g.get_repo(repo_name)
 
     user = g.get_user()
