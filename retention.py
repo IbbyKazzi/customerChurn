@@ -134,6 +134,7 @@ def saveToGithub(df):
     user = g.get_user()
     st.write(user.login)
     repo = g.get_repo(repo_name)
+    st.write(repo)
 
     
         
