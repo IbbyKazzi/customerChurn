@@ -53,8 +53,7 @@ def saveToGithub(df):
     repo_name = "IbbyKazzi/customerChurn"
     file_path = "data/customer_churn_data.csv"
     commit_message = "Update churn data to Github"
-
-   
+  
     # Authenticate
     token = st.secrets["GITHUB_TOKEN"]    
     g = Github(token)     
