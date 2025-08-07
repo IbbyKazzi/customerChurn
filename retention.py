@@ -145,12 +145,10 @@ def saveToGithub(df):
     df.to_csv(csv_buffer, index=False)
         
     # Get current file content
-    contents = repo.get_contents(file_path)
     repo.update_file(
-            path=file_path,
-            message=commit_message,
-            content=csv_buffer.getvalue(),
-            sha=contents.sha
+        path=file.path,
+        message=commit_message,
+        content=csv_buffer.getvalue(),
+        sha=file.sha
     )
-
     
