@@ -139,6 +139,10 @@ def saveToGithub(df):
     file = repo.get_contents(file_path)
     st.write(file)
 
+    files = repo.get_contents("data", ref="main")
+    for f in files:
+        st.write(f.path)
+
         
     # Load updated DataFrame        
     csv_buffer = io.StringIO()
