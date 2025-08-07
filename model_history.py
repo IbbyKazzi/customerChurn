@@ -1,8 +1,9 @@
 import streamlit as st
 import pandas as pd
 import json
+from settings import METADATA_PATH
 
-def show_model_history(path="model_metadata.json"):
+def show_model_history(path=METADATA_PATH):
     st.header("🧠 Model Metadata Dashboard")
 
     # Load metadata
