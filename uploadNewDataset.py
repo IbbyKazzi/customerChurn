@@ -19,7 +19,8 @@ def run(boolCheck):
       st.write(f"**Number of rows:** {df.shape[0]}")
       st.write(f"**Number of columns:** {df.shape[1]}")
       st.write(f"**Column names:** {list(df.columns)}")
-      st.write(f"**Missing values:** {df.isnull().sum().sum()}")
+      missing_total = df.isnull().sum().sum() + (df.applymap(lambda x: isinstance(x, str) and x.strip() == "").sum().sum())
+      st.write(f"**Missing or blank values:** {missing_total}")
       st.write(f"**Duplicate rows:** {df.duplicated().sum()}")
       st.subheader("🔍 Descriptive Statistics")
       st.dataframe(df.describe())
@@ -71,7 +72,7 @@ def saveToGithub(df):
         message=commit_message,
         content=csv_buffer.getvalue(),
         sha=file.sha,
-        branch="main"  # must match the ref above
+        branch="main" 
     )
     st.rerun()
   
