@@ -73,4 +73,5 @@ def saveToGithub(df):
         sha=file.sha,
         branch="main"  # must match the ref above
     )
-    run(True)
+    st.rerun()
+  
