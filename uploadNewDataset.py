@@ -73,3 +73,4 @@ def saveToGithub(df):
         sha=file.sha,
         branch="main"  # must match the ref above
     )
+  st.session_state["overwrite_done"] = True
