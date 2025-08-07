@@ -25,7 +25,7 @@ def run():
     
     #load the dataset    
     df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features 
-    df_encoded = df_encoded[df_encoded["Churn"].str.lower() == "no"].copy() # we only interested in those who didn't churn
+    df_encoded = df_encoded[df_encoded["Churn"] == 0].copy() # we only interested in those who didn't churn
     df_encoded = df_encoded.drop(['Churn'], axis=1) 
     
     #def align_features(df, model):
