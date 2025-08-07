@@ -4,7 +4,7 @@ import json
 from settings import METADATA_PATH
 
 def show_model_history(path=METADATA_PATH):
-    st.header("🧠 Model Metadata Dashboard")
+    #st.header("🧠 Model Metadata Dashboard")
 
     # Load metadata
     with open(path, "r") as f:
