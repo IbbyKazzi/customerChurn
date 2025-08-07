@@ -71,6 +71,6 @@ def run():
         count = risk_counts.get(tier, 0)
         percent = count / len(df_encoded)
         st.write(f"{tier}: {count} customers")
-        st.progress(percent)     
-    
+        st.progress(percent) 
+     
     uploadNewDataset.run()
