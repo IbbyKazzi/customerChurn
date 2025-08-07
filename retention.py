@@ -122,14 +122,14 @@ def saveToGithub(df):
     import pandas as pd
     import io
         
-    # GitHub credentials
-    token = "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"
+    # GitHub credentials    
     repo_name = "IbbyKazzi/customerChurn "
     file_path = "data/customer_churn_data.csv"
     commit_message = "Update churn data to Github"
 
    
     # Authenticate
+    token = st.secrets["GITHUB_TOKEN"]
     g = Github(token)
     repo = g.get_repo(repo_name)
 
