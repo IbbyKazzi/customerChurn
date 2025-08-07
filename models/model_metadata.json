@@ -1,0 +1,33 @@
+[
+  {
+    "version": "v4.0",
+    "date": "2025-08-06",
+    "accuracy": 0.81,
+    "roc_auc": 0.86,
+    "features": ["tenure", "MonthlyCharges", "Contract"],
+    "hyperparameters": {
+      "n_estimators": 1000,
+      "max_depth": 5,
+      "learning_rate": 0.1
+    },
+    "notes": "Baseline model with tuned depth and learning rate",
+    "name": "model_3_v4.pkl"
+  }
+]
+[
+  {
+    "version": "v4.0",
+    "date": "2025-08-06",
+    "accuracy": 0.82,
+    "roc_auc": 0.87,
+    "features": ["tenure", "MonthlyCharges", "Contract"],
+    "hyperparameters": {
+      "n_estimators": 1000,
+      "max_depth": 5,
+      "learning_rate": 0.1
+    },
+    "notes": "Baseline model with tuned depth and learning rate",
+    "name": "model_21_v4.pkl"
+  }
+]
+
