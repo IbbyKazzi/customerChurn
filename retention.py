@@ -43,8 +43,8 @@ def run():
     #Set the risk thresholds via streamlit slider for a dynamic input
     st.sidebar.header("Set Risk Thresholds")
     
-    high_threshold = st.sidebar.slider("High Risk Threshold", min_value=0.0, max_value=1.0, value=0.7, step=0.01)
-    medium_threshold = st.sidebar.slider("Medium Risk Threshold", min_value=0.0, max_value=high_threshold, value=0.4, step=0.01)
+    high_threshold = st.sidebar.slider("High Risk Threshold", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+    medium_threshold = st.sidebar.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.4, step=0.01)
     
     #set risk tires and generat tags
     def categorize_risk(prob):
