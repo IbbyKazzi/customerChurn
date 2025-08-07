@@ -4,7 +4,7 @@ from streamlit_option_menu import option_menu
 selected = option_menu(
         menu_title=None,
         options=["Home", "Analysis", "Service", "Retention", "Model History"],
-        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "🧠"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "clock-history"],
         orientation="horizontal"
 )
 
@@ -29,6 +29,7 @@ elif selected == "Model History":
     st.sidebar.header("🧠 Model History")
     from model_history import show_model_history
     show_model_history()
+
 
 
 
