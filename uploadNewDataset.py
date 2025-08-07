@@ -4,10 +4,12 @@ import os
 from settings import DATA_PATH
 
 # Upload a new dataset
-def run():
+def run(boolCheck):
   uploaded_file = st.file_uploader("📂 Upload a new dataset", type=["csv"])
   if "overwrite_done" not in st.session_state:
       st.session_state["overwrite_done"] = False
+  else:
+    st.session_state["overwrite_done"] = boolCheck
   if uploaded_file is not None:
       df = pd.read_csv(uploaded_file)
       st.success("CSV file loaded successfully!")
