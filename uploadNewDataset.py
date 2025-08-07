@@ -23,6 +23,7 @@ def run(boolCheck):
       st.write(f"**Duplicate rows:** {df.duplicated().sum()}")
       st.subheader("🔍 Descriptive Statistics")
       st.dataframe(df.describe())
+      st.session_state["overwrite_done"] = False
 
   # Confirm overwrite
   if os.path.exists(DATA_PATH) and not st.session_state.overwrite_done:
