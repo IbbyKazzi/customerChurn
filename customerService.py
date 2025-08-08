@@ -168,7 +168,7 @@ def run():
     customer = {
         "name": selected_customer_id,
         "churn_probability": churn_probability,
-        "top_feature": top_features,
+        "top_feature": top_features["feature"],
         "recommended_plan": recommended 
     }
 
