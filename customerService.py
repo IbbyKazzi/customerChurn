@@ -182,7 +182,7 @@ def run():
         response = generate_response(question, customer_data)
         st.markdown(f"💬 **ChurnMate:** {response}")
 
-    if customer_data["churn_probability"] > 0.7:
+    if customer["churn_probability"] > 0.7:
         st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
 
     if st.button("Generate Retention Strategy"):
