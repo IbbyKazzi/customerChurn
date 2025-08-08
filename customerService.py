@@ -168,7 +168,7 @@ def run():
     customer = {
         "name": selected_customer_id,
         "churn_probability": churn_probability,
-        "top_features": top_features,
+        "top_feature": top_features,
         "recommended_plan": recommended 
     }
 
@@ -197,7 +197,7 @@ def run():
 
     # Create the chat box container
 
-    with st.chat-container():
+    with st.container():
         st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
         #uploaded_file = st.file_uploader("Upload customer data")
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
@@ -227,7 +227,7 @@ def run():
 
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
-    top_factors = customer["top_features"]
+    top_factors = customer["top_feature"]
     plan = customer["recommended_plan"]
     
     return assistant_response(customer["name"], churn_prob, top_factors, plan)
@@ -238,7 +238,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         "moderate" if churn_prob > 0.25 else
         "low"
     )
-    factors = ", ".join(top_features[:2])
+    factors = ", ".join(top_factors[:2])
     
     return (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
@@ -249,7 +249,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
 
 def generate_response(question, data):
     if "why" in question.lower():
-        return f"This customer is likely to churn due to {', '.join(data['top_features'][:2])}."
+        return f"This customer is likely to churn due to {', '.join(data['top_feature'][:2])}."
     elif "recommend" in question.lower():
         return f"I suggest offering the {data['recommended_plan']} plan to reduce churn."
     else:
