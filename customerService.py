@@ -238,7 +238,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         "moderate" if churn_prob > 0.25 else
         "low"
     )
-    factors = ", ".join(top_factors[:2])
+    factors = ", ".join(top_features[:2])
     
     return (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
