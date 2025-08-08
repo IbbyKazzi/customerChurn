@@ -216,8 +216,7 @@ def run():
             strategy = generate_strategy(customer["churn_probability"])
             st.success(f"💡 ChurnMate Suggests: {strategy}")
 
-        ############Chat box########################
-        import streamlit as st
+        ############Chat box########################       
     
         # Inject custom CSS to style the floating chat box
         st.markdown("""
