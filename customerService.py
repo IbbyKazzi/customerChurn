@@ -216,70 +216,70 @@ def run():
             strategy = generate_strategy(customer["churn_probability"])
             st.success(f"💡 ChurnMate Suggests: {strategy}")
 
-    ############Chat box########################
-    import streamlit as st
-
-    # Inject custom CSS to style the floating chat box
-    st.markdown("""
-        <style>
-        .chatbox {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            max-height: 500px;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 15px;
-            overflow-y: auto;
-            z-index: 9999;
-        }
-        .chatbox-header {
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        </style>
-        <div class="chatbox">
-            <div class="chatbox-header">🤖 ChurnMate Assistant</div>
-        </div>
-    """, unsafe_allow_html=True)
+        ############Chat box########################
+        import streamlit as st
     
-    # Initialize chat history
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = []
-    
-    # Chat input
-    user_input = st.chat_input("Ask ChurnMate...")
-    
-    # Simulated assistant response
-    def assistant_response(customer_name, churn_prob, top_features, plan_suggestion):
-        risk_level = (
-            "high" if churn_prob > 0.5 else
-            "moderate" if churn_prob > 0.25 else
-            "low"
-        )
-        factors = ", ".join(top_features[:2])
+        # Inject custom CSS to style the floating chat box
+        st.markdown("""
+            <style>
+            .chatbox {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 350px;
+                max-height: 500px;
+                background-color: #f9f9f9;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                padding: 15px;
+                overflow-y: auto;
+                z-index: 9999;
+            }
+            .chatbox-header {
+                font-weight: bold;
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            </style>
+            <div class="chatbox">
+                <div class="chatbox-header">🤖 ChurnMate Assistant</div>
+            </div>
+        """, unsafe_allow_html=True)
         
-        return (
-            f"👋 Hi! Here's what I found for **{customer_name}**:\n\n"
-            f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n"
-            f"📌 **Top Factors**: {factors}\n"
-            f"💡 **Strategy**: Recommend the **{plan_suggestion}** plan to retain this customer."
-        )
+        # Initialize chat history
+        if "chat_history" not in st.session_state:
+            st.session_state.chat_history = []
+        
+        # Chat input
+        user_input = st.chat_input("Ask ChurnMate...")
+        
+        # Simulated assistant response
+        def assistant_response(customer_name, churn_prob, top_features, plan_suggestion):
+            risk_level = (
+                "high" if churn_prob > 0.5 else
+                "moderate" if churn_prob > 0.25 else
+                "low"
+            )
+            factors = ", ".join(top_features[:2])
+            
+            return (
+                f"👋 Hi! Here's what I found for **{customer_name}**:\n\n"
+                f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n"
+                f"📌 **Top Factors**: {factors}\n"
+                f"💡 **Strategy**: Recommend the **{plan_suggestion}** plan to retain this customer."
+            )
+        
+        # Handle user input
+        if user_input:
+            st.session_state.chat_history.append({"role": "user", "content": user_input})
+            response = assistant_response("Customer A", 0.63, ["high monthly charges", "short contract"], "Premium")
+            st.session_state.chat_history.append({"role": "assistant", "content": response})
+        
+        # Display chat messages
+        for msg in st.session_state.chat_history:
+            st.chat_message(msg["role"]).markdown(msg["content"])
     
-    # Handle user input
-    if user_input:
-        st.session_state.chat_history.append({"role": "user", "content": user_input})
-        response = assistant_response("Customer A", 0.63, ["high monthly charges", "short contract"], "Premium")
-        st.session_state.chat_history.append({"role": "assistant", "content": response})
-    
-    # Display chat messages
-    for msg in st.session_state.chat_history:
-        st.chat_message(msg["role"]).markdown(msg["content"])
-
-###################Chat box#############################
+    ###################Chat box#############################
 
 
 def summarize_customer(customer):
