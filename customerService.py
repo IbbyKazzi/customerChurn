@@ -203,7 +203,10 @@ def run():
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
         st.markdown("🧠 **ChurnMate:** Here's what I found:")
         st.markdown(summarize_customer(customer))
-    
+
+        ###top features
+        st.write(customer["top_feature"])
+        
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
             response = generate_response(question, customer)
