@@ -183,6 +183,21 @@ def summarize_customer(customer):
     
     return assistant_response(customer["name"], churn_prob, top_factors, plan)
 
+def assistant_response(customer_name, churn_prob, top_features, plan_suggestion):
+    risk_level = (
+        "high" if churn_prob > 0.5 else
+        "moderate" if churn_prob > 0.25 else
+        "low"
+    )
+    factors = ", ".join(top_features[:2])
+    
+    return (
+        f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
+        f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n"
+        f"📌 **Key Factors**: {factors}\n"
+        f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
+    )
+
 def generate_response(question, data):
     if "why" in question.lower():
         return f"This customer is likely to churn due to {', '.join(data['top_features'][:2])}."
