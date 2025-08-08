@@ -179,7 +179,7 @@ def run():
 
     question = st.text_input("Ask me anything about this customer or churn trends:")
     if question:
-        response = generate_response(question, customer_data)
+        response = generate_response(question, customer)
         st.markdown(f"💬 **ChurnMate:** {response}")
 
     if customer["churn_probability"] > 0.7:
