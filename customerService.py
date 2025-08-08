@@ -152,10 +152,23 @@ def run():
         st.sidebar.write(f"**{plan}**: {price}")
 
     #Assistant churnMate ########################################
+    # Compute mean absolute SHAP values for each feature
+    mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
+    
+    # Create a DataFrame for easy sorting
+    feature_importance = pd.DataFrame({
+        'feature': X.columns,
+        'importance': mean_abs_shap
+    }).sort_values(by='importance', ascending=False)
+    
+    # Display top N features
+    top_n = 5
+    top_features = feature_importance.head(top_n)
+
     customer = {
         "name": selected_customer_id,
         "churn_probability": churn_probability,
-        "top_features": shap_values[i],
+        "top_features": top_features,
         "recommended_plan": recommended 
     }
     st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
