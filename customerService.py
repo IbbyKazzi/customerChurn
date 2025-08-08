@@ -202,10 +202,7 @@ def run():
         #uploaded_file = st.file_uploader("Upload customer data")
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
         st.markdown("🧠 **ChurnMate:** Here's what I found:")
-        st.markdown(summarize_customer(customer))
-
-        ###top features
-        st.write(customer["top_feature"])
+        st.markdown(summarize_customer(customer))        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
@@ -241,12 +238,12 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         "moderate" if churn_prob > 0.25 else
         "low"
     )
-    factors = ", ".join(top_features[:2])
+    factors = ", ".join(top_features[:5])
     
     return (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
-        f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n"
-        f"📌 **Key Factors**: {factors}\n"
+        f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
+        f"📌 **Key Factors**: {factors}\n\n"
         f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
 
