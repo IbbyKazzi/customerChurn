@@ -229,7 +229,7 @@ def segment_summary(segment_data):
         f"🔍 Common churn drivers: {', '.join(common_factors)}."
     )
 
-def generate_strategy(churn_risk, top_features):
+def generate_strategy(churn_risk):
     if churn_risk > 0.5:
         return "Offer a long-term discount or loyalty plan"
     elif churn_risk > 0.25:
