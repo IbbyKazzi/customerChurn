@@ -9,12 +9,12 @@
        "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
        "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
        "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group"],
-    "number_of_features"=20,
+    "number_of_features": 20,
     "hyperparameters": {
       "C": 1,
       "penalty": "l1",
-      "solver"="liblinear", 
-      "max_iter"=2500
+      "solver": "liblinear", 
+      "max_iter": 2500
     },
     "notes": "Baseline model with tuned hyperparameters and 1 feature engineering",
     "name": "model_3_v3.pkl"
@@ -28,13 +28,13 @@
        "tenure", "PhoneService", "MultipleLines", "InternetService",
        "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
        "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
-       "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group"],
-    "number_of_features"=20,
+       "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group", "charge_ratio"],
+    "number_of_features": 21,
     "hyperparameters": {
       "C": 0.1,
       "penalty": "l1",
-      "solver"="liblinear", 
-      "max_iter"=2500
+      "solver": "liblinear", 
+      "max_iter": 2500
     },
     "notes": "Baseline model with tuned hyperparameters and 2 features engineering",
     "name": "model_3_v4.pkl"
