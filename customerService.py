@@ -135,7 +135,7 @@ def run():
     best_score = float("inf")    
     for plan, price in plan_prices.items():
         churn = churn_risk[plan]
-        price_diff = abs(price - current_charge)
+        price_diff = abs(price - monthly_charges)
         score = churn * 100 + price_diff  # weighted score
     
         if score < best_score:
