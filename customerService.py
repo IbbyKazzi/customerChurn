@@ -274,7 +274,7 @@ def run():
             st.session_state.chat_history = []
         
         # Receive messages from frontend
-        message = st.experimental_get_query_params().get("text", [None])[0]
+        message = st.st.query_params().get("text", [None])[0]
         if message:
             st.session_state.chat_history.append({"role": "user", "content": message})
             response = f"ChurnMate says: Based on your input, consider offering a loyalty discount."
