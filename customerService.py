@@ -171,23 +171,50 @@ def run():
         "top_features": top_features,
         "recommended_plan": recommended 
     }
-    st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
-    #uploaded_file = st.file_uploader("Upload customer data")
-    #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
-    st.markdown("🧠 **ChurnMate:** Here's what I found:")
-    st.markdown(summarize_customer(customer))
 
-    question = st.text_input("Ask me anything about this customer or churn trends:")
-    if question:
-        response = generate_response(question, customer)
-        st.markdown(f"💬 **ChurnMate:** {response}")
+    # Inject custom CSS to position the chat box
+    st.markdown("""
+        <style>
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 500px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 15px;
+            overflow-y: auto;
+            z-index: 9999;
+        }
+        .chat-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
-    if customer["churn_probability"] > 0.7:
-        st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
+    # Create the chat box container
 
-    if st.button("Generate Retention Strategy"):
-        strategy = generate_strategy(customer["churn_probability"])
-        st.success(f"💡 ChurnMate Suggests: {strategy}")
+    with st.container():
+        st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
+        #uploaded_file = st.file_uploader("Upload customer data")
+        #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
+        st.markdown("🧠 **ChurnMate:** Here's what I found:")
+        st.markdown(summarize_customer(customer))
+    
+        question = st.text_input("Ask me anything about this customer or churn trends:")
+        if question:
+            response = generate_response(question, customer)
+            st.markdown(f"💬 **ChurnMate:** {response}")
+    
+        if customer["churn_probability"] > 0.7:
+            st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
+    
+        if st.button("Generate Retention Strategy"):
+            strategy = generate_strategy(customer["churn_probability"])
+            st.success(f"💡 ChurnMate Suggests: {strategy}")
 
 
 def summarize_customer(customer):
