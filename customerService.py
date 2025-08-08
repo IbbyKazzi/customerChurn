@@ -128,7 +128,7 @@ def run():
     uploaded_file = st.file_uploader("Upload customer data")
     selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
     st.markdown("🧠 **ChurnMate:** Here's what I found:")
-    st.markdown(summarize_customer(customer_data))
+    st.markdown(summarize_customer(df.iloc[i]))
 
     question = st.text_input("Ask me anything about this customer or churn trends:")
     if question:
