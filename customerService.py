@@ -186,7 +186,7 @@ def run():
         st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
 
     if st.button("Generate Retention Strategy"):
-        strategy = generate_strategy(customer)
+        strategy = generate_strategy(customer["churn_probability"])
         st.success(f"💡 ChurnMate Suggests: {strategy}")
 
 
