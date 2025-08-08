@@ -189,6 +189,7 @@ def run():
         strategy = generate_strategy(customer)
         st.success(f"💡 ChurnMate Suggests: {strategy}")
 
+
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
     top_factors = customer["top_features"]
@@ -227,6 +228,15 @@ def segment_summary(segment_data):
         f"📊 In this segment, average churn risk is **{avg_churn:.1%}**.\n"
         f"🔍 Common churn drivers: {', '.join(common_factors)}."
     )
+
+def generate_strategy(churn_risk, top_features):
+    if churn_risk > 0.5:
+        return "Offer a long-term discount or loyalty plan"
+    elif churn_risk > 0.25:
+        return "Provide personalized support and flexible options"
+    else:
+        return "Maintain current engagement strategy"
+
 #Assistant churnMate ############################################################
 
 #get new prob of the overrided plan
