@@ -248,12 +248,50 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     )
 
 def generate_response(question, data):
-    if "why" in question.lower():
-        return f"This customer is likely to churn due to {', '.join(data['top_feature'][:2])}."
-    elif "recommend" in question.lower():
-        return f"I suggest offering the {data['recommended_plan']} plan to reduce churn."
+    question = question.lower()
+    churn_prob = data.get("churn_probability", 0.0)
+    top_features = data.get("top_feature", [])
+    plan = data.get("recommended_plan", "Premium")
+
+    if "why" in question:
+        reasons = ", ".join(top_features[:2])
+        return (
+            f"This customer is likely to churn due to {reasons}. "
+            f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
+        )
+
+    elif "recommend" in question or "suggest" in question:
+        return (
+            f"I recommend offering the **{plan}** plan. "
+            f"It typically reduces churn by offering better value and longer contract terms."
+        )
+
+    elif "risk" in question or "chance" in question:
+        return (
+            f"The churn risk for this customer is **{churn_prob:.1%}**. "
+            f"This is based on factors like {', '.join(top_features[:2])}."
+        )
+
+    elif "features" in question or "factors" in question:
+        return (
+            f"The top factors influencing churn are: {', '.join(top_features)}. "
+            f"These features have the highest SHAP impact on the prediction."
+        )
+
+    elif "plan" in question:
+        return (
+            f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
+            f"but switching to **{plan}** may reduce churn risk."
+        )
+
     else:
-        return "I'm still learning! Try asking about churn reasons or plan suggestions."
+        return (
+            "I'm here to help with churn insights! Try asking:\n"
+            "- Why is this customer likely to churn?\n"
+            "- What plan do you recommend?\n"
+            "- What is their churn risk?\n"
+            "- What features are driving churn?"
+        )
 
 def segment_summary(segment_data):
     avg_churn = segment_data["churn_probability"].mean()
