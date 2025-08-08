@@ -33,8 +33,7 @@ def run():
     selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids_df['customerID'])
     
     # Now get the original index from the df
-    i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]
-    
+    i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]   
     
     #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
     tenure = df.iloc[i]["tenure"]
@@ -74,8 +73,7 @@ def run():
     #st.pyplot(fig)
     #Below we can display the customers feature in a table form
     #st.write("Customer Features:")
-    #st.dataframe(X.iloc[i:i+1])
-    
+    #st.dataframe(X.iloc[i:i+1])   
     
     #Recommend Plan
     
@@ -124,6 +122,50 @@ def run():
     # Display each plan
     for plan, price in plan_prices.items():
         st.sidebar.write(f"**{plan}**: {price}")
+
+    #Assistant churnMate ########################################
+    st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
+    uploaded_file = st.file_uploader("Upload customer data")
+    selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
+    st.markdown("🧠 **ChurnMate:** Here's what I found:")
+    st.markdown(summarize_customer(customer_data))
+
+    question = st.text_input("Ask me anything about this customer or churn trends:")
+    if question:
+        response = generate_response(question, customer_data)
+        st.markdown(f"💬 **ChurnMate:** {response}")
+
+    if customer_data["churn_probability"] > 0.7:
+        st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
+
+    if st.button("Generate Retention Strategy"):
+        strategy = generate_strategy(customer_data)
+        st.success(f"💡 ChurnMate Suggests: {strategy}")
+
+def summarize_customer(customer):
+    churn_prob = customer["churn_probability"]
+    top_factors = customer["top_features"]
+    plan = customer["recommended_plan"]
+    
+    return assistant_response(customer["name"], churn_prob, top_factors, plan)
+
+def generate_response(question, data):
+    if "why" in question.lower():
+        return f"This customer is likely to churn due to {', '.join(data['top_features'][:2])}."
+    elif "recommend" in question.lower():
+        return f"I suggest offering the {data['recommended_plan']} plan to reduce churn."
+    else:
+        return "I'm still learning! Try asking about churn reasons or plan suggestions."
+
+def segment_summary(segment_data):
+    avg_churn = segment_data["churn_probability"].mean()
+    common_factors = segment_data["top_features"].explode().value_counts().head(2).index.tolist()
+    
+    return (
+        f"📊 In this segment, average churn risk is **{avg_churn:.1%}**.\n"
+        f"🔍 Common churn drivers: {', '.join(common_factors)}."
+    )
+#Assistant churnMate ############################################################
 
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract, model_t3):
