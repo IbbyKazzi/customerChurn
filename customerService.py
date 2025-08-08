@@ -154,7 +154,7 @@ def run():
     #Assistant churnMate ########################################
     customer = {
         "name": selected_customer_id,
-        "churn_probability": churn_percent,
+        "churn_probability": churn_probability,
         "top_features": shap_values[i],
         "recommended_plan": recommended 
     }
