@@ -4,13 +4,19 @@
     "date": "2025-08-05",
     "accuracy": 0.80,
     "roc_auc": 0.85,
-    "features": ["tenure", "MonthlyCharges", "Contract"],
+    "features": ["gender", "SeniorCitizen", "Partner", "Dependents",
+       "tenure", "PhoneService", "MultipleLines", "InternetService",
+       "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
+       "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
+       "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group"],
+    "number_of_features"=20,
     "hyperparameters": {
-      "n_estimators": 1000,
-      "max_depth": 5,
-      "learning_rate": 0.1
+      "C": 1,
+      "penalty": "l1",
+      "solver"="liblinear", 
+      "max_iter"=2500
     },
-    "notes": "Baseline model with tuned depth and learning rate",
+    "notes": "Baseline model with tuned hyperparameters and 1 feature engineering",
     "name": "model_3_v3.pkl"
   },
   {
@@ -18,13 +24,19 @@
     "date": "2025-08-06",
     "accuracy": 0.82,
     "roc_auc": 0.87,
-    "features": ["tenure", "MonthlyCharges", "Contract"],
+    "features": ["gender", "SeniorCitizen", "Partner", "Dependents",
+       "tenure", "PhoneService", "MultipleLines", "InternetService",
+       "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
+       "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
+       "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group"],
+    "number_of_features"=20,
     "hyperparameters": {
-      "n_estimators": 1000,
-      "max_depth": 5,
-      "learning_rate": 0.1
+      "C": 0.1,
+      "penalty": "l1",
+      "solver"="liblinear", 
+      "max_iter"=2500
     },
-    "notes": "Baseline model with tuned depth and learning rate",
+    "notes": "Baseline model with tuned hyperparameters and 2 features engineering",
     "name": "model_3_v4.pkl"
   }
 ]
