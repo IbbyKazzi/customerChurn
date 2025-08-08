@@ -197,7 +197,7 @@ def run():
 
     # Create the chat box container
 
-    with st.container():
+    with st.chat-container():
         st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
         #uploaded_file = st.file_uploader("Upload customer data")
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
@@ -220,69 +220,7 @@ def run():
     
        
 
-        # Custom CSS for floating chat box
-        st.markdown("""
-            <style>
-            .chatbox {
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                width: 350px;
-                max-height: 500px;
-                background-color: #ffffff;
-                border-radius: 10px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                padding: 15px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                z-index: 9999;
-            }
-            .chat-messages {
-                overflow-y: auto;
-                flex-grow: 1;
-                margin-bottom: 10px;
-            }
-            .chat-input input {
-                width: 100%;
-                padding: 8px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-            }
-            </style>
-            <div class="chatbox">
-                <div class="chat-messages" id="chat-messages">
-                    <!-- Messages will be injected here -->
-                </div>
-                <div class="chat-input">
-                    <input type="text" id="custom-chat-input" placeholder="Ask ChurnMate..." />
-                </div>
-            </div>
-            <script>
-            const input = document.getElementById("custom-chat-input");
-            input.addEventListener("keypress", function(e) {
-                if (e.key === "Enter") {
-                    window.parent.postMessage({type: "streamlit:sendMessage", text: input.value}, "*");
-                    input.value = "";
-                }
-            });
-            </script>
-        """, unsafe_allow_html=True)
-        
-        # Handle messages via session state
-        if "chat_history" not in st.session_state:
-            st.session_state.chat_history = []
-        
-        # Receive messages from frontend
-        message = st.query_params.get("text", [None])[0]
-        if message:
-            st.session_state.chat_history.append({"role": "user", "content": message})
-            response = f"ChurnMate says: Based on your input, consider offering a loyalty discount."
-            st.session_state.chat_history.append({"role": "assistant", "content": response})
-        
-        # Display messages in Streamlit (for debugging or logging)
-        for msg in st.session_state.chat_history:
-            st.write(f"**{msg['role'].capitalize()}**: {msg['content']}")
+       
     
     ###################Chat box#############################
 
