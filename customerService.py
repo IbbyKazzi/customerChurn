@@ -132,8 +132,7 @@ def run():
         "Enterprise": 0.05
     }
     recommended = None
-    best_score = float("inf")
-    
+    best_score = float("inf")    
     for plan, price in plan_prices.items():
         churn = churn_risk[plan]
         price_diff = abs(price - current_charge)
@@ -143,9 +142,7 @@ def run():
             best_score = score
             recommended = plan
     
-    print(f"✅ Recommended Plan: {recommended}")
-
-
+    st.write(f"✅ Recommended Plan: {recommended}")
     
     # Sidebar header
     st.sidebar.header("📦 Available Plans")
