@@ -115,6 +115,37 @@ def run():
         "Family": "$115",
         "Enterprise": "$145"
     }
+
+    ############Best plan recommandation################
+    plans = {
+        "Basic": 25,
+        "Standard": 55,
+        "Premium": 85,
+        "Family": 115,
+        "Enterprise": 145
+    }
+    churn_risk = {
+        "Basic": 0.25,
+        "Standard": 0.18,
+        "Premium": 0.12,
+        "Family": 0.08,
+        "Enterprise": 0.05
+    }
+    recommended = None
+    best_score = float("inf")
+    
+    for plan, price in plan_prices.items():
+        churn = churn_risk[plan]
+        price_diff = abs(price - current_charge)
+        score = churn * 100 + price_diff  # weighted score
+    
+        if score < best_score:
+            best_score = score
+            recommended = plan
+    
+    print(f"✅ Recommended Plan: {recommended}")
+
+
     
     # Sidebar header
     st.sidebar.header("📦 Available Plans")
@@ -124,11 +155,17 @@ def run():
         st.sidebar.write(f"**{plan}**: {price}")
 
     #Assistant churnMate ########################################
+    customer = {
+        "name": selected_customer_id,
+        "churn_probability": churn_percent,
+        "top_features": shap_values[i],
+        "recommended_plan": recommended 
+    }
     st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
-    uploaded_file = st.file_uploader("Upload customer data")
-    selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
+    #uploaded_file = st.file_uploader("Upload customer data")
+    #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
     st.markdown("🧠 **ChurnMate:** Here's what I found:")
-    st.markdown(summarize_customer(df.iloc[i]))
+    st.markdown(summarize_customer(customer)
 
     question = st.text_input("Ask me anything about this customer or churn trends:")
     if question:
