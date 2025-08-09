@@ -217,17 +217,25 @@ def generate_strategy(churn_risk):
           "Offer a long-term discount or loyalty plan"
         )
     elif churn_risk > 0.25:
-        return (
-          f"🧠 **ChurnMate:** "
-          "Provide personalized support and flexible options"
+        return (          
+          f"🧠**Provide personalized support and flexible options**\n\n"
+          f"\u00A0📌 Why? This customer shows signs of hesitation—possibly due to pricing concerns or unmet needs. "
+          f"Offering tailored assistance (e.g., live chat, dedicated rep) and adaptable plans (like pausing service, switching tiers, or bundling features) "
+          f"can reinforce trust and reduce churn risk. Highlight benefits that align with their usage patterns or preferences.\n\n"
+          f"\u00A0🔍 Optional Add-ons:
+          f"- Usage-based triggers: “Customer has contacted support 3× in the past month—indicates need for proactive outreach."
+          f"- Plan flexibility: “Offer downgrade or pause options to retain value without forcing cancellation."
+          f"- Personalization angle: “Reference past interactions or preferences to make support feel relevant and empathetic."
+
+
         )
     else:
         return (
           f"🧠 **ChurnMate:** "
           f"Maintain current engagement strategy\n\n"
           f"\u00A0📌 Why? This customer shows stable usage patterns and low churn risk. "
-          f"\u00A0Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
-          f"\u00A0No immediate changes are needed, but continue monitoring for shifts in behavior."
+          f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
+          f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
 def showRecommandation(contract_map, tenure):
   #Recommend Plan
