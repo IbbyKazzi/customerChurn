@@ -164,7 +164,7 @@ def generate_response(question, data, shap_values):
       if st.toggle("Show churn factor waterfall"):
           st.markdown("### Factors of Churn")
           fig, ax = plt.subplots()
-          shap.plots.waterfall(shap_values[i], show=False)
+          shap.plots.waterfall(shap_values, show=False)
           st.pyplot(fig)     
 
     elif "plan" in question:
