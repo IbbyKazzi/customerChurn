@@ -176,6 +176,7 @@ def generate_response(question, data, shap_values, contract_map, df):
       )
       st.markdown(response)            
       # Show waterfall plot if toggle is activated
+      i = customer["index"]
       st.write(df.iloc[i])
 
     elif "plan" in question:
