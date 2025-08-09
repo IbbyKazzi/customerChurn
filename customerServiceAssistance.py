@@ -100,7 +100,7 @@ def run(customer, shap_values, X, contract_map, df):
     
         if st.button("Generate Retention Strategy"):
             strategy = generate_strategy(customer["churn_probability"])
-            st.success(f"💡 ChurnMate Suggests: {strategy}\n\n")
+            st.success(f"💡 ChurnMate Suggests: {strategy}")
 
 
 
@@ -223,7 +223,7 @@ def generate_strategy(churn_risk):
         )
     else:
         return (
-          f"🧠 **ChurnMate:** "
+          f"\n🧠 **ChurnMate:** "
           f"Maintain current engagement strategy\n"
           f"📌 Why? This customer shows stable usage patterns and low churn risk. "
           f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
