@@ -131,7 +131,8 @@ def generate_response(question, data, shap_values, contract_map, df):
     churn_prob = data.get("churn_probability", 0.0)
     top_features = data.get("top_features", [])
     plan = data.get("recommended_plan", "Premium")
-
+    monthlyCharges = data["monthlyCharges"]
+  
     if "why" in question:
         reasons = ", ".join(top_features[:2])
         return (            
@@ -184,6 +185,11 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
             f"but switching to **{plan}** may reduce churn risk."
         )
+    elif "price" in question or "paying" in question or "charges" in question:
+       return (           
+           f"The current monthly charges are **{monthlyCharges}**, "
+           f"but switching to **{plan}** may reduce churn risk."
+       )
 
     else:
         return (            
