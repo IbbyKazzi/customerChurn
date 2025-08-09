@@ -3,6 +3,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
+from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 def run(customer, shap_values, X,i):
   ############Chat box assistance Plan recommandation################
