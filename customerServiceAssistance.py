@@ -7,7 +7,7 @@ import pickle
 import shap
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
-def run(customer, shap_values, X):
+def run(customer, shap_values, X, contract_map):
   ############Chat box assistance Plan recommandation################
     plans = {
         "Basic": 25,
@@ -91,7 +91,7 @@ def run(customer, shap_values, X):
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
-          response = generate_response(question, customer, shap_values)
+          response = generate_response(question, customer, shap_values, contract_map)
           if response and response != "None":
             st.markdown(f"🧠 **ChurnMate:** {response}")
     
@@ -101,6 +101,8 @@ def run(customer, shap_values, X):
         if st.button("Generate Retention Strategy"):
             strategy = generate_strategy(customer["churn_probability"])
             st.success(f"💡 ChurnMate Suggests: {strategy}")
+
+
 
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
@@ -124,7 +126,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
 
-def generate_response(question, data, shap_values):
+def generate_response(question, data, shap_values, contract_map):
     question = question.lower()
     churn_prob = data.get("churn_probability", 0.0)
     top_features = data.get("top_features", [])
@@ -145,7 +147,7 @@ def generate_response(question, data, shap_values):
             f"You can try the below plans and contracts combination to determine churn risk for this customer."
         )
         st.write(response)
-        showRecommandation()
+        showRecommandation(contract_map)
 
     elif "risk" in question or "chance" in question:
         return (            
@@ -207,7 +209,7 @@ def generate_strategy(churn_risk):
           f"🧠 **ChurnMate:** "
           "Maintain current engagement strategy"
         )
-def showRecommandation():
+def showRecommandation(contract_map):
   #Recommend Plan
     
     #st.markdown("### 🛠️ Recommended Retention Actions")
