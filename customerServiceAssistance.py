@@ -159,7 +159,7 @@ def generate_response(question, data):
           fig, ax = plt.subplots()
           shap.plots.waterfall(shap_values[i], show=False)
           st.pyplot(fig)
-      return = (
+      return  (
           f"🧠 **ChurnMate:** "
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
