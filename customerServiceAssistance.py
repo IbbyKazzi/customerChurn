@@ -115,8 +115,8 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     factors = ", ".join(top_features[:5])
     
     return (
-        f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
-        f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
+        f"    👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
+        f"    🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
         #f"📌 **Key Factors**: {factors}\n\n"
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
@@ -130,18 +130,21 @@ def generate_response(question, data):
     if "why" in question:
         reasons = ", ".join(top_features[:2])
         return (
+            f"🧠 **ChurnMate:** "
             f"This customer is likely to churn due to {reasons}. "
             f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
         )
 
     elif "recommend" in question or "suggest" in question:
         return (
+            f"🧠 **ChurnMate:** "
             f"I recommend offering the **{plan}** plan. "
             f"It typically reduces churn by offering better value and longer contract terms."
         )
 
     elif "risk" in question or "chance" in question:
         return (
+            f"🧠 **ChurnMate:** "
             f"The churn risk for this customer is **{churn_prob:.1%}**. "
             f"This is based on factors like {', '.join(top_features[:2])}."
         )
@@ -166,12 +169,14 @@ def generate_response(question, data):
 
     elif "plan" in question:
         return (
+            f"🧠 **ChurnMate:** "
             f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
             f"but switching to **{plan}** may reduce churn risk."
         )
 
     else:
         return (
+            f"🧠 **ChurnMate:** "
             "I'm here to help with churn insights! Try asking:\n"
             "- Why is this customer likely to churn?\n"
             "- What plan do you recommend?\n"
@@ -190,11 +195,20 @@ def segment_summary(segment_data):
 
 def generate_strategy(churn_risk):
     if churn_risk > 0.5:
-        return "Offer a long-term discount or loyalty plan"
+        return (
+          f"🧠 **ChurnMate:** "
+          "Offer a long-term discount or loyalty plan"
+        )
     elif churn_risk > 0.25:
-        return "Provide personalized support and flexible options"
+        return (
+          f"🧠 **ChurnMate:** "
+          "Provide personalized support and flexible options"
+        )
     else:
-        return "Maintain current engagement strategy"
+        return (
+          f"🧠 **ChurnMate:** "
+          "Maintain current engagement strategy"
+        )
 
 
 
