@@ -67,7 +67,7 @@ def run():
         "tenure": tenure
     }
     import customerServiceAssistance
-    customerServiceAssistance.run(customer, shap_values[i], X, contract_map)
+    customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
     
     
 
