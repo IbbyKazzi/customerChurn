@@ -229,9 +229,8 @@ def generate_strategy(churn_risk):
         )
     else:
         return (
-          f"🧠 **ChurnMate:** "
-          f"Maintain current engagement strategy\n\n"
-          f"\u00A0📌 Why? This customer shows stable usage patterns and low churn risk. "
+          f"🧠 **Maintain current engagement strategy**\n\n"          
+          f"\u00A0📌 **Why?**\n\n This customer shows stable usage patterns and low churn risk. "
           f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
