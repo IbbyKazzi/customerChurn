@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-def run(customer, shap_values):
+def run(customer, shap_values, X):
   ############Chat box assistance Plan recommandation################
     plans = {
         "Basic": 25,
