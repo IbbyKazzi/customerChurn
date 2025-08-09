@@ -130,7 +130,8 @@ def generate_response(question, data, shap_values, contract_map, df):
     question = question.lower()
     churn_prob = data.get("churn_probability", 0.0)
     top_features = data.get("top_features", [])
-    plan = data.get("recommended_plan", "Premium")
+    #plan = data.get("recommended_plan", "Premium")
+    plan = data["recommended_plan"]
     monthlyCharges = data["monthlyCharges"]
   
     if "why" in question:
