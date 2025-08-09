@@ -34,8 +34,7 @@ def run(customer, shap_values, X,i):
     #st.write(f"✅ Recommended Plan: {recommended}")
     
     # Sidebar header
-    st.sidebar.header("📦 Available Plans")
-    
+    st.sidebar.header("📦 Available Plans")   
     
 
     #Assistant churnMate ########################################
@@ -136,11 +135,14 @@ def generate_response(question, data):
         )
 
     elif "recommend" in question or "suggest" in question:
-        return (
+        response =  (
             f"🧠 **ChurnMate:** "
             f"I recommend offering the **{plan}** plan. "
-            f"It typically reduces churn by offering better value and longer contract terms."
+            f"It typically reduces churn by offering better value and longer contract terms.\n"
+            f"You can try the below plans and contracts combination to determine churn risk for this customer."
         )
+      st.write(response)
+      showRecommandation()
 
     elif "risk" in question or "chance" in question:
         return (            
@@ -202,6 +204,36 @@ def generate_strategy(churn_risk):
           f"🧠 **ChurnMate:** "
           "Maintain current engagement strategy"
         )
+def showRecommandation():
+  #Recommend Plan
+    
+    #st.markdown("### 🛠️ Recommended Retention Actions")
+    #st.info(recommend_action(churn_probability))
+    
+    # dropdown to allow manual override
+    available_plans = ["Basic", "Premium", "Family", "Enterprise"]
+    override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
+    # get the new prob of this customer for the selected plan
+    #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
+    
+    # add radio widget
+    selected_contract = st.radio(
+        "📝 Select Contract",
+        ["Month-to-month", "One year", "Two year"],
+        horizontal=True
+    )
 
+    customer_contract = contract_map[selected_contract]
+    new_prob = get_newProb(override, tenure, customer_contract, model_t3)    
+    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")   
+    
+    #customer info display
+    with st.expander("Customer History", expanded=False):
+        st.write(df.iloc[i])    
+    #check recommandation outcome
+    st.markdown("#### Recommendation Outcome")
+    st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
+    st.text_area("Agent Notes")
+    st.button("Submit Feedback")
 
 
