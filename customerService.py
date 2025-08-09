@@ -58,6 +58,10 @@ def run():
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
     styled_metric("Churn Risk", churn_percent, selectedCustomer )
+
+    #get insight from the ChurnMate assistant
+    import customerServiceAssistance
+    
     
     #factors of churn
     # Create a waterfall plot for that customer
@@ -65,8 +69,8 @@ def run():
     if st.toggle("Show churn factor waterfall"):
         st.markdown("### Factors of Churn")
         fig, ax = plt.subplots()
-        shap.plots.waterfall(shap_values[i], show=False)
-        st.pyplot(fig)
+        #shap.plots.waterfall(shap_values[i], show=False)
+        #st.pyplot(fig)
 
     #fig, ax = plt.subplots()
     #shap.plots.waterfall(shap_values[i], show=False)
@@ -116,8 +120,9 @@ def run():
         "Enterprise": "$145"
     }
 
-    
-    
+    # Display each plan
+    for plan, price in plan_prices.items():
+        st.sidebar.write(f"**{plan}**: {price}") 
        
 
        
