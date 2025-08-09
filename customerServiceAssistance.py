@@ -51,8 +51,8 @@ def run(customer, shap_values, X):
     top_n = 5
     top_features = feature_importance.head(top_n)
     customer["recommended_plan"] = recommended   
-    customer["top_features"] = top_features
-    st.write(top_features)
+    customer["top_features"] = top_features.feature
+    #st.write(top_features)
 
     # Inject custom CSS to position the chat box
     st.markdown("""
