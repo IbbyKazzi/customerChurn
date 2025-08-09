@@ -236,4 +236,21 @@ def showRecommandation():
     st.text_area("Agent Notes")
     st.button("Submit Feedback")
 
+#get new prob of the overrided plan
+def get_newProb(val, tenure, contract, model_t3):
+    with open(MODEL_PATH_T3, "rb") as f:
+        model = pickle.load(f)    
+    monthly_charges = [25, 55, 85, 115, 145]    
+    plan_labels = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
+    plan_charge_df = pd.DataFrame({
+    "Plan": plan_labels,
+    "Monthly Charge": monthly_charges
+    })
+    selected_charge = plan_charge_df.loc[plan_charge_df["Plan"] == val, "Monthly Charge"].values[0]   
+
+    input_data = np.array([[tenure, selected_charge, contract]])
+    prediction = model.predict_proba(input_data)
+    new_churn_probability = prediction[0][1]
+    return new_churn_probability
+
 
