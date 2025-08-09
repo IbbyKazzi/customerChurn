@@ -219,13 +219,13 @@ def generate_strategy(churn_risk):
     elif churn_risk > 0.25:
         return (          
           f"🧠**Provide personalized support and flexible options**\n\n"
-          f"\u00A0📌 **Why?**\n This customer shows signs of hesitation—possibly due to pricing concerns or unmet needs. "
+          f"\u00A0📌 **Why?**\n\n This customer shows signs of hesitation—possibly due to pricing concerns or unmet needs. "
           f"Offering tailored assistance (e.g., live chat, dedicated rep) and adaptable plans (like pausing service, switching tiers, or bundling features) "
           f"can reinforce trust and reduce churn risk. Highlight benefits that align with their usage patterns or preferences.\n\n"
           f"\u00A0🔍 Optional Add-ons:\n\n"
-          f"**.** Usage-based triggers: “Customer has contacted support 3× in the past month—indicates need for proactive outreach.\n"
-          f"**.** Plan flexibility: “Offer downgrade or pause options to retain value without forcing cancellation.\n"
-          f"**.** Personalization angle: “Reference past interactions or preferences to make support feel relevant and empathetic."
+          f"\u00A0\u00A0**.** Usage-based triggers: “Customer has contacted support 3× in the past month—indicates need for proactive outreach.\n\n"
+          f"\u00A0\u00A0**.** Plan flexibility: “Offer downgrade or pause options to retain value without forcing cancellation.\n\n"
+          f"\u00A0\u00A0**.** Personalization angle: “Reference past interactions or preferences to make support feel relevant and empathetic."
         )
     else:
         return (
