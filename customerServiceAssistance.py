@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-def run():
+def run(customer):
   ############Chat box assistance Plan recommandation################
     plans = {
         "Basic": 25,
@@ -23,7 +23,7 @@ def run():
     best_score = float("inf")    
     for plan, price in plans.items():
         churn = churn_risk[plan]
-        price_diff = abs(price - monthly_charges)
+        price_diff = abs(price - customer["monthlyCharges"])
         score = churn * 100 + price_diff  # weighted score
     
         if score < best_score:
@@ -50,13 +50,7 @@ def run():
     # Display top N features
     top_n = 5
     top_features = feature_importance.head(top_n)
-
-    customer = {
-        "name": selected_customer_id,
-        "churn_probability": churn_probability,
-        "top_feature": top_features["feature"],
-        "recommended_plan": recommended 
-    }
+    customer["recommended_plan"] = recommended   
 
     # Inject custom CSS to position the chat box
     st.markdown("""
