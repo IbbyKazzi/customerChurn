@@ -145,19 +145,22 @@ def generate_response(question, data):
             f"This is based on factors like {', '.join(top_features[:2])}."
         )
 
-    elif "features" in question or "factors" in question:
-        return (
-            f"The top factors influencing churn are: {', '.join(top_features)}. "
-            f"These features have the highest SHAP impact on the prediction click on the toggle below to view more details."
-            #factors of churn
-            # Create a waterfall plot for that customer
-            st.markdown("<div style='margin-top: 20px'></div>", unsafe_allow_html=True)
-            if st.toggle("Show churn factor waterfall"):
-                st.markdown("### Factors of Churn")
-                fig, ax = plt.subplots()
-                shap.plots.waterfall(shap_values[i], show=False)
-                st.pyplot(fig)
-        )
+    elif "features" in question or "factors" in question:      
+      response = (
+          f"The top factors influencing churn are: {', '.join(top_features)}. "
+          f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
+      )
+      st.markdown(response)
+      
+      # Add spacing
+      st.markdown("<div style='margin-top: 20px'></div>", unsafe_allow_html=True)
+      
+      # Show waterfall plot if toggle is activated
+      if st.toggle("Show churn factor waterfall"):
+          st.markdown("### Factors of Churn")
+          fig, ax = plt.subplots()
+          shap.plots.waterfall(shap_values[i], show=False)
+          st.pyplot(fig)
 
     elif "plan" in question:
         return (
