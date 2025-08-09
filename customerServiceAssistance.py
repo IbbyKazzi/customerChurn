@@ -51,6 +51,7 @@ def run(customer):
     top_n = 5
     top_features = feature_importance.head(top_n)
     customer["recommended_plan"] = recommended   
+    customer["top_features"] = top_features 
 
     # Inject custom CSS to position the chat box
     st.markdown("""
