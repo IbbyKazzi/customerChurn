@@ -7,7 +7,7 @@ import pickle
 import shap
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
-def run(customer, shap_values, X, contract_map):
+def run(customer, shap_values, X, contract_map, df):
   ############Chat box assistance Plan recommandation################
     plans = {
         "Basic": 25,
@@ -91,7 +91,7 @@ def run(customer, shap_values, X, contract_map):
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
-          response = generate_response(question, customer, shap_values, contract_map)
+          response = generate_response(question, customer, shap_values, contract_map, df)
           if response and response != "None":
             st.markdown(f"🧠 **ChurnMate:** {response}")
     
@@ -126,7 +126,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
 
-def generate_response(question, data, shap_values, contract_map):
+def generate_response(question, data, shap_values, contract_map, df):
     question = question.lower()
     churn_prob = data.get("churn_probability", 0.0)
     top_features = data.get("top_features", [])
@@ -167,7 +167,16 @@ def generate_response(question, data, shap_values, contract_map):
           st.markdown("### Factors of Churn")
           fig, ax = plt.subplots()
           shap.plots.waterfall(shap_values, show=False)
-          st.pyplot(fig)     
+          st.pyplot(fig)   
+
+  elif "details" in question or "show customer details" in question:        
+      response =   (
+          f"🧠 **ChurnMate:** "
+          f"Below a full list of the customer details."         
+      )
+      st.markdown(response)            
+      # Show waterfall plot if toggle is activated
+      st.write(df.iloc[i])
 
     elif "plan" in question:
         return (           
@@ -230,11 +239,8 @@ def showRecommandation(contract_map, tenure):
 
     customer_contract = contract_map[selected_contract]
     new_prob = get_newProb(override, tenure, customer_contract)    
-    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")   
-    
-    #customer info display
-    with st.expander("Customer History", expanded=False):
-        st.write(df.iloc[i])    
+    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")     
+     
     #check recommandation outcome
     st.markdown("#### Recommendation Outcome")
     st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
