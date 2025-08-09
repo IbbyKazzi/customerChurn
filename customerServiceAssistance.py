@@ -90,7 +90,7 @@ def run(customer, shap_values, X,i):
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
             response = generate_response(question, customer)
-            st.markdown(f"💬 **ChurnMate:** {response}")
+            st.markdown(f"🧠 **ChurnMate:** {response}")
     
         if customer["churn_probability"] > 0.5:
             st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
@@ -129,8 +129,7 @@ def generate_response(question, data):
 
     if "why" in question:
         reasons = ", ".join(top_features[:2])
-        return (
-            f"🧠 **ChurnMate:** "
+        return (            
             f"This customer is likely to churn due to {reasons}. "
             f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
         )
@@ -143,13 +142,19 @@ def generate_response(question, data):
         )
 
     elif "risk" in question or "chance" in question:
-        return (
-            f"🧠 **ChurnMate:** "
+        return (            
             f"The churn risk for this customer is **{churn_prob:.1%}**. "
             f"This is based on factors like {', '.join(top_features[:2])}."
         )
 
     elif "features" in question or "factors" in question:  
+      
+      response =   (
+          f"🧠 **ChurnMate:** "
+          f"The top factors influencing churn are: {', '.join(top_features)}. "
+          f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
+      )
+      st.markdown(response)
       # Add spacing
       st.markdown("<div style='margin-top: 20px'></div>", unsafe_allow_html=True)
       
@@ -159,25 +164,16 @@ def generate_response(question, data):
           fig, ax = plt.subplots()
           shap.plots.waterfall(shap_values[i], show=False)
           st.pyplot(fig)
-      return  (
-          f"🧠 **ChurnMate:** "
-          f"The top factors influencing churn are: {', '.join(top_features)}. "
-          f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
-      )
-      #st.markdown(response)
-      
       
 
     elif "plan" in question:
-        return (
-            f"🧠 **ChurnMate:** "
+        return (           
             f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
             f"but switching to **{plan}** may reduce churn risk."
         )
 
     else:
-        return (
-            f"🧠 **ChurnMate:** "
+        return (            
             "I'm here to help with churn insights! Try asking:\n"
             "- Why is this customer likely to churn?\n"
             "- What plan do you recommend?\n"
