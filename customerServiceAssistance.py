@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 def run(customer, shap_values, X,i):
   ############Chat box assistance Plan recommandation################
