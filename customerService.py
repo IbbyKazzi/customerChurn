@@ -66,7 +66,7 @@ def run():
         "monthlyCharges": monthly_charges
     }
     import customerServiceAssistance
-    customerServiceAssistance.run(customer, shap_values, X, i)
+    customerServiceAssistance.run(customer, shap_values[i], X)
     
     
 
