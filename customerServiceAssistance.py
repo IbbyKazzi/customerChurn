@@ -188,7 +188,7 @@ def generate_response(question, data, shap_values, contract_map, df):
         )
     elif "price" in question or "paying" in question or "charges" in question:      
        return (           
-           f"The current monthly charges are **{monthlyCharges}**, "
+           f"The current monthly charges are **${monthlyCharges}**, "
            f"but switching to **{plan}** may reduce churn risk."
        )
 
