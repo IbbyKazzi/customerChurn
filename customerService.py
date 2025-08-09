@@ -60,8 +60,15 @@ def run():
     styled_metric("Churn Risk", churn_percent, selectedCustomer )
 
     #get insight from the ChurnMate assistant
+    customer = {
+        "name": selected_customer_id,
+        "churn_probability": churn_probability,
+        "top_feature": top_features["feature"],
+        "recommended_plan": recommended,
+        "monthlyCharges": monthly_charges
+    }
     import customerServiceAssistance
-    customerServiceAssistance.run()
+    customerServiceAssistance.run(customer)
     
     #factors of churn
     # Create a waterfall plot for that customer
