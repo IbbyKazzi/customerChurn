@@ -81,8 +81,8 @@ def run():
     
     #Recommend Plan
     
-    st.markdown("### 🛠️ Recommended Retention Actions")
-    st.info(recommend_action(churn_probability))
+    #st.markdown("### 🛠️ Recommended Retention Actions")
+    #st.info(recommend_action(churn_probability))
     
     # dropdown to allow manual override
     available_plans = ["Basic", "Premium", "Family", "Enterprise"]
@@ -123,9 +123,7 @@ def run():
     # Display each plan
     for plan, price in plan_prices.items():
         st.sidebar.write(f"**{plan}**: {price}") 
-       
-
-       
+      
     
     ###################Chat box#############################
 
