@@ -148,6 +148,7 @@ def generate_response(question, data):
 
     elif "features" in question or "factors" in question:      
       response = (
+          st.markdown("🧠 **ChurnMate:** ")
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
       )
