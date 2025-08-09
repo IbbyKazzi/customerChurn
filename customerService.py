@@ -66,7 +66,7 @@ def run():
         "monthlyCharges": monthly_charges
     }
     import customerServiceAssistance
-    customerServiceAssistance.run(customer, shap_values)
+    customerServiceAssistance.run(customer, shap_values, X)
     
     #factors of churn
     # Create a waterfall plot for that customer
