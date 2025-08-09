@@ -30,7 +30,7 @@ def run(customer, shap_values, X):
             best_score = score
             recommended = plan
     
-    st.write(f"✅ Recommended Plan: {recommended}")
+    #st.write(f"✅ Recommended Plan: {recommended}")
     
     # Sidebar header
     st.sidebar.header("📦 Available Plans")
