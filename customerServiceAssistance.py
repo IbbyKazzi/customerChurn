@@ -123,7 +123,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
 def generate_response(question, data):
     question = question.lower()
     churn_prob = data.get("churn_probability", 0.0)
-    top_features = data.get("top_feature", [])
+    top_features = data.get("top_features", [])
     plan = data.get("recommended_plan", "Premium")
 
     if "why" in question:
