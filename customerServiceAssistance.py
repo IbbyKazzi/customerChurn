@@ -100,7 +100,7 @@ def run(customer, shap_values, X, contract_map, df):
     
         if st.button("Generate Retention Strategy"):
             strategy = generate_strategy(customer["churn_probability"])
-            st.success(f"💡 ChurnMate Suggests:\n{strategy}")
+            st.success(f"💡 ChurnMate Suggests:\n\n{strategy}")
 
 
 
