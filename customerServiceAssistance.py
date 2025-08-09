@@ -143,8 +143,8 @@ def generate_response(question, data):
             f"It typically reduces churn by offering better value and longer contract terms.\n"
             f"You can try the below plans and contracts combination to determine churn risk for this customer."
         )
-      st.write(response)
-      showRecommandation()
+        st.write(response)
+        showRecommandation()
 
     elif "risk" in question or "chance" in question:
         return (            
