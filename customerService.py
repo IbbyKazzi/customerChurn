@@ -64,7 +64,8 @@ def run():
         "name": selected_customer_id,
         "churn_probability": churn_probability,
         "monthlyCharges": monthly_charges,
-        "tenure": tenure
+        "tenure": tenure,
+        "customerIndex": i
     }
     import customerServiceAssistance
     customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
