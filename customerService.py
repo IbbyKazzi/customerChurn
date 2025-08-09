@@ -61,7 +61,7 @@ def run():
 
     #get insight from the ChurnMate assistant
     import customerServiceAssistance
-    
+    customerServiceAssistance.run()
     
     #factors of churn
     # Create a waterfall plot for that customer
