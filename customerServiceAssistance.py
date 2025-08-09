@@ -100,7 +100,7 @@ def run(customer, shap_values, X):
 
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
-    top_factors = customer["top_feature"]
+    top_factors = customer["top_features"]
     plan = customer["recommended_plan"]
     
     return assistant_response(customer["name"], churn_prob, top_factors, plan)
