@@ -92,7 +92,7 @@ def run(customer, shap_values, X,i):
             response = generate_response(question, customer)
             st.markdown(f"💬 **ChurnMate:** {response}")
     
-        if customer["churn_probability"] > 0.7:
+        if customer["churn_probability"] > 0.5:
             st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
     
         if st.button("Generate Retention Strategy"):
@@ -149,14 +149,7 @@ def generate_response(question, data):
             f"This is based on factors like {', '.join(top_features[:2])}."
         )
 
-    elif "features" in question or "factors" in question:      
-      response = (
-          f"🧠 **ChurnMate:** "
-          f"The top factors influencing churn are: {', '.join(top_features)}. "
-          f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
-      )
-      st.markdown(response)
-      
+    elif "features" in question or "factors" in question:  
       # Add spacing
       st.markdown("<div style='margin-top: 20px'></div>", unsafe_allow_html=True)
       
@@ -166,6 +159,14 @@ def generate_response(question, data):
           fig, ax = plt.subplots()
           shap.plots.waterfall(shap_values[i], show=False)
           st.pyplot(fig)
+      return = (
+          f"🧠 **ChurnMate:** "
+          f"The top factors influencing churn are: {', '.join(top_features)}. "
+          f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
+      )
+      #st.markdown(response)
+      
+      
 
     elif "plan" in question:
         return (
