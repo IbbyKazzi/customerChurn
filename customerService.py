@@ -63,7 +63,8 @@ def run():
     customer = {
         "name": selected_customer_id,
         "churn_probability": churn_probability,
-        "monthlyCharges": monthly_charges
+        "monthlyCharges": monthly_charges,
+        "tenure": tenure
     }
     import customerServiceAssistance
     customerServiceAssistance.run(customer, shap_values[i], X, contract_map)
