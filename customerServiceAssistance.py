@@ -91,7 +91,7 @@ def run(customer, shap_values, X,i):
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
-          response = generate_response(question, customer)
+          response = generate_response(question, customer, shap_values)
           if response and response != "None":
             st.markdown(f"🧠 **ChurnMate:** {response}")
     
@@ -124,7 +124,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
 
-def generate_response(question, data):
+def generate_response(question, data, shap_values):
     question = question.lower()
     churn_prob = data.get("churn_probability", 0.0)
     top_features = data.get("top_features", [])
