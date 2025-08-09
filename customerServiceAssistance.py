@@ -147,7 +147,7 @@ def generate_response(question, data, shap_values, contract_map):
             f"You can try the below plans and contracts combination to determine churn risk for this customer."
         )
         st.write(response)
-        showRecommandation(contract_map)
+        showRecommandation(contract_map, data["tenure"])
 
     elif "risk" in question or "chance" in question:
         return (            
@@ -209,14 +209,14 @@ def generate_strategy(churn_risk):
           f"🧠 **ChurnMate:** "
           "Maintain current engagement strategy"
         )
-def showRecommandation(contract_map):
+def showRecommandation(contract_map, tenure):
   #Recommend Plan
     
     #st.markdown("### 🛠️ Recommended Retention Actions")
     #st.info(recommend_action(churn_probability))
     
     # dropdown to allow manual override
-    available_plans = ["Basic", "Premium", "Family", "Enterprise"]
+    available_plans = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
     override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
     # get the new prob of this customer for the selected plan
     #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
@@ -229,7 +229,7 @@ def showRecommandation(contract_map):
     )
 
     customer_contract = contract_map[selected_contract]
-    new_prob = get_newProb(override, tenure, customer_contract, model_t3)    
+    new_prob = get_newProb(override, tenure, customer_contract)    
     st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")   
     
     #customer info display
@@ -242,7 +242,7 @@ def showRecommandation(contract_map):
     st.button("Submit Feedback")
 
 #get new prob of the overrided plan
-def get_newProb(val, tenure, contract, model_t3):
+def get_newProb(val, tenure, contract):
     with open(MODEL_PATH_T3, "rb") as f:
         model = pickle.load(f)    
     monthly_charges = [25, 55, 85, 115, 145]    
