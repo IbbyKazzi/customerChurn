@@ -89,7 +89,8 @@ def run(customer, shap_values, X,i):
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
-            response = generate_response(question, customer)
+          response = generate_response(question, customer)
+          if response != "None"
             st.markdown(f"🧠 **ChurnMate:** {response}")
     
         if customer["churn_probability"] > 0.5:
