@@ -225,9 +225,9 @@ def generate_strategy(churn_risk):
         return (
           f"🧠 **ChurnMate:** "
           f"Maintain current engagement strategy\n\n"
-          f"\u00A0\📌 Why? This customer shows stable usage patterns and low churn risk. "
-          f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
-          f"No immediate changes are needed, but continue monitoring for shifts in behavior."
+          f"\u00A0📌 Why? This customer shows stable usage patterns and low churn risk. "
+          f"\u00A0Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
+          f"\u00A0No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
 def showRecommandation(contract_map, tenure):
   #Recommend Plan
