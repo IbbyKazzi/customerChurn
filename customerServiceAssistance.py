@@ -7,7 +7,7 @@ import pickle
 import shap
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
-def run(customer, shap_values, X,i):
+def run(customer, shap_values, X):
   ############Chat box assistance Plan recommandation################
     plans = {
         "Basic": 25,
