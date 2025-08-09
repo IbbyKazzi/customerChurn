@@ -77,37 +77,7 @@ def run():
     #st.write("Customer Features:")
     #st.dataframe(X.iloc[i:i+1])   
     
-    #Recommend Plan
     
-    #st.markdown("### 🛠️ Recommended Retention Actions")
-    #st.info(recommend_action(churn_probability))
-    
-    # dropdown to allow manual override
-    available_plans = ["Basic", "Premium", "Family", "Enterprise"]
-    override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
-    # get the new prob of this customer for the selected plan
-    #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
-    
-    # add radio widget
-    selected_contract = st.radio(
-        "📝 Select Contract",
-        ["Month-to-month", "One year", "Two year"],
-        horizontal=True
-    )
-
-    customer_contract = contract_map[selected_contract]
-    new_prob = get_newProb(override, tenure, customer_contract, model_t3)
-    #st.write(new_prob)
-    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")    
-    
-    #customer info display
-    with st.expander("Customer History", expanded=False):
-        st.write(df.iloc[i])    
-    #check recommandation outcome
-    #st.markdown("#### Recommendation Outcome")
-    #st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
-    #st.text_area("Agent Notes")
-    #st.button("Submit Feedback")
     
     # Display plan data on the side bar
     plan_prices = {
