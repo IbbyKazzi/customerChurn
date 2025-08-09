@@ -167,9 +167,9 @@ def generate_response(question, data, shap_values, contract_map, df):
           st.markdown("### Factors of Churn")
           fig, ax = plt.subplots()
           shap.plots.waterfall(shap_values, show=False)
-          st.pyplot(fig)   
+          st.pyplot(fig)
 
-  elif "details" in question or "show customer details" in question:        
+    elif "details" in question or "show customer details" in question:
       response =   (
           f"🧠 **ChurnMate:** "
           f"Below a full list of the customer details."         
