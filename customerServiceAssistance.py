@@ -182,7 +182,14 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"It typically reduces churn by offering better value and longer contract terms.\n"
             f"You can try the below plans and contracts combination to determine churn risk for this customer."
         )
-        st.write(response)
+        #st.write(response)
+        # Typing effect
+            placeholder = st.empty()
+            typed_text = ""            
+            for char in response:
+                typed_text += char
+                placeholder.markdown(typed_text)
+                time.sleep(0.01)
         showRecommandation(contract_map, data["tenure"])
 
     elif "risk" in question or "chance" in question:
