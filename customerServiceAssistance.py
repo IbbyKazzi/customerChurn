@@ -121,8 +121,7 @@ def run(customer, shap_values, X, contract_map, df):
             st.markdown(f"🧠 **ChurnMate:** {response}")
             # Typing effect
             placeholder = st.empty()
-            typed_text = ""
-            
+            typed_text = ""            
             for char in response:
                 typed_text += char
                 placeholder.markdown(typed_text)
