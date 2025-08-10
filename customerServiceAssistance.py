@@ -85,12 +85,12 @@ def run(customer, shap_values, X, contract_map, df):
 
     with st.container():
         st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
-        time.sleep(1.5)
+        #time.sleep(1.5)
         #uploaded_file = st.file_uploader("Upload customer data")
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
-        st.markdown(f"\u00A0🧠 **ChurnMate:** Here's what I found:")
-        time.sleep(1.2)
-        st.markdown(f"\u00A0" + summarize_customer(customer))        
+        st.markdown("🧠 **ChurnMate:** Here's what I found:")
+        #time.sleep(1.2)
+        st.markdown(summarize_customer(customer))        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
