@@ -36,10 +36,6 @@ def run(customer, shap_values, X, contract_map, df):
             recommended = plan
     
     #st.write(f"✅ Recommended Plan: {recommended}")
-    
-    # Sidebar header
-    st.sidebar.header("📦 Available Plans")   
-    
 
     #Assistant churnMate ########################################
     # Compute mean absolute SHAP values for each feature
