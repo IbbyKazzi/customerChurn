@@ -8,6 +8,14 @@ selected = option_menu(
         orientation="horizontal"
 )
 
+# Set page title and icon
+st.set_page_config(
+    page_title="Customer Churn Dashboard",
+    page_icon="https://www.svgrepo.com/show/520024/uts.svg",
+    layout="wide"
+)
+
+
 if selected == "Home":
     st.sidebar.header("🏠 Home")
     import home_page
@@ -29,6 +37,7 @@ elif selected == "History":
     st.sidebar.header("🧠 Model History")
     from model_history import show_model_history
     show_model_history()
+
 
 
 
