@@ -142,7 +142,7 @@ def run(customer, shap_values, X, contract_map, df):
             for char in message:
                 typed_text += char
                 placeholder.markdown(typed_text)
-                time.sleep(0.01)
+                time.sleep(0.005)
 
 
 
