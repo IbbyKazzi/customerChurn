@@ -112,13 +112,15 @@ def run(customer, shap_values, X, contract_map, df):
             typed_text += char
             placeholder.markdown(typed_text)
             #time.sleep(0.01)
-        
+
+        if customer["churn_probability"] > 0.5:
+              st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
           response = generate_response(question, customer, shap_values, contract_map, df)
           if response and response != "None":
-            st.markdown(f"🧠 **ChurnMate:** {response}")
+            #st.markdown(f"🧠 **ChurnMate:** {response}")
             # Typing effect
             placeholder = st.empty()
             typed_text = ""            
@@ -127,8 +129,7 @@ def run(customer, shap_values, X, contract_map, df):
                 placeholder.markdown(typed_text)
                 time.sleep(0.01)
     
-        if customer["churn_probability"] > 0.5:
-            st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
+        
     
         if st.button("Generate Retention Strategy"):
             strategy = generate_strategy(customer["churn_probability"])
