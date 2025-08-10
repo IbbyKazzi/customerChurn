@@ -66,9 +66,7 @@ def run():
         "monthlyCharges": monthly_charges,
         "tenure": tenure,
         "index": i
-    }
-    import customerServiceAssistance
-    customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
+    } 
     
     
 
@@ -94,7 +92,8 @@ def run():
     for plan, price in plan_prices.items():
         st.sidebar.write(f"**{plan}**: {price}") 
       
-    
+    import customerServiceAssistance
+    customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
     ###################Chat box#############################
 
 
