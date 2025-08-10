@@ -92,13 +92,14 @@ def run(customer, shap_values, X, contract_map, df):
         #time.sleep(1.2)
         #st.markdown(summarize_customer(customer)) 
         if "show_message" not in st.session_state:
-          st.session_state["show_message"] = False
-        if "churn_message" not in st.session_state and st.session_state["show_message"]:
-          st.session_state["churn_message"] = (
-              "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
-              "🧠 **ChurnMate:** Here's what I found:\n\n"
-              + summarize_customer(customer)
-          )
+          st.session_state["show_message"] = True
+        if "churn_message" not in st.session_state:
+          if st.session_state["show_message"] == True:
+            st.session_state["churn_message"] = (
+                "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
+                "🧠 **ChurnMate:** Here's what I found:\n\n"
+                + summarize_customer(customer)
+            )
       
         # Typing effect
         placeholder = st.empty()
