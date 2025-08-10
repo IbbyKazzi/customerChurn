@@ -68,17 +68,6 @@ def run():
         "index": i
     } 
     
-    
-
-    #fig, ax = plt.subplots()
-    #shap.plots.waterfall(shap_values[i], show=False)
-    #st.pyplot(fig)
-    #Below we can display the customers feature in a table form
-    #st.write("Customer Features:")
-    #st.dataframe(X.iloc[i:i+1])   
-    
-    
-    
     # Display plan data on the side bar
     plan_prices = {
         "Basic": "$25",
@@ -94,14 +83,7 @@ def run():
       
     import customerServiceAssistance
     customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
-    ###################Chat box#############################
-
-
-
-#Assistant churnMate ############################################################
-
-
-
+    
 
 def recommend_action(prob):
     if prob >= 0.70:
