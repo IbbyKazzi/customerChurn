@@ -119,6 +119,14 @@ def run(customer, shap_values, X, contract_map, df):
           response = generate_response(question, customer, shap_values, contract_map, df)
           if response and response != "None":
             st.markdown(f"🧠 **ChurnMate:** {response}")
+            # Typing effect
+            placeholder = st.empty()
+            typed_text = ""
+            
+            for char in response:
+                typed_text += char
+                placeholder.markdown(typed_text)
+                time.sleep(0.01)
     
         if customer["churn_probability"] > 0.5:
             st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
