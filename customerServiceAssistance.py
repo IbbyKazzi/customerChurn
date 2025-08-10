@@ -92,11 +92,14 @@ def run(customer, shap_values, X, contract_map, df):
         #time.sleep(1.2)
         #st.markdown(summarize_customer(customer))    
 
-        message = (f"👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
-                   f"🧠 **ChurnMate:** Here's what I found:\n\n"
-                  )
-        message = message + summarize_customer(customer)
-
+        message = (
+            "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
+            "🧠 **ChurnMate:** Here's what I found:\n\n"
+        )
+        
+        # Append the customer summary
+        message += summarize_customer(customer)
+      
         # Typing effect
         placeholder = st.empty()
         typed_text = ""
@@ -104,7 +107,7 @@ def run(customer, shap_values, X, contract_map, df):
         for char in message:
             typed_text += char
             placeholder.markdown(typed_text)
-            time.sleep(0.02)  
+            time.sleep(0.01)  
 
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
