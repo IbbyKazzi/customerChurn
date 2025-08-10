@@ -130,19 +130,19 @@ def run(customer, shap_values, X, contract_map, df):
                 placeholder.markdown(typed_text)
                 time.sleep(0.01)
               
-        if st.button("Generate Retention Strategy"):
-            strategy = generate_strategy(customer["churn_probability"])
-            #st.success(f"💡 ChurnMate Suggests:\n\n{strategy}")
-            message = f"💡 ChurnMate Suggests:\n\n{strategy}"
+    if st.button("Generate Retention Strategy"):
+        strategy = generate_strategy(customer["churn_probability"])
+        #st.success(f"💡 ChurnMate Suggests:\n\n{strategy}")
+        message = f"💡 ChurnMate Suggests:\n\n{strategy}"
 
-            # Create a success box and animate inside it
-            with st.success(""):
-                placeholder = st.empty()
-                typed_text = ""
-                for char in message:
-                    typed_text += char
-                    placeholder.markdown(typed_text)
-                    time.sleep(0.01)
+        # Create a success box and animate inside it
+        with st.success(""):
+            placeholder = st.empty()
+            typed_text = ""
+            for char in message:
+                typed_text += char
+                placeholder.markdown(typed_text)
+                time.sleep(0.01)
 
 
 
