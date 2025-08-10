@@ -90,8 +90,10 @@ def run(customer, shap_values, X, contract_map, df):
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
         #st.markdown("🧠 **ChurnMate:** Here's what I found:")
         #time.sleep(1.2)
-        #st.markdown(summarize_customer(customer))   
-        if "churn_message" not in st.session_state:
+        #st.markdown(summarize_customer(customer)) 
+        if "show_message" not in st.session_state:
+          st.session_state["show_message"] = False
+        if "churn_message" not in st.session_state and not st.session_state["show_message"]:
           st.session_state["churn_message"] = (
               "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
               "🧠 **ChurnMate:** Here's what I found:\n\n"
@@ -106,8 +108,7 @@ def run(customer, shap_values, X, contract_map, df):
             typed_text += char
             placeholder.markdown(typed_text)
             time.sleep(0.01)
- 
-        st.session_state["churn_message"] = ""
+        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
