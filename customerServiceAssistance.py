@@ -107,7 +107,7 @@ def run(customer, shap_values, X, contract_map, df):
             placeholder.markdown(typed_text)
             time.sleep(0.01)
  
-
+        st.session_state["churn_message"] = True
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
