@@ -11,7 +11,7 @@ selected = option_menu(
 # Set page title and icon
 st.set_page_config(
     page_title="Customer Churn Dashboard",
-    page_icon="https://www.svgrepo.com/show/520024/uts.svg",
+    page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
     layout="wide"
 )
 
@@ -37,6 +37,7 @@ elif selected == "History":
     st.sidebar.header("🧠 Model History")
     from model_history import show_model_history
     show_model_history()
+
 
 
 
