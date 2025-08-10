@@ -93,7 +93,7 @@ def run(customer, shap_values, X, contract_map, df):
         #st.markdown(summarize_customer(customer)) 
         if "show_message" not in st.session_state:
           st.session_state["show_message"] = False
-        if "churn_message" not in st.session_state and not st.session_state["show_message"]:
+        if "churn_message" not in st.session_state and st.session_state["show_message"]:
           st.session_state["churn_message"] = (
               "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
               "🧠 **ChurnMate:** Here's what I found:\n\n"
