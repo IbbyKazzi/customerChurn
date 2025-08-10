@@ -100,6 +100,9 @@ def run(customer, shap_values, X, contract_map, df):
                 "🧠 **ChurnMate:** Here's what I found:\n\n"
                 + summarize_customer(customer)
             )
+            st.session_state["show_message"] = True
+          else:
+            st.session_state["churn_message"] = ""
       
         # Typing effect
         placeholder = st.empty()
