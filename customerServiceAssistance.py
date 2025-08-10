@@ -92,21 +92,21 @@ def run(customer, shap_values, X, contract_map, df):
         #time.sleep(1.2)
         #st.markdown(summarize_customer(customer))   
         if "churn_message" not in st.session_state:
-          message = (
+          st.session_state["churn_message"] = (
               "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
               "🧠 **ChurnMate:** Here's what I found:\n\n"
+              + summarize_customer(customer)
           )
-          # Append the customer summary
-          message += summarize_customer(customer)      
-        
-        
+      
         # Typing effect
         placeholder = st.empty()
-        typed_text = ""        
-        for char in st.session_state.churn_message:
+        typed_text = ""
+        
+        for char in st.session_state["churn_message"]:
             typed_text += char
             placeholder.markdown(typed_text)
-            time.sleep(0.01)  
+            time.sleep(0.01)
+ 
 
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
