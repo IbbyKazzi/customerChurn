@@ -134,14 +134,17 @@ def run(customer, shap_values, X, contract_map, df):
             strategy = generate_strategy(customer["churn_probability"])
             #st.success(f"💡 ChurnMate Suggests:\n\n{strategy}")
             message = f"💡 ChurnMate Suggests:\n\n{strategy}"
-            # Create a success box and animate inside it
-            with st.success(""):
-                placeholder = st.empty()
-                typed_text = ""
-                for char in message:
-                    typed_text += char
-                    placeholder.markdown(typed_text)
-                    time.sleep(0.01)
+
+            # Create a container to hold the success box
+            container = st.container()
+            
+            typed_text = ""
+            for char in message:
+                typed_text += char
+                # Update the container with the success box and animated text
+                container.success(typed_text)
+                time.sleep(0.01)
+
 
 
 
