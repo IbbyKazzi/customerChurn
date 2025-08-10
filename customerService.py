@@ -69,6 +69,8 @@ def run():
     } 
     
     # Display plan data on the side bar
+    
+    st.sidebar.header("📦 Available Plans")   
     plan_prices = {
         "Basic": "$25",
         "Standard": "$55",
