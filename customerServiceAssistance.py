@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pickle
 import shap
+import time
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 def run(customer, shap_values, X, contract_map, df):
@@ -84,10 +85,12 @@ def run(customer, shap_values, X, contract_map, df):
 
     with st.container():
         st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
+        time.sleep(1.5)
         #uploaded_file = st.file_uploader("Upload customer data")
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
-        st.markdown("🧠 **ChurnMate:** Here's what I found:")
-        st.markdown(summarize_customer(customer))        
+        st.markdown("\u00A0🧠 **ChurnMate:** Here's what I found:")
+        time.sleep(1.2)
+        st.markdown("\u00A0" + summarize_customer(customer))        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
