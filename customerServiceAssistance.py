@@ -120,11 +120,12 @@ def run(customer, shap_values, X, contract_map, df):
         if question:
           response = generate_response(question, customer, shap_values, contract_map, df)
           if response and response != "None":
+            message = f"🧠 **ChurnMate:** {response}"
             #st.markdown(f"🧠 **ChurnMate:** {response}")
             # Typing effect
             placeholder = st.empty()
             typed_text = ""            
-            for char in response:
+            for char in message:
                 typed_text += char
                 placeholder.markdown(typed_text)
                 time.sleep(0.01)
