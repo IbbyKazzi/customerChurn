@@ -90,21 +90,20 @@ def run(customer, shap_values, X, contract_map, df):
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
         #st.markdown("🧠 **ChurnMate:** Here's what I found:")
         #time.sleep(1.2)
-        #st.markdown(summarize_customer(customer))    
-
-        message = (
-            "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
-            "🧠 **ChurnMate:** Here's what I found:\n\n"
-        )
+        #st.markdown(summarize_customer(customer))   
+        if "churn_message" not in st.session_state:
+          message = (
+              "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
+              "🧠 **ChurnMate:** Here's what I found:\n\n"
+          )
+          # Append the customer summary
+          message += summarize_customer(customer)      
         
-        # Append the customer summary
-        message += summarize_customer(customer)
-      
+        
         # Typing effect
         placeholder = st.empty()
-        typed_text = ""
-        
-        for char in message:
+        typed_text = ""        
+        for char in st.session_state.churn_message:
             typed_text += char
             placeholder.markdown(typed_text)
             time.sleep(0.01)  
