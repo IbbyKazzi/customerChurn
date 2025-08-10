@@ -84,13 +84,28 @@ def run(customer, shap_values, X, contract_map, df):
     # Create the chat box container
 
     with st.container():
-        st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
+        #st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
         #time.sleep(1.5)
         #uploaded_file = st.file_uploader("Upload customer data")
         #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
-        st.markdown("🧠 **ChurnMate:** Here's what I found:")
+        #st.markdown("🧠 **ChurnMate:** Here's what I found:")
         #time.sleep(1.2)
-        st.markdown(summarize_customer(customer))        
+        #st.markdown(summarize_customer(customer))    
+
+        message = (f"👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
+                   f"🧠 **ChurnMate:** Here's what I found:\n\n"
+                  )
+        message = message + summarize_customer(customer)
+
+        # Typing effect
+        placeholder = st.empty()
+        typed_text = ""
+        
+        for char in message:
+            typed_text += char
+            placeholder.markdown(typed_text)
+            time.sleep(0.02)  
+
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
