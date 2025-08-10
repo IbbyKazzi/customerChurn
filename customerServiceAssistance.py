@@ -141,8 +141,8 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     factors = ", ".join(top_features[:5])
     
     return (
-        "    👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
-        "    🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
+        f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
+        f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
         #f"📌 **Key Factors**: {factors}\n\n"
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
