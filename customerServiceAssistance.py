@@ -129,12 +129,19 @@ def run(customer, shap_values, X, contract_map, df):
                 typed_text += char
                 placeholder.markdown(typed_text)
                 time.sleep(0.01)
-    
-        
-    
+              
         if st.button("Generate Retention Strategy"):
             strategy = generate_strategy(customer["churn_probability"])
-            st.success(f"💡 ChurnMate Suggests:\n\n{strategy}")
+            #st.success(f"💡 ChurnMate Suggests:\n\n{strategy}")
+            message = f"💡 ChurnMate Suggests:\n\n{strategy}"
+            with st.success(""):
+              placeholder = st.empty()
+              typed_text = ""
+              for char in message:
+                  typed_text += char
+                  placeholder.markdown(typed_text)
+                  time.sleep(0.01)
+
 
 
 
@@ -204,7 +211,13 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
       )
-      st.markdown(response)            
+      #st.markdown(response)  
+      placeholder = st.empty()
+      typed_text = ""            
+      for char in response:
+        typed_text += char
+        placeholder.markdown(typed_text)
+        time.sleep(0.01)
       # Show waterfall plot if toggle is activated
       if st.toggle("Show churn factor waterfall"):
           st.markdown("### Factors of Churn")
@@ -217,7 +230,13 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"🧠 **ChurnMate:** "
           f"Below a full list of the customer details."         
       )
-      st.markdown(response)            
+      #st.markdown(response)            
+      placeholder = st.empty()
+      typed_text = ""            
+      for char in response:
+        typed_text += char
+        placeholder.markdown(typed_text)
+        time.sleep(0.01)
       # Show waterfall plot if toggle is activated
       i = data["index"]
       st.write(df.iloc[i])
