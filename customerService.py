@@ -89,7 +89,7 @@ def run():
         st.session_state.prev_customer_id = selected_customer_id
         # 🔁 Call your function here
         def on_customer_change(customer_id): 
-            st.session_state["show_message"] = True
+            st.session_state["show_message"] = False
             import customerServiceAssistance
             customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
         on_customer_change(selected_customer_id) 
