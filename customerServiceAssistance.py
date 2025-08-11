@@ -175,15 +175,17 @@ def generate_response(question, data, shap_values, contract_map, df):
             st.pyplot(fig)
 
     elif "details" in question or "show customer details" in question:
-      response =   (
-          f"🧠 **ChurnMate:** "
-          f"Below a full list of the customer details."         
-      )
-      showResponse(response)
-      # Show customer's details
-      i = data["index"]
-      #st.dataframe(df.iloc[[i]], use_container_width=True)
-      st.table(df.iloc[[i]])
+        response =   (
+              f"🧠 **ChurnMate:** "
+              f"Below a full list of the customer details."         
+        )
+        showResponse(response)
+        # Show customer's details
+        i = data["index"]
+        #st.dataframe(df.iloc[[i]], use_container_width=True)
+        #st.table(df.iloc[[i]])
+        styled_row = df.iloc[[i]].style.highlight_max(axis=1, color='lightgreen')
+        st.write(styled_row)
   
     elif "plan" in question:
         response = (  
