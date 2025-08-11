@@ -147,7 +147,8 @@ def generate_response(question, data, shap_values, contract_map, df):
   
     if "why" in question:
         reasons = ", ".join(top_features[:2])
-        response =  (            
+        response =  ( 
+            f"🧠 **ChurnMate:** "
             f"This customer is likely to churn due to {reasons}. "
             f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
         )
@@ -196,7 +197,8 @@ def generate_response(question, data, shap_values, contract_map, df):
       st.write(df.iloc[i])
 
     elif "plan" in question:
-        response = (           
+        response = (  
+            f"🧠 **ChurnMate:** "
             f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
             f"but switching to **{plan}** may reduce churn risk."
         )
@@ -213,7 +215,8 @@ def generate_response(question, data, shap_values, contract_map, df):
            
 
     else:
-        return (            
+        return (  
+            f"🧠 **ChurnMate:** "
             "I'm here to help with churn insights! Try asking:\n"
             "- Why is this customer likely to churn?\n"
             "- What plan do you recommend?\n"
