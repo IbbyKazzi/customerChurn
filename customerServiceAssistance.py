@@ -213,17 +213,26 @@ def generate_response(question, data, shap_values, contract_map, df):
       st.write(df.iloc[i])
 
     elif "plan" in question:
-        return (           
+        response = (           
             f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
             f"but switching to **{plan}** may reduce churn risk."
         )
+        message = f"💡 ChurnMate Suggests:\n\n{response}"      
+        # Create a placeholder for the success box
+        placeholder = st.empty()      
+        typed_text = ""
+        for char in message:
+            typed_text += char
+            # Render the full success box once, updating its content
+            placeholder.success(typed_text)
+            time.sleep(0.005)
+            
     elif "price" in question or "paying" in question or "charges" in question:      
        return (           
            f"The current monthly charges are **${monthlyCharges}**, "
            f"but switching to **{plan}** may reduce churn risk."
        )
-    elif "strategy" in question or "retension" in question:
-        question = ""
+    elif "strategy" in question or "retension" in question:       
         strategy = generate_strategy(data["churn_probability"])
         message = f"💡 ChurnMate Suggests:\n\n{strategy}"      
         # Create a placeholder for the success box
@@ -233,7 +242,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             typed_text += char
             # Render the full success box once, updating its content
             placeholder.success(typed_text)
-            time.sleep(0.005)   
+            time.sleep(0.005)  
 
     else:
         return (            
