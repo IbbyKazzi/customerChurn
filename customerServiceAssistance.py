@@ -237,7 +237,7 @@ def generate_strategy(churn_risk):
 
 def showIntro(message, delay):
     if delay == 0:
-        st.info(typed_text)
+        st.info(message)
     else:
         # Create a placeholder for the success box
         placeholder = st.empty()      
