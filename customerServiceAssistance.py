@@ -200,11 +200,12 @@ def generate_response(question, data, shap_values, contract_map, df):
         )
         showResponse(response)
             
-    elif "price" in question or "paying" in question or "charges" in question:      
-       return (           
+    elif "price" in question or "paying" in question or "charges" in question:     
+        response = (           
            f"The current monthly charges are **${monthlyCharges}**, "
            f"but switching to **{plan}** may reduce churn risk."
-       )
+        )
+        showResponse(response)
     elif "strategy" in question or "retension" in question:       
         strategy = generate_strategy(data["churn_probability"])
         showResponse(strategy)
