@@ -79,7 +79,11 @@ def run(customer, shap_values, X, contract_map, df):
                 + summarize_customer(customer)
             )
         if "show_message" not in st.session_state:
-            st.session_state["show_message"] = True            
+            st.session_state["show_message"] = True
+        else:
+            st.session_state["show_message"] = False
+            
+        if st.session_state["show_message"] == True:
             showIntro(message, 0.005)
         else:
            showIntro(message, 0)        
