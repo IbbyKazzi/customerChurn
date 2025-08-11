@@ -184,8 +184,10 @@ def generate_response(question, data, shap_values, contract_map, df):
         i = data["index"]
         #st.dataframe(df.iloc[[i]], use_container_width=True)
         #st.table(df.iloc[[i]])
-        styled_row = df.iloc[[i]].style.highlight_max(axis=1, color='lightgreen')
-        st.write(styled_row)
+        numeric_cols = df.select_dtypes(include='number').columns
+        styled_row = df.iloc[[i]][numeric_cols].style.highlight_max(axis=1, color='lightgreen')
+        st.write(df.iloc[[i]].style.set_table_attributes('style="width:100%"'))  # Show full row
+        st.write(styled_row)  # Show highlighted numeric part
   
     elif "plan" in question:
         response = (  
