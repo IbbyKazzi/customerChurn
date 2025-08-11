@@ -132,6 +132,7 @@ def run(customer, shap_values, X, contract_map, df):
               
         if st.button("Generate Retention Strategy"):
           st.session_state["show_response"] = False
+          question = ""
           strategy = generate_strategy(customer["churn_probability"])
           message = f"💡 ChurnMate Suggests:\n\n{strategy}"
       
