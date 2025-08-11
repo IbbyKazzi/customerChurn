@@ -26,7 +26,9 @@ def run():
     # Extract unique customer IDs
     customer_ids_df = df_filtered['customerID'].reset_index()
     
-    
+    if "prev_customer_id" not in st.session_state:
+        st.session_state.prev_customer_id = None
+
     #set the page menu  Customer-Churn-dataset.csv
     st.sidebar.header("Customer Filter")
     # Choose the customer index
@@ -34,6 +36,16 @@ def run():
     
     # Now get the original index from the df
     i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]   
+
+    if selected_customer_id != st.session_state.prev_customer_id:
+        st.session_state.prev_customer_id = selected_customer_id
+        # 🔁 Call your function here
+        def on_customer_change(customer_id):
+            st.info(f"Customer changed to: {customer_id}")
+            import customerServiceAssistance
+            customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
+        on_customer_change(selected_customer_id)
+
     
     #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
     tenure = df.iloc[i]["tenure"]
@@ -83,8 +95,7 @@ def run():
     for plan, price in plan_prices.items():
         st.sidebar.write(f"**{plan}**: {price}") 
       
-    import customerServiceAssistance
-    customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
+    
     
 
 def recommend_action(prob):
