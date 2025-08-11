@@ -12,7 +12,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .main {
-            max-width: 600px;
+            max-width: 400px;
             margin: 0 auto;
             padding-top: 2rem;
         }
@@ -53,6 +53,7 @@ elif selected == "History":
     st.sidebar.header("🧠 Model History")
     from model_history import show_model_history
     show_model_history()
+
 
 
 
