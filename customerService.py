@@ -35,10 +35,7 @@ def run():
     selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids_df['customerID'])
     
     # Now get the original index from the df
-    i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]   
-
-    
-
+    i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]
     
     #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
     tenure = df.iloc[i]["tenure"]
@@ -92,7 +89,7 @@ def run():
         st.session_state.prev_customer_id = selected_customer_id
         # 🔁 Call your function here
         def on_customer_change(customer_id):
-            st.info(f"Customer changed to: {customer_id}")
+            
             import customerServiceAssistance
             customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
         on_customer_change(selected_customer_id) 
