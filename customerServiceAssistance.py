@@ -165,7 +165,7 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
         )        
-        showResponse(response)        
+             
         # Show waterfall plot if toggle is activated
         if st.toggle("Show churn factor waterfall"):
             response =   (
@@ -178,6 +178,8 @@ def generate_response(question, data, shap_values, contract_map, df):
             fig, ax = plt.subplots()
             shap.plots.waterfall(shap_values, show=False)
             st.pyplot(fig)
+
+        showResponse(response)   
 
     elif "details" in question or "show customer details" in question:
         response =   (
