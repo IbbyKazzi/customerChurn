@@ -40,11 +40,11 @@ def run():
     if selected_customer_id != st.session_state.prev_customer_id:
         st.session_state.prev_customer_id = selected_customer_id
         # 🔁 Call your function here
-        def on_customer_change(customer_id):
+        def on_customer_change(customer_id, customer, shap_values[i], X, contract_map, df):
             st.info(f"Customer changed to: {customer_id}")
             import customerServiceAssistance
             customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
-        on_customer_change(selected_customer_id)
+        on_customer_change(selected_customer_id, customer, shap_values[i], X, contract_map, df)
 
     
     #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
