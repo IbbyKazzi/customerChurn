@@ -8,16 +8,13 @@ st.set_page_config(
     layout="wide"
 )
 
-# Inject CSS to constrain width
+# Inject CSS to constrain content width
 st.markdown("""
     <style>
-        div[data-testid="stAppViewContainer"] > div:first-child {
-            max-width: 800px;
+        .centered-container {
+            max-width: 900px;
             margin: auto;
-        }
-        div[data-testid="stHorizontalBlock"] {
-            max-width: 800px;
-            margin: auto;
+            padding-top: 2rem;
         }
         footer {visibility: hidden;}
     </style>
@@ -31,28 +28,33 @@ selected = option_menu(
     orientation="horizontal"
 )
 
-# Page routing
-if selected == "Home":
-    st.sidebar.header("🏠 Home")
-    import home_page
-    home_page.run()
+# Wrap routed content in a centered container
+with st.container():
+    st.markdown('<div class="centered-container">', unsafe_allow_html=True)
 
-elif selected == "Analysis":
-    st.sidebar.header("📊 Analysis")
-    import churn_analysis
-    churn_analysis.run()
+    if selected == "Home":
+        st.sidebar.header("🏠 Home")
+        import home_page
+        home_page.run()
 
-elif selected == "Service":
-    st.sidebar.header("👤 Customer Service")
-    import customerService
-    customerService.run()
+    elif selected == "Analysis":
+        st.sidebar.header("📊 Analysis")
+        import churn_analysis
+        churn_analysis.run()
 
-elif selected == "Retention":
-    st.sidebar.header("🛡️ Retention")
-    import retention
-    retention.run()
+    elif selected == "Service":
+        st.sidebar.header("👤 Customer Service")
+        import customerService
+        customerService.run()
 
-elif selected == "History":
-    st.sidebar.header("🧠 Model History")
-    from model_history import show_model_history
-    show_model_history()
+    elif selected == "Retention":
+        st.sidebar.header("🛡️ Retention")
+        import retention
+        retention.run()
+
+    elif selected == "History":
+        st.sidebar.header("🧠 Model History")
+        from model_history import show_model_history
+        show_model_history()
+
+    st.markdown('</div>', unsafe_allow_html=True)
