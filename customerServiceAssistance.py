@@ -224,7 +224,7 @@ def generate_response(question, data, shap_values, contract_map, df):
        )
     elif "strategy" in question or "retension" in question:
         question = ""
-        strategy = generate_strategy(customer["churn_probability"])
+        strategy = generate_strategy(data["churn_probability"])
         message = f"💡 ChurnMate Suggests:\n\n{strategy}"      
         # Create a placeholder for the success box
         placeholder = st.empty()      
