@@ -111,20 +111,8 @@ def run(customer, shap_values, X, contract_map, df):
                 placeholder.markdown(typed_text)
                 #time.sleep(0.005)
               
-        if st.button("Generate Retention Strategy"):          
-          question = ""
-          strategy = generate_strategy(customer["churn_probability"])
-          message = f"💡 ChurnMate Suggests:\n\n{strategy}"
-      
-          # Create a placeholder for the success box
-          placeholder = st.empty()
-      
-          typed_text = ""
-          for char in message:
-              typed_text += char
-              # Render the full success box once, updating its content
-              placeholder.success(typed_text)
-              time.sleep(0.005)
+        #if st.button("Generate Retention Strategy"):          
+          
 
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
@@ -234,6 +222,18 @@ def generate_response(question, data, shap_values, contract_map, df):
            f"The current monthly charges are **${monthlyCharges}**, "
            f"but switching to **{plan}** may reduce churn risk."
        )
+    elif "strategy" in question or "retension" in question:
+        question = ""
+        strategy = generate_strategy(customer["churn_probability"])
+        message = f"💡 ChurnMate Suggests:\n\n{strategy}"      
+        # Create a placeholder for the success box
+        placeholder = st.empty()      
+        typed_text = ""
+        for char in message:
+            typed_text += char
+            # Render the full success box once, updating its content
+            placeholder.success(typed_text)
+            time.sleep(0.005)   
 
     else:
         return (            
