@@ -88,7 +88,11 @@ def run():
     if selected_customer_id != st.session_state.prev_customer_id:
         st.session_state.prev_customer_id = selected_customer_id
         # 🔁 Call your function here
-        def on_customer_change(customer_id):            
+        def on_customer_change(customer_id): 
+            if "show_message" not in st.session_state:
+                st.session_state["show_message"] = True
+            else:
+                st.session_state["show_message"] = True
             import customerServiceAssistance
             customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
         on_customer_change(selected_customer_id) 
