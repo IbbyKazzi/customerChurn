@@ -225,10 +225,11 @@ def generate_response(question, data, shap_values, contract_map, df):
         time.sleep(0.01)
       # Show waterfall plot if toggle is activated
       if st.toggle("Show churn factor waterfall"):
-          st.markdown("### Factors of Churn")
-          fig, ax = plt.subplots()
-          shap.plots.waterfall(shap_values, show=False)
-          st.pyplot(fig)
+        st.session_state["show_response"] = False
+        st.markdown("### Factors of Churn")
+        fig, ax = plt.subplots()
+        shap.plots.waterfall(shap_values, show=False)
+        st.pyplot(fig)
 
     elif "details" in question or "show customer details" in question:
       response =   (
