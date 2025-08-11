@@ -113,7 +113,7 @@ def run(customer, shap_values, X, contract_map, df):
               st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
 
         
-        st.write(st.session_state["show_response"])
+        
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
           response = generate_response(question, customer, shap_values, contract_map, df)
