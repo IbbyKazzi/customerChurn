@@ -237,12 +237,12 @@ def generate_strategy(churn_risk):
 
 def showIntro(message, delay):
     # Create a placeholder for the success box
-    placeholder2 = st.empty()      
-    typed_text2 = ""
+    placeholder = st.empty()      
+    typed_text = ""
     for char in message:
-        typed_text2 += char
+        typed_text += char
         # Render the full success box once, updating its content
-        placeholder2.success(typed_text2)
+        placeholder.info(typed_text)
         time.sleep(delay)
 def showResponse(response):    
     message = response      
