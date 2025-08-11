@@ -4,7 +4,7 @@ import streamlit as st
 # Set page title and icon
 st.set_page_config(
     page_title="Customer Churn Dashboard",
-    page_icon="https://www.stickpng.com/img/icons-logos-emojis/iconic-brands/university-of-technology-sydney-logo"
+    page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png"
     #layout="wide"
 )
 
@@ -12,7 +12,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .centered-container {
-            max-width: 200px;
+            max-width: 800px;
             margin: auto;
             padding-top: 2rem;
         }
@@ -58,6 +58,7 @@ with st.container():
         show_model_history()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
