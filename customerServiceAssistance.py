@@ -83,7 +83,7 @@ def run(customer, shap_values, X, contract_map, df):
                     + summarize_customer(customer)
                 )
                 st.session_state["show_message"] = True
-                showResponse(st.session_state["churn_message"])
+                showIntro(st.session_state["churn_message"])
             #else:
                 #st.session_state["churn_message"] = ""
           
@@ -256,6 +256,15 @@ def generate_strategy(churn_risk):
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
 
+def showIntro(message):
+    # Create a placeholder for the success box
+    placeholder2 = st.empty()      
+    typed_text2 = ""
+    for char in message:
+        typed_text2 += char
+        # Render the full success box once, updating its content
+        placeholder2.success(typed_text2)
+        time.sleep(0.005)
 def showResponse(response):
     message = response      
     # Create a placeholder for the success box
