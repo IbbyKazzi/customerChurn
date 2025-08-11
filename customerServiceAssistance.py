@@ -182,8 +182,9 @@ def generate_response(question, data, shap_values, contract_map, df):
       showResponse(response)
       # Show customer's details
       i = data["index"]
-      st.dataframe(df.iloc[[i]], use_container_width=True)
-        
+      #st.dataframe(df.iloc[[i]], use_container_width=True)
+      st.table(df.iloc[[i]])
+  
     elif "plan" in question:
         response = (  
             f"🧠 **ChurnMate:** "
