@@ -112,12 +112,10 @@ def run(customer, shap_values, X, contract_map, df):
         if customer["churn_probability"] > 0.5:
               st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
 
-        if "show_response" not in st.session_state:
-          st.session_state["show_response"] = True
-
+        
         st.write(st.session_state["show_response"])
         question = st.text_input("Ask me anything about this customer or churn trends:")
-        if question and st.session_state["show_response"] == True:
+        if question:
           response = generate_response(question, customer, shap_values, contract_map, df)
           if response and response != "None":
             message = f"🧠 **ChurnMate:** {response}"
@@ -128,10 +126,9 @@ def run(customer, shap_values, X, contract_map, df):
             for char in message:
                 typed_text += char
                 placeholder.markdown(typed_text)
-                time.sleep(0.005)
+                #time.sleep(0.005)
               
-        if st.button("Generate Retention Strategy"):
-          st.session_state["show_response"] = False
+        if st.button("Generate Retention Strategy"):          
           question = ""
           strategy = generate_strategy(customer["churn_probability"])
           message = f"💡 ChurnMate Suggests:\n\n{strategy}"
@@ -204,7 +201,7 @@ def generate_response(question, data, shap_values, contract_map, df):
         for char in response:
           typed_text += char
           placeholder.markdown(typed_text)
-          time.sleep(0.005)
+          #time.sleep(0.005)
         showRecommandation(contract_map, data["tenure"])
 
     elif "risk" in question or "chance" in question:
@@ -214,7 +211,7 @@ def generate_response(question, data, shap_values, contract_map, df):
         )
 
     elif "features" in question or "factors" in question:       
-      st.session_state["show_response"] = False
+      
       response =   (
           f"🧠 **ChurnMate:** "
           f"The top factors influencing churn are: {', '.join(top_features)}. "
@@ -226,7 +223,7 @@ def generate_response(question, data, shap_values, contract_map, df):
       for char in response:
         typed_text += char
         placeholder.markdown(typed_text)
-        time.sleep(0.01)
+        #time.sleep(0.01)
       # Show waterfall plot if toggle is activated
       if st.toggle("Show churn factor waterfall"):
         st.session_state["show_response"] = False
@@ -246,7 +243,7 @@ def generate_response(question, data, shap_values, contract_map, df):
       for char in response:
         typed_text += char
         placeholder.markdown(typed_text)
-        time.sleep(0.005)
+        #time.sleep(0.005)
       # Show waterfall plot if toggle is activated
       i = data["index"]
       st.write(df.iloc[i])
