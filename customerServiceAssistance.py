@@ -8,8 +8,7 @@ import shap
 import time
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
-def run(customer, shap_values, X, contract_map, df):
-  ############Chat box assistance Plan recommandation################
+def run(customer, shap_values, X, contract_map, df):  
     plans = {
         "Basic": 25,
         "Standard": 55,
@@ -29,15 +28,11 @@ def run(customer, shap_values, X, contract_map, df):
     for plan, price in plans.items():
         churn = churn_risk[plan]
         price_diff = abs(price - customer["monthlyCharges"])
-        score = churn * 100 + price_diff  # weighted score
-    
+        score = churn * 100 + price_diff  # weighted score    
         if score < best_score:
             best_score = score
-            recommended = plan
-    
-    #st.write(f"✅ Recommended Plan: {recommended}")
-
-    #Assistant churnMate ########################################
+            recommended = plan    
+     
     # Compute mean absolute SHAP values for each feature
     mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
     
@@ -51,8 +46,7 @@ def run(customer, shap_values, X, contract_map, df):
     top_n = 5
     top_features = feature_importance.head(top_n)
     customer["recommended_plan"] = recommended   
-    customer["top_features"] = top_features.feature
-    #st.write(top_features)
+    customer["top_features"] = top_features.feature   
 
     # Inject custom CSS to position the chat box
     st.markdown("""
@@ -61,7 +55,7 @@ def run(customer, shap_values, X, contract_map, df):
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 350px;
+            width: 50px;
             max-height: 500px;
             background-color: #f9f9f9;
             border-radius: 10px;
@@ -78,15 +72,7 @@ def run(customer, shap_values, X, contract_map, df):
     """, unsafe_allow_html=True)
 
     # Create the chat box container
-
-    with st.container():
-        #st.markdown("👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.")
-        #time.sleep(1.5)
-        #uploaded_file = st.file_uploader("Upload customer data")
-        #selected_segment = st.selectbox("Choose a customer segment", ["All", "High Risk", "Premium Plan"])
-        #st.markdown("🧠 **ChurnMate:** Here's what I found:")
-        #time.sleep(1.2)
-        #st.markdown(summarize_customer(customer)) 
+    with st.container():        
         if "show_message" not in st.session_state:
           st.session_state["show_message"] = True
         if "churn_message" not in st.session_state:
@@ -102,17 +88,14 @@ def run(customer, shap_values, X, contract_map, df):
       
         # Typing effect
         placeholder = st.empty()
-        typed_text = ""
-        
+        typed_text = ""        
         for char in st.session_state["churn_message"]:
             typed_text += char
             placeholder.markdown(typed_text)
-            #time.sleep(0.01)
+            #time.sleep(0.005)
 
         if customer["churn_probability"] > 0.5:
-              st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")
-
-        
+              st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
@@ -142,13 +125,6 @@ def run(customer, shap_values, X, contract_map, df):
               # Render the full success box once, updating its content
               placeholder.success(typed_text)
               time.sleep(0.005)
-
-
-
-
-
-
-
 
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
@@ -217,13 +193,13 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
       )
-      #st.markdown(response)  
+      
       placeholder = st.empty()
       typed_text = ""            
       for char in response:
         typed_text += char
         placeholder.markdown(typed_text)
-        #time.sleep(0.01)
+        #time.sleep(0.005)
       # Show waterfall plot if toggle is activated
       if st.toggle("Show churn factor waterfall"):
         st.session_state["show_response"] = False
@@ -302,33 +278,29 @@ def generate_strategy(churn_risk):
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
 def showRecommandation(contract_map, tenure):
-  #Recommend Plan
+  #Recommend Plan  
+  # dropdown to allow manual override
+  available_plans = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
+  override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
+  # get the new prob of this customer for the selected plan
+  #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
     
-    #st.markdown("### 🛠️ Recommended Retention Actions")
-    #st.info(recommend_action(churn_probability))
-    
-    # dropdown to allow manual override
-    available_plans = ["Basic", "Standard", "Premium", "Family", "Enterprise"]
-    override = st.selectbox("🧾 Override Plan Suggestion", options=available_plans)
-    # get the new prob of this customer for the selected plan
-    #new_prob = plan_churn_df.loc[plan_churn_df["Plan"] == override, "Churn Probability"].values[0]
-    
-    # add radio widget
-    selected_contract = st.radio(
-        "📝 Select Contract",
-        ["Month-to-month", "One year", "Two year"],
-        horizontal=True
-    )
+  # add radio widget
+  selected_contract = st.radio(
+    "📝 Select Contract",
+    ["Month-to-month", "One year", "Two year"],
+    horizontal=True
+  )
 
-    customer_contract = contract_map[selected_contract]
-    new_prob = get_newProb(override, tenure, customer_contract)    
-    st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")     
+  customer_contract = contract_map[selected_contract]
+  new_prob = get_newProb(override, tenure, customer_contract)    
+  st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")     
      
-    #check recommandation outcome
-    st.markdown("#### Recommendation Outcome")
-    st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
-    st.text_area("Agent Notes")
-    st.button("Submit Feedback")
+  #check recommandation outcome
+  st.markdown("#### Recommendation Outcome")
+  st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
+  st.text_area("Agent Notes")
+  st.button("Submit Feedback")
 
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract):
