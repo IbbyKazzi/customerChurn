@@ -72,19 +72,19 @@ def run(customer, shap_values, X, contract_map, df):
     """, unsafe_allow_html=True)
 
     # Create the chat box container
-    with st.container():        
+    with st.container():         
         if "show_message" not in st.session_state:
-          st.session_state["show_message"] = True
-        if "churn_message" not in st.session_state:
-          if st.session_state["show_message"] == True:
-            st.session_state["churn_message"] = (
-                "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
-                "🧠 **ChurnMate:** Here's what I found:\n\n"
-                + summarize_customer(customer)
-            )
             st.session_state["show_message"] = True
-          else:
-            st.session_state["churn_message"] = ""
+        if "churn_message" not in st.session_state:
+            if st.session_state["show_message"] == True:
+                st.session_state["churn_message"] = (
+                    "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
+                    "🧠 **ChurnMate:** Here's what I found:\n\n"
+                    + summarize_customer(customer)
+                )
+                st.session_state["show_message"] = True
+            else:
+                st.session_state["churn_message"] = ""
       
         # Typing effect
         placeholder = st.empty()
