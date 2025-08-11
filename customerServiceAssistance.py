@@ -114,6 +114,8 @@ def run(customer, shap_values, X, contract_map, df):
 
         if "show_response" not in st.session_state:
           st.session_state["show_response"] = True
+
+        st.write(st.session_state["show_response"])
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question and st.session_state["show_response"] == True:
           response = generate_response(question, customer, shap_values, contract_map, df)
