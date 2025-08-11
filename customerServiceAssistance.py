@@ -34,12 +34,12 @@ def run(customer, shap_values, X, contract_map, df):
             recommended = plan    
      
     # Compute mean absolute SHAP values for each feature
-    mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
+    #mean_abs_shap = np.abs(shap_values.values).mean(axis=0)
     
     # Create a DataFrame for easy sorting
     feature_importance = pd.DataFrame({
         'feature': X.columns,
-        'importance': np.abs(local_shap)
+        'importance': np.abs(shap_values)
     }).sort_values(by='importance', ascending=False)
 
     
