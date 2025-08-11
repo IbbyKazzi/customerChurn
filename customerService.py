@@ -37,14 +37,7 @@ def run():
     # Now get the original index from the df
     i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]   
 
-    if selected_customer_id != st.session_state.prev_customer_id:
-        st.session_state.prev_customer_id = selected_customer_id
-        # 🔁 Call your function here
-        def on_customer_change(customer_id, customer, shap_values, X, contract_map, df):
-            st.info(f"Customer changed to: {customer_id}")
-            import customerServiceAssistance
-            customerServiceAssistance.run(customer, shap_values, X, contract_map, df)
-        on_customer_change(selected_customer_id, customer, shap_values[i], X, contract_map, df)
+    
 
     
     #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
@@ -95,7 +88,14 @@ def run():
     for plan, price in plan_prices.items():
         st.sidebar.write(f"**{plan}**: {price}") 
       
-    
+   if selected_customer_id != st.session_state.prev_customer_id:
+        st.session_state.prev_customer_id = selected_customer_id
+        # 🔁 Call your function here
+        def on_customer_change(customer_id):
+            st.info(f"Customer changed to: {customer_id}")
+            import customerServiceAssistance
+            customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
+        on_customer_change(selected_customer_id) 
     
 
 def recommend_action(prob):
