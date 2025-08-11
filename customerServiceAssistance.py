@@ -257,14 +257,14 @@ def generate_strategy(churn_risk):
 
 def showResponse(response):
     message = f"🧠 **ChurnMate:**:\n\n{response}"      
-        # Create a placeholder for the success box
-        placeholder = st.empty()      
-        typed_text = ""
-        for char in message:
-            typed_text += char
-            # Render the full success box once, updating its content
-            placeholder.success(typed_text)
-            time.sleep(0.005)
+    # Create a placeholder for the success box
+    placeholder = st.empty()      
+    typed_text = ""
+    for char in message:
+        typed_text += char
+        # Render the full success box once, updating its content
+        placeholder.success(typed_text)
+        time.sleep(0.005)
             
 def showRecommandation(contract_map, tenure):
   #Recommend Plan  
