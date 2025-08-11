@@ -41,14 +41,13 @@ def run(customer, shap_values, X, contract_map, df):
         'feature': X.columns,
         'importance': np.abs(shap_values.values)
     }).sort_values(by='importance', ascending=False)
-
     
     # Display top N features
     top_n = 5
     top_features = feature_importance.head(top_n)
     customer["recommended_plan"] = recommended   
     customer["top_features"] = top_features.feature   
-    st.write(top_features)
+    #st.write(top_features)
     # Inject custom CSS to position the chat box
     st.markdown("""
         <style>
@@ -89,8 +88,15 @@ def run(customer, shap_values, X, contract_map, df):
               st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
+        if "show_question" not in st.session_state:
+            st.session_state["show_question"] = True 
+        else:
+           st.session_state["show_question"] = False  
         if question:
-          response = generate_response(question, customer, shap_values, contract_map, df)            
+            st.session_state["show_question"] = True
+            generate_response(question, customer, shap_values, contract_map, df)
+            
+            
           
 
 def summarize_customer(customer):
@@ -155,7 +161,8 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
         )
-        showResponse(response)         
+        showResponse(response)
+        st.session_state["show_question"] = False
         # Show waterfall plot if toggle is activated
         if st.toggle("Show churn factor waterfall"):
             st.session_state["show_response"] = False
@@ -248,16 +255,19 @@ def showIntro(message, delay):
             # Render the full success box once, updating its content
             placeholder.info(typed_text)
             time.sleep(delay)
-def showResponse(response):    
-    message = response      
-    # Create a placeholder for the success box
-    placeholder = st.empty()      
-    typed_text = ""
-    for char in message:
-        typed_text += char
-        # Render the full success box once, updating its content
-        placeholder.success(typed_text)
-        time.sleep(0.005)
+def showResponse(response):
+    if st.session_state["show_question"] == True:
+        message = response      
+        # Create a placeholder for the success box
+        placeholder = st.empty()      
+        typed_text = ""
+        for char in message:
+            typed_text += char
+            # Render the full success box once, updating its content
+            placeholder.success(typed_text)
+            time.sleep(0.005)
+    else:
+        st.success(response)
             
 def showRecommandation(contract_map, tenure):
   #Recommend Plan  
