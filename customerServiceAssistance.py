@@ -111,8 +111,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         "moderate" if churn_prob > 0.25 else
         "low"
     )
-    factors = ", ".join(top_features[:5])
-    
+    factors = ", ".join(top_features[:5])    
     return  (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
         f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
@@ -137,7 +136,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
         )
         showResponse(response)
-
+        
     elif "recommend" in question or "suggest" in question:
         response =  (
             f"🧠 **ChurnMate:** "
@@ -161,10 +160,10 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
         )
+        st.session_state["show_question"] = False
         showResponse(response)        
         # Show waterfall plot if toggle is activated
-        if st.toggle("Show churn factor waterfall"): 
-            st.session_state["show_question"] = False
+        if st.toggle("Show churn factor waterfall"):             
             st.markdown("### Factors of Churn")
             fig, ax = plt.subplots()
             shap.plots.waterfall(shap_values, show=False)
