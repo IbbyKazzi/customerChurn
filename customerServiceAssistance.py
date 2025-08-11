@@ -100,16 +100,16 @@ def run(customer, shap_values, X, contract_map, df):
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
           response = generate_response(question, customer, shap_values, contract_map, df)
-          if response and response != "None":
-            message = f"🧠 **ChurnMate:** {response}"
-            #st.markdown(f"🧠 **ChurnMate:** {response}")
-            # Typing effect
-            placeholder = st.empty()
-            typed_text = ""            
-            for char in message:
-                typed_text += char
-                placeholder.markdown(typed_text)
-                #time.sleep(0.005)
+          #if response and response != "None":
+          #  message = f"🧠 **ChurnMate:** {response}"
+          #  #st.markdown(f"🧠 **ChurnMate:** {response}")
+          #  # Typing effect
+          #  placeholder = st.empty()
+          #  typed_text = ""            
+          #  for char in message:
+          #      typed_text += char
+          #      placeholder.markdown(typed_text)
+          #     #time.sleep(0.005)
               
         #if st.button("Generate Retention Strategy"):          
           
@@ -117,9 +117,8 @@ def run(customer, shap_values, X, contract_map, df):
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
     top_factors = customer["top_features"]
-    plan = customer["recommended_plan"]
-    
-    return assistant_response(customer["name"], churn_prob, top_factors, plan)
+    plan = customer["recommended_plan"]    
+    assistant_response(customer["name"], churn_prob, top_factors, plan)
 
 def assistant_response(customer_name, churn_prob, top_features, plan_suggestion):
     risk_level = (
@@ -129,12 +128,14 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     )
     factors = ", ".join(top_features[:5])
     
-    return (
+    response =  (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
         f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
         #f"📌 **Key Factors**: {factors}\n\n"
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
+    showResponse(response)
+    
 
 def generate_response(question, data, shap_values, contract_map, df):
     question = question.lower()
@@ -146,10 +147,11 @@ def generate_response(question, data, shap_values, contract_map, df):
   
     if "why" in question:
         reasons = ", ".join(top_features[:2])
-        return (            
+        response =  (            
             f"This customer is likely to churn due to {reasons}. "
             f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
         )
+       showResponse(response)
 
     elif "recommend" in question or "suggest" in question:
         response =  (
@@ -158,56 +160,37 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"It typically reduces churn by offering better value and longer contract terms.\n"
             f"You can try the below plans and contracts combination to determine churn risk for this customer."
         )
-        #st.write(response)
-        # Typing effect
-        placeholder = st.empty()
-        typed_text = ""            
-        for char in response:
-          typed_text += char
-          placeholder.markdown(typed_text)
-          #time.sleep(0.005)
+        showResponse(response)
         showRecommandation(contract_map, data["tenure"])
 
     elif "risk" in question or "chance" in question:
-        return (            
+        response =  (            
             f"The churn risk for this customer is **{churn_prob:.1%}**. "
             f"This is based on factors like {', '.join(top_features[:2])}."
         )
+        showResponse(response)
 
     elif "features" in question or "factors" in question:       
-      
-      response =   (
+        response =   (
           f"🧠 **ChurnMate:** "
           f"The top factors influencing churn are: {', '.join(top_features)}. "
           f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
-      )
-      
-      placeholder = st.empty()
-      typed_text = ""            
-      for char in response:
-        typed_text += char
-        placeholder.markdown(typed_text)
-        #time.sleep(0.005)
-      # Show waterfall plot if toggle is activated
-      if st.toggle("Show churn factor waterfall"):
-        st.session_state["show_response"] = False
-        st.markdown("### Factors of Churn")
-        fig, ax = plt.subplots()
-        shap.plots.waterfall(shap_values, show=False)
-        st.pyplot(fig)
+        )
+        showResponse(response)         
+        # Show waterfall plot if toggle is activated
+        if st.toggle("Show churn factor waterfall"):
+            st.session_state["show_response"] = False
+            st.markdown("### Factors of Churn")
+            fig, ax = plt.subplots()
+            shap.plots.waterfall(shap_values, show=False)
+            st.pyplot(fig)
 
     elif "details" in question or "show customer details" in question:
       response =   (
           f"🧠 **ChurnMate:** "
           f"Below a full list of the customer details."         
       )
-      #st.markdown(response)            
-      placeholder = st.empty()
-      typed_text = ""            
-      for char in response:
-        typed_text += char
-        placeholder.markdown(typed_text)
-        #time.sleep(0.005)
+      showResponse(response)
       # Show waterfall plot if toggle is activated
       i = data["index"]
       st.write(df.iloc[i])
@@ -217,15 +200,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"The current plan is **{data.get('current_plan', 'Unknown')}**, "
             f"but switching to **{plan}** may reduce churn risk."
         )
-        message = f"💡 ChurnMate Suggests:\n\n{response}"      
-        # Create a placeholder for the success box
-        placeholder = st.empty()      
-        typed_text = ""
-        for char in message:
-            typed_text += char
-            # Render the full success box once, updating its content
-            placeholder.success(typed_text)
-            time.sleep(0.005)
+        showResponse(response)
             
     elif "price" in question or "paying" in question or "charges" in question:      
        return (           
@@ -234,15 +209,8 @@ def generate_response(question, data, shap_values, contract_map, df):
        )
     elif "strategy" in question or "retension" in question:       
         strategy = generate_strategy(data["churn_probability"])
-        message = f"💡 ChurnMate Suggests:\n\n{strategy}"      
-        # Create a placeholder for the success box
-        placeholder = st.empty()      
-        typed_text = ""
-        for char in message:
-            typed_text += char
-            # Render the full success box once, updating its content
-            placeholder.success(typed_text)
-            time.sleep(0.005)  
+        showResponse(strategy)
+           
 
     else:
         return (            
@@ -286,6 +254,18 @@ def generate_strategy(churn_risk):
           f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
+
+def showResponse(response):
+    message = f"🧠 **ChurnMate:**:\n\n{response}"      
+        # Create a placeholder for the success box
+        placeholder = st.empty()      
+        typed_text = ""
+        for char in message:
+            typed_text += char
+            # Render the full success box once, updating its content
+            placeholder.success(typed_text)
+            time.sleep(0.005)
+            
 def showRecommandation(contract_map, tenure):
   #Recommend Plan  
   # dropdown to allow manual override
