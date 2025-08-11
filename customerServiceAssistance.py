@@ -84,8 +84,8 @@ def run(customer, shap_values, X, contract_map, df):
                 )
                 st.session_state["show_message"] = True
                 showResponse(st.session_state["churn_message"])
-            else:
-                st.session_state["churn_message"] = ""
+            #else:
+                #st.session_state["churn_message"] = ""
           
         ## Typing effect
         #placeholder = st.empty()
@@ -257,7 +257,7 @@ def generate_strategy(churn_risk):
         )
 
 def showResponse(response):
-    message = f"🧠 **ChurnMate:**:\n\n{response}"      
+    message = response      
     # Create a placeholder for the success box
     placeholder = st.empty()      
     typed_text = ""
