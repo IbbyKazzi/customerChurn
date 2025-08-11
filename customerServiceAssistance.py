@@ -73,43 +73,23 @@ def run(customer, shap_values, X, contract_map, df):
 
     # Create the chat box container
     with st.container():
-        if "churn_message" not in st.session_state:
-            st.session_state["churn_message"] = (
+        message = (
                 "👋 **Hi, I'm ChurnMate!** I'm here to help you understand churn risks and recommend retention strategies.\n\n"
                 "🧠 **ChurnMate:** Here's what I found:\n\n"
                 + summarize_customer(customer)
             )
-            st.session_state["show_message"] = True
-            showIntro(st.session_state["churn_message"], 0.005)
-            #else:
-                #st.session_state["churn_message"] = ""
-          
-        ## Typing effect
-        #placeholder = st.empty()
-        #typed_text = ""        
-        #for char in st.session_state["churn_message"]:
-        #    typed_text += char
-        #    placeholder.markdown(typed_text)
-        #    #time.sleep(0.005)
+        if "show_message" not in st.session_state:
+            st.session_state["show_message"] = True            
+            showIntro(message, 0.005)
+        else:
+           showIntro(message, 0)        
 
         if customer["churn_probability"] > 0.5:
               st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
-          response = generate_response(question, customer, shap_values, contract_map, df)
-          #if response and response != "None":
-          #  message = f"🧠 **ChurnMate:** {response}"
-          #  #st.markdown(f"🧠 **ChurnMate:** {response}")
-          #  # Typing effect
-          #  placeholder = st.empty()
-          #  typed_text = ""            
-          #  for char in message:
-          #      typed_text += char
-          #      placeholder.markdown(typed_text)
-          #     #time.sleep(0.005)
-              
-        #if st.button("Generate Retention Strategy"):          
+          response = generate_response(question, customer, shap_values, contract_map, df)            
           
 
 def summarize_customer(customer):
@@ -264,8 +244,7 @@ def showIntro(message, delay):
         # Render the full success box once, updating its content
         placeholder2.success(typed_text2)
         time.sleep(delay)
-def showResponse(response):
-    showIntro(st.session_state["churn_message"], 0)
+def showResponse(response):    
     message = response      
     # Create a placeholder for the success box
     placeholder = st.empty()      
