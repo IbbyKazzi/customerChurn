@@ -39,8 +39,9 @@ def run(customer, shap_values, X, contract_map, df):
     # Create a DataFrame for easy sorting
     feature_importance = pd.DataFrame({
         'feature': X.columns,
-        'importance': mean_abs_shap
+        'importance': np.abs(local_shap)
     }).sort_values(by='importance', ascending=False)
+
     
     # Display top N features
     top_n = 5
