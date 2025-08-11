@@ -92,7 +92,7 @@ def run():
             if "show_message" not in st.session_state:
                 st.session_state["show_message"] = True
             else:
-                st.session_state["show_message"] = False
+                st.session_state["show_message"] = True
             import customerServiceAssistance
             customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
         on_customer_change(selected_customer_id) 
@@ -100,7 +100,7 @@ def run():
         if "show_message" not in st.session_state:
             st.session_state["show_message"] = True
         else:
-            st.session_state["show_message"] = False
+            st.session_state["show_message"] = True
         import customerServiceAssistance
         customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
     
