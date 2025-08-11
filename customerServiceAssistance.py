@@ -213,7 +213,8 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"This is based on factors like {', '.join(top_features[:2])}."
         )
 
-    elif "features" in question or "factors" in question:        
+    elif "features" in question or "factors" in question:       
+      st.session_state["show_response"] = False
       response =   (
           f"🧠 **ChurnMate:** "
           f"The top factors influencing churn are: {', '.join(top_features)}. "
