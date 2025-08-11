@@ -151,7 +151,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             f"This customer is likely to churn due to {reasons}. "
             f"Their churn probability is {churn_prob:.1%}, which is considered {'high' if churn_prob > 0.5 else 'moderate' if churn_prob > 0.25 else 'low'}."
         )
-       showResponse(response)
+        showResponse(response)
 
     elif "recommend" in question or "suggest" in question:
         response =  (
