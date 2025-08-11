@@ -142,7 +142,7 @@ def generate_response(question, data, shap_values, contract_map, df):
         )
         showResponse(response)
         
-    elif "recommend" in question or "suggest" in question:
+    elif "recommend" in question or "suggest" in question or "switch plan" in question:
         response =  (
             f"🧠 **ChurnMate:** "
             f"I recommend offering the **{plan}** plan. "
