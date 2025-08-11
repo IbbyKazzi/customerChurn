@@ -163,15 +163,15 @@ def generate_response(question, data, shap_values, contract_map, df):
         response =   (
           f"🧠 **ChurnMate:** "
           f"The top factors influencing churn are: {', '.join(top_features)}. "
-          f"These features have the highest SHAP impact on the prediction. Click on the toggle below to view more details."
+          f"These features have the highest SHAP impact on the prediction. Click on the toggle above to view more details."
         )        
              
         # Show waterfall plot if toggle is activated
         if st.toggle("Show churn factor waterfall"):
             response =   (
               f"🧠 **ChurnMate:** "
-              f"Below are the 10 highest SHAP features that impact on the prediction.\n"
-              f"🔴Red feature value pushes the prediction towards churn.\n"
+              f"Below are the 10 highest SHAP features that impact on the prediction.\n\n"
+              f"🔴Red feature value pushes the prediction towards churn.\n\n"
               f"🔵 Blue feature value pushes the prediction away from churn."
             )  
             st.markdown("### Factors of Churn")
