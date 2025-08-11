@@ -27,32 +27,33 @@ selected = option_menu(
     icons=["house", "bar-chart", "person-lines-fill", "shield-check", "clock-history"],
     orientation="horizontal"
 )
+with st.container:
+    # Page routing
+    if selected == "Home":
+        st.sidebar.header("🏠 Home")
+        import home_page
+        home_page.run()
+    
+    elif selected == "Analysis":
+        st.sidebar.header("📊 Analysis")
+        import churn_analysis
+        churn_analysis.run()
+    
+    elif selected == "Service":
+        st.sidebar.header("👤 Customer Service")
+        import customerService
+        customerService.run()
+    
+    elif selected == "Retention":
+        st.sidebar.header("🛡️ Retention")
+        import retention
+        retention.run()
+    
+    elif selected == "History":
+        st.sidebar.header("🧠 Model History")
+        from model_history import show_model_history
+        show_model_history()
 
-# Page routing
-if selected == "Home":
-    st.sidebar.header("🏠 Home")
-    import home_page
-    home_page.run()
-
-elif selected == "Analysis":
-    st.sidebar.header("📊 Analysis")
-    import churn_analysis
-    churn_analysis.run()
-
-elif selected == "Service":
-    st.sidebar.header("👤 Customer Service")
-    import customerService
-    customerService.run()
-
-elif selected == "Retention":
-    st.sidebar.header("🛡️ Retention")
-    import retention
-    retention.run()
-
-elif selected == "History":
-    st.sidebar.header("🧠 Model History")
-    from model_history import show_model_history
-    show_model_history()
 
 
 
