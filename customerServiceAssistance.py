@@ -204,6 +204,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             "- What plan do you recommend?\n"
             "- What is their churn risk?\n"
             "- What features are driving churn?"
+            "- What retension strategy can be applied?"
         )
         showResponse(response)
 
