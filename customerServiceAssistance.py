@@ -195,10 +195,9 @@ def generate_response(question, data, shap_values, contract_map, df):
     elif "strategy" in question or "retension" in question:       
         strategy = generate_strategy(data["churn_probability"])
         showResponse(strategy)
-           
 
     else:
-        return (  
+        response =  (  
             f"🧠 **ChurnMate:** "
             "I'm here to help with churn insights! Try asking:\n"
             "- Why is this customer likely to churn?\n"
@@ -206,6 +205,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             "- What is their churn risk?\n"
             "- What features are driving churn?"
         )
+        showResponse(response)
 
 def segment_summary(segment_data):
     avg_churn = segment_data["churn_probability"].mean()
