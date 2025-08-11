@@ -91,7 +91,7 @@ def run():
         def on_customer_change(customer_id):            
             import customerServiceAssistance
             customerServiceAssistance.run(customer, shap_values[i], X, contract_map, df)
-    on_customer_change(selected_customer_id) 
+        on_customer_change(selected_customer_id) 
     
 
 def recommend_action(prob):
