@@ -85,7 +85,7 @@ def run(customer, shap_values, X, contract_map, df):
            showIntro(message, 0)        
 
         if customer["churn_probability"] > 0.5:
-              st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")        
+              st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
         
         question = st.text_input("Ask me anything about this customer or churn trends:")
         if question:
@@ -236,14 +236,17 @@ def generate_strategy(churn_risk):
         )
 
 def showIntro(message, delay):
-    # Create a placeholder for the success box
-    placeholder = st.empty()      
-    typed_text = ""
-    for char in message:
-        typed_text += char
-        # Render the full success box once, updating its content
-        placeholder.info(typed_text)
-        time.sleep(delay)
+    if delay == 0:
+        st.info(typed_text)
+    else:
+        # Create a placeholder for the success box
+        placeholder = st.empty()      
+        typed_text = ""
+        for char in message:
+            typed_text += char
+            # Render the full success box once, updating its content
+            placeholder.info(typed_text)
+            time.sleep(delay)
 def showResponse(response):    
     message = response      
     # Create a placeholder for the success box
