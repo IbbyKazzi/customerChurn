@@ -12,7 +12,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .centered-container {
-            max-width: 900px;
+            max-width: 400px;
             margin: auto;
             padding-top: 2rem;
         }
@@ -58,4 +58,5 @@ with st.container():
         show_model_history()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
