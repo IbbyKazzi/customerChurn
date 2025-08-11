@@ -83,16 +83,17 @@ def run(customer, shap_values, X, contract_map, df):
                     + summarize_customer(customer)
                 )
                 st.session_state["show_message"] = True
+                showResponse(st.session_state["churn_message"])
             else:
                 st.session_state["churn_message"] = ""
-      
-        # Typing effect
-        placeholder = st.empty()
-        typed_text = ""        
-        for char in st.session_state["churn_message"]:
-            typed_text += char
-            placeholder.markdown(typed_text)
-            #time.sleep(0.005)
+          
+        ## Typing effect
+        #placeholder = st.empty()
+        #typed_text = ""        
+        #for char in st.session_state["churn_message"]:
+        #    typed_text += char
+        #    placeholder.markdown(typed_text)
+        #    #time.sleep(0.005)
 
         if customer["churn_probability"] > 0.5:
               st.warning("⚠️ ChurnMate Alert: This customer is at very high risk. Consider immediate outreach.")        
@@ -118,7 +119,7 @@ def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
     top_factors = customer["top_features"]
     plan = customer["recommended_plan"]    
-    assistant_response(customer["name"], churn_prob, top_factors, plan)
+    return assistant_response(customer["name"], churn_prob, top_factors, plan)
 
 def assistant_response(customer_name, churn_prob, top_features, plan_suggestion):
     risk_level = (
@@ -128,13 +129,13 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     )
     factors = ", ".join(top_features[:5])
     
-    response =  (
+    return  (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
         f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
         #f"📌 **Key Factors**: {factors}\n\n"
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
-    showResponse(response)
+    #showResponse(response)
     
 
 def generate_response(question, data, shap_values, contract_map, df):
