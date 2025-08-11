@@ -180,10 +180,10 @@ def generate_response(question, data, shap_values, contract_map, df):
           f"Below a full list of the customer details."         
       )
       showResponse(response)
-      # Show waterfall plot if toggle is activated
+      # Show customer's details
       i = data["index"]
-      st.write(df.iloc[i])
-
+      st.dataframe(df.iloc[[i]], use_container_width=True)
+        
     elif "plan" in question:
         response = (  
             f"🧠 **ChurnMate:** "
