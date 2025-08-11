@@ -186,7 +186,8 @@ def generate_response(question, data, shap_values, contract_map, df):
         #st.table(df.iloc[[i]])
         numeric_cols = df.select_dtypes(include='number').columns 
         styled_row = df.iloc[[i]][numeric_cols].style.highlight_max(axis=1, color='lightgreen') 
-        st.success("Customer full details") st.success(df.iloc[[i]].style.set_table_attributes('style="width:100%"'))  
+        st.success("Customer full details") 
+        st.success(df.iloc[[i]].style.set_table_attributes('style="width:100%"'))  
         st.success("Here are some highlight on this customer") 
         st.success(styled_row)  # Show highlighted numeric part show all in one green box
 
