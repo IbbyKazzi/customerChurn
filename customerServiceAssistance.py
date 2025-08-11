@@ -93,7 +93,7 @@ def run(customer, shap_values, X, contract_map, df):
         else:
            st.session_state["show_question"] = False  
         if question:
-            st.session_state["show_question"] = True
+            #st.session_state["show_question"] = True
             generate_response(question, customer, shap_values, contract_map, df)
             
             
