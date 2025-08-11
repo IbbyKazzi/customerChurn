@@ -8,7 +8,7 @@ import shap
 import time
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
-def run(customer, shap_values, X, contract_map, df):  
+def run(customer, shap_values, X, contract_map, df, newCustomer):  
     plans = {
         "Basic": 25,
         "Standard": 55,
@@ -81,8 +81,9 @@ def run(customer, shap_values, X, contract_map, df):
         if "show_message" not in st.session_state:
             st.session_state["show_message"] = True
         else:
-            st.session_state["show_message"] = False
-            
+            st.session_state["show_message"] = newCustomer
+
+        
         if st.session_state["show_message"] == True:
             showIntro(message, 0.005)
         else:
