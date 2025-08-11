@@ -184,24 +184,12 @@ def generate_response(question, data, shap_values, contract_map, df):
         i = data["index"]
         #st.dataframe(df.iloc[[i]], use_container_width=True)
         #st.table(df.iloc[[i]])
-        with st.container():
-            st.markdown("""
-                <div style="background-color:#d4edda; padding:20px; border-radius:10px">
-                    <h4>✅ Customer Full Details</h4>
-                </div>
-            """, unsafe_allow_html=True)
-        
-            st.write(df.iloc[[i]].style.set_table_attributes('style="width:100%"'))
-        
-            st.markdown("""
-                <div style="background-color:#d4edda; padding:20px; border-radius:10px">
-                    <h4>📊 Highlights on Numeric Features</h4>
-                </div>
-            """, unsafe_allow_html=True)
-        
-            numeric_cols = df.select_dtypes(include='number').columns
-            styled_row = df.iloc[[i]][numeric_cols].style.highlight_max(axis=1, color='lightgreen')
-            st.write(styled_row)
+        numeric_cols = df.select_dtypes(include='number').columns 
+        styled_row = df.iloc[i]][numeric_cols].style.highlight_max(axis=1, color='lightgreen') 
+        st.success("Customer full details") st.success(df.iloc[[i]].style.set_table_attributes('style="width:100%"'))  
+        st.success("Here are some highlight on this customer") 
+        st.success(styled_row)  # Show highlighted numeric part show all in one green box
+
   
     elif "plan" in question:
         response = (  
