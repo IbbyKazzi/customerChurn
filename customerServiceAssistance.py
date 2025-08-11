@@ -83,7 +83,7 @@ def run(customer, shap_values, X, contract_map, df):
                     + summarize_customer(customer)
                 )
                 st.session_state["show_message"] = True
-                showIntro(st.session_state["churn_message"])
+                showIntro(st.session_state["churn_message"], 0.005)
             #else:
                 #st.session_state["churn_message"] = ""
           
@@ -135,8 +135,7 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
         #f"📌 **Key Factors**: {factors}\n\n"
         #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
-    #showResponse(response)
-    
+    #showResponse(response)    
 
 def generate_response(question, data, shap_values, contract_map, df):
     question = question.lower()
@@ -256,7 +255,7 @@ def generate_strategy(churn_risk):
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
 
-def showIntro(message):
+def showIntro(message, delay):
     # Create a placeholder for the success box
     placeholder2 = st.empty()      
     typed_text2 = ""
@@ -264,8 +263,9 @@ def showIntro(message):
         typed_text2 += char
         # Render the full success box once, updating its content
         placeholder2.success(typed_text2)
-        time.sleep(0.005)
+        time.sleep(delay)
 def showResponse(response):
+    showIntro(st.session_state["churn_message"], 0)
     message = response      
     # Create a placeholder for the success box
     placeholder = st.empty()      
