@@ -32,7 +32,7 @@ def run():
     df['loyalty_band'] = df['Months'].apply(tenure_group)
 
     #add another feature
-    df['charge_ratio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
+    df['charge_velocity'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
     
     # Encode categorical variables
     df_encoded = df.copy()
