@@ -25,7 +25,7 @@ def run():
 
     #load original dataset
     df = pd.read_csv(DATA_PATH)
-    df_filtered = df[df['Churn'] == 'No']
+    df = df[df['Churn'] == 'No']
     df.rename(columns={"tenure": "Months"}, inplace=True)     
     
     # Predict probabilities
