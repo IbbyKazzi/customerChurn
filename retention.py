@@ -14,28 +14,17 @@ import load_dataset
 import uploadNewDataset
 
 def run():
-    #get the prediction model    
-    
+    #get the prediction model 
     with open(MODEL_PATH_T21, "rb") as f:
-        model = pickle.load(f)
-    #import the dataset
-    #X = pd.read_csv("encoded-dataset.csv")
-    #explainer = shap.Explainer(model, X)
-    #shap_values = explainer(X)
+        model = pickle.load(f)   
     
     #load the dataset    
     df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features 
     df_encoded = df_encoded[df_encoded["Churn"] == 0].copy() # we only interested in those who didn't churn
-    df_encoded = df_encoded.drop(['Churn'], axis=1) 
-    
-    #def align_features(df, model):
-    #    return df[model.feature_names_in_]
-    
-    #df_aligned = align_features(df, model)
+    df_encoded = df_encoded.drop(['Churn'], axis=1)   
     
     # Predict probabilities
-    churn_probs = model.predict_proba(df_encoded)[:, 1]   
-    
+    churn_probs = model.predict_proba(df_encoded)[:, 1]       
     
     # Add the prediction back into your DataFrame
     df_encoded["churn_probability"] = churn_probs
@@ -73,5 +62,16 @@ def run():
         percent = count / len(df_encoded)
         st.write(f"{tier}: {count} customers")
         st.progress(percent) 
-     
+
+    #Filter customers by thier tier and allow to export data as .csv to share with the retention team
+    st.subheader("View Customers by Risk Tier")
+    selected_tier = st.selectbox("Choose a risk category", ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"])
+    filtered_df = df_encoded[df_encoded["risk_category"] == selected_tier]
+    
+    st.dataframe(filtered_df)
+    
+    # Export data using a button
+    
+
+
     #uploadNewDataset.run(True)
