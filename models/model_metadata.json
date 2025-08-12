@@ -38,7 +38,7 @@
     },
     "notes": "Baseline model with tuned hyperparameters and 2 features engineering",
     "name": "model_3_v4.pkl"
-  }
+  },
   {
     "version": "v5.0",
     "date": "2025-08-12",
