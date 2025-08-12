@@ -12,6 +12,7 @@ import os
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 import load_dataset
 import uploadNewDataset
+import io
 
 def run():
     #get the prediction model 
@@ -80,7 +81,16 @@ def run():
     st.dataframe(filtered_df)
     
     # Export data using a button
+    buffer = io.StringIO()
+    filtered_df.to_csv(buffer, index=False)
     
+    st.download_button(
+        label=f"Download {selected_tier} Customers",
+        data=buffer.getvalue(),
+        file_name=f"{selected_tier.replace(' ', '_').replace('🚨','').replace('⚠️','').replace('✅','').lower()}_customers.csv",
+        mime="text/csv"
+    )
+
 
 
     #uploadNewDataset.run(True)
