@@ -4,6 +4,7 @@ import pickle
 import pandas as pd
 import shap
 import matplotlib.pyplot as plt
+from streamlit_plotly_events import plotly_events
 import plotly.graph_objects as go
 from sklearn.preprocessing import LabelEncoder
 from streamlit_option_menu import option_menu
@@ -60,27 +61,40 @@ def run():
     import plotly.express as px
     
     risk_counts = df_encoded["risk_category"].value_counts().reset_index()
-    fig = px.pie(risk_counts, names="risk_category", values="count", title="Churn Risk Distribution")
-    st.plotly_chart(fig)
+    risk_counts.columns = ["risk_category", "count"]
     
-    risk_counts = df_encoded["risk_category"].value_counts()
+    fig = px.pie(
+        risk_counts,
+        names="risk_category",
+        values="count",
+        title="Churn Risk Distribution",
+        hole=0.4
+    )
     
-    st.subheader("Risk Tier Distribution")
-    
+    st.subheader("Click a slice to view customers")
+    selected_points = plotly_events(fig, click_event=True, override_height=500)
+
+    st.subheader("Risk Tier Distribution")    
     for tier in ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"]:
         count = risk_counts.get(tier, 0)
         percent = count / len(df_encoded)
         st.write(f"{tier}: {count} customers")
         st.progress(percent) 
-
-    #Filter customers by thier tier and allow to export data as .csv to share with the retention team
-    st.subheader("View Customers by Risk Tier")
-    selected_tier = st.selectbox("Choose a risk category", ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"])
-    filtered_df = df[df["risk_category"] == selected_tier]
     
+    # Default tier selection
+    selected_tier = None
+    if selected_points:
+        selected_tier = selected_points[0]["label"]
+    
+    # Fallback to manual selection if no slice clicked
+    if not selected_tier:
+        selected_tier = st.selectbox("Or choose a risk category manually", ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"])
+    
+    # Filter and display customers
+    filtered_df = df[df["risk_category"] == selected_tier]
     st.dataframe(filtered_df)
     
-    # Export data using a button
+    # Export button
     buffer = io.StringIO()
     filtered_df.to_csv(buffer, index=False)
     
@@ -90,7 +104,5 @@ def run():
         file_name=f"{selected_tier.replace(' ', '_').replace('🚨','').replace('⚠️','').replace('✅','').lower()}_customers.csv",
         mime="text/csv"
     )
-
-
 
     #uploadNewDataset.run(True)
