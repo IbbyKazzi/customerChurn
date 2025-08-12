@@ -85,7 +85,7 @@ def run():
     filtered_df.to_csv(buffer, index=False)
     
     st.download_button(
-        label=f"Download {selected_tier} Customers",
+        label=f"Export {selected_tier} Customers",
         data=buffer.getvalue(),
         file_name=f"{selected_tier.replace(' ', '_').replace('🚨','').replace('⚠️','').replace('✅','').lower()}_customers.csv",
         mime="text/csv"
