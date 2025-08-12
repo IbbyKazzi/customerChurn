@@ -22,7 +22,7 @@ def run():
     df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
     X_All = df_encoded.drop(['Churn'], axis=1)   
     
-    top_features = ['tenure', 'MonthlyCharges', 'Contract']
+    top_features = ['Months', 'MonthlyCharges', 'Contract']
     X_top3 = df_encoded[top_features]    
     y = df_encoded['Churn']
     X_train, X_test, y_train, y_test = train_test_split(X_All, y, test_size=0.2, random_state=42)
