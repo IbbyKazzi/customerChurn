@@ -74,4 +74,4 @@ def run():
         st.write(f"{tier}: {count} customers")
         st.progress(percent) 
      
-    uploadNewDataset.run(True)
+    #uploadNewDataset.run(True)
