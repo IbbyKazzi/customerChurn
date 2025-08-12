@@ -84,7 +84,7 @@ def run():
     # Default tier selection
     selected_tier = None
     if selected_points:
-        selected_tier = selected_points[0]["label"]
+        selected_tier = selected_points[0]["risk_category"]
     
     # Fallback to manual selection if no slice clicked
     if not selected_tier:
