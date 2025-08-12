@@ -56,7 +56,7 @@
       "solver": "liblinear", 
       "max_iter": 2500
     },
-    "notes": "Based on model V4.0 with renamed features",
+    "notes": "Based on model V4 with renamed features",
     "name": "model_3_v4.pkl"
   }
 ]
