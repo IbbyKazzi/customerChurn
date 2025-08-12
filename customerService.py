@@ -22,7 +22,7 @@ def run():
     # Load your dataset to extract customer ids
     df = pd.read_csv(DATA_PATH)
     df_filtered = df[df['Churn'] == 'No']
-    
+    df.rename(columns={"tenure": "Months"}, inplace=True)    
     # Extract unique customer IDs
     customer_ids_df = df_filtered['customerID'].reset_index()
     
@@ -38,7 +38,7 @@ def run():
     i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]
     
     #get selected customer's tenure,monthly charge and contract and use our prediction model to check churn possibility
-    tenure = df.iloc[i]["tenure"]
+    tenure = df.iloc[i]["Months"]
     monthly_charges = df.iloc[i]["MonthlyCharges"]
     contract = df.iloc[i]["Contract"]
     #get the top 3 prediction model
