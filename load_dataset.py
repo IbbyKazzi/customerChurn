@@ -29,7 +29,7 @@ def run():
         else:
             return 'Long-term'
     
-    df['tenure_group'] = df['tenure'].apply(tenure_group)
+    df['loyalty_band'] = df['Months'].apply(tenure_group)
 
     #add another feature
     df['charge_ratio'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5)
