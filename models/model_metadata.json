@@ -39,5 +39,25 @@
     "notes": "Baseline model with tuned hyperparameters and 2 features engineering",
     "name": "model_3_v4.pkl"
   }
+  {
+    "version": "v5.0",
+    "date": "2025-08-12",
+    "accuracy": 0.82,
+    "roc_auc": 0.87,
+    "features": ["gender", "SeniorCitizen", "Partner", "Dependents",
+       "Months", "PhoneService", "MultipleLines", "InternetService",
+       "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
+       "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
+       "PaymentMethod", "MonthlyCharges", "TotalCharges", "loyalty_band", "charge_velocity"],
+    "number_of_features": 21,
+    "hyperparameters": {
+      "C": 0.1,
+      "penalty": "l1",
+      "solver": "liblinear", 
+      "max_iter": 2500
+    },
+    "notes": "Based on model V4.0 with renamed features",
+    "name": "model_3_v4.pkl"
+  }
 ]
 
