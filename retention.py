@@ -24,13 +24,17 @@ def run():
     df_encoded = df_encoded.drop(['Churn'], axis=1)   
 
     #load original dataset
-    df = 
+    df = pd.read_csv(DATA_PATH)
+    df_filtered = df[df['Churn'] == 'No']
+    df.rename(columns={"tenure": "Months"}, inplace=True)     
     
     # Predict probabilities
     churn_probs = model.predict_proba(df_encoded)[:, 1]       
     
     # Add the prediction back into your DataFrame
     df_encoded["churn_probability"] = churn_probs
+    #Add it to the original dataset
+    df["churn_probability"] = churn_probs
     
     #Set the risk thresholds via streamlit slider for a dynamic input
     st.sidebar.header("Set Risk Thresholds")
@@ -69,7 +73,7 @@ def run():
     #Filter customers by thier tier and allow to export data as .csv to share with the retention team
     st.subheader("View Customers by Risk Tier")
     selected_tier = st.selectbox("Choose a risk category", ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"])
-    filtered_df = df_encoded[df_encoded["risk_category"] == selected_tier]
+    filtered_df = df[df["risk_category"] == selected_tier]
     
     st.dataframe(filtered_df)
     
