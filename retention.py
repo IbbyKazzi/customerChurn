@@ -52,6 +52,8 @@ def run():
             return "Low Risk ✅"
             
     df_encoded["risk_category"] = df_encoded["churn_probability"].apply(categorize_risk)
+    #apply it to the original data as well
+    df["risk_category"] = df["churn_probability"].apply(categorize_risk)
     
     #visualize in streamlit
     import plotly.express as px
