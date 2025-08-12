@@ -18,10 +18,13 @@ def run():
     with open(MODEL_PATH_T21, "rb") as f:
         model = pickle.load(f)   
     
-    #load the dataset    
+    #load encoded dataset    
     df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features 
     df_encoded = df_encoded[df_encoded["Churn"] == 0].copy() # we only interested in those who didn't churn
     df_encoded = df_encoded.drop(['Churn'], axis=1)   
+
+    #load original dataset
+    df = 
     
     # Predict probabilities
     churn_probs = model.predict_proba(df_encoded)[:, 1]       
