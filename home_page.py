@@ -23,7 +23,7 @@ def run():
 
     #st.subheader("💡 Prediction calculator")
     st.markdown("<h4 style='font-size:18px;'>💡 Prediction calculator</h3>", unsafe_allow_html=True)
-    tenure = st.number_input("Tenure", min_value=0, step=1, format="%d") #get tenure as a whole number
+    tenure = st.number_input("Months", min_value=0, step=1, format="%d") #get tenure as a whole number
     monthly_charges = st.number_input("Monthly Charges") #get monthly charges as a decimal number
     contract_type = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two year"])
     
