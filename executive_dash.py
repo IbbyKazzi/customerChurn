@@ -8,8 +8,7 @@ def run():
 
     features_for_clustering = [
         'Month', 'MonthlyCharges', 'TotalCharges',
-        'Month-to-month', 'One year', 'Two year'
-        'InternetService', 'TechSupport',
+        'Contract', 'InternetService', 'TechSupport',
         'PaymentMethod'
     ]
     
@@ -24,13 +23,13 @@ def run():
     # 2) Create summary per cluster
     cluster_summary = df.groupby('cluster').agg({
         'Churn':'mean',
-        'tenure':'mean',
+        'Month':'mean',
         'MonthlyCharges':'mean',
         'TotalCharges':'mean',
-        'Contract_Month-to-month':'mean',
-        'TechSupport_No':'mean',
-        'PaymentMethod_Electronic check':'mean',
-        'InternetService_Fiber optic':'mean'
+        'Contract':'mean',
+        'InternetService':'mean',
+        'TechSupport':'mean',
+        'PaymentMethod':'mean'
     }).reset_index()
     
     # 3) Describe each cluster using GPT
@@ -43,12 +42,12 @@ def run():
             "assign one short business-friendly segment name (2–4 words) and a brief description. "
             "Here are the characteristics:\n"
             f"- Average churn rate: {row['Churn']:.2f}\n"
-            f"- Average tenure: {row['tenure']:.1f} months\n"
+            f"- Average tenure: {row['Month']:.1f} months\n"
             f"- Average monthly charges: {row['MonthlyCharges']:.2f}\n"
-            f"- % Month-to-month contract: {row['Contract_Month-to-month']*100:.1f}%\n"
-            f"- % using Fiber: {row['InternetService_Fiber optic']*100:.1f}%\n"
-            f"- % without Tech Support: {row['TechSupport_No']*100:.1f}%\n"
-            f"- % using Electronic check: {row['PaymentMethod_Electronic check']*100:.1f}%\n\n"
+            #f"- % Month-to-month contract: {row['Contract_Month-to-month']*100:.1f}%\n"
+            f"- % using Fiber: {row['InternetService']*100:.1f}%\n"
+            f"- % without Tech Support: {row['TechSupport']*100:.1f}%\n"
+            f"- % using Electronic check: {row['PaymentMethod']*100:.1f}%\n\n"
             "Use one of the following label styles if it applies: "
             "'New Cost-Sensitive Users', 'Tech-Avoidant Casuals', 'Bundled Value Seekers', "
             "'Contract Expiry Risks', 'Electronic-Check Churners', 'Loyal Seniors', 'Streaming-Heavy Customers'. "
