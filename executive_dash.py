@@ -123,8 +123,8 @@ def run():
 
     #GPT Segment Labeling
     if "force_refresh" not in st.session_state:
-    st.session_state["force_refresh"] = False
-    st.session_state["force_refresh"] = st.checkbox("🔄 Force refresh GPT segment descriptions", value=False)
+        st.session_state["force_refresh"] = False
+        st.session_state["force_refresh"] = st.checkbox("🔄 Force refresh GPT segment descriptions", value=False)
     
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
         segment_profiles = generate_segment_profiles(
