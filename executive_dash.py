@@ -8,16 +8,16 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import openai
 
-# 📦 Load dataset module
+#Load dataset module
 import load_dataset
 
-# 🔐 Load OpenAI API key
+#Load OpenAI API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-# 📁 Cache path
+#Cache path
 CACHE_PATH = "segment_profiles.json"
 
-# 🧠 GPT Segment Description Generator
+#GPT Segment Description Generator
 def llm_cluster_description(row):
     prompt = (
         "You are an expert in telecommunications customer analytics. "
@@ -45,7 +45,7 @@ def llm_cluster_description(row):
         st.error(f"OpenAI error: {str(e)}")
         return f"Error: {str(e)}"
 
-# 🧠 GPT Segment Generation with Caching
+#GPT Segment Generation with Caching
 def generate_segment_profiles(df_summary, force_refresh=False):
     if not force_refresh and os.path.exists(CACHE_PATH):
         with open(CACHE_PATH, "r") as f:
@@ -64,7 +64,7 @@ def generate_segment_profiles(df_summary, force_refresh=False):
 
     return segment_profiles
 
-# 🚀 Main App
+#Main App
 def run():
     st.title("📊 Telco Churn Segmentation")
 
@@ -84,7 +84,7 @@ def run():
         default=['Months', 'MonthlyCharges', 'TotalCharges']
     )
 
-    n_clusters = 5
+    n_clusters = st.slider("Select number of clusters", 2, 10, 5)
 
     if st.button("🔄 Run Clustering"):
         if len(selected_features) < 2:
@@ -148,4 +148,4 @@ def run():
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
 # 🏁 Run the app
-#run()
+run()
