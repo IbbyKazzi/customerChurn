@@ -13,6 +13,7 @@ def run():
     ]
     
     df = pd.read_csv(DATA_PATH)
+    df.rename(columns={"tenure": "Months"}, inplace=True)
     
     X_cluster = df[features_for_clustering]
     X_scaled  = StandardScaler().fit_transform(X_cluster)
