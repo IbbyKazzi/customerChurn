@@ -9,8 +9,8 @@ def run():
     features_for_clustering = [
         'Month', 'MonthlyCharges', 'TotalCharges',
         'Month-to-month', 'One year', 'Two year'
-        'InternetService_Fiber optic', 'TechSupport',
-        'PaymentMethod_Electronic check'
+        'InternetService', 'TechSupport',
+        'PaymentMethod'
     ]
     
     df = pd.read_csv(DATA_PATH)
