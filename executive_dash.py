@@ -94,7 +94,7 @@ def run():
         st.warning("Cluster count changed — segment profiles will be regenerated.")
     st.session_state["prev_n_clusters"] = n_clusters
 
-    if st.button("🔄 Run Clustering"):
+    if force_refresh:
         if len(selected_features) < 2:
             st.warning("Please select at least two features.")
             st.stop()
