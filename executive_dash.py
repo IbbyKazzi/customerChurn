@@ -76,11 +76,13 @@ def run():
 
     #Load dataset
     df = load_dataset.run()
+    df['Contract_Month-to-month'] = df[df['Contract_Month-to-month'] == 1].copy()
+
 
     #Feature & Cluster Selection
     available_features = [
         'Months', 'MonthlyCharges', 'TotalCharges',
-        'Contract', 'InternetService', 'TechSupport',
+        'Contract_Month-to-month', 'InternetService', 'TechSupport',
         'PaymentMethod'
     ]
 
