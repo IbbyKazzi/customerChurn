@@ -76,7 +76,7 @@ def run():
 
     #Load dataset
     df = load_dataset.run()
-    df['Contract_Month-to-month'] = df[df['Contract_Month-to-month'] == 1].copy()
+    df['Contract_Month-to-month'] = df[df['Contract'] == 0].copy()
 
 
     #Feature & Cluster Selection
