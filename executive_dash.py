@@ -42,8 +42,12 @@ def llm_cluster_description(row):
         )
         return response.choices[0].message.content.strip()
     except Exception as e:
-        st.error(f"OpenAI error: {str(e)}")
-        return f"Error: {str(e)}"
+        segment_profiles = generate_segment_profiles(
+            st.session_state["cluster_summary"],
+            force_refresh=True
+        )
+        #st.error(f"OpenAI error: {str(e)}")
+        #return f"Error: {str(e)}"
 
 #GPT Segment Generation with Caching
 def generate_segment_profiles(df_summary, force_refresh):
@@ -131,8 +135,7 @@ def run():
         
     #st.write(force_refresh)
     
-    if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
-        
+    if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):        
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
             force_refresh=force_refresh
