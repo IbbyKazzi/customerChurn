@@ -3,6 +3,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import pandas as pd
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+import os
+import openai
 
 def run():
 
@@ -35,7 +37,8 @@ def run():
     }).reset_index()
     
     # 3) Describe each cluster using GPT
-    import openai
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+
     
     def llm_cluster_description(row):
         prompt = (
