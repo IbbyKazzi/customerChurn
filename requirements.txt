@@ -8,7 +8,8 @@ streamlit-option-menu
 PyGithub
 python-dotenv
 streamlit-plotly-events
-openai
+openai==0.28
+
 
 
 
