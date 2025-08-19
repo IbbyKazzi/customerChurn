@@ -46,7 +46,7 @@ def llm_cluster_description(row):
         return f"Error: {str(e)}"
 
 #GPT Segment Generation with Caching
-def generate_segment_profiles(df_summary, force_refresh=False):
+def generate_segment_profiles(df_summary, force_refresh):
     if not force_refresh and os.path.exists(CACHE_PATH):
         with open(CACHE_PATH, "r") as f:
             return json.load(f)
@@ -129,10 +129,10 @@ def run():
         st.subheader("📊 Cluster Summary")
         st.dataframe(st.session_state["cluster_summary"])    
         
-    st.write(force_refresh)
+    #st.write(force_refresh)
     
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
-        st.write(force_refresh)
+        
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
             force_refresh=force_refresh
