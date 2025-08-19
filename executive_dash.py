@@ -118,3 +118,4 @@ def run():
     
         st.success("Segment profiles generated.")
         st.dataframe(st.session_state["cluster_summary"])
+        st.download_button("Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
