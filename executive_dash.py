@@ -128,6 +128,8 @@ def run():
 
         st.subheader("📊 Cluster Summary")
         st.dataframe(st.session_state["cluster_summary"])    
+        
+    st.write(force_refresh)
     
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
         segment_profiles = generate_segment_profiles(
