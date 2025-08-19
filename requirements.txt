@@ -9,6 +9,8 @@ PyGithub
 python-dotenv
 streamlit-plotly-events
 openai==0.28
+card
+
 
 
 
