@@ -7,9 +7,9 @@ from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 def run():
 
     features_for_clustering = [
-        'tenure', 'MonthlyCharges', 'TotalCharges',
-        'Contract_Month-to-month', 'Contract_One year',
-        'InternetService_Fiber optic', 'TechSupport_No',
+        'Month', 'MonthlyCharges', 'TotalCharges',
+        'Month-to-month', 'One year', 'Two year'
+        'InternetService_Fiber optic', 'TechSupport',
         'PaymentMethod_Electronic check'
     ]
     
