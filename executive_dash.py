@@ -68,7 +68,7 @@ def generate_segment_profiles(df_summary, force_refresh):
 def run():
     if "prev_n_clusters" not in st.session_state:
         st.session_state["prev_n_clusters"] = None
-        st.title("📊 Telco Churn Segmentation")
+    st.subheader("📊 Telco Churn Segmentation")
 
     #Load dataset
     df = load_dataset.run()
@@ -118,7 +118,7 @@ def run():
 
         st.session_state["cluster_summary"] = cluster_summary
         st.session_state["df"] = df
-        st.success("Clustering complete. Proceed to preview.")
+        #st.success("Clustering complete. Proceed to preview.")
 
     #Preview Clusters
     if "cluster_summary" in st.session_state:
@@ -166,4 +166,4 @@ def run():
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
 #Run the app
-run()
+#run()
