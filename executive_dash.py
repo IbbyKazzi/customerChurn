@@ -66,7 +66,9 @@ def generate_segment_profiles(df_summary, force_refresh=False):
 
 #Main App
 def run():
-    st.title("📊 Telco Churn Segmentation")
+    if "prev_n_clusters" not in st.session_state:
+        st.session_state["prev_n_clusters"] = None
+        st.title("📊 Telco Churn Segmentation")
 
     #Load dataset
     df = load_dataset.run()
@@ -85,6 +87,12 @@ def run():
     )
 
     n_clusters = st.slider("Select number of clusters", 2, 10, 5)
+    # Detect cluster count change
+    force_refresh = False
+    if st.session_state["prev_n_clusters"] is not None and st.session_state["prev_n_clusters"] != n_clusters:
+        force_refresh = True
+        st.warning("Cluster count changed — segment profiles will be regenerated.")
+    st.session_state["prev_n_clusters"] = n_clusters
 
     if st.button("🔄 Run Clustering"):
         if len(selected_features) < 2:
@@ -119,17 +127,12 @@ def run():
         st.bar_chart(cluster_counts)
 
         st.subheader("📊 Cluster Summary")
-        st.dataframe(st.session_state["cluster_summary"])
-
-    #GPT Segment Labeling
-    if "force_refresh" not in st.session_state:
-        st.session_state["force_refresh"] = False
-        st.session_state["force_refresh"] = st.checkbox("🔄 Force refresh GPT segment descriptions", value=False)
+        st.dataframe(st.session_state["cluster_summary"])    
     
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
-            force_refresh=st.session_state["force_refresh"]
+            force_refresh=force_refresh
         )
         st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
         st.success("Segment profiles ready.")
