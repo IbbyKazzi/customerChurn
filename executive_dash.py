@@ -37,7 +37,7 @@ def run():
     }).reset_index()
     
     # 3) Describe each cluster using GPT
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
 
     
     def llm_cluster_description(row):
