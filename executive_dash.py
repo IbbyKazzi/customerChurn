@@ -1,6 +1,7 @@
 # 1) Build customer clusters
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import pandas as pd
 
 def run():
 
