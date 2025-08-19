@@ -12,8 +12,9 @@ def run():
         'PaymentMethod'
     ]
     
-    df = pd.read_csv(DATA_PATH)
-    df.rename(columns={"tenure": "Months"}, inplace=True)
+    #load the dataset
+    import load_dataset
+    df = load_dataset.run()  #this function returnes encoded dataset with 22 features  
     
     X_cluster = df[features_for_clustering]
     X_scaled  = StandardScaler().fit_transform(X_cluster)
