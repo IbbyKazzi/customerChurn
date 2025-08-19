@@ -83,5 +83,5 @@ def run():
     cluster_summary['Segment_Profile'] = segment_profiles
     
     # Display updated summary
-    print(cluster_summary)
+    st.write(cluster_summary)
 
