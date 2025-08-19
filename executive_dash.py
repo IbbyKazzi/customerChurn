@@ -50,7 +50,6 @@ def run():
             f"- Average churn rate: {row['Churn']:.2f}\n"
             f"- Average tenure: {row['Months']:.1f} months\n"
             f"- Average monthly charges: {row['MonthlyCharges']:.2f}\n"
-            #f"- % Month-to-month contract: {row['Contract_Month-to-month']*100:.1f}%\n"
             f"- % using Fiber: {row['InternetService']*100:.1f}%\n"
             f"- % without Tech Support: {row['TechSupport']*100:.1f}%\n"
             f"- % using Electronic check: {row['PaymentMethod']*100:.1f}%\n\n"
@@ -60,14 +59,27 @@ def run():
             "If none of these apply, generate a similar style. "
             "Return output in the format: <Segment Name>: <Description>"
         )
-        
-        response = openai.ChatCompletion.create(
-            model="gpt-4o",
-            messages=[{"role":"user","content":prompt}]
-        )
-        return response.choices[0].message.content.strip()
     
-    # Apply LLM to each cluster
-    cluster_summary['Segment_Profile'] = cluster_summary.apply(llm_cluster_description, axis=1)
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-4o",
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            return f"Error: {str(e)}"
     
-    cluster_summary
+    # Apply LLM to each cluster with delay
+    segment_profiles = []
+    for idx, row in cluster_summary.iterrows():
+        print(f"Processing cluster {row['cluster']}...")
+        segment = llm_cluster_description(row)
+        segment_profiles.append(segment)
+        time.sleep(20)  # Respect RPM limit for gpt-4o
+    
+    # Assign results back to DataFrame
+    cluster_summary['Segment_Profile'] = segment_profiles
+    
+    # Display updated summary
+    print(cluster_summary)
+
