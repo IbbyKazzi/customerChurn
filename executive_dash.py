@@ -68,10 +68,10 @@ def generate_segment_profiles(df_summary, force_refresh=False):
 def run():
     st.title("📊 Telco Churn Segmentation")
 
-    # Load dataset
+    #Load dataset
     df = load_dataset.run()
 
-    # Step 1: Feature & Cluster Selection
+    #Feature & Cluster Selection
     available_features = [
         'Months', 'MonthlyCharges', 'TotalCharges',
         'Contract', 'InternetService', 'TechSupport',
@@ -112,7 +112,7 @@ def run():
         st.session_state["df"] = df
         st.success("Clustering complete. Proceed to preview.")
 
-    # Step 2: Preview Clusters
+    #Preview Clusters
     if "cluster_summary" in st.session_state:
         st.subheader("📈 Cluster Distribution")
         cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
@@ -121,10 +121,16 @@ def run():
         st.subheader("📊 Cluster Summary")
         st.dataframe(st.session_state["cluster_summary"])
 
-    # Step 3: GPT Segment Labeling
+    #GPT Segment Labeling
+    if "force_refresh" not in st.session_state:
+    st.session_state["force_refresh"] = False
+    st.session_state["force_refresh"] = st.checkbox("🔄 Force refresh GPT segment descriptions", value=False)
+    
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
-        force_refresh = st.checkbox("🔄 Force refresh GPT segment descriptions", value=False)
-        segment_profiles = generate_segment_profiles(st.session_state["cluster_summary"], force_refresh)
+        segment_profiles = generate_segment_profiles(
+            st.session_state["cluster_summary"],
+            force_refresh=st.session_state["force_refresh"]
+        )
         st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
         st.success("Segment profiles ready.")
 
@@ -147,5 +153,5 @@ def run():
 
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
-# 🏁 Run the app
+#Run the app
 run()
