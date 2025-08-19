@@ -2,6 +2,7 @@
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import pandas as pd
+from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 def run():
 
