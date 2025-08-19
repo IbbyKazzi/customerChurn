@@ -34,8 +34,10 @@ with st.container():
 
     if selected == "Home":
         st.sidebar.header("🏠 Home")
-        import home_page
-        home_page.run()
+        #import home_page
+        #home_page.run()
+        import executive_dash as ed
+        ed.run()
 
     elif selected == "Analysis":
         st.sidebar.header("📊 Analysis")
@@ -58,6 +60,7 @@ with st.container():
         show_model_history()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
