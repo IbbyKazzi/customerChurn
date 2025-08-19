@@ -7,7 +7,7 @@ from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 def run():
 
     features_for_clustering = [
-        'Month', 'MonthlyCharges', 'TotalCharges',
+        'Months', 'MonthlyCharges', 'TotalCharges',
         'Contract', 'InternetService', 'TechSupport',
         'PaymentMethod'
     ]
@@ -24,7 +24,7 @@ def run():
     # 2) Create summary per cluster
     cluster_summary = df.groupby('cluster').agg({
         'Churn':'mean',
-        'Month':'mean',
+        'Months':'mean',
         'MonthlyCharges':'mean',
         'TotalCharges':'mean',
         'Contract':'mean',
@@ -43,7 +43,7 @@ def run():
             "assign one short business-friendly segment name (2–4 words) and a brief description. "
             "Here are the characteristics:\n"
             f"- Average churn rate: {row['Churn']:.2f}\n"
-            f"- Average tenure: {row['Month']:.1f} months\n"
+            f"- Average tenure: {row['Months']:.1f} months\n"
             f"- Average monthly charges: {row['MonthlyCharges']:.2f}\n"
             #f"- % Month-to-month contract: {row['Contract_Month-to-month']*100:.1f}%\n"
             f"- % using Fiber: {row['InternetService']*100:.1f}%\n"
