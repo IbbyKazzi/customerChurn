@@ -174,9 +174,9 @@ def run():
             col3.metric("💰 Monthly Charges", f"${row['MonthlyCharges']:.2f}")
 
             col4, col5, col6 = st.columns(3)
-            col4.metric("🌐 Fiber Usage", f"{row['InternetService']*100:.1f}%")
-            col5.metric("🛠️ No Tech Support", f"{row['TechSupport']*100:.1f}%")
-            col6.metric("💳 Electronic Check", f"{row['PaymentMethod']*100:.1f}%")
+            col4.metric("🌐 Fiber Usage", f"{row['InternetService_Fiber optic']*100:.1f}%")
+            col5.metric("🛠️ No Tech Support", f"{row['TechSupport_No']*100:.1f}%")
+            col6.metric("💳 Electronic Check", f"{row['PaymentMethod_Electronic check']*100:.1f}%")
 
             st.markdown("---")
 
