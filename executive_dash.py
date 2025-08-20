@@ -77,18 +77,14 @@ def run():
     st.subheader("📊 Telco Churn Segmentation")
 
     #Load dataset
-    df_all = load_dataset.run()
-    st.write(df_all)
-    df = df_all[
-        (df_all['InternetService'] == 2) |          # Using Fiber
-        (df_all['TechSupport'] == 0) |              # No Tech Support
-        (df_all['PaymentMethod'] == 0) |              # Using Electronic Check
-        (df_all['Contract'].isin([0, 1]))  # Either Month-to-month or One year
-    ].copy()
+    df = load_dataset.run()  
 
    
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
+    df['InternetService_Fiber optic'] = (df['InternetService'] == 2).astype(int)
+    df['TechSupport_No'] = (df['TechSupport_No'] == 0).astype(int)
+    df['PaymentMethod_Electronic check'] = (df['PaymentMethod_Electronic check'] == 0).astype(int)
 
     st.write(df)
 
