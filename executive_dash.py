@@ -78,7 +78,7 @@ def run():
 
     #Load dataset
     df_all = load_dataset.run()
-    df['Contract_Month-to-month'] = df[df['Contract'] == 0].copy()
+    
     df = df_all[
         (df_all['InternetService'] == 2) &          # Using Fiber
         (df_all['TechSupport'] == 0) &              # No Tech Support
