@@ -101,7 +101,7 @@ def run():
     force_refresh = False
     if st.session_state["prev_n_clusters"] is not None and st.session_state["prev_n_clusters"] != n_clusters:
         force_refresh = True
-        st.warning("Cluster count changed — segment profiles will be regenerated.")
+        #st.warning("Cluster count changed — segment profiles will be regenerated.")
     st.session_state["prev_n_clusters"] = n_clusters
 
     if force_refresh:
@@ -109,27 +109,27 @@ def run():
             st.warning("Please select at least two features.")
             st.stop()
 
-        X_cluster = df[selected_features]
-        X_scaled = StandardScaler().fit_transform(X_cluster)
+    X_cluster = df[selected_features]
+    X_scaled = StandardScaler().fit_transform(X_cluster)
 
-        kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-        df['cluster'] = kmeans.fit_predict(X_scaled)
+    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+    df['cluster'] = kmeans.fit_predict(X_scaled)
 
-        cluster_summary = df.groupby('cluster').agg({
-            'Churn': 'mean',
-            'Months': 'mean',
-            'MonthlyCharges': 'mean',
-            'TotalCharges': 'mean',
-            'Contract_Month-to-month':'mean',
-            'Contract_One_Year':'mean',
-            'TechSupport_No':'mean',
-            'PaymentMethod_Electronic check':'mean',
-            'InternetService_Fiber optic':'mean'
-        }).reset_index()
+    cluster_summary = df.groupby('cluster').agg({
+        'Churn': 'mean',
+        'Months': 'mean',
+        'MonthlyCharges': 'mean',
+        'TotalCharges': 'mean',
+        'Contract_Month-to-month':'mean',
+        'Contract_One_Year':'mean',
+        'TechSupport_No':'mean',
+        'PaymentMethod_Electronic check':'mean',
+        'InternetService_Fiber optic':'mean'
+    }).reset_index()
 
-        st.session_state["cluster_summary"] = cluster_summary
-        st.session_state["df"] = df
-        #st.success("Clustering complete. Proceed to preview.")
+    st.session_state["cluster_summary"] = cluster_summary
+    st.session_state["df"] = df
+    #st.success("Clustering complete. Proceed to preview.")
 
     #Preview Clusters
     if "cluster_summary" in st.session_state:
@@ -146,7 +146,7 @@ def run():
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):        
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
-            force_refresh=True
+            force_refresh=force_refresh
         )
         
         # Validate length before assignment
