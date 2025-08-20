@@ -78,7 +78,7 @@ def run():
 
     #Load dataset
     df_all = load_dataset.run()
-    
+    st.write(df_all)
     df = df_all[
         (df_all['InternetService'] == 2) &          # Using Fiber
         (df_all['TechSupport'] == 0) &              # No Tech Support
