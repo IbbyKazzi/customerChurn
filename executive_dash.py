@@ -26,9 +26,11 @@ def llm_cluster_description(row):
         f"- Average churn rate: {row['Churn']:.2f}\n"
         f"- Average tenure: {row['Months']:.1f} months\n"
         f"- Average monthly charges: {row['MonthlyCharges']:.2f}\n"
-        f"- % using Fiber: {row['InternetService']*100:.1f}%\n"
-        f"- % without Tech Support: {row['TechSupport']*100:.1f}%\n"
-        f"- % using Electronic check: {row['PaymentMethod']*100:.1f}%\n\n"
+        f"- % Month-to-month contract: {row['Contract_Month-to-month']*100:.1f}%\n"
+        f"- % Contract_One_Year contract: {row['Contract_One_Year']*100:.1f}%\n"
+        f"- % using Fiber: {row['InternetService_Fiber optic']*100:.1f}%\n"
+        f"- % without Tech Support: {row['TechSupport_No']*100:.1f}%\n"
+        f"- % using Electronic check: {row['PaymentMethod_Electronic check']*100:.1f}%\n\n"
         "Use one of the following label styles if it applies: "
         "'New Cost-Sensitive Users', 'Tech-Avoidant Casuals', 'Bundled Value Seekers', "
         "'Contract Expiry Risks', 'Electronic-Check Churners', 'Loyal Seniors', 'Streaming-Heavy Customers'. "
@@ -75,14 +77,23 @@ def run():
     st.subheader("📊 Telco Churn Segmentation")
 
     #Load dataset
-    df = load_dataset.run()
+    df_all = load_dataset.run()
     df['Contract_Month-to-month'] = df[df['Contract'] == 0].copy()
+    df = df_all[
+        (df_all['InternetService'] == 2) &          # Using Fiber
+        (df_all['TechSupport'] == 0) &              # No Tech Support
+        (df_all['PaymentMethod'] == 0) &              # Using Electronic Check
+        (df_all['Contract'].isin([0, 1]))  # Either Month-to-month or One year
+    ].copy()
+
+    df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
+    df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
 
 
     #Feature & Cluster Selection
     available_features = [
         'Months', 'MonthlyCharges', 'TotalCharges',
-        'Contract_Month-to-month', 'InternetService', 'TechSupport',
+        'Contract_Month-to-month', 'Contract_One_Year', 'InternetService', 'TechSupport',
         'PaymentMethod'
     ]
 
@@ -116,10 +127,11 @@ def run():
             'Months': 'mean',
             'MonthlyCharges': 'mean',
             'TotalCharges': 'mean',
-            'Contract': 'mean',
-            'InternetService': 'mean',
-            'TechSupport': 'mean',
-            'PaymentMethod': 'mean'
+            'Contract_Month-to-month':'mean',
+            'Contract_One_Year':'mean',
+            'TechSupport_No':'mean',
+            'PaymentMethod_Electronic check':'mean',
+            'InternetService_Fiber optic':'mean'
         }).reset_index()
 
         st.session_state["cluster_summary"] = cluster_summary
