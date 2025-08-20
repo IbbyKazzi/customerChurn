@@ -89,6 +89,8 @@ def run():
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
 
+    st.write(df.head(5))
+
 
     #Feature & Cluster Selection
     available_features = [
