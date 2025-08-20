@@ -149,7 +149,7 @@ def run():
     if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):        
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
-            force_refresh=force_refresh
+            force_refresh=True
         )
         
         # Validate length before assignment
