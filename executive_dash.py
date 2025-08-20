@@ -92,7 +92,7 @@ def run():
     #Feature & Cluster Selection
     available_features = [
         'Months', 'MonthlyCharges', 'TotalCharges',
-        'Contract_Month-to-month', 'Contract_One year',
+        'Contract_Month-to-month', 'Contract_One_Year',
     'InternetService_Fiber optic', 'TechSupport_No',
     'PaymentMethod_Electronic check'
     ]
