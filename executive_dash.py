@@ -180,30 +180,13 @@ def run():
 
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
-    # Total revenue lost from churned customers
-    churned_df = df[df['Churn'] == 1]
-    total_loss = churned_df['MonthlyCharges'].sum()
-
-    st.subheader("📉 Simulate Revenue Loss from Churn")
-
-    # Slider: % of churned customers retained
-    retention_slider = st.slider("Assumed retention rate (%)", 0, 100, 50)
+    # Sidebar controls
+    st.sidebar.header("📊 Churn Impact Simulator")
     
-    # Calculate adjusted loss
+    retention_slider = st.sidebar.slider("Assumed retention rate (%)", 0, 100, 50)
+    
     retained_fraction = retention_slider / 100
     adjusted_loss = total_loss * (1 - retained_fraction)
     
-    st.metric("💸 Estimated Revenue Loss", f"${adjusted_loss:,.2f}")
-
-    import matplotlib.pyplot as plt
-
-    rates = np.arange(0, 101, 5)
-    losses = [total_loss * (1 - r / 100) for r in rates]
-    
-    fig, ax = plt.subplots()
-    ax.plot(rates, losses, marker='o', color='red')
-    ax.set_xlabel("Retention Rate (%)")
-    ax.set_ylabel("Estimated Revenue Loss ($)")
-    ax.set_title("Revenue Loss vs Retention Rate")
-    st.pyplot(fig)
+    st.sidebar.metric("💸 Revenue Loss", f"${adjusted_loss:,.2f}")
 
