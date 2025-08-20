@@ -43,13 +43,9 @@ def llm_cluster_description(row):
             messages=[{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content.strip()
-    except Exception as e:
-        segment_profiles = generate_segment_profiles(
-            st.session_state["cluster_summary"],
-            force_refresh=True
-        )
-        #st.error(f"OpenAI error: {str(e)}")
-        #return f"Error: {str(e)}"
+    except Exception as e:        
+        st.error(f"OpenAI error: {str(e)}")
+        return f"Error: {str(e)}"
 
 #GPT Segment Generation with Caching
 def generate_segment_profiles(df_summary, force_refresh):
@@ -97,11 +93,12 @@ def run():
     'PaymentMethod_Electronic check'
     ]
 
-    selected_features = st.multiselect(
-        "Select features for clustering",
-        options=available_features,
-        default=['Months', 'MonthlyCharges', 'TotalCharges']
-    )
+    selected_features = available_features
+    #st.multiselect(
+    #    "Select features for clustering",
+    #    options=available_features,
+    #    default=['Months', 'MonthlyCharges', 'TotalCharges']
+    #)
 
     n_clusters = st.slider("Select number of clusters", 2, 10, 5)
     # Detect cluster count change
