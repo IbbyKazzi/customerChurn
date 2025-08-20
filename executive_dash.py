@@ -86,6 +86,13 @@ def run():
         (df_all['Contract'].isin([0, 1]))  # Either Month-to-month or One year
     ].copy()
 
+    df_test = df_all[
+        (df_all['InternetService'] == 2) &
+        (df_all['TechSupport'] == 0)
+    ].copy()
+
+    st.write(df_test)
+
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
 
