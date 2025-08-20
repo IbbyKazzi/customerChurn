@@ -87,7 +87,7 @@ def run():
     ].copy()
 
     df_test = df_all[
-        (df_all['InternetService'] == 2) &
+        (df_all['InternetService'] == 2) ||
         (df_all['TechSupport'] == 0)
     ].copy()
 
