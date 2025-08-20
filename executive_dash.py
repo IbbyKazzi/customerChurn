@@ -98,11 +98,13 @@ def run():
 
     n_clusters = st.slider("Select number of clusters", 2, 10, 5)
     # Detect cluster count change
-    force_refresh = False
+    if "force_refresh" not in st.session_state:
+        st.session_state["force_refresh"] = False
+    
     if st.session_state["prev_n_clusters"] is not None and st.session_state["prev_n_clusters"] != n_clusters:
-        force_refresh = True
-        #st.warning("Cluster count changed — segment profiles will be regenerated.")
+        st.session_state["force_refresh"] = True
     st.session_state["prev_n_clusters"] = n_clusters
+    
 
     if force_refresh:
         if len(selected_features) < 2:
@@ -143,20 +145,22 @@ def run():
         
     #st.write(force_refresh)
     
-    if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):        
+    if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions"):
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
-            force_refresh=force_refresh
+            force_refresh=st.session_state["force_refresh"]
         )
-        
-        # Validate length before assignment
+    
+        # Reset refresh flag after use
+        st.session_state["force_refresh"] = False
+    
         if len(segment_profiles) != len(st.session_state["cluster_summary"]):
             st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
             st.stop()
-        
+    
         st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
         st.success("Segment profiles ready.")
-
+        
         # Display segment cards
         for idx, row in st.session_state["cluster_summary"].iterrows():
             st.markdown(f"### 🧠 Cluster {row['cluster']}: {row['Segment_Profile'].split(':')[0]}")
