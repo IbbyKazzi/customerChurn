@@ -185,7 +185,7 @@ def run():
     total_loss = churned_df['MonthlyCharges'].sum()
 
     # Sidebar controls
-    st.sidebar.header("📊 Churn Impact Simulator")
+    st.sidebar.header("Churn Impact Simulator")
     
     retention_slider = st.sidebar.slider("Assumed retention rate (%)", 0, 100, 50)
     
