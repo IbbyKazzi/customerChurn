@@ -106,7 +106,7 @@ def run():
     st.session_state["prev_n_clusters"] = n_clusters
     
 
-    if force_refresh:
+    if st.session_state["force_refresh"]:
         if len(selected_features) < 2:
             st.warning("Please select at least two features.")
             st.stop()
