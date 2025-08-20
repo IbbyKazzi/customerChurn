@@ -82,9 +82,9 @@ def run():
    
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
-    df['InternetService_Fiber optic'] = (df['InternetService'] == 2).astype(int)
+    df['InternetService_Fiber optic'] = (df['InternetService'] == 1).astype(int)
     df['TechSupport_No'] = (df['TechSupport'] == 0).astype(int)
-    df['PaymentMethod_Electronic check'] = (df['PaymentMethod'] == 0).astype(int)
+    df['PaymentMethod_Electronic check'] = (df['PaymentMethod'] == 2).astype(int)
 
     st.write(df)
 
