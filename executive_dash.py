@@ -93,8 +93,9 @@ def run():
     #Feature & Cluster Selection
     available_features = [
         'Months', 'MonthlyCharges', 'TotalCharges',
-        'Contract_Month-to-month', 'Contract_One_Year', 'InternetService', 'TechSupport',
-        'PaymentMethod'
+        'Contract_Month-to-month', 'Contract_One year',
+    'InternetService_Fiber optic', 'TechSupport_No',
+    'PaymentMethod_Electronic check'
     ]
 
     selected_features = st.multiselect(
