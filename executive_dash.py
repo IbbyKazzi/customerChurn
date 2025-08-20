@@ -136,11 +136,42 @@ def run():
         #st.success("Clustering complete. Proceed to preview.")
 
     #Preview Clusters
-    if "cluster_summary" in st.session_state:
-        st.subheader("📈 Cluster Distribution")
-        cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
-        st.bar_chart(cluster_counts)
+    #if "cluster_summary" in st.session_state:
+    #    st.subheader("📈 Cluster Distribution")
+    #    cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
+    #    st.bar_chart(cluster_counts)
 
+    import plotly.express as px
+
+    st.subheader("🟢 Cluster Preview (Dot Chart)")
+    
+    #df = st.session_state.get("df")
+    if df is not None and "cluster" in df.columns:
+    
+        # Feature selectors
+        numeric_cols = df.select_dtypes(include="number").columns.tolist()
+        x_feature = st.selectbox("Select X-axis feature", numeric_cols, index=numeric_cols.index("MonthlyCharges") if "MonthlyCharges" in numeric_cols else 0)
+        y_feature = st.selectbox("Select Y-axis feature", numeric_cols, index=numeric_cols.index("Months") if "Months" in numeric_cols else 1)
+    
+        # Optional filter by cluster
+        unique_clusters = sorted(df["cluster"].unique())
+        selected_clusters = st.multiselect("Filter clusters", unique_clusters, default=unique_clusters)
+    
+        filtered_df = df[df["cluster"].isin(selected_clusters)]
+    
+        # Plot
+        fig = px.scatter(
+            filtered_df,
+            x=x_feature,
+            y=y_feature,
+            color=filtered_df["cluster"].astype(str),
+            title=f"Clusters by {x_feature} vs {y_feature}",
+            labels={"cluster": "Cluster"},
+            hover_data=["cluster", x_feature, y_feature]
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+        
         st.subheader("📊 Cluster Summary")
         st.dataframe(st.session_state["cluster_summary"])    
         
