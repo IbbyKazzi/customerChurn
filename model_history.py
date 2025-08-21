@@ -45,14 +45,13 @@ def show_model_history(path=METADATA_PATH):
             model_scores = ap.evaluate_models(models, X_test, y_test)
             st.success("✅ Pipeline completed!")
     
-            # Display metrics             
-            
-            scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
-            st.subheader("📋 Model Metrics")
-            #st.dataframe(scores_df.style.format("{:.2f}"))
-            st.dataframe(scores_df)
+        # Display metrics
+        scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
+        st.subheader("📋 Model Metrics")
+        #st.dataframe(scores_df.style.format("{:.2f}"))
+        st.dataframe(scores_df)
     
-            # Metric comparison
-            selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
-            st.bar_chart(scores_df.set_index("Model")[selected_metric])
+        # Metric comparison
+        selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
+        st.bar_chart(scores_df.set_index("Model")[selected_metric])
 
