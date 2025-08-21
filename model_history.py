@@ -49,7 +49,8 @@ def show_model_history(path=METADATA_PATH):
             
             scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
             st.subheader("📋 Model Metrics")
-            st.dataframe(scores_df.style.format("{:.2f}"))
+            #st.dataframe(scores_df.style.format("{:.2f}"))
+            st.dataframe(scores_df)
     
             # Metric comparison
             selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
