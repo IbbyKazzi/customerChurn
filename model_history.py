@@ -40,9 +40,9 @@ def show_model_history(path=METADATA_PATH):
     if st.button("Run Pipeline"):
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
-            X_train, y_train = ap.load_and_preprocess(DATA_PATH)
+            X_train, X_test, y_train, y_test = ap.load_and_preprocess(DATA_PATH)
             models = ap.train_models(X_train, y_train)
-            model_scorse = evaluate_models(models, X_test, y_test)
+            model_scores = evaluate_models(models, X_test, y_test)
             st.success("✅ Pipeline completed!")
     
             # Display metrics             
