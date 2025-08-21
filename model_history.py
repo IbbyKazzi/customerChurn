@@ -40,10 +40,11 @@ def show_model_history(path=METADATA_PATH):
     if st.button("Run Pipeline"):
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
-            model_scores = ap.
+            model_scores = ap.load_and_preprocess(DATA_PATH)
             st.success("✅ Pipeline completed!")
     
             # Display metrics
+            model_scores = ap.
             scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
             st.subheader("📋 Model Metrics")
             st.dataframe(scores_df.style.format("{:.2f}"))
