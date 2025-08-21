@@ -42,7 +42,7 @@ def show_model_history(path=METADATA_PATH):
             import automated_pipeline as ap
             X_train, X_test, y_train, y_test = ap.load_and_preprocess(DATA_PATH)
             models = ap.train_models(X_train, y_train)
-            model_scores = evaluate_models(models, X_test, y_test)
+            model_scores = ap.evaluate_models(models, X_test, y_test)
             st.success("✅ Pipeline completed!")
     
             # Display metrics             
