@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import json
-from settings import METADATA_PATH
+from settings import METADATA_PATH, DATA_PATH
 
 def show_model_history(path=METADATA_PATH):
     #st.header("🧠 Model Metadata Dashboard")
@@ -35,3 +35,20 @@ def show_model_history(path=METADATA_PATH):
         if st.toggle("Show Features Used"):
             for _, row in compare_df.iterrows():
                 st.markdown(f"**{row['version']}**: {', '.join(row['features'])}")
+
+
+    if st.button("Run Pipeline"):
+        with st.spinner("Running pipeline..."):
+            import automated_pipeline as ap
+            model_scores = ap.
+            st.success("✅ Pipeline completed!")
+    
+            # Display metrics
+            scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
+            st.subheader("📋 Model Metrics")
+            st.dataframe(scores_df.style.format("{:.2f}"))
+    
+            # Metric comparison
+            selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
+            st.bar_chart(scores_df.set_index("Model")[selected_metric])
+
