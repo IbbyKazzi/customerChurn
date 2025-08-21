@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import json
+import plotly.express as px
 from settings import METADATA_PATH, DATA_PATH
 
 def show_model_history(path=METADATA_PATH):
@@ -52,6 +53,20 @@ def show_model_history(path=METADATA_PATH):
         st.dataframe(scores_df)
     
         # Metric comparison
-        selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
-        st.bar_chart(scores_df.set_index("Model")[selected_metric])
+        #selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
+        #st.bar_chart(scores_df.set_index("Model")[selected_metric])
+
+        scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")
+
+        
+        fig = px.bar(
+            scores_melted,
+            x="Model",
+            y="Score",
+            color="Metric",
+            barmode="group",
+            title="📊 Model Performance Across Metrics"
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
 
