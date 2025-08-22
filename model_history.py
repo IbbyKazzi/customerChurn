@@ -45,7 +45,7 @@ def show_model_history(path=METADATA_PATH):
             models = ap.train_models(X_train, y_train)
             model_scores = ap.evaluate_models(models, X_test, y_test)
             st.success("✅ Pipeline completed!")
-    
+        st.write(models.length)
         # Display metrics
         scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
         st.subheader("📋 Model Metrics")
