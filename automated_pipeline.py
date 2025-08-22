@@ -33,16 +33,17 @@ def load_and_preprocess(path):
 
     #get features engineer
     features_df = get_features(df)
+    enriched_df = df.merge(features_df, on='customer_id', how='left')
 
     st.write(df.columns)
-    st.write(features_df)
+    st.write(enriched_df.columns)
 
     
     #feature re-name
-    features_df.rename(columns={"tenure": "Months"}, inplace=True)
+    enriched_df.rename(columns={"tenure": "Months"}, inplace=True)
     
     # Encode categorical variables
-    df_encoded = features_df.copy()
+    df_encoded = enriched_df.copy()
     for col in df_encoded.select_dtypes(include='object').columns:
         # Exclude 'TotalCharges' for now as it seems to have non-numeric values that need handling
         if col not in ['customerID', 'TotalCharges']:
