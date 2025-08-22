@@ -51,7 +51,7 @@ def show_model_history(path=METADATA_PATH):
         st.subheader("📋 Model Metrics")
         #st.dataframe(scores_df.style.format("{:.2f}"))
         st.dataframe(scores_df)
-    
+        ap.select_best_model(model_scores, metric="Accuracy")
         # Metric comparison
         #selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
         #st.bar_chart(scores_df.set_index("Model")[selected_metric])
