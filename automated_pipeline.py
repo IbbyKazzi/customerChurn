@@ -33,7 +33,7 @@ def load_and_preprocess(path):
 
     #get features engineer
     features_df = get_features(df)
-    enriched_df = df.merge(features_df, on='customer_id', how='left')
+    enriched_df = df.merge(features_df, on='customerID', how='left')
 
     st.write(df.columns)
     st.write(enriched_df.columns)
