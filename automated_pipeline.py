@@ -52,7 +52,7 @@ def load_and_preprocess(path):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    return train_test_split(X_scaled, y, test_size=0.3, random_state=42)
+    return train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 #feature engineering
 def tenure_group(tenure):
@@ -78,7 +78,7 @@ def train_models(X_train, y_train):
 
     for name, model in models.items():
         model.fit(X_train, y_train)
-        models[name] = model  # Replace with trained model
+        models[name] = model  
 
     return models
 
