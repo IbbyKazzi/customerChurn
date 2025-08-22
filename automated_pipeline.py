@@ -36,7 +36,7 @@ def load_and_preprocess(path):
     features_df = get_features(df)
     enriched_df = df.merge(features_df, on='customerID', how='left')
 
-    
+    st.write(features_df.head(5))
     st.write(enriched_df.head(5))
 
     
