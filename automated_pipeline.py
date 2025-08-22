@@ -46,13 +46,8 @@ def load_and_preprocess(path):
     for col in df_encoded.select_dtypes(include='object').columns:
         # Exclude 'TotalCharges' for now as it seems to have non-numeric values that need handling
         if col not in ['customerID', 'TotalCharges']:
-            df_encoded[col] = LabelEncoder().fit_transform(df_encoded[col])
+            df_encoded[col] = LabelEncoder().fit_transform(df_encoded[col])   
     
-    # Convert 'TotalCharges' to numeric, coercing errors to NaN
-    df_encoded['TotalCharges'] = pd.to_numeric(df_encoded['TotalCharges'], errors='coerce')
-    
-    # Drop rows with NaN values created by the conversion
-    df_encoded.dropna(inplace=True)
     
     # Prepare data - Exclude 'tenure_group' and 'customerID' from features
     X = df_encoded.drop(['Churn', 'customerID'], axis=1)
