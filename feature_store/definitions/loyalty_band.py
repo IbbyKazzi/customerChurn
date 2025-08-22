@@ -5,4 +5,4 @@ def loyalty_band(df):
         elif t < 36: return 'Intermediate'
         else: return 'Loyal'
     df['loyalty_band'] = df['tenure'].apply(tenure_group)
-    return df[['customer_id', 'loyalty_band']]
+    return df[['customerID', 'loyalty_band']]
