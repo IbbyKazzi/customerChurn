@@ -11,6 +11,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+from feature_store.registry import get_features
+
 
 #Data Ingestion and preprocessing
 def load_and_preprocess(path):
@@ -26,14 +28,21 @@ def load_and_preprocess(path):
     df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
 
     #feature engineering
-    df['loyalty_band'] = df['tenure'].apply(tenure_group) #Feature 1
-    df['charge_velocity'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5) # Feature 2
+    #df['loyalty_band'] = df['tenure'].apply(tenure_group) #Feature 1
+    #df['charge_velocity'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5) # Feature 2
 
+    #get features engineer
+    features_df = get_features(df)
+
+    st.write(df.columns)
+    st.write(features_df)
+
+    
     #feature re-name
-    df.rename(columns={"tenure": "Months"}, inplace=True)
+    features_df.rename(columns={"tenure": "Months"}, inplace=True)
     
     # Encode categorical variables
-    df_encoded = df.copy()
+    df_encoded = features_df.copy()
     for col in df_encoded.select_dtypes(include='object').columns:
         # Exclude 'TotalCharges' for now as it seems to have non-numeric values that need handling
         if col not in ['customerID', 'TotalCharges']:
