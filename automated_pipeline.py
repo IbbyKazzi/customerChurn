@@ -14,8 +14,8 @@ from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
 #Data Ingestion and preprocessing
 def load_and_preprocess(path):
-    df = pd.read_csv(path)   
-    
+    #load dataset
+    df = pd.read_csv(path)
     #clean data
     df['TotalCharges'] = df['TotalCharges'].replace(' ', np.nan)
     df.loc[:, 'TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
@@ -52,7 +52,7 @@ def load_and_preprocess(path):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    return train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+    return train_test_split(X_scaled, y, test_size=0.3, random_state=42)
 
 #feature engineering
 def tenure_group(tenure):
