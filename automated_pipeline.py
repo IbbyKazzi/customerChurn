@@ -26,7 +26,7 @@ def load_and_preprocess(path):
     df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
 
     #feature engineering
-    df['loyalty_band'] = df['tenure'].apply(tenure_group) #Feature 1
+    #df['loyalty_band'] = df['tenure'].apply(tenure_group) #Feature 1
     df['charge_velocity'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5) # Feature 2
 
     #feature re-name
