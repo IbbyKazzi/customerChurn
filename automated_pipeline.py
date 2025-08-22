@@ -18,6 +18,7 @@ from feature_store.registry import get_features
 def load_and_preprocess(path):
     #load dataset
     df = pd.read_csv(path)
+    st.write(df.columns)
     #clean data
     df['TotalCharges'] = df['TotalCharges'].replace(' ', np.nan)
     df.loc[:, 'TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
@@ -35,7 +36,7 @@ def load_and_preprocess(path):
     features_df = get_features(df)
     enriched_df = df.merge(features_df, on='customerID', how='left')
 
-    st.write(df.columns)
+    
     st.write(enriched_df.columns)
 
     
