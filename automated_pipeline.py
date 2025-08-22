@@ -66,7 +66,7 @@ def tenure_group(tenure):
 #Model Training (logistic & Randomforest)
 def train_models(X_train, y_train):
     #models = {
-    #    "LogisticRegression": LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000),
+    #    "LogisticRegression": LogisticRegression(C=0.1, penalty='l2', solver='liblinear', max_iter=1000),
     #    "RandomForest": RandomForestClassifier(n_estimators=100)
     #}
     with open(MODEL_PATH_T21, "rb") as f:
