@@ -1,0 +1,11 @@
+features:
+  - name: loyalty_band
+    source: tenure
+    transformation: tenure_group
+    freshness: daily
+    owner: ibrahim
+  - name: charge_velocity
+    source: MonthlyCharges, TotalCharges
+    transformation: MonthlyCharges / (TotalCharges + 1e-5)
+    freshness: hourly
+    owner: ibrahim
