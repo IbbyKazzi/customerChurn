@@ -37,7 +37,7 @@ def load_and_preprocess(path):
     enriched_df = df.merge(features_df, on='customerID', how='left')
 
     
-    st.write(enriched_df.columns)
+    st.write(enriched_df.head(5))
 
     
     #feature re-name
