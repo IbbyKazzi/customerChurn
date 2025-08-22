@@ -71,8 +71,9 @@ def train_models(X_train, y_train):
     #}
     with open(MODEL_PATH_T21, "rb") as f:
         model_t21 = pickle.load(f)
+        
     models = {
-        "Trained_Model": LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000),
+        "Trained_Model": LogisticRegression(solver='liblinear', max_iter=1000),
         "Current_Model": model_t21
     }
 
