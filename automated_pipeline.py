@@ -26,11 +26,7 @@ def load_and_preprocess(path):
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')    
     # Fill NaNs with median
     median_value = df['TotalCharges'].median()
-    df['TotalCharges'] = df['TotalCharges'].fillna(median_value)
-
-    #feature engineering
-    #df['loyalty_band'] = df['tenure'].apply(tenure_group) #Feature 1
-    #df['charge_velocity'] = df['MonthlyCharges'] / (df['TotalCharges'] + 1e-5) # Feature 2
+    df['TotalCharges'] = df['TotalCharges'].fillna(median_value)    
 
     #get features engineer
     features_df = get_features(df)
@@ -67,16 +63,8 @@ def load_and_preprocess(path):
 
     return train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-#feature engineering
-def tenure_group(tenure):
-    if tenure <= 12:
-        return 'New'
-    elif 12 < tenure <= 24:
-        return 'Loyal'
-    else:
-        return 'Long-term'
 
-#Model Training (logistic & Randomforest)
+#Model Training (logistic & Current Model)
 def train_models(X_train, y_train):
     #load current model
     with open(MODEL_PATH_T21, "rb") as f:
@@ -114,5 +102,5 @@ def evaluate_models(models, X_test, y_test):
 #Select best model
 def select_best_model(scores, metric="Accuracy"):
     best_model = max(scores.items(), key=lambda x: x[1][metric])
-    st.write(f"Best model: {best_model[0]} with {metric}: {best_model[1][metric]:.4f}")
+    st.success(f"Best model: {best_model[0]} with {metric}: {best_model[1][metric]:.4f}")
     return best_model[0]
