@@ -34,7 +34,14 @@ def load_and_preprocess(path):
 
     #get features engineer
     features_df = get_features(df)
-    enriched_df = df.merge(features_df, on='customerID')
+    # Identify overlapping columns (excluding the key)
+    overlap = [col for col in features_df.columns if col in df.columns and col != 'customerID']
+    
+    # Drop them from df before merging
+    df_clean = df.drop(columns=overlap)
+    
+    # Merge cleanly
+    enriched_df = df_clean.merge(features_df, on='customerID', how='left')
 
     st.write(features_df.head(5))
     st.write(enriched_df.head(5))
