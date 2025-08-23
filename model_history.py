@@ -56,8 +56,7 @@ def show_model_history(path=METADATA_PATH):
         #selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
         #st.bar_chart(scores_df.set_index("Model")[selected_metric])
 
-        scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")
-
+        scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")   
         
         fig = px.bar(
             scores_melted,
