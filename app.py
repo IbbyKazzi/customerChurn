@@ -24,7 +24,7 @@ st.markdown("""
 selected = option_menu(
     menu_title=None,
     options=["Home", "Analysis", "Service", "Retention", "Model Pipeline"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check", ":hammer_and_wrench"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "🛠️"],
     orientation="horizontal"
 )
 
@@ -60,6 +60,7 @@ with st.container():
         show_model_history()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
