@@ -24,7 +24,7 @@ st.markdown("""
 selected = option_menu(
     menu_title=None,
     options=["Home", "Analysis", "Service", "Retention", "Model Pipeline"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "clock-history"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "hammer_and_wrench"],
     orientation="horizontal"
 )
 
@@ -55,11 +55,12 @@ with st.container():
         retention.run()
 
     elif selected == "History":
-        st.sidebar.header("🧠 Model History")
+        st.sidebar.header("🛠️  Model Pipeline")
         from model_history import show_model_history
         show_model_history()
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
