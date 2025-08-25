@@ -7,7 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 
-def run():   
+
+def run_daily():   
     
     with open(MODEL_PATH_T21, "rb") as f:
         model_all = pickle.load(f)    
@@ -44,6 +45,10 @@ def run():
     elif auc_score < 0.70:
         delta_color = "off"
 
-    versionNo = MODEL_PATH_T21
-    st.sidebar.header("📦 Current Modle Version: "+ versionNo)
-    st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.0f} %", delta=None, delta_color=delta_color)
+    #versionNo = MODEL_PATH_T21
+    #st.sidebar.header("📦 Current Modle Version: "+ versionNo)
+    #st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.0f} %", delta=None, delta_color=delta_color)
+
+if __name__ == "__main__":
+    run_daily()
+
