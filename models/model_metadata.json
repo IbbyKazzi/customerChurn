@@ -1,5 +1,45 @@
 [
   {
+    "version": "v1.0",
+    "date": "2025-08-01",
+    "accuracy": 0.79,
+    "roc_auc": 0.82,
+    "features": ["gender", "SeniorCitizen", "Partner", "Dependents",
+       "tenure", "PhoneService", "MultipleLines", "InternetService",
+       "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
+       "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
+       "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group"],
+    "number_of_features": 20,
+    "hyperparameters": {      
+      "solver": "liblinear", 
+      "max_iter": 1000      
+    },
+    "notes": "Baseline model with tuned hyperparameters and 1 feature engineering",
+    "name": "model_3_v3.pkl",
+    "active": false
+  },
+  {
+    "version": "v2.0",
+    "date": "2025-08-03",
+    "accuracy": 0.79,
+    "roc_auc": 0.82,
+    "features": ["gender", "SeniorCitizen", "Partner", "Dependents",
+       "tenure", "PhoneService", "MultipleLines", "InternetService",
+       "OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport",
+       "StreamingTV", "StreamingMovies", "Contract", "PaperlessBilling",
+       "PaymentMethod", "MonthlyCharges", "TotalCharges", "tenure_group"],
+    "number_of_features": 20,
+    "hyperparameters": {
+      "C": 0.01,
+      "penalty": "l2",
+      "solver": "liblinear", 
+      "max_iter": 1000      
+    },
+    "notes": "Baseline model with tuned hyperparameters and 1 feature engineering",
+    "name": "model_3_v3.pkl",
+    "active": false
+  },
+  {
     "version": "v3.0",
     "date": "2025-08-05",
     "accuracy": 0.80,
