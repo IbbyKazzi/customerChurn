@@ -14,7 +14,7 @@ def show_model_history(path=METADATA_PATH):
 
     # Display registry
     st.subheader("📋 Model Registry")
-    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes"]])
+    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
 
     # Comparison section
     st.subheader("🔍 Compare Model Versions")
