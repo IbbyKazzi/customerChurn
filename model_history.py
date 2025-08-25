@@ -17,9 +17,9 @@ def show_model_history(path=METADATA_PATH):
     st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
 
     #get current model accuracy value and display it in the st sidebar
-    current_model = df[df["active"] == True].iloc[0]
-    st.sidebar.metric(label="ROC AUC", value=f"{current_model['roc_auc']:.2f}")
-    st.sidebar.write(f"Version: {current_model['version']}")
+    current_model = df[df["active"] == True].iloc[0]    
+    st.sidebar.write(f"📦 Current Modle Version: {current_model['version']}")
+    st.sidebar.metric(label="ROC AUC", value=f"{current_model['roc_auc']:.2f}")    
     st.sidebar.write(f"Date: {current_model['date']}")
     
 
