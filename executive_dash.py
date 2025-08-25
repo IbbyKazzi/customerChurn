@@ -39,7 +39,7 @@ def llm_cluster_description(row):
     )
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4.0",
             messages=[{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content.strip()
