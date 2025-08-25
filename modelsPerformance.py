@@ -37,8 +37,8 @@ def run_daily():
     results = {
         "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "model_path": MODEL_PATH_T21,
-        "model_disc": model_all
-        "AUC": auc_score   
+        "model_disc": model_all,
+        "auc": auc_score   
     }
 
     # Write to JSON file
