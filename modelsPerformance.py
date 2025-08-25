@@ -30,11 +30,13 @@ def run_daily():
     
     # Compute AUC score
     auc_score = roc_auc_score(y_test, y_probs)
-
+    model_name = type(model_all).__name__
     results = {
-        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "model_path": MODEL_PATH_T21,
-        "model_disc": model_all,
+        "model_type": model_name,
+        "module": type(model_all).__module__,
+        "version": "V5",
         "auc": auc_score   
     }
 
