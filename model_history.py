@@ -20,7 +20,7 @@ def show_model_history(path=METADATA_PATH):
     current_model = df[df["active"] == True].iloc[0]    
     st.sidebar.write(f"📦 Current Modle Version: {current_model['version']}")
     st.sidebar.metric(label="ROC AUC", value=f"{current_model['roc_auc']:.0%}")    
-    st.sidebar.write(f"Date: {current_model['date']}")
+    st.sidebar.write(f"Activation Date: {current_model['date']}")
     
 
 
@@ -46,7 +46,7 @@ def show_model_history(path=METADATA_PATH):
                 st.markdown(f"**{row['version']}**: {', '.join(row['features'])}")
 
 
-    if st.button("Run Pipeline"):
+    if st.button("🔄 Run Pipeline"):
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
             X_train, X_test, y_train, y_test = ap.load_and_preprocess(DATA_PATH)
