@@ -6,6 +6,10 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+import json
+from datetime import datetime
+
+
 
 
 def run_daily():   
@@ -29,13 +33,27 @@ def run_daily():
     
     # Compute AUC score
     auc_score = roc_auc_score(y_test, y_probs)
-    fig, ax = plt.subplots()
-    ax.plot(fpr, tpr, label=f"AUC = {auc_score:.2f}")
-    ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
-    ax.set_xlabel("False Positive Rate")
-    ax.set_ylabel("True Positive Rate")
-    ax.set_title("ROC Curve")
-    ax.legend()
+
+    results = {
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "model_path": MODEL_PATH_T21,
+        "model_disc": model_all
+        "AUC": auc_score   
+    }
+
+    # Write to JSON file
+    with open("models/model_daily_results.json", "w") as f:
+        json.dump(results, f, indent=4)
+
+
+    
+    #fig, ax = plt.subplots()
+    #ax.plot(fpr, tpr, label=f"AUC = {auc_score:.2f}")
+    #ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
+    #ax.set_xlabel("False Positive Rate")
+    3ax.set_ylabel("True Positive Rate")
+    #ax.set_title("ROC Curve")
+    #ax.legend()
     
     #st.subheader("📈 Model's ROC Curve Performance:")
     #st.pyplot(fig)
