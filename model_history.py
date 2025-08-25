@@ -23,17 +23,9 @@ def show_model_history(path=METADATA_PATH):
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")    
     st.sidebar.write(f"Activation Date: {current_model['date']}")
     
-    st.sidebar.header("Monitoring Controls")
-    trigger_mode = st.sidebar.radio("Trigger Mode", ["Manual", "Auto"])
-    threshold = st.sidebar.slider("Sentiment Drop Threshold", -1.0, 1.0, -0.3)
-    segment_list = [
-        "High Churn Risk",
-        "New Users",
-        "Power Users",
-        "Inactive Accounts",
-        "Support-Heavy Customers"
-    ]
-    selected_segment = st.sidebar.selectbox("Focus Segment", segment_list)
+    #set monitoring threshold
+    st.sidebar.header("Model Monitoring")
+    auc_threshold = st.sidebar.slider("Minimum AUC Threshold", 0.5, 1.0, 0.85, step=0.01)
 
     # Comparison section
     st.subheader("🔍 Compare Model Versions")
