@@ -51,5 +51,6 @@ def run():
     elif auc_score < 0.70:
         delta_color = "off"
 
-    st.sidebar.header("📦 Modle Version: 3")
+    versionNo = MODEL_PATH_T21
+    st.sidebar.header("📦 Current Modle Version: "+ versionNo)
     st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.0f} %", delta=None, delta_color=delta_color)
