@@ -59,7 +59,7 @@
       "max_iter": 2500
     },
     "notes": "Based on model V4 with renamed features",
-    "name": "model_3_v4.pkl",
+    "name": "model_3_v5.pkl",
     "active": true
   }
 ]
