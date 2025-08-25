@@ -26,6 +26,13 @@ def show_model_history(path=METADATA_PATH):
     st.sidebar.header("Monitoring Controls")
     trigger_mode = st.sidebar.radio("Trigger Mode", ["Manual", "Auto"])
     threshold = st.sidebar.slider("Sentiment Drop Threshold", -1.0, 1.0, -0.3)
+    segment_list = [
+        "High Churn Risk",
+        "New Users",
+        "Power Users",
+        "Inactive Accounts",
+        "Support-Heavy Customers"
+    ]
     selected_segment = st.sidebar.selectbox("Focus Segment", segment_list)
 
     # Comparison section
