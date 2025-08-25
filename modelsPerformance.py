@@ -14,7 +14,7 @@ from datetime import datetime
 
 def run_daily():   
     
-    with open(MODEL_PATH_T21, "rb") as f:
+    with open("models/model_21_V5.pkl", "rb") as f:
         model_all = pickle.load(f)    
     
     #load the dataset
