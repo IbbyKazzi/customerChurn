@@ -28,7 +28,7 @@ def show_model_history(path=METADATA_PATH):
     auc_threshold = st.sidebar.slider("Minimum AUC Threshold", 0.5, 1.0, 0.85, step=0.01)
 
     auc_history_df = df[["date","roc_auc"]] #get model's aucs
-    st.line_chart(auc_history_df.set_index("date")["auc"])
+    st.line_chart(auc_history_df.set_index("date")["roc_auc"])
 
     # Comparison section
     st.subheader("🔍 Compare Model Versions")
