@@ -51,7 +51,7 @@ def run_daily():
     #ax.plot(fpr, tpr, label=f"AUC = {auc_score:.2f}")
     #ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
     #ax.set_xlabel("False Positive Rate")
-    3ax.set_ylabel("True Positive Rate")
+    #ax.set_ylabel("True Positive Rate")
     #ax.set_title("ROC Curve")
     #ax.legend()
     
