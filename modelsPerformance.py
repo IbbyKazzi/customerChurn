@@ -9,9 +9,6 @@ from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 import json
 from datetime import datetime
 
-
-
-
 def run_daily():   
     
     with open("models/model_21_V5.pkl", "rb") as f:
