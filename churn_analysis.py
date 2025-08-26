@@ -9,7 +9,7 @@ from datetime import datetime
 import pytz
 from datetime import timedelta
 import openai
-
+from zoneinfo import ZoneInfo
 
 def call_gpt_api(prompt):
     response = openai.ChatCompletion.create(
@@ -174,17 +174,18 @@ def run():
         with st.spinner("Calling GPT..."):
             response = call_gpt_api(prompt)
             st.session_state.gpt_response = response
-            st.session_state.gpt_timestamp = datetime.now()
-
-    
+            sydney_tz = pytz.timezone("Australia/Sydney")
+            st.session_state.gpt_timestamp = datetime.now(sydney_tz)
     
     # Show GPT insight
     #st.subheader("🧠 GPT Analysis")
-    insight_text = response['choices'][0]['message']['content']
+    insight_text = st.session_state.gpt_response
     with st.expander("🧠 Click to view GPT-generated insights"):
         st.markdown(insight_text)   
         now = datetime.now(pytz.utc)
-        age = now - st.session_state.gpt_timestamp.replace(tzinfo=pytz.utc)
+        sydney_tz = pytz.timezone("Australia/Sydney")
+        now_sydney = now_utc.astimezone(sydney_tz)
+        age = now_sydney - st.session_state.gpt_timestamp.replace(tzinfo=pytz.utc)
         
         if age < timedelta(minutes=5):
             freshness = "🟢 Fresh"
