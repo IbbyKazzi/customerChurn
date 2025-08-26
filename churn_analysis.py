@@ -32,11 +32,11 @@ def run():
     for contract_code, contract_label in contract_types.items():
         df = pd.DataFrame({
             "MonthlyCharges": monthly_charges,
-            "tenure": [1]*5,
+            "Months": [1]*5,
             "Contract": [contract_code]*5
         })
         df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
-        X = df[["tenure", "MonthlyCharges", "Contract"]]
+        X = df[["Months", "MonthlyCharges", "Contract"]]
     
         # check which one is better present, chrun classification or churn probability
         
