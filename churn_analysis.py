@@ -24,7 +24,7 @@ def run():
         else:
             return "Enterprise"
         
-    with open(MODEL_PATH_T21, "rb") as f:
+    with open(MODEL_PATH_T3, "rb") as f:
         model = pickle.load(f)
     
     # Generate churn data across contracts
@@ -35,16 +35,7 @@ def run():
             "Months": [1]*5,
             "Contract": [contract_code]*5
         })
-        df["Plan"] = df["MonthlyCharges"].apply(assign_plan)
-        # Get expected feature list from training
-        expected_features = model.feature_names_in_  # works for scikit-learn models
-        
-        # Fill missing features with mean values
-        for feature in expected_features:
-            if feature not in df.columns:
-                df[feature] = df[feature].mean() if feature in df else df[expected_features].mean()[feature]
-
-        
+        df["Plan"] = df["MonthlyCharges"].apply(assign_plan)  
         X = df[["Months", "MonthlyCharges", "Contract"]]
     
         # check which one is better present, chrun classification or churn probability
