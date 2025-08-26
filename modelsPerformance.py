@@ -41,7 +41,7 @@ def run_daily():
     }
 
     try:        
-        with open("models/model_daily_results.json", "w") as f:
+        with open("models/model_daily_results.jso", "w") as f:
             json.dump(results, f, indent=4)
         st.write("✅ JSON written successfully.")
     except Exception as e:
