@@ -24,7 +24,7 @@ def run():
         else:
             return "Enterprise"
         
-    with open(MODEL_PATH_T3, "rb") as f:
+    with open(MODEL_PATH_T21, "rb") as f:
         model_t3 = pickle.load(f)
     
     # Generate churn data across contracts
