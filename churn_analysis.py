@@ -129,6 +129,45 @@ def run():
     styled_df = pivot_df.style.format(formatters).background_gradient(cmap="Reds", axis=None)
     # Display in Streamlit
     st.dataframe(styled_df, hide_index=True)  
+
+    #connect to openAi and get insight of the full rate matrix
+    # Convert pivot_df to markdown-style table
+    table_str = pivot_df.to_markdown(index=False)
+    
+    # Create a prompt
+    prompt = f"""
+    We are analyzing churn risk across different subscription plans and contract types. Plans range from Basic to Premium, and contracts include Monthly, One-Year, and Two-Year options.
+    
+    Here is the churn probability matrix:
+    
+    {table_str}
+    
+    Please provide insights, highlight any concerning patterns, and suggest actions to reduce churn.
+    """
+
+    import openai
+    #Load OpenAI API key
+    openai.api_key = st.secrets["OPENAI_API_KEY"]
+    response = openai.ChatCompletion.create(
+        model="gpt-5",
+        messages=[
+            {"role": "system", "content": "You are a data analyst."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    
+    # Show GPT insight
+    st.subheader("🧠 GPT Analysis")
+    with st.expander("Click to view GPT-generated insights"):
+        st.markdown(insight_text)
+    
+    # Optional: Add feedback or download
+    st.text_area("💬 Add your own notes or feedback:", "")
+    st.download_button("Download Insight", insight_text, file_name="churn_insight.txt")
+
+    
+
+
     
     #Dispaly a heat map for all plans
     st.subheader("🧯 Heatmap View")
