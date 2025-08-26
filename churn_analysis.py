@@ -8,6 +8,7 @@ from settings import MODEL_PATH_T3, MODEL_PATH_T21
 from datetime import datetime
 import pytz
 from datetime import timedelta
+import openai
 
 
 def call_gpt_api(prompt):
@@ -158,8 +159,7 @@ def run():
     
     Please provide insights, highlight any concerning patterns, and suggest actions to reduce churn.
     """
-
-    import openai
+    
     #Load OpenAI API key
     openai.api_key = st.secrets["OPENAI_API_KEY"]
     if "gpt_response" not in st.session_state:
