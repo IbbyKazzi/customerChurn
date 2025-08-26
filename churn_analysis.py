@@ -19,7 +19,7 @@ def call_gpt_api(prompt):
             {"role": "user", "content": prompt}
         ]
     )
-    return response    
+    return response['choices'][0]['message']['content']    
 
 def run():
     # Define plans and contract types
