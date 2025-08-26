@@ -26,9 +26,11 @@ jobs:
           python modelsPerformance.py
 
       - name: Commit updated JSON
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add models/model_daily_results.json
-          git commit -m "Update model_daily_results.json with latest metrics"
-          git push
+          git commit -m "Update model_daily_results.json with latest metrics" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/IbbyKazzi/customerChurn.git
