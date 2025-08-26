@@ -82,7 +82,7 @@ def show_model_history(path=METADATA_PATH):
         )
         st.plotly_chart(fig, use_container_width=True)
 
-    if st.button("🔄 Check Model Performance"):
+    if st.button("Check Model Performance"):
         st.write("running performance")
         import modelsPerformance as mp
         mp.run_daily()
