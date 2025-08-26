@@ -5,12 +5,7 @@ import plotly.express as px
 from settings import METADATA_PATH, DATA_PATH
 
 def show_model_history(path=METADATA_PATH):
-    #st.header("🧠 Model Metadata Dashboard")
-    if st.button("Check Model Performance"):
-        st.write("running performance")
-        import modelsPerformance as mp
-        mp.run_daily()
-        st.write("running finished")
+    #st.header("🧠 Model Metadata Dashboard") 
 
     # Load metadata
     with open(path, "r") as f:
