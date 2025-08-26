@@ -184,7 +184,7 @@ def run():
         st.markdown(insight_text)   
         now = datetime.now(pytz.utc)
         sydney_tz = pytz.timezone("Australia/Sydney")
-        now_sydney = now_utc.astimezone(sydney_tz)
+        now_sydney = now.astimezone(sydney_tz)
         age = now_sydney - st.session_state.gpt_timestamp.replace(tzinfo=pytz.utc)
         
         if age < timedelta(minutes=5):
