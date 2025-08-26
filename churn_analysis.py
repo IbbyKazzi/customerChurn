@@ -204,7 +204,7 @@ def run():
 
     
     #Dispaly a heat map for all plans
-    st.subheader("🧯 Heatmap View")
+    #st.subheader("🧯 Heatmap View")
     #below will display heatmap values as decimals
     #heatmap_df = pivot_df.set_index("Plan")
     #fig = px.imshow(
@@ -220,7 +220,7 @@ def run():
     #Below will dispaly heatmap as percentages
     
     # Convert values to percentage
-    percent_values = pivot_df.drop("Plan", axis=1).values * 100
+    #percent_values = pivot_df.drop("Plan", axis=1).values * 100
     
     # Create annotations for each cell
     annotations = [
@@ -255,7 +255,7 @@ def run():
         annotations=annotations
     )
     
-    st.plotly_chart(fig, use_container_width=True)
+    #st.plotly_chart(fig, use_container_width=True)
     
     # Display plan values in sidebar
     plan_prices = {
