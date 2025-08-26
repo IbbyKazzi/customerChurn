@@ -40,9 +40,13 @@ def run_daily():
         "auc": auc_score   
     }
 
-    # Write to JSON file
-    with open("models/model_daily_results.json", "w") as f:
-        json.dump(results, f, indent=4)
+    try:        
+        with open("models/model_daily_results.json", "w") as f:
+            json.dump(results, f, indent=4)
+        print("✅ JSON written successfully.")
+    except Exception as e:
+        print("❌ Error writing JSON:", e)
+
 
 
     
