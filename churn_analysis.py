@@ -5,6 +5,21 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 from settings import MODEL_PATH_T3, MODEL_PATH_T21
+from datetime import datetime
+import pytz
+from datetime import timedelta
+
+
+def call_gpt_api(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-5",
+        messages=[
+            {"role": "system", "content": "You are a data analyst."},
+            {"role": "user", "content": prompt}
+        ]
+    )
+    return response
+    
 
 def run():
     # Define plans and contract types
@@ -148,22 +163,35 @@ def run():
     import openai
     #Load OpenAI API key
     openai.api_key = st.secrets["OPENAI_API_KEY"]
-    response = openai.ChatCompletion.create(
-        model="gpt-5",
-        messages=[
-            {"role": "system", "content": "You are a data analyst."},
-            {"role": "user", "content": prompt}
-        ]
-    )
+    if "gpt_timestamp" not in st.session_state:
+        st.session_state.gpt_timestamp = None
+
+    if st.session_state.gpt_response is None or refresh:
+        with st.spinner("Calling GPT..."):
+            response = call_gpt_api(prompt)
+            st.session_state.gpt_response = response
+            st.session_state.gpt_timestamp = datetime.now()
+
+    
     
     # Show GPT insight
     #st.subheader("🧠 GPT Analysis")
     insight_text = response['choices'][0]['message']['content']
     with st.expander("🧠 Click to view GPT-generated insights"):
-        st.markdown(insight_text)
+        st.markdown(insight_text)   
+        now = datetime.now(pytz.utc)
+        age = now - st.session_state.gpt_timestamp.replace(tzinfo=pytz.utc)
+        
+        if age < timedelta(minutes=5):
+            freshness = "🟢 Fresh"
+        elif age < timedelta(hours=1):
+            freshness = "🟡 Stale"
+        else:
+            freshness = "🔴 Outdated"
+        
+        st.markdown(f"{freshness} · Last updated: {st.session_state.gpt_timestamp.strftime('%Y-%m-%d %H:%M:%S')}")
     
-    # Add feedback or download
-    st.text_area("💬 Add your own notes or feedback:", "")
+    # Add download    
     st.download_button("Download Insight", insight_text, file_name="churn_insight.txt")
 
     
