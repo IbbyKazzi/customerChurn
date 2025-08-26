@@ -179,7 +179,7 @@ def run():
     
     # Show GPT insight
     #st.subheader("🧠 GPT Analysis")
-    insight_text = st.session_state.gpt_response
+    insight_text = str(st.session_state.gpt_response)
     with st.expander("🧠 Click to view GPT-generated insights"):
         st.markdown(insight_text)   
         now = datetime.now(pytz.utc)
