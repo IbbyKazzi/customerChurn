@@ -2,7 +2,7 @@ name: Daily Function Trigger
 
 on:
   schedule:
-    - cron: '25 22 * * *'  # 7:30 PM AEST = 09:30 UTC
+    - cron: '32 2 * * *'  # 7:30 PM AEST = 09:30 UTC
 
 jobs:
   run-daily-function:
