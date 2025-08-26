@@ -157,11 +157,12 @@ def run():
     )
     
     # Show GPT insight
-    st.subheader("🧠 GPT Analysis")
-    with st.expander("Click to view GPT-generated insights"):
+    #st.subheader("🧠 GPT Analysis")
+    insight_text = response['choices'][0]['message']['content']
+    with st.expander("🧠 Click to view GPT-generated insights"):
         st.markdown(insight_text)
     
-    # Optional: Add feedback or download
+    # Add feedback or download
     st.text_area("💬 Add your own notes or feedback:", "")
     st.download_button("Download Insight", insight_text, file_name="churn_insight.txt")
 
