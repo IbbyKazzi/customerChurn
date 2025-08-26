@@ -18,8 +18,7 @@ def call_gpt_api(prompt):
             {"role": "user", "content": prompt}
         ]
     )
-    return response
-    
+    return response    
 
 def run():
     # Define plans and contract types
@@ -163,9 +162,14 @@ def run():
     import openai
     #Load OpenAI API key
     openai.api_key = st.secrets["OPENAI_API_KEY"]
+    if "gpt_response" not in st.session_state:
+        st.session_state.gpt_response = None
+
     if "gpt_timestamp" not in st.session_state:
         st.session_state.gpt_timestamp = None
 
+    refresh = st.button("🔄 Refresh GPT Response")
+    
     if st.session_state.gpt_response is None or refresh:
         with st.spinner("Calling GPT..."):
             response = call_gpt_api(prompt)
