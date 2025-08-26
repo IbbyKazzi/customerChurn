@@ -43,9 +43,9 @@ def run_daily():
     try:        
         with open("models/model_daily_results.json", "w") as f:
             json.dump(results, f, indent=4)
-        print("✅ JSON written successfully.")
+        st.write("✅ JSON written successfully.")
     except Exception as e:
-        print("❌ Error writing JSON:", e)
+        st.write("❌ Error writing JSON:", e)
 
 
 
