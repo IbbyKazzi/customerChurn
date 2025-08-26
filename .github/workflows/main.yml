@@ -24,3 +24,11 @@ jobs:
       - name: Run daily function
         run: |
           python modelsPerformance.py
+
+      - name: Commit updated JSON
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add models/model_daily_results.json
+          git commit -m "Update model_daily_results.json with latest metrics"
+          git push
