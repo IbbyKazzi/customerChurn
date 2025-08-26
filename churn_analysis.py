@@ -53,9 +53,8 @@ def run():
         df["Plan"] = df["MonthlyCharges"].apply(assign_plan)  
         X = df[["Months", "MonthlyCharges", "Contract"]]
     
-        # check which one is better present, chrun classification or churn probability
+        # check which one is better present, chrun classification or churn probability        
         
-        #df["PredictedChurn"] = model.predict(X)
         # Get churn probability (assuming binary classification: [No Churn, Churn])
         df["ChurnProbability"] = model.predict_proba(X)[:, 1]  # Probability of class '1' (churn)
         
@@ -73,9 +72,8 @@ def run():
     matrix_df["Plan"] = pd.Categorical(matrix_df["Plan"], categories=plan_labels, ordered=True)
     matrix_df = matrix_df.sort_values("Plan")
     
-    pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Churn Probability").reset_index()
-    
-    #pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Predicted Churn Rate").reset_index()
+    pivot_df = matrix_df.pivot(index="Plan", columns="ContractType", values="Churn Probability").reset_index()   
+   
     
     # Convert churn rate columns to float
     for col in pivot_df.columns[1:]:  # Skip 'Plan' column
@@ -91,19 +89,7 @@ def run():
     selected_plan = st.selectbox("Select a Monthly Plan", plan_labels)
     
     # Filter data for selected plan
-    plan_data = matrix_df[matrix_df["Plan"] == selected_plan]
-    
-    # Bar chart across contract types
-    #fig = px.bar(
-    #    plan_data,
-    #    x="ContractType",
-    #    y="Churn Probability",
-    #    color="Churn Probability",
-    #    color_continuous_scale="OrRd",
-    #    title=f"Churn Rate for {selected_plan} Plan",
-    #    labels={"ContractType": "Contract Type", "Predicted Churn Probability": "Churn Probability"}
-    #)
-    #st.plotly_chart(fig)
+    plan_data = matrix_df[matrix_df["Plan"] == selected_plan]   
     
     # Convert churn probability to percentage
     plan_data["Churn Probability (%)"] = plan_data["Churn Probability"] * 100
@@ -115,11 +101,7 @@ def run():
         y="Churn Probability (%)",
         color="Churn Probability (%)",
         color_continuous_scale="OrRd",
-        title=f"Churn Rate for {selected_plan} Plan",
-        #labels={
-        #    "ContractType": "Contract Type",
-        #    "Churn Probability (%)": "Churn Probability (%)"
-        #},
+        title=f"Churn Rate for {selected_plan} Plan",       
         text=plan_data["Churn Probability (%)"].apply(lambda x: f"{x:.2f}%")
     )
     
@@ -128,13 +110,8 @@ def run():
     
     
     #Add heatmap with matrix view
-    st.subheader("📋 Full Churn Rate Matrix")
-    #st.dataframe(pivot_df.style.format("{:.2%}"), hide_index=True)
-    #st.dataframe(pivot_df, hide_index=True)
     
-    #st.write(pivot_df.dtypes)
-    #st.write(pivot_df.head())
-    
+    st.subheader("📋 Full Churn Rate Matrix")        
     # Build formatter dictionary for non-'Plan' columns
     formatters = {
         col: "{:.2%}" for col in pivot_df.columns if col != "Plan"
@@ -197,65 +174,8 @@ def run():
         st.markdown(f"{freshness} · Last updated: {st.session_state.gpt_timestamp.strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Add download    
-    st.download_button("Download Insight", insight_text, file_name="churn_insight.txt")
-
+    st.download_button("Download Insight", insight_text, file_name="churn_insight.txt")    
     
-
-
-    
-    #Dispaly a heat map for all plans
-    #st.subheader("🧯 Heatmap View")
-    #below will display heatmap values as decimals
-    #heatmap_df = pivot_df.set_index("Plan")
-    #fig = px.imshow(
-    #    heatmap_df,
-    #    labels=dict(x="Contract Type", y="Plan", color="Churn Rate"),
-    #    color_continuous_scale="Reds",
-    #    text_auto=True,
-    #    width=900,
-    #    height=600
-    #)
-    #st.plotly_chart(fig)
-    
-    #Below will dispaly heatmap as percentages
-    
-    # Convert values to percentage
-    #percent_values = pivot_df.drop("Plan", axis=1).values * 100
-    
-    # Create annotations for each cell
-    annotations = [
-        dict(
-            text=f"{percent_values[i][j]:.1f}%",
-            x=pivot_df.columns[1:][j],
-            y=pivot_df["Plan"][i],
-            xref="x1",
-            yref="y1",
-            showarrow=False,
-            font=dict(color="black", size=12)
-        )
-        for i in range(percent_values.shape[0])
-        for j in range(percent_values.shape[1])
-    ]
-    
-    # Plot heatmap
-    fig = go.Figure(data=go.Heatmap(
-        z=percent_values,
-        x=pivot_df.columns[1:],
-        y=pivot_df["Plan"],
-        colorscale="Reds",
-        showscale=True,
-        hoverinfo="text",
-        text=[[f"{val:.2f}%" for val in row] for row in percent_values]
-    ))
-    
-    fig.update_layout(
-        title="Churn Risk by Plan",
-        xaxis_title="Contract Type",
-        yaxis_title="Monthly Plan",
-        annotations=annotations
-    )
-    
-    #st.plotly_chart(fig, use_container_width=True)
     
     # Display plan values in sidebar
     plan_prices = {
