@@ -1,5 +1,5 @@
 {
-    "timestamp": "2025-08-26 04:55:59",
+    "timestamp": "2025-08-27 04:53:18",
     "model_path": "/mount/src/customerchurn/models/model_21_V5.pkl",
     "model_type": "LogisticRegression",
     "module": "sklearn.linear_model._logistic",
