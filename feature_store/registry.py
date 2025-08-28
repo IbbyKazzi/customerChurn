@@ -12,8 +12,11 @@ def get_features(df, selected=FEATURES):
 
 def save_selected_features(name, features):
     import json
-    with open(f"feature_store/{name}.json", "w") as f:
+    file_path = f"feature_store/{name}.json"
+    with open(file_path, "w") as f:
         json.dump(features, f)
+    st.success(f"Saved selected features to: {file_path}")
+
 
 def load_selected_features(name):
     import json
