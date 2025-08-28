@@ -1,4 +1,5 @@
 import importlib
+import streamlit as st
 
 FEATURES = ['loyalty_band', 'charge_velocity']
 
