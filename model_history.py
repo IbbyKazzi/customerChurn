@@ -58,7 +58,7 @@ def show_model_history(path=METADATA_PATH):
             # Load and preprocess
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)            
             # Run Forward Feature Selection
-            selected_features, ffs_scores = forward_feature_selection(
+            selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )       
             
