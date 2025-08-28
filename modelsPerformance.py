@@ -8,6 +8,8 @@ from sklearn.preprocessing import LabelEncoder
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 import json
 from datetime import datetime
+import os
+
 
 def run_daily():   
     
@@ -40,12 +42,32 @@ def run_daily():
         "auc": auc_score   
     }
 
-    try:        
-        with open("models/model_daily_results.json", "w") as f:
-            json.dump(results, f, indent=4)
-        st.write("✅ JSON written successfully.")
+    json_path = "models/model_daily_results.json"
+
+    try:
+        #Load existing data if file exists
+        if os.path.exists(json_path):
+            with open(json_path, "r") as f:
+                existing_data = json.load(f)
+        else:
+            existing_data = []
+    
+        #Append new results
+        if isinstance(existing_data, list):
+            existing_data.append(results)
+        else:
+            st.write("❌ Unexpected JSON structure. Expected a list.")
+            existing_data = [results]
+    
+        #Write back to file
+        with open(json_path, "w") as f:
+            json.dump(existing_data, f, indent=4)
+    
+        st.write("✅ JSON appended successfully.")
+    
     except Exception as e:
-        st.write("❌ Error writing JSON:", e)
+        st.write("❌ Error appending to JSON:", e)
+
 
 
 
