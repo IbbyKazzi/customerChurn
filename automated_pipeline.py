@@ -12,6 +12,35 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 from feature_store.registry import get_features
+from sklearn.model_selection import cross_val_score
+
+#Using FFS logic to inhance model training and ecvaluation
+def forward_feature_selection(X, y, max_features=None):
+    selected = []
+    remaining = list(X.columns)
+    best_score = 0
+    scores = []
+
+    while remaining and (max_features is None or len(selected) < max_features):
+        score_candidates = []
+        for feature in remaining:
+            trial_features = selected + [feature]
+            model = LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000)
+            score = cross_val_score(model, X[trial_features], y, cv=5, scoring='accuracy').mean()
+            score_candidates.append((score, feature))
+
+        score_candidates.sort(reverse=True)
+        best_new_score, best_feature = score_candidates[0]
+
+        if best_new_score > best_score:
+            selected.append(best_feature)
+            remaining.remove(best_feature)
+            best_score = best_new_score
+            scores.append(best_score)
+        else:
+            break
+
+    return selected, scores
 
 
 #Data Ingestion and preprocessing
@@ -56,7 +85,7 @@ def load_and_preprocess(path):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    return train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+    return X_df, y, train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
 
 #Model Training (logistic & Current Model)
