@@ -35,4 +35,5 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add models/model_daily_results.json
           git commit -m "Update model_daily_results.json with latest metrics" || echo "No changes to commit"
+          git pull --rebase origin main
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/IbbyKazzi/customerChurn.git
