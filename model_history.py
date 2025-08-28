@@ -55,7 +55,21 @@ def show_model_history(path=METADATA_PATH):
     if st.button("🔄 Run Pipeline"):
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
-            X_train, X_test, y_train, y_test = ap.load_and_preprocess(DATA_PATH)
+            # Load and preprocess
+            X_df, y, (X_train_full, X_test_full, y_train, y_test) = load_and_preprocess(DATA_PATH)            
+            # Run Forward Feature Selection
+            selected_features, ffs_scores = forward_feature_selection(
+                pd.DataFrame(X_train_full, columns=X_df.columns), y_train
+            )       
+            
+            # Save selected features to feature store
+            from feature_store.registry import save_selected_features
+            save_selected_features("logistic_ffs", selected_features)  
+            
+            # Filter training and test sets to selected features
+            X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
+            X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
+            # Train the models
             models = ap.train_models(X_train, y_train)
             model_scores = ap.evaluate_models(models, X_test, y_test)
             st.success("✅ Pipeline completed!")
