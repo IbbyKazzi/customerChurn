@@ -68,10 +68,7 @@ def show_model_history(path=METADATA_PATH):
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
-            st.write("Selected features:", selected_features)
-            st.line_chart(ffs_scores)
-
-    
+               
             from feature_store.registry import save_selected_features
             save_selected_features("logistic_ffs", selected_features)
     
