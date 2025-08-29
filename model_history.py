@@ -96,3 +96,5 @@ def run():
     
         # ✅ Reset flag after pipeline completes
         st.session_state.run_pipeline = False
+
+run()
