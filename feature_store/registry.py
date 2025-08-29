@@ -17,6 +17,8 @@ def save_selected_features(name, features):
     import json 
     file_path = f"feature_store/{name}.json"
     os.makedirs("feature_store", exist_ok=True)
+    
+    st.write("Current working directory:", os.getcwd())
     try:        
         with open(file_path, "w") as f:
             json.dump(features, f)
