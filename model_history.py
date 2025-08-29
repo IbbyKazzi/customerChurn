@@ -97,8 +97,8 @@ def show_model_history(path=METADATA_PATH):
             )
             st.plotly_chart(fig, use_container_width=True)
     
-        # Reset the flag so it doesn't run again on next rerun
-        st.session_state.run_pipeline = False
+            # Reset the flag so it doesn't run again on next rerun
+            st.session_state.run_pipeline = False
 
     
 
