@@ -59,6 +59,7 @@ def run():
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline:
         with st.spinner("Running pipeline..."):
+            st.session_state.run_pipeline = False
             import automated_pipeline as ap
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
     
