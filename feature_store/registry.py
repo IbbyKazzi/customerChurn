@@ -17,6 +17,7 @@ def save_selected_features(name, features):
     try:        
         with open(file_path, "w") as f:
             json.dump(features, f)
+            st.write(features)
             st.success(f"Saved selected features to: {file_path}")
     except Exception as e:
         st.error(f"Error saving features: {e}")
