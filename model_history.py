@@ -43,55 +43,56 @@ def show_model_history(path=METADATA_PATH):
         if st.toggle("Show Features Used"):
             for _, row in compare_df.iterrows():
                 st.markdown(f"**{row['version']}**: {', '.join(row['features'])}")
-
-# --- Session State ---
-if "run_pipeline" not in st.session_state:
-    st.session_state.run_pipeline = False
-
-# --- UI Trigger ---
-if st.button("🔄 Run Pipeline"):
-    st.session_state.run_pipeline = True
-
-# --- Dashboard ---
-show_model_history()
-
-# --- Pipeline Execution ---
-if st.session_state.run_pipeline:
-    with st.spinner("Running pipeline..."):
-        import automated_pipeline as ap
-        X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
-
-        selected_features, ffs_scores = ap.forward_feature_selection(
-            pd.DataFrame(X_train_full, columns=X_df.columns), y_train
-        )
-
-        from feature_store.registry import save_selected_features
-        save_selected_features("logistic_ffs", selected_features)
-
-        X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
-        X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
-
-        models = ap.train_models(X_train, y_train)
-        model_scores = ap.evaluate_models(models, X_test, y_test)
-
-        st.success("✅ Pipeline completed!")
-
-        scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
-        st.subheader("📋 Model Metrics")
-        st.dataframe(scores_df)
-
-        ap.select_best_model(model_scores, metric="AUC")
-
-        scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")
-        fig = px.bar(
-            scores_melted,
-            x="Model",
-            y="Score",
-            color="Metric",
-            barmode="group",
-            title="📊 Model Performance Across Metrics"
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-    # ✅ Reset flag after pipeline completes
-    st.session_state.run_pipeline = False
+def run():
+    
+    # --- Session State ---
+    if "run_pipeline" not in st.session_state:
+        st.session_state.run_pipeline = False
+    
+    # --- UI Trigger ---
+    if st.button("🔄 Run Pipeline"):
+        st.session_state.run_pipeline = True
+    
+    # --- Dashboard ---
+    show_model_history()
+    
+    # --- Pipeline Execution ---
+    if st.session_state.run_pipeline:
+        with st.spinner("Running pipeline..."):
+            import automated_pipeline as ap
+            X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
+    
+            selected_features, ffs_scores = ap.forward_feature_selection(
+                pd.DataFrame(X_train_full, columns=X_df.columns), y_train
+            )
+    
+            from feature_store.registry import save_selected_features
+            save_selected_features("logistic_ffs", selected_features)
+    
+            X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
+            X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
+    
+            models = ap.train_models(X_train, y_train)
+            model_scores = ap.evaluate_models(models, X_test, y_test)
+    
+            st.success("✅ Pipeline completed!")
+    
+            scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
+            st.subheader("📋 Model Metrics")
+            st.dataframe(scores_df)
+    
+            ap.select_best_model(model_scores, metric="AUC")
+    
+            scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")
+            fig = px.bar(
+                scores_melted,
+                x="Model",
+                y="Score",
+                color="Metric",
+                barmode="group",
+                title="📊 Model Performance Across Metrics"
+            )
+            st.plotly_chart(fig, use_container_width=True)
+    
+        # ✅ Reset flag after pipeline completes
+        st.session_state.run_pipeline = False
