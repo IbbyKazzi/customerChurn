@@ -12,8 +12,8 @@ def get_features(df, selected=FEATURES):
     return result
 
 def save_selected_features(name, features):
-    import json
-    file_path = f"/mount/src/customerChurn/feature_store/{name}.json"
+    import json 
+    file_path = f"/mount/src/customerChurn/feature_store/logistic_ffs.json"
     try:        
         with open(file_path, "w") as f:
             json.dump(features, f)
