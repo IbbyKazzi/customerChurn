@@ -13,7 +13,7 @@ def get_features(df, selected=FEATURES):
 
 def save_selected_features(name, features):
     import json 
-    file_path = f"feature_store/{name}.json"import os
+    file_path = f"feature_store/{name}.json"
     os.makedirs("feature_store", exist_ok=True)
     try:        
         with open(file_path, "w") as f:
