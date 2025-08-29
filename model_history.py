@@ -55,8 +55,6 @@ def run():
     if st.button("🔄 Run Pipeline"):
         st.session_state.run_pipeline = True   
     
-    if st.button("🔁 Reset Pipeline"):
-        st.session_state.run_pipeline = False
     
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline:
@@ -96,7 +94,7 @@ def run():
             )
             st.plotly_chart(fig, use_container_width=True)
     
-        # ✅ Reset flag after pipeline completes
-        st.session_state.run_pipeline = False
+    # ✅ Reset flag after pipeline completes
+    st.session_state.run_pipeline = False
 
 
