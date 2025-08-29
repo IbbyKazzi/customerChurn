@@ -5,7 +5,6 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -13,6 +12,10 @@ from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_sco
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 from feature_store.registry import get_features
 from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import roc_auc_score
+import numpy as np
+
 
 #Using FFS logic to inhance model training and ecvaluation
 def forward_feature_selection(X, y, max_features=None):
@@ -21,13 +24,25 @@ def forward_feature_selection(X, y, max_features=None):
     best_score = 0
     scores = []
 
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
     while remaining and (max_features is None or len(selected) < max_features):
         score_candidates = []
         for feature in remaining:
             trial_features = selected + [feature]
-            model = LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000)
-            score = cross_val_score(model, X[trial_features], y, cv=5, scoring='auc').mean()
-            score_candidates.append((score, feature))
+            aucs = []
+
+            for train_idx, val_idx in cv.split(X[trial_features], y):
+                X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+                y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+                model = LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000)
+                model.fit(X_train, y_train)
+                y_prob = model.predict_proba(X_val)[:, 1]
+                aucs.append(roc_auc_score(y_val, y_prob))
+
+            mean_auc = np.mean(aucs)
+            score_candidates.append((mean_auc, feature))
 
         score_candidates.sort(reverse=True)
         best_new_score, best_feature = score_candidates[0]
@@ -41,6 +56,7 @@ def forward_feature_selection(X, y, max_features=None):
             break
 
     return selected, scores
+
 
 
 #Data Ingestion and preprocessing
