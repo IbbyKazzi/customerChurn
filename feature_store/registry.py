@@ -27,7 +27,12 @@ def save_selected_features(name, features):
     except Exception as e:
         st.error(f"Error saving features: {e}")
 
-    
+    if os.path.exists(file_path):
+        with open(file_path, "r") as f_check:
+            saved = json.load(f_check)
+        st.write("✅ File saved and contains:", saved)
+    else:
+        st.error("❌ File not found after saving.")
 
 
 def load_selected_features(name):
