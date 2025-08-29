@@ -73,28 +73,28 @@ def show_model_history(path=METADATA_PATH):
             models = ap.train_models(X_train, y_train)
             model_scores = ap.evaluate_models(models, X_test, y_test)
             st.success("✅ Pipeline completed!")
-        #st.write(models)
-        # Display metrics
-        scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
-        st.subheader("📋 Model Metrics")
-        #st.dataframe(scores_df.style.format("{:.2f}"))
-        st.dataframe(scores_df)
-        ap.select_best_model(model_scores, metric="AUC")
-        # Metric comparison
-        #selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
-        #st.bar_chart(scores_df.set_index("Model")[selected_metric])
-
-        scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")   
-        
-        fig = px.bar(
-            scores_melted,
-            x="Model",
-            y="Score",
-            color="Metric",
-            barmode="group",
-            title="📊 Model Performance Across Metrics"
-        )
-        st.plotly_chart(fig, use_container_width=True)
+            #st.write(models)
+            # Display metrics
+            scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
+            st.subheader("📋 Model Metrics")
+            #st.dataframe(scores_df.style.format("{:.2f}"))
+            st.dataframe(scores_df)
+            ap.select_best_model(model_scores, metric="AUC")
+            # Metric comparison
+            #selected_metric = st.selectbox("Compare metric", scores_df.columns[1:])
+            #st.bar_chart(scores_df.set_index("Model")[selected_metric])
+    
+            scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")   
+            
+            fig = px.bar(
+                scores_melted,
+                x="Model",
+                y="Score",
+                color="Metric",
+                barmode="group",
+                title="📊 Model Performance Across Metrics"
+            )
+            st.plotly_chart(fig, use_container_width=True)
 
     
 
