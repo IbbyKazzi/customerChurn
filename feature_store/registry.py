@@ -83,6 +83,7 @@ def save_selected_features(name, features):
         with open(file_path, "w") as f:
             json.dump(payload, f)
         st.success(f"✅ Saved locally to: {file_path}")
+        st.write(payload)
     except Exception as e:
         st.error(f"❌ Local save failed: {e}")
         return
