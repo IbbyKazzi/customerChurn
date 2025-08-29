@@ -55,6 +55,8 @@ def run():
     if st.button("🔄 Run Pipeline"):
         st.session_state.run_pipeline = True   
     
+    if st.button("🔁 Reset Pipeline"):
+        st.session_state.run_pipeline = False
     
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline:
@@ -97,4 +99,4 @@ def run():
         # ✅ Reset flag after pipeline completes
         st.session_state.run_pipeline = False
 
-run()
+
