@@ -38,7 +38,8 @@ def save_selected_features(name, features):
         # Replace with your actual token and repo name
         GITHUB_TOKEN = "your_personal_access_token"  #Store securely in Streamlit secrets or env vars
         REPO_NAME = "IbbyKazzi/customerChurn"   
-        g = st.secrets["GITHUB_TOKEN"]    
+        token = st.secrets["GITHUB_TOKEN"]    
+        g = Github(token) 
         
         repo = g.get_repo(REPO_NAME)
 
