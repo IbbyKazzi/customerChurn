@@ -43,7 +43,7 @@ def forward_feature_selection(X, y, max_features=None):
 
             mean_auc = np.mean(aucs)
             score_candidates.append((mean_auc, feature))
-
+        st.write("Candidate scores this round:", score_candidates)
         score_candidates.sort(reverse=True)
         best_new_score, best_feature = score_candidates[0]
 
