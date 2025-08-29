@@ -54,7 +54,7 @@ def forward_feature_selection(X, y, max_features=None):
             scores.append(best_score)
         else:
             break
-    st.write(selected)
+    st.write(score_candidates)
     return selected, scores
 
 
