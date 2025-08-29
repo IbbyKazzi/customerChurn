@@ -1,8 +1,10 @@
-{
-    "timestamp": "2025-08-28 04:53:14",
-    "model_path": "/mount/src/customerchurn/models/model_21_V5.pkl",
-    "model_type": "LogisticRegression",
-    "module": "sklearn.linear_model._logistic",
-    "version": "V5",
-    "auc": 0.8654639415363276
-}
+[
+    {
+        "timestamp": "2025-08-29 00:36:53",
+        "model_path": "/mount/src/customerchurn/models/model_21_V5.pkl",
+        "model_type": "LogisticRegression",
+        "module": "sklearn.linear_model._logistic",
+        "version": "V5",
+        "auc": 0.8654639415363276
+    }
+]
