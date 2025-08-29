@@ -45,9 +45,9 @@ def forward_feature_selection(X, y, max_features=None):
             score_candidates.append((mean_auc, feature))
         st.write("Candidate scores this round:", score_candidates)
         score_candidates.sort(reverse=True)
-        best_new_score, best_feature = score_candidates
+        best_new_score, best_feature = score_candidates[0]
 
-        if best_new_score > best_score:
+        if best_new_score >= best_score:
             selected.append(best_feature)
             remaining.remove(best_feature)
             best_score = best_new_score
