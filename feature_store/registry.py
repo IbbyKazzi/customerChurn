@@ -13,15 +13,12 @@ def get_features(df, selected=FEATURES):
 
 def save_selected_features(name, features):
     import json
-    file_path = f"/mount/src/customerchurn/feature_store/{name}.json"
+    file_path = f"/mount/src/customerChurn/feature_store/{name}.json"
     try:        
         with open(file_path, "w") as f:
             json.dump(features, f)
-
     except FileNotFoundError:
-        st.error("Error: File not found")
-
-    
+        st.error("Error: File not found")    
     st.success(f"Saved selected features to: {file_path}")
 
 
