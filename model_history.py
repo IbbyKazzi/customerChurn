@@ -68,7 +68,7 @@ def run():
             )
     
             from feature_store.registry import save_selected_features
-            #save_selected_features("logistic_ffs", selected_features)
+            save_selected_features("logistic_ffs", selected_features)
     
         X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
         X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
