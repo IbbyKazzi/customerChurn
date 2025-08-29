@@ -36,7 +36,7 @@ def forward_feature_selection(X, y, max_features=None):
                 X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
                 y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
 
-                model = LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000)
+                model = LogisticRegression(C=0.1, penalty='l2', solver='liblinear', max_iter=1000)
                 model.fit(X_train, y_train)
                 y_prob = model.predict_proba(X_val)[:, 1]
                 aucs.append(roc_auc_score(y_val, y_prob))
