@@ -1,6 +1,8 @@
 import importlib
 import streamlit as st
 import os
+from datetime import datetime
+import pytz
 
 
 FEATURES = ['loyalty_band', 'charge_velocity']
@@ -13,11 +15,26 @@ def get_features(df, selected=FEATURES):
         result = result.merge(func(df), on='customerID')
     return result
 
+def get_sydney_timestamp():
+    tz_sydney = pytz.timezone("Australia/Sydney")
+    return datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+
 def save_selected_features(name, features):
     import os
     import json
     import streamlit as st
     from github import Github
+
+    from datetime import datetime
+    import pytz
+    tz_sydney = pytz.timezone("Australia/Sydney")
+    timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+
+    # Prepare payload
+    payload = {
+        "timestamp": timestamp,
+        "features": features
+    }
 
     # Local save
     local_dir = "feature_store"
@@ -26,7 +43,7 @@ def save_selected_features(name, features):
 
     try:
         with open(file_path, "w") as f:
-            json.dump(features, f)
+            json.dump(payload, f)
         st.success(f"✅ Saved locally to: {file_path}")
     except Exception as e:
         st.error(f"❌ Local save failed: {e}")
