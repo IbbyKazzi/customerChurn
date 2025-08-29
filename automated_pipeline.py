@@ -26,7 +26,7 @@ def forward_feature_selection(X, y, max_features=None):
         for feature in remaining:
             trial_features = selected + [feature]
             model = LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000)
-            score = cross_val_score(model, X[trial_features], y, cv=5, scoring='accuracy').mean()
+            score = cross_val_score(model, X[trial_features], y, cv=5, scoring='auc').mean()
             score_candidates.append((score, feature))
 
         score_candidates.sort(reverse=True)
