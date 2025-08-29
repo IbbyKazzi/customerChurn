@@ -61,7 +61,7 @@ def show_model_history(path=METADATA_PATH):
     
     # Run pipeline if triggered
     if st.session_state.run_pipeline:
-        with st.spinner("Running pipeline..."):            
+        with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
     
@@ -96,6 +96,9 @@ def show_model_history(path=METADATA_PATH):
                 title="📊 Model Performance Across Metrics"
             )
             st.plotly_chart(fig, use_container_width=True)
+    
+        # ✅ Reset the flag so it doesn't run again on next rerun
+        st.session_state.run_pipeline = False
 
     
 
