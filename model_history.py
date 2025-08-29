@@ -44,6 +44,8 @@ def show_model_history(path=METADATA_PATH):
             for _, row in compare_df.iterrows():
                 st.markdown(f"**{row['version']}**: {', '.join(row['features'])}")
 def run():
+    # --- Dashboard ---
+    show_model_history()
     
     # --- Session State ---
     if "run_pipeline" not in st.session_state:
@@ -51,10 +53,8 @@ def run():
     
     # --- UI Trigger ---
     if st.button("🔄 Run Pipeline"):
-        st.session_state.run_pipeline = True
+        st.session_state.run_pipeline = True   
     
-    # --- Dashboard ---
-    show_model_history()
     
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline:
