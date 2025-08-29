@@ -4,7 +4,7 @@ name: Daily Function Trigger
 
 on:
   schedule:
-    - cron: '10 00 * * *'  # 7:30 PM AEST = 09:30 UTC
+    - cron: '57 5 * * *'  # 7:30 PM AEST = 09:30 UTC
 
 jobs:
   run-daily-function:
@@ -33,7 +33,9 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
+      
+          git pull origin main --rebase || git rebase --abort
+      
           git add models/model_daily_results.json
           git commit -m "Update model_daily_results.json with latest metrics" || echo "No changes to commit"
-          git pull --rebase origin main
           git push https://x-access-token:${GITHUB_TOKEN}@github.com/IbbyKazzi/customerChurn.git
