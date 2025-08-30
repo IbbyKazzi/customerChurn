@@ -95,7 +95,7 @@ def run():
         )
         st.plotly_chart(fig, use_container_width=True)
 
-        saveToGit()
+        saveToGit("logistic_ffs")
     
         # ✅ Reset flag after pipeline completes
         #st.session_state.run_pipeline = False
