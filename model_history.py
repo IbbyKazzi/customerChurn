@@ -77,7 +77,7 @@ def run():
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
     
-            save_selected_features("logistic_ffs", selected_features)
+            #save_selected_features("logistic_ffs", selected_features)
     
             X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
             X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
@@ -119,9 +119,9 @@ def run():
         
        
 
-    #if st.session_state.save_results:
-        #st.write("start saving to guithub")
-        #saveToGit("logistic_ffs")
+    if st.session_state.save_results:
+        st.write("start saving to guithub")
+        saveToGit("logistic_ffs")
     
         
 
