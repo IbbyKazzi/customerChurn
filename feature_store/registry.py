@@ -3,6 +3,10 @@ import streamlit as st
 import os
 from datetime import datetime
 import pytz
+import json
+from github import Github
+
+
 
 
 FEATURES = ['loyalty_band', 'charge_velocity']
@@ -58,13 +62,7 @@ def get_sydney_timestamp():
     return datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
 
 def save_selected_features(name, features):
-    import os
-    import json
-    import streamlit as st
-    from github import Github
-
-    from datetime import datetime
-    import pytz
+    
     tz_sydney = pytz.timezone("Australia/Sydney")
     timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
 
