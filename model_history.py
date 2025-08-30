@@ -100,14 +100,22 @@ def run():
             ap.select_best_model(model_scores, metric="AUC")
     
         # ✅ Display results
-        st.success("✅ Pipeline completed!")
-        st.subheader("📋 Model Metrics")
-        st.dataframe(scores_df)
-        st.plotly_chart(fig, use_container_width=True)
+        #st.success("✅ Pipeline completed!")
+        #st.subheader("📋 Model Metrics")
+        #st.dataframe(scores_df)
+        #st.plotly_chart(fig, use_container_width=True)
     
         # ✅ Mark pipeline as completed
         st.session_state.pipeline_ran = True
         st.session_state.run_pipeline = False
+        st.experimental_rerun()
+
+    if st.session_state.pipeline_ran:
+        st.success("✅ Pipeline completed!")
+        st.subheader("📋 Model Metrics")
+        st.dataframe(st.session_state.scores_df)
+        st.plotly_chart(st.session_state.fig, use_container_width=True)
+
         
        
 
