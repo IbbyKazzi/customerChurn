@@ -50,10 +50,18 @@ def run():
     # --- Session State ---
     if "run_pipeline" not in st.session_state:
         st.session_state.run_pipeline = False
+
+    # -- Trigger UI ---
+    col1, col2 = st.columns([1, 1])  # You can adjust the ratio if needed
+
+    with col1:
+        if st.button("🔄 Run Pipeline"):
+            st.session_state.run_pipeline = True
     
-    # --- UI Trigger ---
-    if st.button("🔄 Run Pipeline"):
-        st.session_state.run_pipeline = True   
+    with col2:
+        if st.button("💾 Save Results"):
+            st.session_state.save_results = True
+
     
     st.write(st.session_state.run_pipeline)
     # --- Pipeline Execution ---
@@ -93,8 +101,10 @@ def run():
             barmode="group",
             title="📊 Model Performance Across Metrics"
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)      
+        
 
+    if st.session_state.save_results:
         saveToGit("logistic_ffs")
     
         # ✅ Reset flag after pipeline completes
