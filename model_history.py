@@ -4,6 +4,7 @@ from settings import METADATA_PATH, DATA_PATH
 import pandas as pd
 import json
 import plotly.express as px
+from feature_store.registry import save_selected_features, saveToGit
 
 # --- Dashboard Rendering ---
 def show_model_history(path=METADATA_PATH):
@@ -76,9 +77,8 @@ def run():
     
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
-            )
+            )           
             
-            from feature_store.registry import save_selected_features, saveToGit
             save_selected_features("logistic_ffs", selected_features)
     
         X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
