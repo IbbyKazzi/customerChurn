@@ -67,7 +67,7 @@ def run():
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
             
-            from feature_store.registry import save_selected_features
+            from feature_store.registry import save_selected_features, saveToGit
             save_selected_features("logistic_ffs", selected_features)
     
         X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
@@ -94,6 +94,8 @@ def run():
             title="📊 Model Performance Across Metrics"
         )
         st.plotly_chart(fig, use_container_width=True)
+
+        saveToGit()
     
         # ✅ Reset flag after pipeline completes
         #st.session_state.run_pipeline = False
