@@ -51,6 +51,9 @@ def run():
     if "run_pipeline" not in st.session_state:
         st.session_state.run_pipeline = False
 
+    if "save_results" not in st.session_state:
+        st.session_state.save_results = False
+
     # -- Trigger UI ---
     col1, col2 = st.columns([1, 1])  # You can adjust the ratio if needed
 
