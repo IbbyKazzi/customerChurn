@@ -107,6 +107,7 @@ def run():
     
         # ✅ Mark pipeline as completed
         st.session_state.pipeline_ran = True
+        st.session_state.run_pipeline = False
         
        
 
