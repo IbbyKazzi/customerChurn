@@ -104,8 +104,8 @@ def run():
                 title="📊 Model Performance Across Metrics"
             )
             st.plotly_chart(fig, use_container_width=True)      
-            # ✅ Reset flag after pipeline completes
-            st.session_state.run_pipeline = False
+        # ✅ Reset flag after pipeline completes
+        st.session_state.run_pipeline = False
 
     if st.session_state.save_results:
         st.write("start saving to guithub")
