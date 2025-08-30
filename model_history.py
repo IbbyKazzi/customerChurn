@@ -109,7 +109,7 @@ def run():
         st.session_state.run_pipeline = False
 
     if st.session_state.save_results:
-        st.write("start saving to guithub"
+        st.write("start saving to guithub")
         saveToGit("logistic_ffs")
     
         
