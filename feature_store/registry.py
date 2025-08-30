@@ -11,7 +11,7 @@ from github import Github
 
 FEATURES = ['loyalty_band', 'charge_velocity']
 
-def saveToGit():
+def saveToGit(name):
     try:       
     
         # Replace with your actual token and repo name
@@ -23,6 +23,8 @@ def saveToGit():
         repo = g.get_repo(REPO_NAME)
 
         # Read file content
+        local_dir = "feature_store"
+        file_path = os.path.join(local_dir, f"{name}.json")
         with open(file_path, "r") as f:
             content = f.read()
 
