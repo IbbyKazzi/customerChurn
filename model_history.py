@@ -57,15 +57,15 @@ def run():
         st.session_state.save_results = False
     
     # --- UI Buttons ---
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        if st.button("🔄 Run Pipeline"):
-            st.session_state.run_pipeline = True
-            st.session_state.pipeline_ran = False  # Reset flag
+    #col1, col2 = st.columns([1, 1])
+    #with col1:
+    if st.button("🔄 Run Pipeline"):
+        st.session_state.run_pipeline = True
+        st.session_state.pipeline_ran = False  # Reset flag
     
-    with col2:
-        if st.button("💾 Save Results"):
-            st.session_state.save_results = True
+    #with col2:
+    if st.button("💾 Save Results"):
+        st.session_state.save_results = True
     
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
