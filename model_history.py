@@ -96,7 +96,7 @@ def run():
                 barmode="group",
                 title="📊 Model Performance Across Metrics"
             )
-    
+            st.session_state.fig = fig
             ap.select_best_model(model_scores, metric="AUC")
     
         # ✅ Display results
