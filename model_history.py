@@ -87,7 +87,7 @@ def run():
     
             scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
             scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")
-    
+            st.session_state.scores_df = scores_df
             fig = px.bar(
                 scores_melted,
                 x="Model",
