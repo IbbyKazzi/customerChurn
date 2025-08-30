@@ -48,27 +48,27 @@ def run():
     # --- Dashboard ---
     show_model_history()
     
-    # --- Session State ---
+    # --- Session State Initialization ---
     if "run_pipeline" not in st.session_state:
         st.session_state.run_pipeline = False
-
+    if "pipeline_ran" not in st.session_state:
+        st.session_state.pipeline_ran = False
     if "save_results" not in st.session_state:
         st.session_state.save_results = False
-
-    # -- Trigger UI ---
-    col1, col2 = st.columns([1, 1])  # You can adjust the ratio if needed
-
+    
+    # --- UI Buttons ---
+    col1, col2 = st.columns([1, 1])
     with col1:
         if st.button("🔄 Run Pipeline"):
             st.session_state.run_pipeline = True
+            st.session_state.pipeline_ran = False  # Reset flag
     
     with col2:
         if st.button("💾 Save Results"):
             st.session_state.save_results = True
-
     
-    st.write(st.session_state.run_pipeline)
-    if st.session_state.run_pipeline:
+    # --- Pipeline Execution ---
+    if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
@@ -99,14 +99,14 @@ def run():
     
             ap.select_best_model(model_scores, metric="AUC")
     
-        # ✅ Display results AFTER pipeline finishes
+        # ✅ Display results
         st.success("✅ Pipeline completed!")
         st.subheader("📋 Model Metrics")
         st.dataframe(scores_df)
         st.plotly_chart(fig, use_container_width=True)
     
-        # ✅ Now reset the flag
-        st.session_state.run_pipeline = False
+        # ✅ Mark pipeline as completed
+        st.session_state.pipeline_ran = True
         
        
 
