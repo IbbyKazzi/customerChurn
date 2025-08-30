@@ -70,8 +70,7 @@ def run():
     st.write(st.session_state.run_pipeline)
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline:
-        with st.spinner("Running pipeline..."):
-            st.session_state.run_pipeline = False
+        with st.spinner("Running pipeline..."):            
             import automated_pipeline as ap
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
     
@@ -105,8 +104,8 @@ def run():
             title="📊 Model Performance Across Metrics"
         )
         st.plotly_chart(fig, use_container_width=True)      
-        # ✅ Reset flag after pipeline completes
-        st.session_state.run_pipeline = False
+    # ✅ Reset flag after pipeline completes
+    st.session_state.run_pipeline = False
 
     if st.session_state.save_results:
         st.write("start saving to guithub")
