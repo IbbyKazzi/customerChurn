@@ -17,12 +17,12 @@ st.markdown("""
             padding-top: 2rem;
         }
 
-        .nav-pills {
+        div[data-testid="option-menu"] .nav-pills {
             flex-wrap: nowrap !important;
             overflow-x: auto;
             justify-content: center;
         }
-        .nav-link {
+        div[data-testid="option-menu"] .nav-link {
             white-space: nowrap;
             padding: 0.4rem 0.6rem;
             font-size: 15px;
@@ -74,6 +74,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
