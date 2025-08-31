@@ -31,13 +31,14 @@ def saveToGit(name):
         # Check if file exists in repo
         try:
             existing_file = repo.get_contents(github_path)
-            repo.update_file(
+            response = repo.update_file(
                 path=github_path,
                 message="🔄 Update selected features",
                 content=content,
                 sha=existing_file.sha
             )
-            st.success(f"📤 Updated file on GitHub: {github_path}")
+            st.success(f"📤 Updated file on GitHub: {github_path}")            
+            st.write(f"🔍 Commit SHA: {response['commit'].sha}")
         except Exception:
             repo.create_file(
                 path=github_path,
