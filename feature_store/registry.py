@@ -12,10 +12,8 @@ from github import Github
 FEATURES = ['loyalty_band', 'charge_velocity']
 
 def saveToGit(name):
-    try:       
-    
-        # Replace with your actual token and repo name
-        GITHUB_TOKEN = "your_personal_access_token"  #Store securely in Streamlit secrets or env vars
+    try:          
+       
         REPO_NAME = "IbbyKazzi/customerChurn"   
         token = st.secrets["GITHUB_TOKEN"]    
         g = Github(token) 
