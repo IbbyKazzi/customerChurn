@@ -24,7 +24,7 @@ st.markdown("""
         }
         @media (max-width: 800px) {
             div[data-testid="option-menu"] .nav-link {
-                font-size: 13px;
+                font-size: 12px;
                 padding: 0.3rem 0.5rem;
             }
         }
@@ -75,6 +75,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
