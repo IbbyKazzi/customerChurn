@@ -22,7 +22,7 @@ st.markdown("""
             overflow-x: auto;
             justify-content: center;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
             div[data-testid="option-menu"] .nav-link {
                 font-size: 13px;
                 padding: 0.3rem 0.5rem;
@@ -75,6 +75,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
