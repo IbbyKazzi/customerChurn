@@ -111,7 +111,7 @@ def train_models(X_train, y_train):
         model_t21 = pickle.load(f)
         
     models = {
-        "Trained_Model": LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000),
+        "Trained_Model": LogisticRegression(C=0.01, penalty='l2', solver='liblinear', max_iter=1000),
         "Current_Model": model_t21
     }
 
