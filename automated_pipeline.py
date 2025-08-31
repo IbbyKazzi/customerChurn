@@ -101,7 +101,7 @@ def load_and_preprocess(path):
     scaler = StandardScaler()
     X_scaled = scaler.fit_transform(X)
 
-    return X, y, train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+    return X, y, train_test_split(X, y, test_size=0.2, random_state=42)
 
 
 #Model Training (logistic & Current Model)
