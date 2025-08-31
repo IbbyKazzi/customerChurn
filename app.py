@@ -12,10 +12,11 @@ st.set_page_config(
 st.markdown("""
     <style>
         .centered-container {
-            max-width: 900px;
+            max-width: 1000px;  /* Try 1000–1100px */
             margin: auto;
             padding-top: 2rem;
         }
+
         .nav-pills {
             flex-wrap: nowrap !important;
             overflow-x: auto;
@@ -73,6 +74,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
