@@ -69,12 +69,13 @@ with st.container():
         import retention
         retention.run()
 
-    elif selected == "Model Pipeline":
+    elif selected == "Pipeline":
         st.sidebar.header("🧩 Model Pipeline")
         from model_history import run
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
