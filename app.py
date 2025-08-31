@@ -24,8 +24,8 @@ st.markdown("""
         }
         .nav-link {
             white-space: nowrap;
-            padding: 0.5rem 1rem;
-            font-size: 16px;
+            padding: 0.4rem 0.6rem;
+            font-size: 15px;
         }
         footer {visibility: hidden;}
     </style>
@@ -74,6 +74,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
