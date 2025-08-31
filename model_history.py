@@ -56,16 +56,11 @@ def run():
     if "save_results" not in st.session_state:
         st.session_state.save_results = False
     
-    # --- UI Buttons ---
-    #col1, col2 = st.columns([1, 1])
-    #with col1:
+    # --- UI Buttons ---    
     if st.button("🔄 Run Pipeline"):
         st.session_state.run_pipeline = True
-        st.session_state.pipeline_ran = False  # Reset flag
-    
-    #with col2:
-    
-    
+        st.session_state.pipeline_ran = False  # Reset flag    
+   
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
         with st.spinner("Running pipeline..."):
@@ -96,13 +91,8 @@ def run():
                 title="📊 Model Performance Across Metrics"
             )
             st.session_state.fig = fig
-            ap.select_best_model(model_scores, metric="AUC")
-    
-        # ✅ Display results
-        #st.success("✅ Pipeline completed!")
-        #st.subheader("📋 Model Metrics")
-        #st.dataframe(scores_df)
-        #st.plotly_chart(fig, use_container_width=True)
+            ap.select_best_model(model_scores, metric="AUC")   
+       
     
         # ✅ Mark pipeline as completed
         st.session_state.pipeline_ran = True
@@ -116,12 +106,8 @@ def run():
         st.success("✅ Pipeline completed!")
         #display save button after pipeline complition
         if st.button("💾 Save Results"):
-            st.session_state.save_results = True
-
-        
-
-    
-
+            st.session_state.save_results = True      
+    #save to github
     if st.session_state.save_results:
         st.write("start saving to guithub")
         saveToGit("logistic_ffs")
