@@ -64,8 +64,7 @@ def run():
         st.session_state.pipeline_ran = False  # Reset flag
     
     #with col2:
-    if st.button("💾 Save Results"):
-        st.session_state.save_results = True
+    
     
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
@@ -110,14 +109,16 @@ def run():
         st.session_state.run_pipeline = False
         #st.experimental_rerun()
 
-    if st.session_state.pipeline_ran:
-        st.success("✅ Pipeline completed!")
+    if st.session_state.pipeline_ran:        
         st.subheader("📋 Model Metrics")
         st.dataframe(st.session_state.scores_df)
         st.plotly_chart(st.session_state.fig, use_container_width=True)
+        st.success("✅ Pipeline completed!")
 
         
-       
+
+    if st.button("💾 Save Results"):
+        st.session_state.save_results = True
 
     if st.session_state.save_results:
         st.write("start saving to guithub")
