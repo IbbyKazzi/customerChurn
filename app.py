@@ -4,7 +4,7 @@ import streamlit as st
 # Set page title and icon
 st.set_page_config(
     page_title="Customer Churn Dashboard",
-    page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png"
+    page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
     layout="centered"
 )
 
@@ -73,6 +73,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
