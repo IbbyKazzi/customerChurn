@@ -5,32 +5,45 @@ import streamlit as st
 st.set_page_config(
     page_title="Customer Churn Dashboard",
     page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png"
-    #layout="wide"
+    layout="centered"
 )
 
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
         .centered-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             padding-top: 2rem;
+        }
+        .nav-pills {
+            flex-wrap: nowrap !important;
+            overflow-x: auto;
+            justify-content: center;
+        }
+        .nav-link {
+            white-space: nowrap;
+            padding: 0.5rem 1rem;
+            font-size: 16px;
         }
         footer {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
 
-# Horizontal menu
-selected = option_menu(
-    menu_title=None,
-    options=["Home", "Analysis", "Service", "Retention", "Model Pipeline"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3"],
-    orientation="horizontal"
-)
+
 
 # Wrap routed content in a centered container
 with st.container():
     st.markdown('<div class="centered-container">', unsafe_allow_html=True)
+
+    # Horizontal menu
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "Analysis", "Service", "Retention", "Model Pipeline"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3"],
+        orientation="horizontal"
+    )
+
 
     if selected == "Home":
         st.sidebar.header("🏠 Home")
@@ -60,6 +73,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
