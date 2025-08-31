@@ -5,7 +5,7 @@ import streamlit as st
 st.set_page_config(
     page_title="Customer Churn Dashboard",
     page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
-    layout="wide"
+    layout="centered"
 )
 
 # Inject CSS to constrain content width
@@ -41,7 +41,7 @@ with st.container():
     # Horizontal menu
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Model Pipeline"],
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline"],
         icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3"],
         orientation="horizontal"
     )
@@ -75,6 +75,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
