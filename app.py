@@ -22,10 +22,11 @@ st.markdown("""
             overflow-x: auto;
             justify-content: center;
         }
-        div[data-testid="option-menu"] .nav-link {
-            white-space: nowrap;
-            padding: 0.4rem 0.6rem;
-            font-size: 15px;
+        @media (max-width: 768px) {
+            div[data-testid="option-menu"] .nav-link {
+                font-size: 13px;
+                padding: 0.3rem 0.5rem;
+            }
         }
         footer {visibility: hidden;}
     </style>
@@ -74,6 +75,7 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
 
 
 
