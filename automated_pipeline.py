@@ -18,7 +18,7 @@ import numpy as np
 
 
 #Using FFS logic to inhance model training and ecvaluation
-def forward_feature_selection(X, y, max_features=10):
+def forward_feature_selection(X, y, max_features=NONE):
     selected = []
     remaining = list(X.columns)
     best_score = 0
@@ -47,13 +47,14 @@ def forward_feature_selection(X, y, max_features=10):
         score_candidates.sort(reverse=True)
         best_new_score, best_feature = score_candidates[0]
 
-        #if best_new_score > best_score:
-        selected.append(best_feature)
-        remaining.remove(best_feature)
-            #best_score = best_new_score
-        scores.append(best_score)
-        #else:
-        #    break
+        tolerance = 0.005  # Accept features that don't drop AUC by more than 0.5%
+        if best_new_score >= best_score - tolerance:
+            selected.append(best_feature)
+            remaining.remove(best_feature)
+            best_score = best_new_score
+            scores.append(best_score)
+        else:
+            break
     
     return selected, scores
 
