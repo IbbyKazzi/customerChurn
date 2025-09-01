@@ -61,11 +61,7 @@ def get_sydney_timestamp():
     tz_sydney = pytz.timezone("Australia/Sydney")
     return datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
 
-def save_selected_features(name, features):
-    
-    tz_sydney = pytz.timezone("Australia/Sydney")
-    timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
-
+def save_selected_features(name, features):  
     # Prepare payload
     payload = features
 
