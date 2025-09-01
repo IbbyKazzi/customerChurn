@@ -18,7 +18,7 @@ import numpy as np
 
 
 #Using FFS logic to inhance model training and ecvaluation
-def forward_feature_selection(X, y, max_features=NONE):
+def forward_feature_selection(X, y, max_features=None):
     selected = []
     remaining = list(X.columns)
     best_score = 0
