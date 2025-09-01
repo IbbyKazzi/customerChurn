@@ -6,7 +6,7 @@ import pytz
 import json
 from github import Github
 
-FEATURES = ['loyalty_band', 'charge_velocity']
+FEATURES = ['loyalty_band', 'charge_velocity', 'contract_stability']
 
 def saveToGit(name):
     try:
