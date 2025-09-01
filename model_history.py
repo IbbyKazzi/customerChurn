@@ -72,7 +72,7 @@ def run():
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
-             payload = {
+            payload = {
                 "timestamp": timestamp,
                 "features": features
             }
