@@ -110,6 +110,7 @@ def run():
     #save to github
     if st.session_state.save_results:
         st.write("start saving to guithub")
+        save_selected_features("logistic_ffs", selected_features)
         saveToGit("logistic_ffs")
     
         
