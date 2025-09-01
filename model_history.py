@@ -72,7 +72,11 @@ def run():
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
-            st.session_state.selected_features = selected_features
+             payload = {
+                "timestamp": timestamp,
+                "features": features
+            }
+            st.session_state.selected_features = payload
             #save_selected_features("logistic_ffs", selected_features)
     
             X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
