@@ -9,11 +9,11 @@ from github import Github
 FEATURES = ['loyalty_band', 'charge_velocity']
 
 def saveToGit(name):
-    try:  
-        REPO_NAME = "IbbyKazzi/customerChurn"   
-        token = st.secrets["GITHUB_TOKEN"]    
-        g = Github(token) 
-        
+    try:
+        REPO_NAME = "IbbyKazzi/customerChurn"
+        token = st.secrets["GITHUB_TOKEN"]
+        g = Github(token)
+
         repo = g.get_repo(REPO_NAME)
 
         # Read file content
@@ -33,10 +33,10 @@ def saveToGit(name):
                 content=content,
                 sha=existing_file.sha
             )
-            st.success(f"📤 Updated file on GitHub: {github_path}")            
+            st.success(f"📤 Updated file on GitHub: {github_path}")
             st.write(f"🔍 Commit SHA: {response['commit'].sha}")
         except Exception:
-             response = repo.create_file(
+            response = repo.create_file(
                 path=github_path,
                 message="🆕 Add selected features",
                 content=content
