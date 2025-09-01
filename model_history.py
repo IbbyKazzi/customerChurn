@@ -68,8 +68,8 @@ def run():
         st.session_state.pipeline_ran = False  # Reset flag    
    
     # --- Pipeline Execution ---
-    if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
-        start_time = time.time()
+    start_time = time.time()
+    if st.session_state.run_pipeline and not st.session_state.pipeline_ran:        
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
