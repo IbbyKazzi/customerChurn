@@ -72,6 +72,8 @@ def run():
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
+            tz_sydney = pytz.timezone("Australia/Sydney")
+            timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
             payload = {
                 "timestamp": timestamp,
                 "features": features
