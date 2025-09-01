@@ -78,7 +78,7 @@ def run():
             timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
             payload = {
                 "timestamp": timestamp,
-                "features": features
+                "features": selected_features
             }
             st.session_state.selected_features = payload
             #save_selected_features("logistic_ffs", selected_features)
