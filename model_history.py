@@ -114,6 +114,7 @@ def run():
         st.write("start saving to guithub")
         save_selected_features("logistic_ffs", st.session_state.selected_features)
         saveToGit("logistic_ffs")
+        st.session_state.save_results = False 
     
         
 
