@@ -67,10 +67,7 @@ def save_selected_features(name, features):
     timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
 
     # Prepare payload
-    payload = {
-        "timestamp": timestamp,
-        "features": features
-    }
+    payload = features
 
     # Local save
     local_dir = "feature_store"
