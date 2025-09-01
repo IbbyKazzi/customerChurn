@@ -7,6 +7,8 @@ import plotly.express as px
 from datetime import datetime
 import pytz
 from feature_store.registry import save_selected_features, saveToGit
+import time
+
 
 # --- Dashboard Rendering ---
 def show_model_history(path=METADATA_PATH):
@@ -67,6 +69,7 @@ def run():
    
     # --- Pipeline Execution ---
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
+        start_time = time.time()
         with st.spinner("Running pipeline..."):
             import automated_pipeline as ap
             X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
@@ -117,8 +120,11 @@ def run():
         with st.expander("📦 View saved features"):
             st.caption("✨Features used")
             st.json(st.session_state.selected_features)
-        st.success("✅ Pipeline completed!")
-                
+
+        end_time = time.time()
+        elapsed = end_time - start_time
+
+        st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")                
     
         # Save to GitHub
         if st.button("💾 Save to GitHub"):
