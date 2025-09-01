@@ -108,11 +108,11 @@ def run():
         st.success("✅ Pipeline completed!")
         
     
-    #save to github
-    if st.button("💾 Save to GitHub"):
-        st.write("start saving to github")
-        save_selected_features("logistic_ffs", st.session_state.selected_features)
-        saveToGit("logistic_ffs")
+        #save to github
+        if st.button("💾 Save to GitHub"):
+            st.write("start saving to github")
+            save_selected_features("logistic_ffs", st.session_state.selected_features)
+            saveToGit("logistic_ffs")
     
         
 
