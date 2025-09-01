@@ -94,7 +94,8 @@ def run():
             )
             st.session_state.fig = fig
             ap.select_best_model(model_scores, metric="AUC")   
-       
+
+        
     
         # ✅ Mark pipeline as completed
         st.session_state.pipeline_ran = True
@@ -106,6 +107,13 @@ def run():
         st.dataframe(st.session_state.scores_df)
         st.plotly_chart(st.session_state.fig, use_container_width=True)
         st.success("✅ Pipeline completed!")
+        # Toggle to show saved results
+        if st.session_state.get("show_saved", False):
+            st.toggle("👀 Show saved features", key="show_features")
+        
+            if st.session_state.get("show_features", False):
+                st.subheader("📁 Saved Features")
+                st.json(selected_features)
         
     
         #save to github
@@ -114,13 +122,7 @@ def run():
             save_selected_features("logistic_ffs", st.session_state.selected_features)
             saveToGit("logistic_ffs")
 
-        # Toggle to show saved results
-        if st.session_state.get("show_saved", False):
-            st.toggle("👀 Show saved features", key="show_features")
         
-            if st.session_state.get("show_features", False):
-                st.subheader("📁 Saved Features")
-                st.json(selected_features)
 
             
     
