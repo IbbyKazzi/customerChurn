@@ -111,8 +111,8 @@ def run():
         #save to github
         if st.button("💾 Save to GitHub"):
             st.write("start saving to github")
-            st.session_state.save_results = save_selected_features("logistic_ffs", st.session_state.selected_features)
-            uploaded = saveToGit("logistic_ffs")
+            save_selected_features("logistic_ffs", st.session_state.selected_features)
+            saveToGit("logistic_ffs")
 
         # Toggle to show saved results
         if st.session_state.get("show_saved", False):
@@ -120,7 +120,7 @@ def run():
         
             if st.session_state.get("show_features", False):
                 st.subheader("📁 Saved Features")
-                st.json(st.session_state.selected_features)
+                st.json(selected_features)
 
             
     
