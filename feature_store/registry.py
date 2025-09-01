@@ -6,14 +6,10 @@ import pytz
 import json
 from github import Github
 
-
-
-
 FEATURES = ['loyalty_band', 'charge_velocity']
 
 def saveToGit(name):
-    try:          
-       
+    try:  
         REPO_NAME = "IbbyKazzi/customerChurn"   
         token = st.secrets["GITHUB_TOKEN"]    
         g = Github(token) 
@@ -40,12 +36,13 @@ def saveToGit(name):
             st.success(f"📤 Updated file on GitHub: {github_path}")            
             st.write(f"🔍 Commit SHA: {response['commit'].sha}")
         except Exception:
-            repo.create_file(
+             response = repo.create_file(
                 path=github_path,
                 message="🆕 Add selected features",
                 content=content
             )
             st.success(f"📤 Created file on GitHub: {github_path}")
+            st.write(f"🔍 Commit SHA: {response['commit'].sha}")
 
     except Exception as e:
         st.error(f"❌ GitHub upload failed: {e}")
