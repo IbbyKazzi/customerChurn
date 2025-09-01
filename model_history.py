@@ -55,6 +55,8 @@ def run():
         st.session_state.pipeline_ran = False
     if "save_results" not in st.session_state:
         st.session_state.save_results = False
+    if "selected_features" not in st.session_state:
+        st.session_state.selected_features = ''
     
     # --- UI Buttons ---    
     if st.button("🔄 Run Pipeline"):
@@ -70,7 +72,7 @@ def run():
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns), y_train
             )
-    
+            st.session_state.selected_features = selected_features
             #save_selected_features("logistic_ffs", selected_features)
     
             X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
@@ -110,7 +112,7 @@ def run():
     #save to github
     if st.session_state.save_results:
         st.write("start saving to guithub")
-        save_selected_features("logistic_ffs", selected_features)
+        save_selected_features("logistic_ffs", st.session_state.selected_features)
         saveToGit("logistic_ffs")
     
         
