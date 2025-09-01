@@ -34,7 +34,8 @@ def saveToGit(name):
                 sha=existing_file.sha
             )
             st.success(f"📤 Updated file on GitHub: {github_path}")
-            st.write(f"🔍 Commit SHA: {response['commit'].sha}")
+            return True
+            
         except Exception:
             response = repo.create_file(
                 path=github_path,
@@ -42,10 +43,11 @@ def saveToGit(name):
                 content=content
             )
             st.success(f"📤 Created file on GitHub: {github_path}")
-            st.write(f"🔍 Commit SHA: {response['commit'].sha}")
+            return True
 
     except Exception as e:
         st.error(f"❌ GitHub upload failed: {e}")
+        return False
 
 def get_features(df, selected=FEATURES):
     result = df[['customerID']].copy()
@@ -79,16 +81,10 @@ def save_selected_features(name, features):
         with open(file_path, "w") as f:
             json.dump(payload, f)
         st.success(f"✅ Saved locally to: {file_path}")
-        st.write(payload)
+        return payload
     except Exception as e:
         st.error(f"❌ Local save failed: {e}")
         return
-
-    # GitHub upload
-
-
-
-
 
 def load_selected_features(name):
     import json
