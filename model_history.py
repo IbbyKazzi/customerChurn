@@ -54,7 +54,7 @@ def run():
     if "pipeline_ran" not in st.session_state:
         st.session_state.pipeline_ran = False
     if "save_results" not in st.session_state:
-        st.session_state.save_results = False
+        st.session_state.save_results = ''
     if "selected_features" not in st.session_state:
         st.session_state.selected_features = ''
     
@@ -111,8 +111,18 @@ def run():
         #save to github
         if st.button("💾 Save to GitHub"):
             st.write("start saving to github")
-            save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs")
+            st.session_state.save_results = save_selected_features("logistic_ffs", st.session_state.selected_features)
+            uploaded = saveToGit("logistic_ffs")
+
+        # Toggle to show saved results
+        if st.session_state.get("show_saved", False):
+            st.toggle("👀 Show saved features", key="show_features")
+        
+            if st.session_state.get("show_features", False):
+                st.subheader("📁 Saved Features")
+                st.json(st.session_state.selected_features)
+
+            
     
         
 
