@@ -113,7 +113,7 @@ def run():
         
             if st.session_state.get("show_features", False):
                 st.subheader("📁 Saved Features")
-                st.json(selected_features)
+                st.json(st.session_state.selected_features)
         
     
         #save to github
