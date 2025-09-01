@@ -106,7 +106,7 @@ def run():
         st.subheader("📋 Model Metrics")
         st.dataframe(st.session_state.scores_df)
         st.plotly_chart(st.session_state.fig, use_container_width=True)
-        st.subheader("Features used")
+        st.caption("✨Features used")
         st.json(st.session_state.selected_features)
         st.success("✅ Pipeline completed!")
                 
