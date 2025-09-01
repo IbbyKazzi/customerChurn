@@ -106,16 +106,22 @@ def run():
         st.subheader("📋 Model Metrics")
         st.dataframe(st.session_state.scores_df)
         st.plotly_chart(st.session_state.fig, use_container_width=True)
-        st.caption("✨Features used")
-        st.json(st.session_state.selected_features)
+        with st.expander("📦 View saved features"):
+            st.caption("✨Features used")
+            st.json(st.session_state.selected_features)
         st.success("✅ Pipeline completed!")
                 
     
-        #save to github
+        # Save to GitHub
         if st.button("💾 Save to GitHub"):
             st.write("start saving to github")
             save_selected_features("logistic_ffs", st.session_state.selected_features)
             saveToGit("logistic_ffs")
+            
+            # Confirmation message
+            st.success("✅ Features saved to GitHub successfully!")
+            st.toast("📁 logistic_ffs.json uploaded", icon="📤")
+
 
         
 
