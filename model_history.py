@@ -106,15 +106,13 @@ def run():
         st.dataframe(st.session_state.scores_df)
         st.plotly_chart(st.session_state.fig, use_container_width=True)
         st.success("✅ Pipeline completed!")
-        #display save button after pipeline complition
-        if st.button("💾 Save Results"):
-            st.session_state.save_results = True      
+        
+    
     #save to github
-    if st.session_state.save_results:
-        st.write("start saving to guithub")
+    if st.button("💾 Save to GitHub"):
+        st.write("start saving to github")
         save_selected_features("logistic_ffs", st.session_state.selected_features)
         saveToGit("logistic_ffs")
-        st.session_state.save_results = False 
     
         
 
