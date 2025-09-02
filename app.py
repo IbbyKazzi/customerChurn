@@ -79,12 +79,14 @@ with st.container():
 st.markdown("---")  # Horizontal line
 st.markdown(
     "<div style='text-align: center; font-size: 0.9em;'>"
-    "© 2025 — Developed by EdgeTel UTS Group 1 Team<br>"
-    "Team: Murray Atkins, Ibrahim Kassem, Bradley Moore, Preeti Sowrab <br>"
-    "<a href='https://github.com/ibbykazzi' target='_blank'>GitHub</a> | "    
+    "© 2025 — Developed by EdgeTel UTS Group 1 <br>"
+    "Memebers: Murray Atkins, Ibrahim Kassem, Bradley Moore, Preeti Sowrab <br>"
+    "<a href='https://github.com/IbbyKazzi/customerChurn' target='_blank'>GitHub</a> | "  
+    "<a href='mailto:info@EdgeTel.com.au'>Contact</a>"
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
