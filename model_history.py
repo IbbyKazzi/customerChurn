@@ -114,7 +114,7 @@ def run():
                 title="📊 Model Performance Across Metrics"
             )
             st.session_state.fig = fig
-            ap.select_best_model(model_scores, metric="AUC")   
+            st.session_state.best_model = ap.select_best_model(model_scores, metric="AUC")   
 
         
     
@@ -139,7 +139,7 @@ def run():
         elapsed = end_time - start_time
 
         st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")                
-    
+        st.write(st.session_state.best_model)
         # Save to GitHub
         if st.button("🚀 Depoly new model"):
             st.success("Start saving to github...")
