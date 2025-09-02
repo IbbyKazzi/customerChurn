@@ -7,6 +7,7 @@ import plotly.express as px
 from datetime import datetime
 import pytz
 from feature_store.registry import save_selected_features, saveToGit
+from sklearn.model_selection import GridSearchCV
 import time
 
 
@@ -94,12 +95,13 @@ def run():
             X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
             X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
     
-            models = ap.train_models(X_train, y_train, X_test, y_test)
+            models, st.session_state.grid_search = ap.train_models(X_train, y_train, X_test, y_test)
             model_scores = ap.evaluate_models(models, X_test, y_test)
     
             scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
             scores_melted = scores_df.melt(id_vars="Model", var_name="Metric", value_name="Score")
             st.session_state.scores_df = scores_df
+            
             fig = px.bar(
                 scores_melted,
                 x="Model",
@@ -125,6 +127,10 @@ def run():
         with st.expander("📦 View saved features"):
             st.caption("✨Features used")
             st.json(st.session_state.selected_features)
+
+        with st.expander("🔍 View Grid search HPO"):
+            st.caption("🔧 HPO used")
+            st.json(st.session_state.grid_search)
 
         end_time = time.time()
         elapsed = end_time - start_time
