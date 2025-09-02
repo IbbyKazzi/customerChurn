@@ -20,6 +20,7 @@ def show_model_history(path=METADATA_PATH):
     st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
 
     current_model = df[df["active"] == True].iloc[0]
+    current_model_auc = current_model['roc_auc']
     st.sidebar.write(f"**Current Model**")
     st.sidebar.write(f"Version: {current_model['version']}")
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")
@@ -27,6 +28,10 @@ def show_model_history(path=METADATA_PATH):
 
     st.sidebar.header("Model Monitoring")
     auc_threshold = st.sidebar.slider("Minimum AUC Threshold", 0.5, 1.0, 0.85, step=0.01)
+    #if below threshold run the automated pipeline
+    if current_model_auc < auc_threshold:
+        st.session_state.run_pipeline = True
+        st.session_state.pipeline_ran = False  
 
     auc_history_df = df[["date", "roc_auc"]]
     st.line_chart(auc_history_df.set_index("date")["roc_auc"])
