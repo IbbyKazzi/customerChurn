@@ -109,7 +109,7 @@ def load_and_preprocess(path):
 
 
 #Model Training (logistic & Current Model)
-def train_models(X_train, y_train):
+def train_models(X_train, y_train, X_test):
     #load current model
     with open(MODEL_PATH_T21, "rb") as f:
         model_t21 = pickle.load(f)
