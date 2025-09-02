@@ -133,7 +133,7 @@ def run():
 
         with st.expander("🔍 View Grid search HPO"):
             st.caption("🔧 HPO used")
-            st.json(st.session_state.grid_search)
+            st.write(st.session_state.grid_search)
 
         end_time = time.time()
         elapsed = end_time - start_time
