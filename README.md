@@ -28,7 +28,7 @@ streamlit run app.py
 
 # 👥 Team Members
 - Murray Atkins — Project Manager
-- Ibrahim — Lead Developer & Architect
+- Ibrahim Kassem — Lead Developer & Architect
 - Bradley Moore — Data Scientist
 - Preeti Sowrab — UI/UX Designer
 
