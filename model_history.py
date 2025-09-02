@@ -139,7 +139,7 @@ def run():
         elapsed = end_time - start_time
 
         st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")                
-        st.write(st.session_state.best_model)
+        #st.write(st.session_state.best_model)
         # Save to GitHub
         if st.button("🚀 Depoly new model"):
             st.success("Start saving to github...")
