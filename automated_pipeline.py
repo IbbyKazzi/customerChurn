@@ -8,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score
+from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score, brier_score_loss
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 from feature_store.registry import get_features
 from sklearn.model_selection import cross_val_score
@@ -175,7 +175,8 @@ def evaluate_models(models, X_test, y_test):
             "AUC": roc_auc_score(y_test, y_prob),
             "Precision": precision_score(y_test, y_pred),
             "Recall": recall_score(y_test, y_pred),
-            "F1": f1_score(y_test, y_pred)
+            "F1": f1_score(y_test, y_pred),
+            "Brier Score": brier_score_loss(y_test, y_prob)
         }
 
     return scores
