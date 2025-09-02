@@ -7,15 +7,6 @@ st.set_page_config(
     page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
     layout="centered"
 )
-st.markdown("---")  # Horizontal line
-st.markdown(
-    "<div style='text-align: center; font-size: 0.9em;'>"
-    "© 2025 — Developed by EdgeTel UTS Group 1 Team<br>"
-    "Team: Murray Atkins, Ibrahim Kassem, Bradley Moore, Preeti Sowrab <br>"
-    "<a href='https://github.com/ibbykazzi' target='_blank'>GitHub</a> | "    
-    "</div>",
-    unsafe_allow_html=True
-)
 
 # Inject CSS to constrain content width
 st.markdown("""
@@ -84,6 +75,18 @@ with st.container():
         run();
 
     st.markdown('</div>', unsafe_allow_html=True)
+
+st.markdown("---")  # Horizontal line
+st.markdown(
+    "<div style='text-align: center; font-size: 0.9em;'>"
+    "© 2025 — Developed by EdgeTel UTS Group 1 Team<br>"
+    "Team: Murray Atkins, Ibrahim Kassem, Bradley Moore, Preeti Sowrab <br>"
+    "<a href='https://github.com/ibbykazzi' target='_blank'>GitHub</a> | "    
+    "</div>",
+    unsafe_allow_html=True
+)
+
+
 
 
 
