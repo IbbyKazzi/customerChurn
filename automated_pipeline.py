@@ -14,7 +14,10 @@ from feature_store.registry import get_features
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import roc_auc_score
-import numpy as np
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
 
 
 #Using FFS logic to inhance model training and ecvaluation
@@ -110,10 +113,45 @@ def train_models(X_train, y_train):
     #load current model
     with open(MODEL_PATH_T21, "rb") as f:
         model_t21 = pickle.load(f)
-        
+
+
+    # Define pipeline
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),
+        ('clf', LogisticRegression(solver='liblinear'))  
+    ])
+
+    # Set Hyperparameter Grid
+    param_grid = {
+        'clf__penalty': ['l1', 'l2'],
+        'clf__C': [0.01, 0.1, 1, 10, 100],  # Regularization strength
+        'clf__fit_intercept': [True, False]
+    }
+
+    # Run Grid Search
+    grid_search = GridSearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        scoring='roc_auc',  # You can swap with 'accuracy', 'f1', etc.
+        cv=5,
+        verbose=1,
+        n_jobs=-1
+    )    
+    grid_search.fit(X_train, y_train)
+
+    # Evaluate Best Model
+    best_model = grid_search.best_estimator_
+    y_pred = best_model.predict(X_test)
+    y_proba = best_model.predict_proba(X_test)[:, 1]
+    
+    print("Best Parameters:", grid_search.best_params_)
+    print("Test Accuracy:", accuracy_score(y_test, y_pred))
+    print("Test ROC AUC:", roc_auc_score(y_test, y_proba))
+
+    # Define the models to evaluate
     models = {
-        "Trained_Model": LogisticRegression(C=0.1, penalty='l1', solver='liblinear', max_iter=1000),
-        "Current_Model": model_t21
+        "Trained_Model": best_model, # the best model with grid search HPO
+        "Current_Model": model_t21 # Our currently used model
     }
 
     for name, model in models.items():
