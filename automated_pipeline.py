@@ -149,8 +149,10 @@ def train_models(X_train, y_train, X_test, y_test):
     st.write("Test ROC AUC:", roc_auc_score(y_test, y_proba))
 
     # Define the models to evaluate
-    models = {
-        "Trained_Model": best_model, # the best model with grid search HPO
+    date_str = datetime.now().strftime("%Y%m%d")
+    model_name = f"logreg_model_{date_str}"
+    models = {        
+        model_name : best_model, # the best model with grid search HPO
         "Current_Model": model_t21 # Our currently used model
     }
 
