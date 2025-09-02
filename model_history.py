@@ -94,7 +94,7 @@ def run():
             X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
             X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
     
-            models = ap.train_models(X_train, y_train)
+            models = ap.train_models(X_train, y_train, X_test)
             model_scores = ap.evaluate_models(models, X_test, y_test)
     
             scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
