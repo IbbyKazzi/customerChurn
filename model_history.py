@@ -204,7 +204,7 @@ def run():
         
         #st.write(st.session_state.best_model)
         # Save to GitHub
-        if st.button("🚀 Depoly new model"):
+        if st.sidebar.button("🚀 Depoly new model"):
             st.success("Start saving to github...")
             save_selected_features("logistic_ffs", st.session_state.selected_features)
             saveToGit("logistic_ffs")
