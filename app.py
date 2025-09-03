@@ -1,5 +1,7 @@
 from streamlit_option_menu import option_menu
 import streamlit as st
+import base64
+
 
 # Set page title and icon
 st.set_page_config(
@@ -32,7 +34,16 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+# Set the logo
+def get_base64_image(path):
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
+logo_base64 = get_base64_image("assets/logo.png")
+st.sidebar.markdown(
+    f"<img src='data:image/png;base64,{logo_base64}' width='150'>",
+    unsafe_allow_html=True
+)
 
 # Wrap routed content in a centered container
 with st.container():
@@ -86,6 +97,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
