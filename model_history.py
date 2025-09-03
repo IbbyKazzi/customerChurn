@@ -190,7 +190,7 @@ def run():
         elapsed = end_time - start_time
         stage_times.append(("Total execution time", elapsed))        
 
-        st.success(f"✅ Pipeline completed in {elapsed}")
+        st.success(f"✅ Pipeline completed")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
             st.plotly_chart(st.session_state.fig, use_container_width=True)
