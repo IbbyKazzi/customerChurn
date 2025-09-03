@@ -16,68 +16,74 @@ def saveToGit(name, model_meta, model, model_filename ):
         g = Github(token)
         repo = g.get_repo(REPO_NAME)
 
-        # Read file content
+        # Read features content
         local_dir = "feature_store"
         file_path = os.path.join(local_dir, f"{name}.json")
         with open(file_path, "r") as f:
-            content = f.read()
-    
-        github_path = f"feature_store/{name}.json"
+            features_content = f.read()    
+        features_path = f"feature_store/{name}.json"
+
+        # Read model register content        
+        model_reg_path = "models/model_metadata.json"
+        with open(model_reg_path, "r") as f:
+            model_reg_content = f.read()    
+        
     
         # Check if file exists in repo
         try:
-            existing_file = repo.get_contents(github_path)
+            existing_file = repo.get_contents(features_path)
             response = repo.update_file(
-                path=github_path,
+                path=features_path,
                 message="🔄 Update selected features",
-                content=content,
+                content=features_content,
                 sha=existing_file.sha
             )           
     
-            #save models register
-            meta_path = "models/model_metadata.json"
-            existing_file = repo.get_contents(meta_path)
+            #save models register            
+            existing_file = repo.get_contents(model_reg_path)
             response = repo.update_file(
-                path=meta_path,
+                path=model_reg_path,
                 message="🔄 Update model register",
-                content=model_meta,
+                content=model_reg_content,
                 sha=existing_file.sha
             )
             #save best models             
-            existing_file = repo.get_contents(model_filename)
-            response = repo.update_file(
-                path=model_filename,
-                message="🔄 Update best model",
-                content=model,
-                sha=existing_file.sha
-            )
+            #existing_file = repo.get_contents(model_filename)
+            #response = repo.update_file(
+            #    path=model_filename,
+            #    message="🔄 Update best model",
+            #    content=model,
+            #    sha=existing_file.sha
+            #)
             st.success(f"📤 Updated file on GitHub: {github_path}")
     
         except Exception:
-            response = repo.create_file(
-                path=github_path,
-                message="🆕 Add selected features",
-                content=content
-            )
-            
-            #save models register
-            meta_path = "models/model_metadata.json"
-            existing_file = repo.get_contents(meta_path)
+            existing_file = repo.get_contents(features_path)
             response = repo.update_file(
-                path=meta_path,
+                path=features_path,
+                message="🔄 Update selected features",
+                content=features_content,
+                sha=existing_file.sha
+            )           
+    
+            #save models register            
+            existing_file = repo.get_contents(model_reg_path)
+            response = repo.update_file(
+                path=model_reg_path,
                 message="🔄 Update model register",
-                content=model_meta,
+                content=model_reg_content,
                 sha=existing_file.sha
             )
             #save best models             
-            existing_file = repo.get_contents(model_filename)
-            response = repo.update_file(
-                path=model_filename,
-                message="🔄 Update best model",
-                content=model,
-                sha=existing_file.sha
-            )
-            st.success(f"📤 Created file on GitHub: {github_path}")   
+            #existing_file = repo.get_contents(model_filename)
+            #response = repo.update_file(
+            #    path=model_filename,
+            #    message="🔄 Update best model",
+            #    content=model,
+            #    sha=existing_file.sha
+            #)
+            st.success(f"📤 Updated file on GitHub: {github_path}")
+            
     
     
     except Exception as e:
