@@ -95,7 +95,7 @@ def run():
         st.session_state.selected_features = ''
     
     # --- UI Buttons ---    
-    if st.button("🔄 Run Pipeline"):
+    if st.sidebar.button("🔄 Run Pipeline"):
         st.session_state.run_pipeline = True
         st.session_state.pipeline_ran = False  # Reset flag    
    
