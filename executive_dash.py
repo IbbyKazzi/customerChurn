@@ -155,8 +155,9 @@ def run():
 
         
         st.subheader("📊 Cluster Summary")
-        df_styled = st.session_state["cluster_summary"].iloc[:, 1:]
-        st.dataframe(df_styled)
+        df = st.session_state["cluster_summary"]
+        styled_df = df.style.hide(axis="index")
+        st.dataframe(styled_df)
 
 
         
