@@ -10,25 +10,6 @@ st.set_page_config(
     layout="centered"
 )
 
-st.markdown("""
-    <style>
-        .help-icon {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .help-icon:hover {
-            color: #1f77b4;
-        }
-    </style>
-    <a href="https://your-docs-url.com" target="_blank">
-        <div class="help-icon">❓</div>
-    </a>
-""", unsafe_allow_html=True)
-
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
@@ -73,8 +54,8 @@ with st.container():
     # Horizontal menu
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline"],
-        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3"],
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "?"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "help-icon"],
         orientation="horizontal"
     )
 
@@ -118,6 +99,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
