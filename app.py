@@ -10,6 +10,25 @@ st.set_page_config(
     layout="centered"
 )
 
+st.markdown("""
+    <style>
+        .help-icon {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .help-icon:hover {
+            color: #1f77b4;
+        }
+    </style>
+    <a href="https://your-docs-url.com" target="_blank">
+        <div class="help-icon">❓</div>
+    </a>
+""", unsafe_allow_html=True)
+
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
@@ -34,24 +53,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown("""
-    <style>
-        .help-icon {
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1000;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        .help-icon:hover {
-            color: #1f77b4;
-        }
-    </style>
-    <a href="https://your-docs-url.com" target="_blank">
-        <div class="help-icon">❓</div>
-    </a>
-""", unsafe_allow_html=True)
+
 
 # Set the logo
 def get_base64_image(path):
@@ -116,6 +118,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
