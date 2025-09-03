@@ -54,7 +54,7 @@ with st.container():
     # Horizontal menu
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "?"],
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "❓"],
         icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "help-icon"],
         orientation="horizontal"
     )
@@ -99,6 +99,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
