@@ -155,7 +155,7 @@ def run():
 
         
         st.subheader("📊 Cluster Summary")
-        st.dataframe(st.session_state["cluster_summary"]).reset_index(drop=True))    
+        st.dataframe(st.session_state["cluster_summary"].reset_index(drop=True))  
         
     #st.write(force_refresh)
     
