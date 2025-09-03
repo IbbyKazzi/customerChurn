@@ -202,14 +202,7 @@ def run():
        
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
-            st.success("Start saving to GitHub...")
-        
-            # Save selected features
-            save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs")
-            st.success("✅ Features saved to GitHub successfully!")
-            st.toast("📁 logistic_ffs.json uploaded", icon="📤")
-        
+            st.success("Start saving to GitHub...")     
             # Save model locally
                  
             best_model = st.session_state.scores_df.loc[
@@ -263,6 +256,15 @@ def run():
         
             st.success("✅ Model registry updated and activated!")
             st.toast("📘 Registry entry saved", icon="📚")
+            
+            # Save selected features
+            save_selected_features("logistic_ffs", st.session_state.selected_features)
+            saveToGit("logistic_ffs")
+            st.success("✅ Features saved to GitHub successfully!")
+            st.toast("📁 logistic_ffs.json uploaded", icon="📤")
+
+
+
 
 
         
