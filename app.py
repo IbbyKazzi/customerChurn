@@ -13,26 +13,14 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        .centered-container {
-            max-width: 1120px;  
+        .main {
+            max-width: 1000px;
             margin: auto;
             padding-top: 2rem;
         }
-
-        div[data-testid="option-menu"] .nav-pills {
-            flex-wrap: nowrap !important;
-            overflow-x: auto;
-            justify-content: center;
-        }
-        @media (max-width: 800px) {
-            div[data-testid="option-menu"] .nav-link {
-                font-size: 12px;
-                padding: 0.3rem 0.5rem;
-            }
-        }
-        footer {visibility: hidden;}
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
+
 
 
 
@@ -99,5 +87,6 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
