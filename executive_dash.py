@@ -211,6 +211,9 @@ def run():
     adjusted_loss = total_loss * (1 - retained_fraction)
     
     st.sidebar.metric("💸 Revenue Loss", f"${adjusted_loss:,.2f}")
+    
+    st.sidebar.markdown("<div style='height: 300px;'></div>", unsafe_allow_html=True)
+
     with st.sidebar.expander("📘 How to Use This Dashboard"):
         st.markdown("""
         **Choose Your Segmentation Level:** Use the slider to select how many customer segments (clusters) you'd like to generate.
