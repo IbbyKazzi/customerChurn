@@ -13,20 +13,8 @@ import time
 
 # --- Dashboard Rendering ---
 def show_model_history(path=METADATA_PATH):
-    with open(path, "r") as f:
-        metadata = json.load(f)
-    df = pd.DataFrame(metadata)
 
-    st.subheader("📋 Model Registry")
-    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
-
-    current_model = df[df["active"] == True].iloc[0]
-    current_model_auc = current_model['roc_auc']
-    st.sidebar.write(f"**Current Model**")
-    st.sidebar.write(f"Version: {current_model['version']}")
-    st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")
-    st.sidebar.write(f"Activation Date: {current_model['date']}")
-
+    # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
     auc_threshold = st.sidebar.slider("Minimum AUC Threshold", 0.5, 1.0, 0.85, step=0.01)
     #if below threshold run the automated pipeline
@@ -34,6 +22,44 @@ def show_model_history(path=METADATA_PATH):
         st.session_state.run_pipeline = True
         st.session_state.pipeline_ran = False  
 
+    # Add pipeline options on the UI sidebar
+    st.sidebar.header("🔧 Feature Selection Options")
+    # Selection method
+    selection_method = st.sidebar.radio(
+        "Choose feature selection method:",
+        ["Forward Feature Selection (FFS)", "SHAP Top Features"]
+    )
+    
+    # Number of features
+    num_features = st.sidebar.number_input(
+        "Number of features to select (min 5):",
+        min_value=5,
+        max_value=50,
+        value=10,
+        step=1
+    )
+    
+    # Store in session state
+    st.session_state.selection_method = selection_method
+    st.session_state.num_features = num_features
+    
+    # Get current models
+    with open(path, "r") as f:
+        metadata = json.load(f)
+    df = pd.DataFrame(metadata)
+
+    # Display models stat 
+    st.subheader("📋 Model Registry")
+    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
+
+    # Get current model AUC and display it
+    current_model = df[df["active"] == True].iloc[0]
+    current_model_auc = current_model['roc_auc']
+    st.sidebar.write(f"**Current Model**")
+    st.sidebar.write(f"Version: {current_model['version']}")
+    st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")
+    st.sidebar.write(f"Activation Date: {current_model['date']}")    
+    
     auc_history_df = df[["date", "roc_auc"]]
     st.line_chart(auc_history_df.set_index("date")["roc_auc"])
 
