@@ -155,9 +155,9 @@ def run():
 
         
         st.subheader("📊 Cluster Summary")
-        df = st.session_state["cluster_summary"]
-        styled_df = df.style.hide(axis="index")
-        st.dataframe(styled_df)
+        df = st.session_state["cluster_summary"].reset_index(drop=True)
+        df.index = [''] * len(df)  # Blank out index labels
+        st.dataframe(df)
 
 
         
