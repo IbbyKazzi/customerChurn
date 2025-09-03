@@ -13,11 +13,10 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        /* Target Streamlit's main content container */
-        section.main > div {
+        .block-container {
             max-width: 1500px;
-            margin: auto;
             padding-top: 2rem;
+            margin: auto;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -85,6 +84,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
