@@ -12,7 +12,27 @@ import time
 
 
 # --- Dashboard Rendering ---
-def show_model_history(path=METADATA_PATH):
+def show_model_history(path=METADATA_PATH):    
+    
+    # Get current models
+    with open(path, "r") as f:
+        metadata = json.load(f)
+    df = pd.DataFrame(metadata)
+
+    # Display models stat 
+    st.subheader("📋 Model Registry")
+    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
+
+    # Get current model AUC and display it
+    current_model = df[df["active"] == True].iloc[0]
+    current_model_auc = current_model['roc_auc']
+    st.sidebar.write(f"**Current Model**")
+    st.sidebar.write(f"Version: {current_model['version']}")
+    st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")
+    st.sidebar.write(f"Activation Date: {current_model['date']}")    
+    
+    auc_history_df = df[["date", "roc_auc"]]
+    st.line_chart(auc_history_df.set_index("date")["roc_auc"])
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
@@ -42,26 +62,6 @@ def show_model_history(path=METADATA_PATH):
     # Store in session state
     st.session_state.selection_method = selection_method
     st.session_state.num_features = num_features
-    
-    # Get current models
-    with open(path, "r") as f:
-        metadata = json.load(f)
-    df = pd.DataFrame(metadata)
-
-    # Display models stat 
-    st.subheader("📋 Model Registry")
-    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
-
-    # Get current model AUC and display it
-    current_model = df[df["active"] == True].iloc[0]
-    current_model_auc = current_model['roc_auc']
-    st.sidebar.write(f"**Current Model**")
-    st.sidebar.write(f"Version: {current_model['version']}")
-    st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")
-    st.sidebar.write(f"Activation Date: {current_model['date']}")    
-    
-    auc_history_df = df[["date", "roc_auc"]]
-    st.line_chart(auc_history_df.set_index("date")["roc_auc"])
 
     st.subheader("🔍 Compare Model Versions")
     versions = df["version"].tolist()
