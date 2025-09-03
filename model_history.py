@@ -188,7 +188,9 @@ def run():
     if st.session_state.pipeline_ran: 
         end_time = time.time()
         elapsed = end_time - start_time
-        st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")
+        stage_times.append(("Total execution time", elapsed))        
+
+        st.success(f"✅ Pipeline completed in {elapsed}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
             st.plotly_chart(st.session_state.fig, use_container_width=True)
@@ -256,13 +258,13 @@ def run():
                 json.dump(registry, f, indent=2)
         
             st.success("✅ Model registry updated and activated!")
-            st.toast("📘 Registry entry saved", icon="📚")
+            st.toast("📘 Registry entry saved", icon="📚", duration=10)
             
             # Save selected features
             save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs", registry, model_obj, model_filename)
+            saveToGit("logistic_ffs")
             st.success("✅ Features saved to GitHub successfully!")
-            st.toast("📁 logistic_ffs.json uploaded", icon="📤")
+            st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
 
 
