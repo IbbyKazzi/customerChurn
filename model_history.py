@@ -190,9 +190,7 @@ def run():
 
     if st.session_state.pipeline_ran: 
         end_time = time.time()
-        elapsed = end_time - start_time
-        stage_times.append(("Total execution time", elapsed))        
-
+        elapsed = end_time - start_time        
         st.success(f"✅ Pipeline completed")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
