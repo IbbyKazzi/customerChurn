@@ -139,6 +139,7 @@ def run():
         st.session_state.run_pipeline = False
         stage_times.append(("Finalization", time.time() - t0))
         progress.progress(100)
+        st.session_state.stage_times = stage_times
         status.markdown("🎉 <span style='color:green'>Pipeline completed successfully!</span>", unsafe_allow_html=True)
     
 
@@ -157,7 +158,11 @@ def run():
         end_time = time.time()
         elapsed = end_time - start_time
 
-        st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")                
+        st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")     
+        if "stage_times" in st.session_state:
+            summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])
+            st.subheader("⏱️ Pipeline Timing Summary")
+            st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))
         #st.write(st.session_state.best_model)
         # Save to GitHub
         if st.button("🚀 Depoly new model"):
