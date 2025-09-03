@@ -34,6 +34,20 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+        .help-icon {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+    <div class="help-icon" onclick="document.getElementById('howto').scrollIntoView();">❓</div>
+""", unsafe_allow_html=True)
+
 # Set the logo
 def get_base64_image(path):
     with open(path, "rb") as f:
@@ -97,6 +111,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
