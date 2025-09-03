@@ -211,4 +211,13 @@ def run():
     adjusted_loss = total_loss * (1 - retained_fraction)
     
     st.sidebar.metric("💸 Revenue Loss", f"${adjusted_loss:,.2f}")
+    with st.sidebar.expander("📘 How to Use This Dashboard"):
+        st.markdown("""
+        **Step 1:** Upload or select your data source  
+        **Step 2:** Choose feature selection method (FFS or SHAP)  
+        **Step 3:** Set number of clusters and run the pipeline  
+        **Step 4:** Review model metrics and deploy if satisfied  
+        **Tip:** Hover over ℹ️ icons for extra guidance
+        """)
+
 
