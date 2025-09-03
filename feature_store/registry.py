@@ -97,10 +97,7 @@ def get_sydney_timestamp():
     tz_sydney = pytz.timezone("Australia/Sydney")
     return datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
 
-def save_selected_features(name, features):  
-    # Prepare payload
-    payload = features
-
+def save_selected_features(name, features):      
     # Local save
     local_dir = "feature_store"
     os.makedirs(local_dir, exist_ok=True)
@@ -108,7 +105,7 @@ def save_selected_features(name, features):
 
     try:
         with open(file_path, "w") as f:
-            json.dump(payload, f)
+            json.dump(features, f)
         st.success(f"✅ Saved locally to: {file_path}")
         
     except Exception as e:
