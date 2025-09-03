@@ -155,7 +155,10 @@ def run():
 
         
         st.subheader("📊 Cluster Summary")
-        st.dataframe(st.session_state["cluster_summary"].reset_index(drop=True).iloc[:, :])
+        df = st.session_state["cluster_summary"].reset_index(drop=True)
+        df.index = [''] * len(df)  # Blank out the index labels
+        st.dataframe(df)
+
         
     #st.write(force_refresh)
     
