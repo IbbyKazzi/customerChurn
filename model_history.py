@@ -159,8 +159,7 @@ def run():
         elapsed = end_time - start_time
         with st.expander("⏱️ Pipeline Timing Summary"):
             if "stage_times" in st.session_state:
-                summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])
-                st.subheader("⏱️ Pipeline Timing Summary")
+                summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
                 st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))
 
         st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")     
