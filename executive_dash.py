@@ -70,7 +70,7 @@ def generate_segment_profiles(df_summary, force_refresh):
 def run():
     if "prev_n_clusters" not in st.session_state:
         st.session_state["prev_n_clusters"] = None
-    st.subheader("📊 Telco Churn Segmentation")
+    st.subheader("📊 Customer Segment based on churn")
 
     #Load dataset
     df = load_dataset.run()  
