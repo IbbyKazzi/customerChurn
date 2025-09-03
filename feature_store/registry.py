@@ -9,7 +9,7 @@ import base64
 
 FEATURES = ['loyalty_band', 'charge_velocity', 'contract_stability']
 
-def saveToGit(name):
+def saveToGit(name, model_obj, model_filename):
     try:
         REPO_NAME = "IbbyKazzi/customerChurn"
         token = st.secrets["GITHUB_TOKEN"]
@@ -48,13 +48,13 @@ def saveToGit(name):
                 sha=existing_file.sha
             )
             #save best models             
-            #existing_file = repo.get_contents(model_filename)
-            #response = repo.update_file(
-            #    path=model_filename,
-            #    message="🔄 Update best model",
-            #    content=model,
-            #    sha=existing_file.sha
-            #)
+            existing_file = repo.get_contents(model_filename)
+            response = repo.update_file(
+                path=model_filename,
+                message="🔄 Update best model",
+                content=model_obj,
+                sha=existing_file.sha
+            )
             st.success(f"📤 Updated file on GitHub: {github_path}")
     
         except Exception:
@@ -75,13 +75,13 @@ def saveToGit(name):
                 sha=existing_file.sha
             )
             #save best models             
-            #existing_file = repo.get_contents(model_filename)
-            #response = repo.update_file(
-            #    path=model_filename,
-            #    message="🔄 Update best model",
-            #    content=model,
-            #    sha=existing_file.sha
-            #)
+            existing_file = repo.get_contents(model_filename)
+            response = repo.update_file(
+                path=model_filename,
+                message="🔄 Update best model",
+                content=model_obj,
+                sha=existing_file.sha
+            )
             st.success(f"📤 Updated file on GitHub: {github_path}")
             
     
