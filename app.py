@@ -48,6 +48,26 @@ st.markdown("""
     <div class="help-icon" onclick="document.getElementById('howto').scrollIntoView();">❓</div>
 """, unsafe_allow_html=True)
 
+
+st.markdown('<div id="howto"></div>', unsafe_allow_html=True)
+with st.expander("📘 How to Use This Dashboard", expanded=False):
+    st.markdown("""
+    ### Getting Started
+    This dashboard helps you explore churn segmentation and deploy predictive models.
+
+    #### Workflow Overview
+    1. Load and preprocess your customer data
+    2. Choose feature selection method (FFS or SHAP)
+    3. Set number of clusters to define segments
+    4. Run pipeline to train and evaluate models
+    5. Review metrics and deploy best model to GitHub
+
+    #### Tips
+    - Use SHAP for faster feature selection
+    - FFS offers more control but takes longer
+    - Hover over ℹ️ icons for extra guidance
+    """)
+
 # Set the logo
 def get_base64_image(path):
     with open(path, "rb") as f:
@@ -111,6 +131,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
