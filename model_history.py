@@ -263,7 +263,7 @@ def run():
             
             # Save selected features
             save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs")
+            saveToGit("logistic_ffs", model_obj, model_filename)
             st.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
