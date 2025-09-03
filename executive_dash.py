@@ -39,7 +39,7 @@ def llm_cluster_description(row):
     )
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-5",
+            model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content.strip()
@@ -155,7 +155,7 @@ def run():
 
         
         st.subheader("📊 Cluster Summary")
-        st.dataframe(st.session_state["cluster_summary"])    
+        st.dataframe(st.session_state["cluster_summary"]).reset_index(drop=True))    
         
     #st.write(force_refresh)
     
