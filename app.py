@@ -14,7 +14,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .main {
-            max-width: 1000px;
+            max-width: 1500px;
             margin: auto;
             padding-top: 2rem;
         }
@@ -87,6 +87,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
