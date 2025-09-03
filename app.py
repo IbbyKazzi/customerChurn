@@ -13,7 +13,14 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        /* Lock the option_menu at the top */
+        /* Set consistent page width */
+        .block-container {
+            max-width: 950px;
+            padding-top: 2rem;
+            margin: auto;
+        }
+
+        /* Lock the horizontal option menu to the top */
         div[data-testid="option-menu"] {
             position: sticky;
             top: 0;
@@ -89,6 +96,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
