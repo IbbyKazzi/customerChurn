@@ -96,7 +96,21 @@ def run():
     #    default=['Months', 'MonthlyCharges', 'TotalCharges']
     #)
 
-    n_clusters = st.slider("Select number of clusters", 2, 10, 5)
+    st.markdown(
+        """
+        <div style='display: flex; align-items: center; gap: 6px;'>
+            <span style='font-weight: 600;'>Select number of clusters</span>
+            <span title="Higher cluster numbers reveal more granular customer segments. Lower numbers give broader groupings.">
+                ℹ️
+            </span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )   
+    
+    n_clusters = st.slider("", 2, 10, 5)
+
+    
     # Detect cluster count change
     if "force_refresh" not in st.session_state:
         st.session_state["force_refresh"] = False
