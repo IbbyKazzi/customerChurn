@@ -14,7 +14,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .block-container {
-            max-width: 1500px;
+            max-width: 1000px;
             padding-top: 2rem;
             margin: auto;
         }
@@ -84,6 +84,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
