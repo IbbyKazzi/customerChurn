@@ -100,6 +100,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+st.sidebar.button("How To ?")
+
+
 
 
 
