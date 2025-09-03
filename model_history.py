@@ -9,6 +9,10 @@ import pytz
 from feature_store.registry import save_selected_features, saveToGit
 from sklearn.model_selection import GridSearchCV
 import time
+import pickle
+import os
+            
+
 
 
 # --- Dashboard Rendering ---
@@ -215,10 +219,7 @@ def run():
                 pickle.dump(model_obj, f)
             st.toast(f"📦 Model saved: {model_filename}", icon="💾")
         
-            # Update model registry
-            import json
-            import os
-            from datetime import datetime
+            # Update model registry            
             tz_sydney = pytz.timezone("Australia/Sydney")
             timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         
