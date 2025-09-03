@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 def call_gpt_api(prompt):
     response = openai.ChatCompletion.create(
-        model="gpt-5",
+        model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a data analyst."},
             {"role": "user", "content": prompt}
@@ -128,12 +128,9 @@ def run():
     
     # Create a prompt
     prompt = f"""
-    We are analyzing churn risk across different subscription plans and contract types. Plans range from Basic to Premium, and contracts include Monthly, One-Year, and Two-Year options.
-    
-    Here is the churn probability matrix:
-    
-    {table_str}
-    
+    We are analyzing churn risk across different subscription plans and contract types. Plans range from Basic to Premium, and contracts include Monthly, One-Year, and Two-Year options.    
+    Here is the churn probability matrix:    
+    {table_str}    
     Please provide insights, highlight any concerning patterns, and suggest actions to reduce churn.
     """
     
