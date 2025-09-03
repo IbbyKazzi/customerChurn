@@ -48,13 +48,20 @@ def saveToGit(name, model_obj, model_filename):
                 sha=existing_file.sha
             )
             #save best models             
-            existing_file = repo.get_contents(model_filename)
-            response = repo.update_file(
-                path=model_filename,
+            import base64
+            with open(model_filename, "rb") as f:
+                encoded_model = base64.b64encode(f.read()).decode()
+
+            model_path = model_filename
+            existing_file = repo.get_contents(model_path)
+            repo.update_file(
+                path=model_path,
                 message="🔄 Update best model",
-                content=model_obj,
+                content=encoded_model,
                 sha=existing_file.sha
             )
+
+
             st.success(f"📤 Updated file on GitHub: {github_path}")
     
         except Exception:
@@ -75,11 +82,16 @@ def saveToGit(name, model_obj, model_filename):
                 sha=existing_file.sha
             )
             #save best models             
-            existing_file = repo.get_contents(model_filename)
-            response = repo.update_file(
-                path=model_filename,
+            import base64
+            with open(model_filename, "rb") as f:
+                encoded_model = base64.b64encode(f.read()).decode()
+
+            model_path = model_filename
+            existing_file = repo.get_contents(model_path)
+            repo.update_file(
+                path=model_path,
                 message="🔄 Update best model",
-                content=model_obj,
+                content=encoded_model,
                 sha=existing_file.sha
             )
             st.success(f"📤 Updated file on GitHub: {github_path}")
