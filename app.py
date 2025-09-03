@@ -41,7 +41,7 @@ def get_base64_image(path):
 
 logo_base64 = get_base64_image("assets/logo2.png")
 st.sidebar.markdown(
-    f"<img src='data:image/png;base64,{logo_base64}' width='100'>",
+    f"<img src='data:image/png;base64,{logo_base64}' width='120'>",
     unsafe_allow_html=True
 )
 
@@ -97,6 +97,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
