@@ -5,29 +5,38 @@ from datetime import datetime
 import pytz
 import json
 from github import Github
+import base64
 
 FEATURES = ['loyalty_band', 'charge_velocity', 'contract_stability']
 
-def saveToGit(name, model_meta, model, model_filename ):
+
+
+def saveToGit(name, model_meta, model, model_filename):
     try:
         REPO_NAME = "IbbyKazzi/customerChurn"
         token = st.secrets["GITHUB_TOKEN"]
         g = Github(token)
-
         repo = g.get_repo(REPO_NAME)
 
-        # Read file content
+        # --- Selected Features ---
         local_dir = "feature_store"
         file_path = os.path.join(local_dir, f"{name}.json")
         with open(file_path, "r") as f:
             content = f.read()
-
         github_path = f"feature_store/{name}.json"
 
-        # Check if file exists in repo
+        # --- Encode model registry JSON ---
+        encoded_meta = base64.b64encode(model_meta.encode()).decode()
+
+        # --- Encode model binary ---
+        with open(model_filename, "rb") as f:
+            encoded_model = base64.b64encode(f.read()).decode()
+
+        # --- Upload logic ---
         try:
+            # Update selected features
             existing_file = repo.get_contents(github_path)
-            response = repo.update_file(
+            repo.update_file(
                 path=github_path,
                 message="🔄 Update selected features",
                 content=content,
@@ -35,51 +44,50 @@ def saveToGit(name, model_meta, model, model_filename ):
             )
             st.success(f"📤 Updated file on GitHub: {github_path}")
 
-            #save models register
+            # Update model registry
             meta_path = "models/model_metadata.json"
             existing_file = repo.get_contents(meta_path)
-            response = repo.update_file(
+            repo.update_file(
                 path=meta_path,
                 message="🔄 Update model register",
-                content=model_meta,
+                content=encoded_meta,
                 sha=existing_file.sha
             )
-            #save best models 
-            model_path = "models/" + model_filename
+
+            # Update model file
+            model_path = "models/" + os.path.basename(model_filename)
             existing_file = repo.get_contents(model_path)
-            response = repo.update_file(
+            repo.update_file(
                 path=model_path,
                 message="🔄 Update best model",
-                content=model,
+                content=encoded_model,
                 sha=existing_file.sha
             )
-            
+
         except Exception:
-            response = repo.create_file(
+            # Create selected features
+            repo.create_file(
                 path=github_path,
                 message="🆕 Add selected features",
                 content=content
             )
             st.success(f"📤 Created file on GitHub: {github_path}")
-            #save models register
+
+            # Create model registry
             meta_path = "models/model_metadata.json"
-            existing_file = repo.get_contents(meta_path)
-            response = repo.update_file(
+            repo.create_file(
                 path=meta_path,
-                message="🔄 Update model register",
-                content=model_meta,
-                sha=existing_file.sha
+                message="🆕 Add model register",
+                content=encoded_meta
             )
-            #save best models 
-            model_path = "models/" + model_filename
-            existing_file = repo.get_contents(model_path)
-            response = repo.update_file(
+
+            # Create model file
+            model_path = "models/" + os.path.basename(model_filename)
+            repo.create_file(
                 path=model_path,
-                message="🔄 Update best model",
-                content=model,
-                sha=existing_file.sha
+                message="🆕 Add best model",
+                content=encoded_model
             )
-            
 
     except Exception as e:
         st.error(f"❌ GitHub upload failed: {e}")
