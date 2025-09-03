@@ -182,6 +182,8 @@ def run():
     
 
     if st.session_state.pipeline_ran: 
+        end_time = time.time()
+        elapsed = end_time - start_time
         st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
@@ -191,10 +193,7 @@ def run():
             st.json(st.session_state.selected_features)
         with st.expander("🔍 View Grid search HPO"):
             st.caption("🔧 HPO used")
-            st.write(st.session_state.grid_search.best_params_)
-
-        end_time = time.time()
-        elapsed = end_time - start_time
+            st.write(st.session_state.grid_search.best_params_)        
         with st.expander("⏱️ Pipeline Timing Summary"):
             if "stage_times" in st.session_state:
                 summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
