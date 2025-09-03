@@ -114,8 +114,8 @@
   {
     "version": "v4.0",
     "date": "2025-08-06",
-    "accuracy": 0.82,
-    "roc_auc": 0.87,
+    "accuracy": 0.8169,
+    "roc_auc": 0.8654924073824878,
     "features": [
       "gender",
       "SeniorCitizen",
@@ -153,8 +153,8 @@
   {
     "version": "v5.0",
     "date": "2025-08-12",
-    "accuracy": 0.82,
-    "roc_auc": 0.87,
+    "accuracy": 0.8169,
+    "roc_auc": 0.8654924073824878,
     "features": [
       "gender",
       "SeniorCitizen",
