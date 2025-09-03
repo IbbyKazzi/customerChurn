@@ -157,12 +157,14 @@ def run():
 
         end_time = time.time()
         elapsed = end_time - start_time
+        with st.expander("⏱️ Pipeline Timing Summary"):
+            if "stage_times" in st.session_state:
+                summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])
+                st.subheader("⏱️ Pipeline Timing Summary")
+                st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))
 
         st.success(f"✅ Pipeline completed in {elapsed:.2f} seconds")     
-        if "stage_times" in st.session_state:
-            summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])
-            st.subheader("⏱️ Pipeline Timing Summary")
-            st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))
+        
         #st.write(st.session_state.best_model)
         # Save to GitHub
         if st.button("🚀 Depoly new model"):
