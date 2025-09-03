@@ -1,6 +1,6 @@
 # --- Main App ---
 import streamlit as st
-from settings import METADATA_PATH, DATA_PATH
+from settings import METADATA_PATH, DATA_PATH, MODEL_SAVE_DIR
 import pandas as pd
 import json
 import plotly.express as px
@@ -197,20 +197,72 @@ def run():
         with st.expander("⏱️ Pipeline Timing Summary"):
             if "stage_times" in st.session_state:
                 summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
-                st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))
-
-            
+                st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))           
         
-        #st.write(st.session_state.best_model)
+       
         # Save to GitHub
-        if st.sidebar.button("🚀 Depoly new model"):
-            st.success("Start saving to github...")
+        if st.sidebar.button("🚀 Deploy new model"):
+            st.success("Start saving to GitHub...")
+        
+            # Save selected features
             save_selected_features("logistic_ffs", st.session_state.selected_features)
             saveToGit("logistic_ffs")
-            
-            # Confirmation message
             st.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤")
+        
+            # Save model locally
+                 
+            best_model = st.session_state.scores_df.loc[
+                st.session_state.scores_df["Model"] == st.session_state.best_model
+            ].iloc[0]
+        
+            model_obj = st.session_state.grid_search.best_estimator_
+            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model}.pkl"
+            with open(model_filename, "wb") as f:
+                pickle.dump(model_obj, f)
+            st.toast(f"📦 Model saved: {model_filename}", icon="💾")
+        
+            # Update model registry
+            import json
+            import os
+            from datetime import datetime
+            tz_sydney = pytz.timezone("Australia/Sydney")
+            timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+        
+            # Load existing registry
+            if os.path.exists(METADATA_PATH):
+                with open(METADATA_PATH, "r") as f:
+                    registry = json.load(f)
+            else:
+                registry = []
+        
+            # Deactivate previous models
+            for entry in registry:
+                entry["active"] = False
+        
+            # Add new model entry
+            new_entry = {
+                "version": st.session_state.best_model,
+                "date": timestamp,
+                "accuracy": best_model["Accuracy"],
+                "roc_auc": best_model["AUC"],
+                "precision": best_model["Precision"],
+                "recall": best_model["Recall"],
+                "f1": best_model["F1"],
+                "brier_score": best_model["Brier Score"],
+                "features": st.session_state.selected_features["features"],
+                "hyperparameters": st.session_state.grid_search.best_params_,
+                "active": True,
+                "notes": "Auto-deployed via Streamlit"
+            }
+            registry.append(new_entry)
+        
+            # Save updated registry
+            with open(METADATA_PATH, "w") as f:
+                json.dump(registry, f, indent=2)
+        
+            st.success("✅ Model registry updated and activated!")
+            st.toast("📘 Registry entry saved", icon="📚")
 
 
         
