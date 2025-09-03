@@ -38,21 +38,21 @@ def saveToGit(name, model_meta, model, model_filename ):
             #save models register
             meta_path = "models/model_metadata.json"
             existing_file = repo.get_contents(meta_path)
-                response = repo.update_file(
-                    path=meta_path,
-                    message="🔄 Update model register",
-                    content=model_meta,
-                    sha=existing_file.sha
-                )
+            response = repo.update_file(
+                path=meta_path,
+                message="🔄 Update model register",
+                content=model_meta,
+                sha=existing_file.sha
+            )
             #save best models 
             model_path = "models/" + model_filename
             existing_file = repo.get_contents(model_path)
-                response = repo.update_file(
-                    path=model_path,
-                    message="🔄 Update best model",
-                    content=model,
-                    sha=existing_file.sha
-                )
+            response = repo.update_file(
+                path=model_path,
+                message="🔄 Update best model",
+                content=model,
+                sha=existing_file.sha
+            )
             
         except Exception:
             response = repo.create_file(
@@ -64,21 +64,21 @@ def saveToGit(name, model_meta, model, model_filename ):
             #save models register
             meta_path = "models/model_metadata.json"
             existing_file = repo.get_contents(meta_path)
-                response = repo.update_file(
-                    path=meta_path,
-                    message="🔄 Update model register",
-                    content=model_meta,
-                    sha=existing_file.sha
-                )
+            response = repo.update_file(
+                path=meta_path,
+                message="🔄 Update model register",
+                content=model_meta,
+                sha=existing_file.sha
+            )
             #save best models 
             model_path = "models/" + model_filename
             existing_file = repo.get_contents(model_path)
-                response = repo.update_file(
-                    path=model_path,
-                    message="🔄 Update best model",
-                    content=model,
-                    sha=existing_file.sha
-                )
+            response = repo.update_file(
+                path=model_path,
+                message="🔄 Update best model",
+                content=model,
+                sha=existing_file.sha
+            )
             
 
     except Exception as e:
