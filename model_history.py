@@ -180,8 +180,11 @@ def run():
         st.session_state.pipeline_ran = True
         st.session_state.run_pipeline = False
         stage_times.append(("Finalization", time.time() - t0))
-        progress.progress(100)
-        st.session_state.stage_times = stage_times
+        progress.progress(100)       
+        end_time = time.time()
+        elapsed = end_time - start_time
+        stage_times.append(("Total execution time", elapsed))    
+        st.session_state.stage_times = stage_times        
         status.markdown("🎉 <span style='color:green'>Pipeline completed successfully!</span>", unsafe_allow_html=True)
     
 
