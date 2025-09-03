@@ -59,7 +59,7 @@ def generate_segment_profiles(df_summary, force_refresh):
             st.write(f"Processing cluster {row['cluster']}...")
             segment = llm_cluster_description(row)
             segment_profiles.append(segment)
-            time.sleep(20)
+            time.sleep(2)
 
     with open(CACHE_PATH, "w") as f:
         json.dump(segment_profiles, f)
