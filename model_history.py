@@ -117,10 +117,22 @@ def run():
     
         # Stage 2: Feature Selection
         t0 = time.time()
-        status.markdown("🧠 <span style='color:#ff7f0e'>Running forward feature selection...</span>", unsafe_allow_html=True)
-        selected_features, ffs_scores = ap.forward_feature_selection(
-            pd.DataFrame(X_train_full, columns=X_df.columns), y_train
-        )
+        status.markdown("🧠 <span style='color:#ff7f0e'>Selecting features...</span>", unsafe_allow_html=True)
+        
+        if st.session_state.selection_method == "Forward Feature Selection (FFS)":
+            selected_features, ffs_scores = ap.forward_feature_selection(
+                pd.DataFrame(X_train_full, columns=X_df.columns),
+                y_train,
+                max_features=st.session_state.num_features
+            )
+        else:
+            selected_features = ap.select_shap_top_features(
+                pd.DataFrame(X_train_full, columns=X_df.columns),
+                y_train,
+                num_features=st.session_state.num_features
+            )
+        
+        # Timestamp and payload
         tz_sydney = pytz.timezone("Australia/Sydney")
         timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         payload = {"timestamp": timestamp, "features": selected_features}
