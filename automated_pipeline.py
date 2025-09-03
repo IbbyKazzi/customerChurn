@@ -39,7 +39,7 @@ def forward_feature_selection(X, y, max_features=None):
                 X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
                 y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
 
-                model = LogisticRegression()
+                model = LogisticRegression(solver='liblinear')
                 model.fit(X_train, y_train)
                 y_prob = model.predict_proba(X_val)[:, 1]
                 aucs.append(roc_auc_score(y_val, y_prob))
@@ -61,6 +61,24 @@ def forward_feature_selection(X, y, max_features=None):
     
     return selected, scores
 
+# Shap feature selection
+def select_shap_top_features(X, y, num_features=10):
+    
+    # Fit logistic regression
+    model = LogisticRegression(solver='liblinear')
+    model.fit(X, y)
+
+    # Use SHAP's linear explainer
+    explainer = shap.Explainer(model, X)
+    shap_values = explainer(X)
+
+    # Compute mean absolute SHAP value per feature
+    shap_df = pd.DataFrame(shap_values.values, columns=X.columns)
+    mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
+
+    # Select top N features
+    top_features = mean_abs_shap.head(num_features).index.tolist()
+    return top_features
 
 
 #Data Ingestion and preprocessing
