@@ -32,7 +32,7 @@ def show_model_history(path=METADATA_PATH):
     current_model_auc = current_model['roc_auc']
     st.sidebar.write(f"**Current Model**")
     st.sidebar.write(f"Version: {current_model['version']}")
-    st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.0%}**")
+    st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.2%}**")
     st.sidebar.write(f"Activation Date: {current_model['date']}")    
     
     auc_history_df = df[["date", "roc_auc"]]
