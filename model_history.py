@@ -74,42 +74,46 @@ def run():
         st.session_state.pipeline_ran = False  # Reset flag    
    
     # --- Pipeline Execution ---
-    
     start_time = time.time()
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
         progress = st.progress(0)
         status = st.empty()
+        stage_times = []
     
         import automated_pipeline as ap
     
         # Stage 1: Data Loading
+        t0 = time.time()
         status.markdown("🔍 <span style='color:#1f77b4'>Loading and preprocessing data...</span>", unsafe_allow_html=True)
         X_df, y, (X_train_full, X_test_full, y_train, y_test) = ap.load_and_preprocess(DATA_PATH)
+        stage_times.append(("Data Loading", time.time() - t0))
         progress.progress(20)
     
         # Stage 2: Feature Selection
+        t0 = time.time()
         status.markdown("🧠 <span style='color:#ff7f0e'>Running forward feature selection...</span>", unsafe_allow_html=True)
         selected_features, ffs_scores = ap.forward_feature_selection(
             pd.DataFrame(X_train_full, columns=X_df.columns), y_train
         )
         tz_sydney = pytz.timezone("Australia/Sydney")
         timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
-        payload = {
-            "timestamp": timestamp,
-            "features": selected_features
-        }
+        payload = {"timestamp": timestamp, "features": selected_features}
         st.session_state.selected_features = payload
+        stage_times.append(("Feature Selection", time.time() - t0))
         progress.progress(40)
     
         # Stage 3: Model Training
+        t0 = time.time()
         status.markdown("⚙️ <span style='color:#2ca02c'>Training models with Grid Search HPO...</span>", unsafe_allow_html=True)
         X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
         X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
         models, grid_search = ap.train_models(X_train, y_train, X_test, y_test)
         st.session_state.grid_search = grid_search
+        stage_times.append(("Model Training", time.time() - t0))
         progress.progress(60)
     
         # Stage 4: Evaluation
+        t0 = time.time()
         status.markdown("📊 <span style='color:#d62728'>Evaluating models...</span>", unsafe_allow_html=True)
         model_scores = ap.evaluate_models(models, X_test, y_test)
         scores_df = pd.DataFrame(model_scores).T.reset_index().rename(columns={"index": "Model"})
@@ -125,14 +129,18 @@ def run():
         )
         st.session_state.fig = fig
         st.session_state.best_model = ap.select_best_model(model_scores, metric="AUC")
+        stage_times.append(("Model Evaluation", time.time() - t0))
         progress.progress(80)
     
         # Stage 5: Finalization
+        t0 = time.time()
         status.markdown("✅ <span style='color:#9467bd'>Finalizing pipeline and saving results...</span>", unsafe_allow_html=True)
         st.session_state.pipeline_ran = True
         st.session_state.run_pipeline = False
+        stage_times.append(("Finalization", time.time() - t0))
         progress.progress(100)
         status.markdown("🎉 <span style='color:green'>Pipeline completed successfully!</span>", unsafe_allow_html=True)
+    
 
     if st.session_state.pipeline_ran:        
         st.subheader("📋 Model Metrics")
