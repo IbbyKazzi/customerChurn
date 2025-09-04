@@ -48,7 +48,7 @@ st.sidebar.markdown(
 
 # Wrap routed content in a centered container
 with st.container():
-    st.markdown('<div class="main">', unsafe_allow_html=True)
+    st.markdown('<div class="option-menu">', unsafe_allow_html=True)
 
     # Horizontal menu
     selected = option_menu(
@@ -98,6 +98,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
