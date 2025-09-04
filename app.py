@@ -30,7 +30,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([1, 6, 1])
+col1, col2, col3 = st.columns([1, 10, 1])
 with col2:
     selected = option_menu(
         menu_title=None,
@@ -88,4 +88,5 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
