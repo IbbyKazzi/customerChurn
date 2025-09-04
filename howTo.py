@@ -1,6 +1,6 @@
 def run():        
-        st.write("📘 How to Use This Dashboard"):
-                st.markdown("""
+        st.subheader("📘 How to Use This Dashboard")
+        st.markdown("""
                 **Home Tab**
                 ***Choose Your Segmentation Level:*** Use the slider to select how many customer segments (clusters) you'd like to generate.
                 More clusters = more detailed insights.  
@@ -11,4 +11,4 @@ def run():
                 ***Generate Segment Descriptions:*** Click the “Generate GPT Segment Descriptions” button to get AI-powered summaries
                 of each cluster - perfect for presentations or strategy planning.  
                 ***Tip:*** Hover over ℹ️ icons for extra guidance
-                """)
+        """)
