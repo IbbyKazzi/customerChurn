@@ -10,24 +10,21 @@ st.set_page_config(
 )
 st.markdown("""
     <style>
-        /* Full-width menu container */
-        .menu-wrapper {
-            width: 100%;
-            min-width: 950px;
-            padding: 0.5rem 2rem;
+        div[data-testid="option-menu"] {
+            position: sticky;
+            top: 0;
+            z-index: 999;
             background-color: white;
+            padding: 0.5rem 1rem;
             border-bottom: 1px solid #eee;
         }
-
-        /* Constrain rest of the page */
         .block-container {
+            padding-top: 2rem;
             max-width: 950px;
             margin: auto;
-            padding-top: 2rem;
         }
     </style>
 """, unsafe_allow_html=True)
-
 
 # Set the logo
 def get_base64_image(path):
@@ -40,7 +37,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("<div class='menu-wrapper'>", unsafe_allow_html=True)
+
 
 selected = option_menu(
     menu_title=None,
@@ -49,7 +46,6 @@ selected = option_menu(
     orientation="horizontal"
 )
 
-st.markdown("</div>", unsafe_allow_html=True)
 
 
 col1, col2, col3 = st.columns([0.1, 9.8, 0.1])  # Wider center column
@@ -94,6 +90,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
