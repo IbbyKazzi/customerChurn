@@ -40,6 +40,18 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
+st.markdown("<div class='menu-wrapper'>", unsafe_allow_html=True)
+
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+    orientation="horizontal"
+)
+
+st.markdown("</div>", unsafe_allow_html=True)
+
+
 col1, col2, col3 = st.columns([0.1, 9.8, 0.1])  # Wider center column
 with col2:
     st.markdown("""
@@ -93,6 +105,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
