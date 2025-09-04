@@ -14,7 +14,7 @@ st.markdown("""
     <style>
         /* Lock the option menu at the top */
         div[data-testid="option_menu"] {
-            position: fixed;
+            position: sticky;
             top: 0;
             left: 0;
             width: 100%;
@@ -23,7 +23,6 @@ st.markdown("""
             padding: 0.5rem 1rem;
             border-bottom: 1px solid #eee;
         }
-
         /* Push content down to avoid overlap */
         .block-container {
             padding-top: 5rem;
@@ -52,13 +51,6 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# Wrap routed content in a centered container
-#with st.container():
-#st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
-
-
-
-
 if selected == "Home":
     st.sidebar.header("🏠 Home")
     #import home_page
@@ -86,7 +78,6 @@ elif selected == "Pipeline":
     from model_history import run
     run();
 
-#st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")  # Horizontal line
 st.markdown(
@@ -98,6 +89,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
