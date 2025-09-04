@@ -18,7 +18,7 @@ st.markdown("""
             top: 0;
             z-index: 999;
             background-color: white;
-            padding: 0.5rem 1rem;
+            padding: 1rem 1rem;
             border-bottom: 1px solid #eee;
         }
 
@@ -89,6 +89,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
