@@ -53,6 +53,10 @@ with col2:
         #home_page.run()
         import executive_dash as ed
         ed.run()
+        st.markdown("""
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br>
+        """, unsafe_allow_html=True)
     
     elif selected == "Analysis":
         st.sidebar.header("📊 Analysis")
@@ -94,6 +98,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
