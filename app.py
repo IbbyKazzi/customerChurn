@@ -73,6 +73,11 @@ with col2:
         st.sidebar.header("🧩 Model Pipeline")
         from model_history import run
         run();
+
+    elif selected == "How To":
+        st.sidebar.header("❓ How To")
+        from howTo import run
+        run();
     
     
     st.markdown("---")  # Horizontal line
@@ -85,6 +90,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
