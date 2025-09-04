@@ -9,33 +9,34 @@ st.set_page_config(
     layout="centered"
 )
 
-# Horizontal menu
-menu_container = st.empty()
-with menu_container:
-    selected = option_menu(
-        menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
-        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
-        orientation="horizontal"
-    )
-
-# Inject CSS to constrain content width
 st.markdown("""
     <style>
+        /* Lock the menu visually at the top */
+        div[data-testid="option-menu"] {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background-color: white;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Constrain content width and prevent layout shift */
         .block-container {
+            padding-top: 2rem;
             max-width: 950px;
             margin: auto;
-            padding-top: 2rem;
-        }
-        div[data-testid="option-menu"] {
-            margin-bottom: 1rem;
         }
     </style>
 """, unsafe_allow_html=True)
 
-
-
-
+# Render menu directly (no st.empty wrapper)
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+    orientation="horizontal"
+)
 
 # Set the logo
 def get_base64_image(path):
@@ -86,36 +87,3 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
