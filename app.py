@@ -33,6 +33,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Horizontal menu
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+    orientation="horizontal"
+)
 
 # Set the logo
 def get_base64_image(path):
@@ -49,13 +56,7 @@ st.sidebar.markdown(
 #with st.container():
 st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
 
-# Horizontal menu
-selected = option_menu(
-    menu_title=None,
-    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
-    orientation="horizontal"
-)
+
 
 
 if selected == "Home":
@@ -97,6 +98,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
