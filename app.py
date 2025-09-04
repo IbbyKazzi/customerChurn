@@ -8,6 +8,25 @@ st.set_page_config(
     page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
     layout="centered"
 )
+st.markdown("""
+    <style>
+        /* Expand the option menu container */
+        div[data-testid="option-menu"] {
+            max-width: 100%;
+            width: 100%;
+            padding: 0.5rem 2rem;
+            background-color: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Constrain the rest of the page */
+        .block-container {
+            max-width: 950px;
+            margin: auto;
+            padding-top: 2rem;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # Set the logo
 def get_base64_image(path):
@@ -66,6 +85,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
