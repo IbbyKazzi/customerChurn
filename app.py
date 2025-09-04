@@ -9,6 +9,16 @@ st.set_page_config(
     layout="centered"
 )
 
+# Horizontal menu
+menu_container = st.empty()
+with menu_container:
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+        orientation="horizontal"
+    )
+
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
@@ -23,15 +33,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Horizontal menu
-menu_container = st.empty()
-with menu_container:
-    selected = option_menu(
-        menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
-        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
-        orientation="horizontal"
-    )
+
 
 
 
@@ -84,6 +86,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
