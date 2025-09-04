@@ -46,46 +46,46 @@ st.sidebar.markdown(
 )
 
 # Wrap routed content in a centered container
-with st.container():
-    st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
+#with st.container():
+st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
 
-    # Horizontal menu
-    selected = option_menu(
-        menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
-        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
-        orientation="horizontal"
-    )
+# Horizontal menu
+selected = option_menu(
+    menu_title=None,
+    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+    orientation="horizontal"
+)
 
 
-    if selected == "Home":
-        st.sidebar.header("🏠 Home")
-        #import home_page
-        #home_page.run()
-        import executive_dash as ed
-        ed.run()
+if selected == "Home":
+    st.sidebar.header("🏠 Home")
+    #import home_page
+    #home_page.run()
+    import executive_dash as ed
+    ed.run()
 
-    elif selected == "Analysis":
-        st.sidebar.header("📊 Analysis")
-        import churn_analysis
-        churn_analysis.run()
+elif selected == "Analysis":
+    st.sidebar.header("📊 Analysis")
+    import churn_analysis
+    churn_analysis.run()
 
-    elif selected == "Service":
-        st.sidebar.header("👤 Customer Service")
-        import customerService
-        customerService.run()
+elif selected == "Service":
+    st.sidebar.header("👤 Customer Service")
+    import customerService
+    customerService.run()
 
-    elif selected == "Retention":
-        st.sidebar.header("🛡️ Retention")
-        import retention
-        retention.run()
+elif selected == "Retention":
+    st.sidebar.header("🛡️ Retention")
+    import retention
+    retention.run()
 
-    elif selected == "Pipeline":
-        st.sidebar.header("🧩 Model Pipeline")
-        from model_history import run
-        run();
+elif selected == "Pipeline":
+     st.sidebar.header("🧩 Model Pipeline")
+    from model_history import run
+    run();
 
-    st.markdown('</div>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")  # Horizontal line
 st.markdown(
@@ -97,6 +97,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
