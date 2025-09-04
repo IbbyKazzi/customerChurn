@@ -21,7 +21,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3 = st.columns([0.5, 8, 0.5])  # Wider center column
+col1, col2, col3 = st.columns([0.5, 20, 0.5])  # Wider center column
 with col2:
     selected = option_menu(
         menu_title=None,
@@ -67,6 +67,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
