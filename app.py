@@ -19,7 +19,7 @@ st.markdown("""
             border-bottom: 1px solid #eee;
         }
         .block-container {
-            padding-top: 2rem;
+            padding-top: 3rem;
             max-width: 950px;
             margin: auto;
         }
@@ -84,6 +84,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
