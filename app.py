@@ -45,11 +45,7 @@ with col2:
         icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
         orientation="horizontal"
     )
-    st.components.v1.html("""
-        <script>
-            window.scrollTo(0, 0);
-        </script>
-    """, height=0)
+    
 
     if selected == "Home":
         st.sidebar.header("🏠 Home")
@@ -89,6 +85,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
