@@ -199,10 +199,9 @@ def run():
 
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
-    # Total revenue lost from churned customers
-    
+    # Total revenue lost from churned customers    
     total_loss = churned_df['MonthlyCharges'].sum()
-    st.sidebar.write(churned_df)
+    
 
     # Sidebar controls
     st.sidebar.header("Churn Impact Simulator")
