@@ -13,26 +13,25 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        /* Set consistent page width */
-        .block-container {
-            max-width: 950px;
-            padding-top: 4rem;  /* Add extra padding to avoid overlap with fixed menu */
-            margin: auto;
-        }
-
-        /* Lock the horizontal option menu to the top */
-        div[data-testid="option-menu"] {
+        .fixed-menu {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 100;
+            z-index: 999;
             background-color: white;
             padding: 0.5rem 1rem;
             border-bottom: 1px solid #eee;
         }
+
+        .block-container {
+            padding-top: 5rem;  /* Prevent overlap with fixed menu */
+            max-width: 950px;
+            margin: auto;
+        }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 # Set the logo
@@ -48,7 +47,7 @@ st.sidebar.markdown(
 
 # Wrap routed content in a centered container
 with st.container():
-    st.markdown('<div class="option-menu">', unsafe_allow_html=True)
+    st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
 
     # Horizontal menu
     selected = option_menu(
@@ -98,6 +97,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
