@@ -12,25 +12,25 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        /* Lock the option menu at the top */
+        /* Lock the option menu at the top within layout flow */
         div[data-testid="option_menu"] {
             position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
             z-index: 999;
             background-color: white;
             padding: 0.5rem 1rem;
             border-bottom: 1px solid #eee;
         }
-        /* Push content down to avoid overlap */
+
+        /* Constrain content width and prevent overlap */
         .block-container {
-            padding-top: 5rem;
+            padding-top: 2rem;
             max-width: 950px;
             margin: auto;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Horizontal menu
 selected = option_menu(
@@ -89,6 +89,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
