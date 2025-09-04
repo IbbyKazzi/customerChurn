@@ -29,7 +29,7 @@ with col2:
 
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How"],
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "    How"],
         icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
         orientation="horizontal"
     )
@@ -74,6 +74,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
