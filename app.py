@@ -30,13 +30,14 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Render menu directly (no st.empty wrapper)
-selected = option_menu(
-    menu_title=None,
-    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
-    orientation="horizontal"
-)
+col1, col2, col3 = st.columns([1, 6, 1])
+with col2:
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+        orientation="horizontal"
+    )
 
 # Set the logo
 def get_base64_image(path):
@@ -87,3 +88,4 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
