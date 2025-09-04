@@ -63,6 +63,10 @@ with col2:
         st.sidebar.header("👤 Customer Service")
         import customerService
         customerService.run()
+        st.markdown("""
+            <br><br><br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br>
+        """, unsafe_allow_html=True)
     
     elif selected == "Retention":
         st.sidebar.header("🛡️ Retention")
@@ -90,6 +94,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
