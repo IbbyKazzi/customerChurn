@@ -16,22 +16,24 @@ st.markdown("""
         /* Set consistent page width */
         .block-container {
             max-width: 950px;
-            padding-top: 2rem;
+            padding-top: 4rem;  /* Add extra padding to avoid overlap with fixed menu */
             margin: auto;
         }
 
         /* Lock the horizontal option menu to the top */
         div[data-testid="option-menu"] {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 100;
             background-color: white;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
             border-bottom: 1px solid #eee;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 # Set the logo
 def get_base64_image(path):
@@ -96,6 +98,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
