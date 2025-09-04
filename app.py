@@ -12,35 +12,28 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        .custom-menu {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 999;
-            background-color: white;
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid #eee;
-        }
-
         .block-container {
-            padding-top: 4.5rem;  /* Prevent overlap with fixed menu */
             max-width: 950px;
             margin: auto;
+            padding-top: 2rem;
+        }
+        div[data-testid="option-menu"] {
+            margin-bottom: 1rem;
         }
     </style>
 """, unsafe_allow_html=True)
 
-
 # Horizontal menu
-st.markdown('<div class="custom-menu">', unsafe_allow_html=True)
-selected = option_menu(
-    menu_title=None,
-    options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
-    icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
-    orientation="horizontal"
-)
-st.markdown('</div>', unsafe_allow_html=True)
+menu_container = st.empty()
+with menu_container:
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
+        orientation="horizontal"
+    )
+
+
 
 # Set the logo
 def get_base64_image(path):
@@ -91,6 +84,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
