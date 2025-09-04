@@ -25,7 +25,7 @@ col1, col2, col3 = st.columns([0.5, 40, 0.5])  # Wider center column
 with col2:
     selected = option_menu(
         menu_title=None,
-        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How"],
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", " How"],
         icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
         orientation="horizontal"
     )
@@ -67,6 +67,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
