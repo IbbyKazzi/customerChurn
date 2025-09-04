@@ -54,7 +54,7 @@ st.sidebar.markdown(
 
 # Wrap routed content in a centered container
 #with st.container():
-st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
+#st.markdown('<div class="fixed-menu">', unsafe_allow_html=True)
 
 
 
@@ -86,7 +86,7 @@ elif selected == "Pipeline":
     from model_history import run
     run();
 
-st.markdown('</div>', unsafe_allow_html=True)
+#st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")  # Horizontal line
 st.markdown(
@@ -98,6 +98,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
