@@ -212,5 +212,5 @@ def run():
     
     st.sidebar.metric("💸 Revenue Loss", f"${adjusted_loss:,.2f}")
     
-    st.sidebar.markdown("<div style='height: 500px;'></div>", unsafe_allow_html=True)
+    #st.sidebar.markdown("<div style='height: 500px;'></div>", unsafe_allow_html=True)
 
