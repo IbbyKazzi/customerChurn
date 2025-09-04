@@ -21,7 +21,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3 = st.columns([0.5, 8, 0.5])  # Wider center column
+col1, col2, col3 = st.columns([0.1, 9.8, 0.1])  # Wider center column
 with col2:
     st.markdown("""
         <div style='min-width:950px;'>
@@ -74,6 +74,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
