@@ -3,7 +3,7 @@ def run():
         st.subheader("📘 How to Use This Dashboard")
         st.markdown("""
             <p><strong>Home Tab</strong></p>
-            <p><em>Choose Your Segmentation Level:</em> Use the slider to select how many customer segments (clusters) you'd like to generate.
+            <p><em><strong>Choose Your Segmentation Level:</em></strong> Use the slider to select how many customer segments (clusters) you'd like to generate.
             More clusters = more detailed insights.</p>
             <p><em>Explore Cluster Distribution:</em> View how customers are grouped based on churn risk, tenure, billing, and contract type.
             This helps you identify patterns and target specific segments.</p>
