@@ -201,6 +201,7 @@ def run():
     # Total revenue lost from churned customers
     churned_df = df[df['Churn'] == 1]
     total_loss = churned_df['MonthlyCharges'].sum()
+    st.sidebar.write(total_loss)
 
     # Sidebar controls
     st.sidebar.header("Churn Impact Simulator")
