@@ -20,7 +20,7 @@ st.markdown("""
         }
         .block-container {
             padding-top: 3rem;
-            max-width: 950px;
+            max-width: 1000px;
             margin: auto;
         }
     </style>
@@ -90,6 +90,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
