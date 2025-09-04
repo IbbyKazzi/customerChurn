@@ -73,7 +73,11 @@ with col2:
         from model_history import run
         run();
     
-    
+    st.components.v1.html("""
+        <script>
+            window.scrollTo(0, 0);
+        </script>
+    """, height=0)
     st.markdown("---")  # Horizontal line
     st.markdown(
         "<div style='text-align: center; font-size: 0.9em;'>"
@@ -84,6 +88,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
