@@ -24,7 +24,7 @@ st.markdown("""
 
         /* Constrain content width and prevent overlap */
         .block-container {
-            padding-top: 2rem;
+            padding-top: 3rem;
             max-width: 950px;
             margin: auto;
         }
@@ -89,6 +89,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
