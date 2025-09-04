@@ -13,7 +13,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         /* Lock the option menu at the top */
-        div[data-testid="option-menu"] {
+        div[data-testid="option_menu"] {
             position: fixed;
             top: 0;
             left: 0;
@@ -97,6 +97,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
