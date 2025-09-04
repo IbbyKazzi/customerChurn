@@ -20,7 +20,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3 = st.columns([1, 100, 1])
+col1, col2, col3 = st.columns([1, 200, 1])
 with col2:
     selected = option_menu(
         menu_title=None,
@@ -66,6 +66,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
