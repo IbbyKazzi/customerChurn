@@ -2,7 +2,6 @@ from streamlit_option_menu import option_menu
 import streamlit as st
 import base64
 
-
 # Set page title and icon
 st.set_page_config(
     page_title="Customer Churn Dashboard",
@@ -13,7 +12,8 @@ st.set_page_config(
 # Inject CSS to constrain content width
 st.markdown("""
     <style>
-        .fixed-menu {
+        /* Lock the option menu at the top */
+        div[data-testid="option-menu"] {
             position: fixed;
             top: 0;
             left: 0;
@@ -24,14 +24,14 @@ st.markdown("""
             border-bottom: 1px solid #eee;
         }
 
+        /* Push content down to avoid overlap */
         .block-container {
-            padding-top: 5rem;  /* Prevent overlap with fixed menu */
+            padding-top: 5rem;
             max-width: 950px;
             margin: auto;
         }
     </style>
 """, unsafe_allow_html=True)
-
 
 
 # Set the logo
@@ -97,6 +97,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
