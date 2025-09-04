@@ -10,6 +10,7 @@ def run():
                 ***Review Cluster Summaries:*** Each cluster shows average churn rate, tenure, and charges. Use this to understand
                 customer behavior and prioritize retention strategies.\n 
                 ***Generate Segment Descriptions:*** Click the “Generate GPT Segment Descriptions” button to get AI-powered summaries
-                of each cluster - perfect for presentations or strategy planning.\n\n\n\n\n\n\n\n\n\n\n
+                of each cluster - perfect for presentations or strategy planning.
+                <br><br><br><br><br><br><br><br><br><br>
                 ***Tip:*** Hover over ℹ️ icons for extra guidance 
         """)
