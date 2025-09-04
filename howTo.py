@@ -11,5 +11,5 @@ def run():
                 customer behavior and prioritize retention strategies.\n 
                 ***Generate Segment Descriptions:*** Click the “Generate GPT Segment Descriptions” button to get AI-powered summaries
                 of each cluster - perfect for presentations or strategy planning.\n
-                ***Tip:*** Hover over ℹ️ icons for extra guidance
+                ***Tip:*** Hover over ℹ️ icons for extra guidance \n\n\n\n\n\n\n\n\n\n
         """)
