@@ -44,19 +44,14 @@ with col2:
         options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
         icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
         orientation="horizontal"
-    )
-    
+    )    
 
     if selected == "Home":
         st.sidebar.header("🏠 Home")
         #import home_page
         #home_page.run()
         import executive_dash as ed
-        ed.run()
-        st.markdown("""
-            <br><br><br><br><br><br><br><br><br><br>
-            <br><br><br><br><br><br><br><br><br><br>
-        """, unsafe_allow_html=True)
+        ed.run()       
     
     elif selected == "Analysis":
         st.sidebar.header("📊 Analysis")
@@ -98,6 +93,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
