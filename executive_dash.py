@@ -74,7 +74,8 @@ def run():
 
     #Load dataset
     df = load_dataset.run()  
-   
+    churned_df = df[df['Churn'] == 1]
+       
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
     df['InternetService_Fiber optic'] = (df['InternetService'] == 1).astype(int)
@@ -199,9 +200,9 @@ def run():
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
     # Total revenue lost from churned customers
-    churned_df = df[df['Churn'] == 1]
+    
     total_loss = churned_df['MonthlyCharges'].sum()
-    st.sidebar.write(df)
+    st.sidebar.write(churned_df)
 
     # Sidebar controls
     st.sidebar.header("Churn Impact Simulator")
