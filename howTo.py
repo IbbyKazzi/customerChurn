@@ -15,4 +15,5 @@ def run():
             <br><br><br><br><br><br><br><br><br><br>
         
             <p><em>Tip:</em> Hover over ℹ️ icons for extra guidance</p>
+            <br><br><br><br><br><br><br><br><br><br>
         """, unsafe_allow_html=True)
