@@ -11,7 +11,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         div[data-testid="option-menu"] {
-            position: sticky;
+            position: fixed;
             top: 0;
             z-index: 999;
             background-color: white;
@@ -93,6 +93,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
