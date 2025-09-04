@@ -13,7 +13,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .custom-menu {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -91,6 +91,7 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
 
 
 
