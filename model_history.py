@@ -101,6 +101,9 @@ def run():
         st.session_state.pipeline_ran = False  # Reset flag    
    
     # --- Pipeline Execution ---
+    if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
+        st.session_state.run_pipeline = False  # Immediately reset to prevent rerun loop
+        
     start_time = time.time()
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
         progress = st.progress(0)
