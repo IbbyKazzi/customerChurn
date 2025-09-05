@@ -4,7 +4,7 @@ import base64
 
 # Set page title and icon
 st.set_page_config(
-    page_title="EdgeTel by UTS Dashboard",
+    page_title="Customer Churn Dashboard",
     page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
     layout="centered"
 )
@@ -41,25 +41,25 @@ col1, col2, col3 = st.columns([0.1, 9.8, 0.1])  # Wider center column
 with col2:
     selected = option_menu(
         menu_title=None,
-        options=["Executive Dashboard", "Sales Dashboard", "Customer Service Dashboard", "Retention Tactics", "Technical information", "How to guide"],
-        icons=["speedometer","bar-chart","person-lines-fill","shield-check", "diagram-3", "question-circle"], ]
+        options=["Home", "Analysis", "Service", "Retention", "Pipeline", "How To"],
+        icons=["house", "bar-chart", "person-lines-fill", "shield-check", "diagram-3", "question-circle"],
         orientation="horizontal"
     )    
 
-   if selected == "Executive Dashboard":
-    st.sidebar.header("🧑‍💼 Executive Dashboard")
+    if selected == "Home":
+        st.sidebar.header("🏠 Home")
         #import home_page
         #home_page.run()
         import executive_dash as ed
         ed.run()       
     
-    elif selected == "Sales Dashboard":
-        st.sidebar.header("📊 Sales Dashboard")
+    elif selected == "Analysis":
+        st.sidebar.header("📊 Analysis")
         import churn_analysis
         churn_analysis.run()
     
-    elif selected == "Customer Service Dashboard":
-        st.sidebar.header("👤 Customer Service Dashboard")
+    elif selected == "Service":
+        st.sidebar.header("👤 Customer Service")
         import customerService
         customerService.run()
         st.markdown("""
@@ -67,18 +67,18 @@ with col2:
             <br><br><br><br><br><br><br><br><br><br>
         """, unsafe_allow_html=True)
     
-    elif selected == "Retention Tactics":
-        st.sidebar.header("🛡️ Retention Tactics")
+    elif selected == "Retention":
+        st.sidebar.header("🛡️ Retention")
         import retention
         retention.run()
     
-    elif selected == "Technical Dashboard":
-        st.sidebar.header("🧩 Technical Dashboard")
+    elif selected == "Pipeline":
+        st.sidebar.header("🧩 Model Pipeline")
         from model_history import run
         run();
 
-    elif selected == "How to guide":
-        st.sidebar.header("❓ How to guide")
+    elif selected == "How To":
+        st.sidebar.header("❓ How To")
         from howTo import run
         run();
     
@@ -87,7 +87,7 @@ with col2:
     st.markdown(
         "<div style='text-align: center; font-size: 0.9em;'>"
         "© 2025 — Developed by EdgeTel UTS Group 1 <br>"
-        "Members: Murray Atkin, Ibrahim Kassem, Bradley Moore, Preeti Sowrab <br>"
+        "Members: Murray Atkins, Ibrahim Kassem, Bradley Moore, Preeti Sowrab <br>"
         "<a href='https://github.com/IbbyKazzi/customerChurn' target='_blank'>GitHub</a> | "  
         "<a href='mailto:info@EdgeTel.com.au'>Contact</a>"
         "</div>",
