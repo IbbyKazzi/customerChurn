@@ -2,7 +2,7 @@ import streamlit as st
 def run():        
         st.subheader("📘 How to Use This Dashboard")
         st.markdown("""
-            <h3><strong>Home Tab</strong></h3>
+            <h2><strong>Home Tab</strong></h2>
             <p><em><strong>Choose Your Segmentation Level:</em></strong> Use the slider to select how many customer segments (clusters) you'd like to generate.
             More clusters = more detailed insights.</p>
             <p><em><strong>Explore Cluster Distribution:</em></strong> View how customers are grouped based on churn risk, tenure, billing, and contract type.
