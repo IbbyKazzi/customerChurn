@@ -42,7 +42,7 @@ with col2:
     selected = option_menu(
         menu_title=None,
         options=["Executive Dashboard", "Sales Dashboard", "Customer Service Dashboard", "Retention Tactics", "Technical information", "How to guide"],
-        icons=["speedometer","bar-chart","person-lines-fill","shield-check", "diagram-3", "question-circle"], ]
+        icons=["speedometer","bar-chart","person-lines-fill","shield-check", "diagram-3", "question-circle"],
         orientation="horizontal"
     )    
 
@@ -93,6 +93,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
