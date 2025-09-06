@@ -27,7 +27,7 @@ def show_model_history(path=METADATA_PATH):
     # Get current model AUC and display it
     current_model = df[df["active"] == True].iloc[0]
     current_model_auc = current_model['roc_auc']
-    current_model_name = current_model['version']
+    st.session_state.current_model_name = current_model['version']
     st.sidebar.write(f"**Current Model**")
     st.sidebar.write(f"Version: {current_model['version']}")
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.2%}**")
@@ -165,7 +165,7 @@ def run():
         status.markdown("⚙️ <span style='color:#2ca02c'>Training models with Grid Search HPO...</span>", unsafe_allow_html=True)
         X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
         X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
-        models, grid_search = ap.train_models(X_train, y_train, X_test, y_test)
+        models, grid_search = ap.train_models(X_train, y_train, X_test, y_test, st.session_state.current_model_name)
         st.session_state.grid_search = grid_search
         stage_times.append(("Model Training", time.time() - t0))
         progress.progress(60)
