@@ -11,9 +11,6 @@ from sklearn.model_selection import GridSearchCV
 import time
 import pickle
 import os
-            
-
-
 
 # --- Dashboard Rendering ---
 def show_model_history(path=METADATA_PATH):    
@@ -30,6 +27,7 @@ def show_model_history(path=METADATA_PATH):
     # Get current model AUC and display it
     current_model = df[df["active"] == True].iloc[0]
     current_model_auc = current_model['roc_auc']
+    current_model_name = current_model['version']
     st.sidebar.write(f"**Current Model**")
     st.sidebar.write(f"Version: {current_model['version']}")
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.2%}**")
@@ -103,9 +101,11 @@ def run():
         st.session_state.run_pipeline = True
         st.session_state.pipeline_ran = False  # Reset flag    
    
-    # --- Pipeline Execution ---
+    # --- Pipeline Execution ---       
+        
     start_time = time.time()
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
+        st.session_state.run_pipeline = False  # Immediately reset to prevent rerun loop
         progress = st.progress(0)
         status = st.empty()
         stage_times = []
@@ -191,7 +191,7 @@ def run():
     if st.session_state.pipeline_ran: 
         end_time = time.time()
         elapsed = end_time - start_time        
-        st.success(f"✅ Pipeline completed")
+        st.success(f"✅ Pipeline completed, with best model {st.session_state.best_model}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
             st.plotly_chart(st.session_state.fig, use_container_width=True)

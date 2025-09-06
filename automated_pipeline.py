@@ -162,9 +162,9 @@ def train_models(X_train, y_train, X_test, y_test):
     y_pred = best_model.predict(X_test)
     y_proba = best_model.predict_proba(X_test)[:, 1]
     
-    st.write("Grid Search Best Parameters:", grid_search.best_params_)
-    st.write("Test Accuracy:", accuracy_score(y_test, y_pred))
-    st.write("Test ROC AUC:", roc_auc_score(y_test, y_proba))
+    #st.write("Grid Search Best Parameters:", grid_search.best_params_)
+    #st.write("Test Accuracy:", accuracy_score(y_test, y_pred))
+    #st.write("Test ROC AUC:", roc_auc_score(y_test, y_proba))
 
     # Define the models to evaluate
     date_str = datetime.now().strftime("%Y%m%d")
