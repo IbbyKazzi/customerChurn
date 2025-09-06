@@ -34,14 +34,20 @@ def show_model_history(path=METADATA_PATH):
     st.sidebar.write(f"Activation Date: {current_model['date']}")    
 
 
-    # Get current model's perfomance
+    # Load and format performance data
     with open(MODEL_PERFORMANCE_PATH, "r") as f:
         m_perfomance = json.load(f)
     df_perfomance = pd.DataFrame(m_perfomance)
     
-    # Displacy perfomance line chart
-    auc_history_df = df_perfomance[["timestamp", "auc"]]
-    st.line_chart(auc_history_df.set_index("timestamp")["auc"])
+    # Convert timestamp to datetime and format to dd/MM/yy
+    df_perfomance['timestamp'] = pd.to_datetime(df_perfomance['timestamp'])
+    df_perfomance['date'] = df_perfomance['timestamp'].dt.strftime('%d/%m/%y')
+    
+    # Group by formatted date and calculate mean AUC
+    auc_history_df = df_perfomance.groupby('date', as_index=False)['auc'].mean()
+    
+    # Display line chart
+    st.line_chart(auc_history_df.set_index('date')['auc'])
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
