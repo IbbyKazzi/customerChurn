@@ -38,9 +38,10 @@ def show_model_history(path=METADATA_PATH):
     with open(MODEL_PERFORMANCE_PATH, "r") as f:
         m_perfomance = json.load(f)
     df_perfomance = pd.DataFrame(m_perfomance)
+    
     # Displacy perfomance line chart
-    auc_history_df = df_perfomance[["date", "roc_auc"]]
-    st.line_chart(auc_history_df.set_index("date")["roc_auc"])
+    auc_history_df = df_perfomance[["timestamp", "auc"]]
+    st.line_chart(auc_history_df.set_index("timestamp")["auc"])
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
