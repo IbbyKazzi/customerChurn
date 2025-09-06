@@ -46,12 +46,12 @@ def show_model_history(path=METADATA_PATH):
     auc_history_df = df_perfomance.groupby('date', as_index=False)['auc'].mean()
     
     # Define the toggle before using it
-    show_chart = st.checkbox("📈 Show Model AUC Performance Over Time", value=True)
-    
-    # Use the toggle to conditionally show the chart
+    show_chart = st.toggle("📈 Show Model AUC Performance Over Time", value=True)
+
     if show_chart:
         st.subheader("Model AUC Performance Over Time")
         st.line_chart(auc_history_df.set_index('date')['auc'])
+
 
 
     
