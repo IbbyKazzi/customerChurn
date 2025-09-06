@@ -70,5 +70,13 @@
         "module": "sklearn.linear_model._logistic",
         "version": "V5",
         "auc": 0.8654639415363276
+    },
+    {
+        "timestamp": "2025-09-06 06:52:38",
+        "model_path": "models/model_21_V5.pkl",
+        "model_type": "LogisticRegression",
+        "module": "sklearn.linear_model._logistic",
+        "version": "V5",
+        "auc": 0.8654639415363276
     }
 ]
