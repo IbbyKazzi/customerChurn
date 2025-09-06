@@ -31,23 +31,28 @@ def show_model_history(path=METADATA_PATH):
     st.sidebar.write(f"**Current Model**")
     st.sidebar.write(f"Version: {current_model['version']}")
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.2%}**")
-    st.sidebar.write(f"Activation Date: {current_model['date']}")    
-
-
+    st.sidebar.write(f"Activation Date: {current_model['date']}")   
+    
     # Load and format performance data
     with open(MODEL_PERFORMANCE_PATH, "r") as f:
         m_perfomance = json.load(f)
     df_perfomance = pd.DataFrame(m_perfomance)
     
-    # Convert timestamp to datetime and format to dd/MM/yy
+    # Convert timestamp and format to dd/MM/yy
     df_perfomance['timestamp'] = pd.to_datetime(df_perfomance['timestamp'])
     df_perfomance['date'] = df_perfomance['timestamp'].dt.strftime('%d/%m/%y')
     
-    # Group by formatted date and calculate mean AUC
+    # Group by date and calculate mean AUC
     auc_history_df = df_perfomance.groupby('date', as_index=False)['auc'].mean()
-    
-    # Display line chart
+
+    # Toggle to show/hide chart
+    show_chart = st.checkbox("📈 Show Model AUC Performance Over Time", value=True)
+
+if show_chart:
+    st.subheader("Model AUC Performance Over Time")
     st.line_chart(auc_history_df.set_index('date')['auc'])
+
+    
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
