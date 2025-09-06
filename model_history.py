@@ -1,6 +1,6 @@
 # --- Main App ---
 import streamlit as st
-from settings import METADATA_PATH, DATA_PATH, MODEL_SAVE_DIR
+from settings import METADATA_PATH, DATA_PATH, MODEL_SAVE_DIR, MODEL_PERFORMANCE_PATH
 import pandas as pd
 import json
 import plotly.express as px
@@ -32,8 +32,14 @@ def show_model_history(path=METADATA_PATH):
     st.sidebar.write(f"Version: {current_model['version']}")
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.2%}**")
     st.sidebar.write(f"Activation Date: {current_model['date']}")    
-    
-    auc_history_df = df[["date", "roc_auc"]]
+
+
+    # Get current model's perfomance
+    with open(MODEL_PERFORMANCE_PATH, "r") as f:
+        m_perfomance = json.load(f)
+    df_perfomance = pd.DataFrame(m_perfomance)
+    # Displacy perfomance line chart
+    auc_history_df = df_perfomance[["date", "roc_auc"]]
     st.line_chart(auc_history_df.set_index("date")["roc_auc"])
 
     # Add model threshold to be set by the user
