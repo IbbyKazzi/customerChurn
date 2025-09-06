@@ -50,11 +50,7 @@ def show_model_history(path=METADATA_PATH):
 
     if show_chart:
         st.subheader("Model AUC Performance Over Time")
-        st.line_chart(auc_history_df.set_index('date')['auc'])
-
-
-
-    
+        st.line_chart(auc_history_df.set_index('date')['auc'])    
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
