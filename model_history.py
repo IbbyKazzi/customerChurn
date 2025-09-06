@@ -1,6 +1,6 @@
 # --- Main App ---
 import streamlit as st
-from settings import METADATA_PATH, DATA_PATH, MODEL_SAVE_DIR
+from settings import METADATA_PATH, DATA_PATH, MODEL_SAVE_DIR, MODEL_PERFORMANCE_PATH
 import pandas as pd
 import json
 import plotly.express as px
@@ -27,14 +27,30 @@ def show_model_history(path=METADATA_PATH):
     # Get current model AUC and display it
     current_model = df[df["active"] == True].iloc[0]
     current_model_auc = current_model['roc_auc']
-    current_model_name = current_model['version']
+    st.session_state.current_model_name = current_model['version']
     st.sidebar.write(f"**Current Model**")
     st.sidebar.write(f"Version: {current_model['version']}")
     st.sidebar.write("ROC AUC: " + f"**{current_model['roc_auc']:.2%}**")
-    st.sidebar.write(f"Activation Date: {current_model['date']}")    
+    st.sidebar.write(f"Activation Date: {current_model['date']}")   
     
-    auc_history_df = df[["date", "roc_auc"]]
-    st.line_chart(auc_history_df.set_index("date")["roc_auc"])
+    # Load and format performance data
+    with open(MODEL_PERFORMANCE_PATH, "r") as f:
+        m_perfomance = json.load(f)
+    df_perfomance = pd.DataFrame(m_perfomance)
+    
+    # Convert timestamp and format to dd/MM/yy
+    df_perfomance['timestamp'] = pd.to_datetime(df_perfomance['timestamp'])
+    df_perfomance['date'] = df_perfomance['timestamp'].dt.strftime('%d/%m/%y')
+    
+    # Group by date and calculate mean AUC
+    auc_history_df = df_perfomance.groupby('date', as_index=False)['auc'].mean()
+    
+    # Define the toggle before using it
+    show_chart = st.toggle("📈 Show Model AUC Performance Over Time", value=False)
+
+    if show_chart:
+        st.subheader("Model AUC Performance Over Time")
+        st.line_chart(auc_history_df.set_index('date')['auc'])    
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
@@ -149,7 +165,7 @@ def run():
         status.markdown("⚙️ <span style='color:#2ca02c'>Training models with Grid Search HPO...</span>", unsafe_allow_html=True)
         X_train = pd.DataFrame(X_train_full, columns=X_df.columns)[selected_features]
         X_test = pd.DataFrame(X_test_full, columns=X_df.columns)[selected_features]
-        models, grid_search = ap.train_models(X_train, y_train, X_test, y_test)
+        models, grid_search = ap.train_models(X_train, y_train, X_test, y_test, st.session_state.current_model_name)
         st.session_state.grid_search = grid_search
         stage_times.append(("Model Training", time.time() - t0))
         progress.progress(60)

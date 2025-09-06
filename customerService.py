@@ -23,16 +23,17 @@ def run():
     df = pd.read_csv(DATA_PATH)
     df_filtered = df[df['Churn'] == 'No']
     df.rename(columns={"tenure": "Months"}, inplace=True)    
-    # Extract unique customer IDs
+    # Extract unique customer IDs and reset index
     customer_ids_df = df_filtered['customerID'].reset_index()
     
-    if "prev_customer_id" not in st.session_state:
-        st.session_state.prev_customer_id = None
-
-    #set the page menu  Customer-Churn-dataset.csv
-    st.sidebar.header("Customer Filter")
-    # Choose the customer index
-    selected_customer_id = st.sidebar.selectbox("Enter Customer ID", options=customer_ids_df['customerID'])
+    # Create a mapping from index to customer ID
+    index_to_id = dict(zip(customer_ids_df['index'], customer_ids_df['customerID']))
+    
+    # Sidebar selection using index
+    selected_index = st.sidebar.selectbox("Select Customer Index", options=list(index_to_id.keys()))
+    
+    # Retrieve the corresponding customer ID
+    selected_customer_id = index_to_id[selected_index]
     
     # Now get the original index from the df
     i = customer_ids_df[customer_ids_df['customerID'] == selected_customer_id]['index'].values[0]
