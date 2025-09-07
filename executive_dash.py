@@ -70,7 +70,8 @@ def generate_segment_profiles(df_summary, force_refresh):
 def run():
     if "prev_n_clusters" not in st.session_state:
         st.session_state["prev_n_clusters"] = None
-    st.subheader("📊 Customer Segment based on churn")
+        st.header("📊 Segmentation Strategy Panel")
+        st.subheader("Select the granularity of customer clusters required to tailor retention insights:")
 
     #Load dataset
     df = load_dataset.run()  
@@ -97,19 +98,18 @@ def run():
     #    default=['Months', 'MonthlyCharges', 'TotalCharges']
     #)
 
-    st.markdown(
-        """
-        <div style='display: flex; align-items: center; gap: 6px;'>
-            <span style='font-weight: 600;'>Select number of clusters</span>
-            <span title="Higher cluster numbers reveal more granular customer segments. Lower numbers give broader groupings.">
-                ℹ️
-            </span>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )   
-    
+     with st.expander("📘 Why Cluster Granularity Matters"):
+        st.markdown("""
+        - **Fewer Clusters (2–4)**: Broad segmentation ideal for high-level strategy and executive summaries.
+        - **Moderate Clusters (5–7)**: Balanced granularity for tactical planning across departments.
+        - **More Clusters (8–10)**: Fine-grained segmentation for targeted interventions and personalized retention tactics.
+        
+        Adjust the slider to explore how different segmentation levels impact churn insights and tactical recommendations.
+        """)
+
+    st.markdown("**Select number of customer clusters required:**")
     n_clusters = st.slider("", 2, 10, 5)
+    st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
 
     
     # Detect cluster count change
