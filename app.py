@@ -103,7 +103,7 @@ with col2:
     
     selected = option_menu(
         menu_title=None,
-        options=["Executive pulse", "Revenue Intelligence", "CX Insights", "Retention Strategies", "Technical information", "Navigation guide"],
+        options=["Executive Pulse", "Revenue Intelligence", "CX Insights", "Retention Strategies", "Technical Information", "Navigation Guide"],
         icons=["speedometer","bar-chart","person-lines-fill","shield-check", "diagram-3", "question-circle"],
         orientation="horizontal",
        styles={
@@ -125,7 +125,7 @@ with col2:
     )
 
     
-    if selected == "Executive pulse":
+    if selected == "Executive Pulse":
         st.sidebar.header("🧑‍💼 Executive Pulse")
         st.sidebar.subheader("High-level summary of churn metrics and business impact")
         st.sidebar.markdown("This tab provides a consolidated view of month-on-month customer churn trends, key performance indicators, and strategic signals. Designed for C-suite executives, it highlights business health, customer retention rates, and financial implications at a glance.")
@@ -156,7 +156,7 @@ with col2:
         import retention
         retention.run()
     
-    elif selected == "Technical Dashboard":
+    elif selected == "Technical Information":
         st.sidebar.header("🧩 Technical Dashboard")
         st.sidebar.subheader("Model performance and technical documentation")
         st.sidebar.markdown("Access detailed information on the churn prediction model, including performance metrics, feature importance, and version history. This tab is tailored for Data Science and IT teams to monitor model health and ensure alignment with business objectives.")
@@ -196,6 +196,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
