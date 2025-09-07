@@ -97,9 +97,7 @@ def run():
     #    options=available_features,
     #    default=['Months', 'MonthlyCharges', 'TotalCharges']
     #)
-    
-
-     with st.expander("📘 Why Cluster Granularity Matters"):
+    with st.expander("📘 Why Cluster Granularity Matters"):
          st.markdown("""
          - **Fewer Clusters (2–4)**: Broad segmentation ideal for high-level strategy and executive summaries.
          - **Moderate Clusters (5–7)**: Balanced granularity for tactical planning across departments.
