@@ -58,6 +58,7 @@ def run():
     st.write(" ")
     #st.subheader(f"Customer ID: {selected_customer_id}")
     selectedCustomer = f"Customer ID: {selected_customer_id}"
+    st.session_state.prev_customer_id = selected_customer_id
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
     styled_metric("Churn Risk", churn_percent, selectedCustomer )
