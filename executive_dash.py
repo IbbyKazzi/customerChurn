@@ -97,14 +97,15 @@ def run():
     #    options=available_features,
     #    default=['Months', 'MonthlyCharges', 'TotalCharges']
     #)
+    
 
      with st.expander("📘 Why Cluster Granularity Matters"):
-        st.markdown("""
-        - **Fewer Clusters (2–4)**: Broad segmentation ideal for high-level strategy and executive summaries.
-        - **Moderate Clusters (5–7)**: Balanced granularity for tactical planning across departments.
-        - **More Clusters (8–10)**: Fine-grained segmentation for targeted interventions and personalized retention tactics.
+         st.markdown("""
+         - **Fewer Clusters (2–4)**: Broad segmentation ideal for high-level strategy and executive summaries.
+         - **Moderate Clusters (5–7)**: Balanced granularity for tactical planning across departments.
+         - **More Clusters (8–10)**: Fine-grained segmentation for targeted interventions and personalized retention tactics.
         
-        Adjust the slider to explore how different segmentation levels impact churn insights and tactical recommendations.
+         Adjust the slider to explore how different segmentation levels impact churn insights and tactical recommendations.
         """)
 
     st.markdown("**Select number of customer clusters required:**")
