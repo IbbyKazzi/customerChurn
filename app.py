@@ -27,6 +27,7 @@ st.markdown("""
             z-index: 1000;
             display: flex;
             justify-content: center;
+            
             margin: 0;
             padding: 0;
             border-radius: 0 !important; /* Ensures no rounded corners */
@@ -38,6 +39,12 @@ st.markdown("""
             margin: 0;
             padding: 0.75rem 0;
             list-style: none;
+            
+            margin: 0;
+            padding: 0.75rem 0;
+            width: 100%;
+            justify-content: center;
+
         }
         .navbar li {
             font-size: 1.08rem;
@@ -47,6 +54,10 @@ st.markdown("""
             transition: color 0.2s, border-bottom 0.2s;
             border-bottom: 2.5px solid transparent;
             cursor: pointer;
+
+            margin: 0;
+            padding: 0;
+
         }
         .navbar li.selected {
             color: #1565c0;
@@ -200,6 +211,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
