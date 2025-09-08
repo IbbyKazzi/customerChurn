@@ -53,13 +53,13 @@ st.markdown("""
         .navbar li:hover {
             color: #1565c0;
         }
-        /*
-        .block-container {
-            padding-top: 4.5rem;
-            max-width: 1500px;
-            margin: auto;
-            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
-        } */
+        
+       /* .block-container { */
+       /*     padding-top: 4.5rem; */
+       /*     max-width: 1500px; */
+       /*     margin: auto; */
+        /*    font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif; */
+      /*  } */
         
          /* Override Streamlit's layout container spacing */
         .block-container {
@@ -211,6 +211,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
