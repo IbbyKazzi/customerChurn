@@ -14,11 +14,7 @@ st.markdown("""
         html, body, [class*="css"]  {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
             background-color: #d6eaf8 !important;
-        }
-        html, body {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
+        }       
         .navbar {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
             position: fixed;
@@ -32,11 +28,6 @@ st.markdown("""
             z-index: 1000;
             display: flex;
             justify-content: center;
-            
-            margin: 0;
-            padding: 0;
-            border-radius: 0 !important; /* Ensures no rounded corners */
-
         }
         .navbar ul {
             display: flex;
@@ -44,12 +35,6 @@ st.markdown("""
             margin: 0;
             padding: 0.75rem 0;
             list-style: none;
-            
-            margin: 0;
-            padding: 0.75rem 0;
-            width: 100%;
-            justify-content: center;
-
         }
         .navbar li {
             font-size: 1.08rem;
@@ -59,10 +44,6 @@ st.markdown("""
             transition: color 0.2s, border-bottom 0.2s;
             border-bottom: 2.5px solid transparent;
             cursor: pointer;
-
-            margin: 0;
-            padding: 0;
-
         }
         .navbar li.selected {
             color: #1565c0;
@@ -72,12 +53,26 @@ st.markdown("""
         .navbar li:hover {
             color: #1565c0;
         }
+        /*
         .block-container {
             padding-top: 4.5rem;
             max-width: 1500px;
             margin: auto;
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
+        } */
+        
+         /* Override Streamlit's layout container spacing */
+        .block-container {
+            padding: 0 !important;
+            margin: 0 auto !important;
+            max-width: 100vw !important;
+            background-color: #d6eaf8 !important;
         }
+
+
+
+
+        
         /* Option menu customizations */
         .st-emotion-cache-1n76uvr, .st-emotion-cache-1n76uvr * {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
@@ -216,6 +211,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
