@@ -63,7 +63,7 @@ st.markdown("""
         
          /* Override Streamlit's layout container spacing */
         .block-container {
-            padding: 10 !important;
+            padding: 1 !important;
             margin: 0 auto !important;
             
             max-width: 1500px;
@@ -212,6 +212,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
