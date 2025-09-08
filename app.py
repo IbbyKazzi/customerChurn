@@ -22,7 +22,7 @@ st.markdown("""
             left: 0;
             width: 100vw;
             background: #b3d8fd;
-            border-bottom: 1.5px solid #7ab8f5;
+            border-bottom: 0px solid #7ab8f5;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);           
             z-index: 1000;
             display: flex;
@@ -199,6 +199,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
