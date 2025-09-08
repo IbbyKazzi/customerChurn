@@ -54,26 +54,14 @@ st.markdown("""
             color: #1565c0;
         }
         
-       /* .block-container { */
-       /*     padding-top: 4.5rem; */
-       /*     max-width: 1500px; */
-       /*     margin: auto; */
-        /*    font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif; */
-      /*  } */
+        .block-container { 
+            padding-top: 4.5rem; 
+            max-width: 1500px; 
+            margin: auto; 
+            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif; 
+        } 
         
-         /* Override Streamlit's layout container spacing */
-        .block-container {
-            padding: 1 !important;
-            margin: 0 auto !important;
-            
-            max-width: 1500px;
-            background-color: #d6eaf8 !important;
-        }
-
-
-
-
-        
+                
         /* Option menu customizations */
         .st-emotion-cache-1n76uvr, .st-emotion-cache-1n76uvr * {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
@@ -212,6 +200,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
