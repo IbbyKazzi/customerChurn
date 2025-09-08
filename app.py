@@ -65,7 +65,8 @@ st.markdown("""
         .block-container {
             padding: 0 !important;
             margin: 0 auto !important;
-            max-width: 100vw !important;
+            
+            max-width: 1500px;
             background-color: #d6eaf8 !important;
         }
 
@@ -211,6 +212,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
