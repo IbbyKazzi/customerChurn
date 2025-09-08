@@ -6,7 +6,7 @@ import base64
 st.set_page_config(
     page_title="EdgeTel by UTS Dashboard",
     page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
-    layout="centered"
+    layout="wide"
 )
 st.markdown("""
     <style>
@@ -196,6 +196,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
