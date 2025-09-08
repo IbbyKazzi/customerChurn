@@ -27,6 +27,10 @@ st.markdown("""
             z-index: 1000;
             display: flex;
             justify-content: center;
+            margin: 0;
+            padding: 0;
+            border-radius: 0 !important; /* Ensures no rounded corners */
+
         }
         .navbar ul {
             display: flex;
@@ -196,6 +200,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
