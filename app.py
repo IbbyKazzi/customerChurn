@@ -13,7 +13,7 @@ st.markdown("""
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
         html, body, [class*="css"]  {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
-            background-color: #d6eaf8 !important;
+            background-color: #f0f3f5 !important;
         }
         .navbar {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
@@ -196,6 +196,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
