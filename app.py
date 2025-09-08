@@ -15,6 +15,10 @@ st.markdown("""
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
             background-color: #d6eaf8 !important;
         }
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
         .navbar {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
             position: fixed;
@@ -211,6 +215,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
