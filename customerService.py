@@ -6,6 +6,8 @@ import shap
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+import requests
+import base64
 
 def run():
     #get the prediction model    
