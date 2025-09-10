@@ -16,6 +16,7 @@ def run():
     with open("feature_store/logistic_ffs.json", "r") as f:
         feature_data = json.load(f)
     feature_store = feature_data.get("features", [])
+    feature_store.append("Churn")
 
     # Convert column to numeric and fill missing values
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
