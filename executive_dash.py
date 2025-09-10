@@ -56,10 +56,10 @@ def generate_segment_profiles(df_summary, force_refresh):
     segment_profiles = []
     with st.spinner("Generating segment profiles..."):
         for idx, row in df_summary.iterrows():
-            st.write(f"Processing cluster {row['cluster']}...")
+            #st.write(f"Processing cluster {row['cluster']}...")
             segment = llm_cluster_description(row)
             segment_profiles.append(segment)
-            time.sleep(0.5)
+            time.sleep(0.1)
 
     with open(CACHE_PATH, "w") as f:
         json.dump(segment_profiles, f)
@@ -149,15 +149,17 @@ def run():
 
     #Preview Clusters
     if "cluster_summary" in st.session_state:
-        st.subheader("📈 Cluster Distribution")
-        cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
-        st.bar_chart(cluster_counts)   
-
-        
-        st.subheader("📊 Cluster Summary")
-        df = st.session_state["cluster_summary"].reset_index(drop=True)
-        df.index = [''] * len(df)  # Blank out index labels
-        st.dataframe(st.session_state["cluster_summary"], hide_index=True)
+        show_charts = st.toggle("Show Cluster Charts and Summary", value=True)
+    
+        if show_charts:
+            st.subheader("📈 Cluster Distribution")
+            cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
+            st.bar_chart(cluster_counts)
+    
+            st.subheader("📊 Cluster Summary")
+            df = st.session_state["cluster_summary"].reset_index(drop=True)
+            df.index = [''] * len(df)  # Blank out index labels
+            st.dataframe(st.session_state["cluster_summary"], hide_index=True)
 
 
         
