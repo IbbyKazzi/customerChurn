@@ -30,9 +30,12 @@ def run():
     y = df_encoded['Churn']
     X_train, X_test, y_train, y_test = train_test_split(X_All, y, test_size=0.2, random_state=42)
 
-    background = X_train.sample(n=50, random_state=42)  
-    explainer = shap.Explainer(model.predict, background)
-    shap_values = explainer(X_test)
+    @st.cache_resource
+    def get_shap_values(model, background, test_data):
+        explainer = shap.Explainer(model.predict, background)
+        return explainer(test_data)
+    
+    shap_values = get_shap_values(model, background, X_test[:50])
 
 
     
