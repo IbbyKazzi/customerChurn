@@ -149,7 +149,7 @@ def run():
 
     #Preview Clusters
     if "cluster_summary" in st.session_state:
-        show_charts = st.toggle("Show Cluster Charts and Summary", value=True)
+        show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
     
         if show_charts:
             st.subheader("📈 Cluster Distribution")
@@ -180,7 +180,7 @@ def run():
             st.stop()
     
         st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
-        st.success("Segment profiles ready.")
+        st.success("GPT-Powered Segment Insights Available")
         
         # Display segment cards
         for idx, row in st.session_state["cluster_summary"].iterrows():
