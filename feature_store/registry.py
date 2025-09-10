@@ -48,18 +48,27 @@ def saveToGit(name, model_obj, model_filename):
                 sha=existing_file.sha
             )
             #save best models             
-            import base64
             with open(model_filename, "rb") as f:
-                encoded_model = base64.b64encode(f.read()).decode()
-
+                binary_content = f.read()
+            
             model_path = model_filename
-            existing_file = repo.get_contents(model_path)
-            repo.update_file(
-                path=model_path,
-                message="🔄 Update best model",
-                content=encoded_model,
-                sha=existing_file.sha
-            )
+            
+            # Check if file exists
+            try:
+                existing_file = repo.get_contents(model_path)
+                repo.update_file(
+                    path=model_path,
+                    message="🔄 Update best model",
+                    content=binary_content,
+                    sha=existing_file.sha
+                )
+            except Exception:
+                # If file doesn't exist, create it
+                repo.create_file(
+                    path=model_path,
+                    message="📦 Add best model",
+                    content=binary_content
+                )
 
 
             st.success(f"📤 Updated file on GitHub: {github_path}")
