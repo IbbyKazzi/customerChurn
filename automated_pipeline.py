@@ -135,7 +135,7 @@ def load_and_preprocess(path):
 def train_models(X_train, y_train, X_test, y_test, current_model_name):
     #load current model
     # GitHub API URL for the file
-    url = "https://api.github.com/repos/IbbyKazzi/model-registry/contents/" + MODEL_PATH_T21
+    url = "https://api.github.com/repos/IbbyKazzi/" + MODEL_PATH_T21
     
     # Headers (token optional for public repos)
     headers = {
