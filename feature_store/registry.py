@@ -75,7 +75,7 @@ def saveToGit(name, model_obj, model_filename):
             file_path = "settings.py"
             file = repo.get_contents(file_path)
             content = file.decoded_content.decode()
-            new_model_path = model_path + ".pkl"
+            new_model_path = model_path
             
             # Replace the MODEL_PATH_T21 line
             updated_content = []
@@ -131,7 +131,7 @@ def saveToGit(name, model_obj, model_filename):
             file_path = "settings.py"
             file = repo.get_contents(file_path)
             content = file.decoded_content.decode()
-            new_model_path = model_path + ".pkl"
+            new_model_path = model_path
             
             # Replace the MODEL_PATH_T21 line
             updated_content = []
