@@ -11,36 +11,19 @@ import base64
 
 def run():
     #get the prediction model    
-    #with open(MODEL_PATH_T21, "rb") as f:
-     #   model = pickle.load(f)
-
-    # GitHub API URL for the file
-    url = "https://api.github.com/repos/IbbyKazzi/customerChurn/contents/" + MODEL_PATH_T21
-    
-    # Headers (token optional for public repos)
-    headers = {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": st.secrets["GITHUB_TOKEN"]  # Remove if public
-    }
-
-    # Step 1: Get metadata and encoded content
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    data = response.json()
-    
-    # Step 2: Decode base64 content
-    encoded_content = data["content"]
-    decoded_bytes = base64.b64decode(encoded_content)
-    
-    # Step 3: Unpickle the model
-    model = pickle.loads(decoded_bytes)
+    with open(MODEL_PATH_T21, "rb") as f:
+        model = pickle.load(f)   
     
     #load the dataset
     import load_dataset
     df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
     X = df_encoded.drop(['Churn'], axis=1)   
-    explainer = shap.Explainer(model, X)
-    shap_values = explainer(X)
+    #explainer = shap.Explainer(model, X)
+    #shap_values = explainer(X)
+    explainer = shap.Explainer(pipeline.predict_proba, X_train)
+    shap_values = explainer(X_test)
+
+
     
     # Load your dataset to extract customer ids
     df = pd.read_csv(DATA_PATH)
