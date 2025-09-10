@@ -60,7 +60,7 @@ def run():
 
         return score
 
-    df['contract_stability'] = df.apply(score, axis=1)
+    df_encoded['contract_stability'] = df.apply(score, axis=1)
 
     # Clean and filter
     df_encoded.dropna(inplace=True)
