@@ -207,7 +207,7 @@ def run():
     if st.session_state.pipeline_ran: 
         end_time = time.time()
         elapsed = end_time - start_time        
-        st.success(f"✅ Pipeline completed, with best model {st.session_state.best_model}")
+        st.success(f"✅ Pipeline completed, with best model: {st.session_state.best_model} and AUC:{st.session_state.best_model["AUC"]}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
             st.plotly_chart(st.session_state.fig, use_container_width=True)
