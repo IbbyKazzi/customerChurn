@@ -11,7 +11,7 @@ FEATURES = ['loyalty_band', 'charge_velocity', 'contract_stability']
 
 def saveToGit(name, model_obj, model_filename):
     try:
-        REPO_NAME = "IbbyKazzi/customerChurn"
+        REPO_NAME = "IbbyKazzi/customerChurn_model-register"
         token = st.secrets["GITHUB_TOKEN"]
         g = Github(token)
         repo = g.get_repo(REPO_NAME)
