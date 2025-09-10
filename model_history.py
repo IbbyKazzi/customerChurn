@@ -226,7 +226,7 @@ def run():
        
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
-            st.success("Start saving to GitHub...")     
+            st.sidebar.success("Start saving to GitHub...")     
             # Save model locally
                  
             best_model = st.session_state.scores_df.loc[
@@ -237,7 +237,14 @@ def run():
             model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model}.pkl"
             with open(model_filename, "wb") as f:
                 pickle.dump(model_obj, f)
-            st.toast(f"📦 Model saved: {model_filename}", icon="💾")
+                
+            if "model_saved" not in st.session_state:
+                st.session_state.model_saved = True
+            
+            if st.session_state.model_saved:
+                st.toast(f"📦 Model saved: {model_filename}", icon="💾")
+                if st.button("Dismiss Toast"):
+                    st.session_state.model_saved = False
         
             # Update model registry            
             tz_sydney = pytz.timezone("Australia/Sydney")
@@ -275,13 +282,13 @@ def run():
             with open(METADATA_PATH, "w") as f:
                 json.dump(registry, f, indent=2)
         
-            st.success("✅ Model registry updated and activated!")
+            st.sidebar.success("✅ Model registry updated and activated!")
             st.toast("📘 Registry entry saved", icon="📚", duration=10)
             
             # Save selected features
             save_selected_features("logistic_ffs", st.session_state.selected_features)
             saveToGit("logistic_ffs", model_obj, model_filename)
-            st.success("✅ Features saved to GitHub successfully!")
+            st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
 
