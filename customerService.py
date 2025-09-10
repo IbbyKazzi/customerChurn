@@ -30,17 +30,18 @@ def run():
     y = df_encoded['Churn']
     X_train, X_test, y_train, y_test = train_test_split(X_All, y, test_size=0.2, random_state=42)
 
-    # Sample background data for SHAP
+    # Sample background data
     background = X_train.sample(n=100, random_state=42)
     
-    # Cache SHAP computation
+    # Define explainer outside the cached function
+    explainer = shap.Explainer(model.predict, background)
+    
+    # Cache only the SHAP computation
     @st.cache_resource
-    def get_shap_values(model, background, test_data):
-        explainer = shap.Explainer(model.predict_proba, background)
+    def compute_shap_values(test_data):
         return explainer(test_data)
     
-    # Compute SHAP values for a subset of test data
-    shap_values = get_shap_values(model, background, X_test[:50])
+    shap_values = compute_shap_values(X_test[:50])
 
 
     
