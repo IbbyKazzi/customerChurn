@@ -162,8 +162,9 @@ def run():
 
         
     #st.write(force_refresh)
+    #if "cluster_summary" in st.session_state and st.button("🧠 Show GPT Segment Descriptions") or st.session_state["force_refresh"]:
     
-    if "cluster_summary" in st.session_state and st.button("🧠 Generate GPT Segment Descriptions") or st.session_state["force_refresh"]:
+    if "cluster_summary" in st.session_state or st.session_state["force_refresh"]:
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
             force_refresh=st.session_state["force_refresh"]
