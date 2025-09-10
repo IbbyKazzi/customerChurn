@@ -20,6 +20,15 @@ def run():
     X = df_encoded.drop(['Churn'], axis=1)   
     #explainer = shap.Explainer(model, X)
     #shap_values = explainer(X)
+
+    #load the dataset
+    import load_dataset
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
+    X_All = df_encoded.drop(['Churn'], axis=1)      
+      
+    y = df_encoded['Churn']
+    X_train, X_test, y_train, y_test = train_test_split(X_All, y, test_size=0.2, random_state=42)
+    
     explainer = shap.Explainer(pipeline.predict_proba, X_train)
     shap_values = explainer(X_test)
 
