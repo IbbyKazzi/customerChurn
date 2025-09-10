@@ -202,5 +202,5 @@ def evaluate_models(models, X_test, y_test):
 #Select best model
 def select_best_model(scores, metric="Accuracy"):
     best_model = max(scores.items(), key=lambda x: x[1][metric])
-    st.success(f"Best model: {best_model[0]} with {metric}: {best_model[1][metric]:.4f}")
+    #st.success(f"Best model: {best_model[0]} with {metric}: {best_model[1][metric]:.4f}")
     return best_model[0]
