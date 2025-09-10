@@ -20,6 +20,8 @@ from sklearn.preprocessing import StandardScaler
 from datetime import datetime
 import shap
 import pytz
+import requests
+
 
 #Using FFS logic to inhance model training and ecvaluation
 def forward_feature_selection(X, y, max_features=None):
@@ -130,8 +132,21 @@ def load_and_preprocess(path):
 #Model Training (logistic & Current Model)
 def train_models(X_train, y_train, X_test, y_test, current_model_name):
     #load current model
-    with open(MODEL_PATH_T21, "rb") as f:
-        model_t21 = pickle.load(f)
+    # GitHub API URL for the file
+    url = "https://api.github.com/repos/IbbyKazzi/model-registry/" + MODEL_PATH_T21
+    
+    # Use a GitHub token if the repo is private
+    headers = {
+        "Accept": "application/vnd.github.raw",
+        "Authorization": "token YOUR_GITHUB_TOKEN"  # Optional for public repos
+    }
+    
+    # Fetch and load the model
+    response = requests.get(url, headers=headers)
+    model_t21 = pickle.loads(response.content)
+
+    #with open(MODEL_PATH_T21, "rb") as f:
+    #    model_t21 = pickle.load(f)
 
 
     # Define pipeline
