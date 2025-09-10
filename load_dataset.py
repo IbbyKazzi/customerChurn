@@ -8,8 +8,16 @@ from sklearn.preprocessing import LabelEncoder
 from settings import DATA_PATH
 
 def run():
+    
   #get the dataset
     df = pd.read_csv(DATA_PATH)
+  import json
+
+  with open("feature_store/logistic_ffs.json", "r") as f:
+      feature_data = json.load(f)
+  
+  features = feature_data.get("features", [])
+
   
     # Convert column to numeric (in case it's still object type) and fill in missing values
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
@@ -65,5 +73,6 @@ def run():
     df_encoded.dropna(inplace=True)
     df_encoded.columns = df_encoded.columns.str.strip()
     df_encoded.drop('customerID', axis=1, inplace=True)
-    return df_encoded
+    df_cleaned = df_encoded.drop(columns=[col for col in df.columns if col not in feature_store])
+    return df_cleaned
 
