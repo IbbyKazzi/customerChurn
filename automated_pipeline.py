@@ -153,9 +153,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     decoded_bytes = base64.b64decode(encoded_content)
     
     # Step 3: Unpickle the model
-    model_t21 = pickle.loads(decoded_bytes)
-
-    
+    model_t21 = pickle.loads(decoded_bytes)  
    
 
     #with open(MODEL_PATH_T21, "rb") as f:
