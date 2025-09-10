@@ -21,6 +21,8 @@ from datetime import datetime
 import shap
 import pytz
 import requests
+import base64
+
 
 
 #Using FFS logic to inhance model training and ecvaluation
@@ -133,17 +135,25 @@ def load_and_preprocess(path):
 def train_models(X_train, y_train, X_test, y_test, current_model_name):
     #load current model
     # GitHub API URL for the file
-    url = "https://api.github.com/repos/IbbyKazzi/" + MODEL_PATH_T21
+    url = "https://api.github.com/repos/IbbyKazzi/model-registry/contents/" + MODEL_PATH_T21
     
-    # Use a GitHub token if the repo is private
+    # Headers (token optional for public repos)
     headers = {
-        "Accept": "application/vnd.github.raw",
-        "Authorization": "token YOUR_GITHUB_TOKEN"  # Optional for public repos
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": "token YOUR_GITHUB_TOKEN"  # Remove if public
     }
     
-    # Fetch and load the model
+    # Step 1: Get metadata and encoded content
     response = requests.get(url, headers=headers)
-    model_t21 = pickle.loads(response.content)
+    response.raise_for_status()  # Raise error if request failed
+    data = response.json()
+    
+    # Step 2: Decode base64 content
+    encoded_content = data["content"]
+    decoded_bytes = base64.b64decode(encoded_content)
+    
+    # Step 3: Unpickle the model
+    model_t21 = pickle.loads(decoded_bytes)
 
     #with open(MODEL_PATH_T21, "rb") as f:
     #    model_t21 = pickle.load(f)
