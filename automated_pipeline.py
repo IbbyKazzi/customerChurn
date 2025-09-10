@@ -142,10 +142,10 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         "Accept": "application/vnd.github.v3+json",
         "Authorization": st.secrets["GITHUB_TOKEN"]  # Remove if public
     }
-    
+
     # Step 1: Get metadata and encoded content
     response = requests.get(url, headers=headers)
-    response.raise_for_status()  # Raise error if request failed
+    response.raise_for_status()
     data = response.json()
     
     # Step 2: Decode base64 content
@@ -154,6 +154,9 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     
     # Step 3: Unpickle the model
     model_t21 = pickle.loads(decoded_bytes)
+
+    
+   
 
     #with open(MODEL_PATH_T21, "rb") as f:
     #    model_t21 = pickle.load(f)
