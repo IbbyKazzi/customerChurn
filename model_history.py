@@ -187,7 +187,7 @@ def run():
         )
         st.session_state.fig = fig
         st.session_state.best_model = ap.select_best_model(model_scores, metric="AUC")
-        st.session_state.best_model_auc = model_scores[best_model_name]["AUC"]
+        st.session_state.best_model_auc = model_scores[st.session_state.best_model]["AUC"]
         stage_times.append(("Model Evaluation", time.time() - t0))
         progress.progress(80)
     
