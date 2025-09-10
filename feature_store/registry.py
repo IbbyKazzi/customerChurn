@@ -53,14 +53,13 @@ def saveToGit(name, model_obj, model_filename):
             
             model_path = model_filename
             
-            # Check if file exists
+            # Check if file exists then upload model
             try:
                 existing_file = repo.get_contents(model_path)
-                repo.update_file(
+                repo.create_file(
                     path=model_path,
                     message="🔄 Update best model",
-                    content=binary_content,
-                    sha=existing_file.sha
+                    content=binary_content                    
                 )
             except Exception:
                 # If file doesn't exist, create it
@@ -118,13 +117,22 @@ def saveToGit(name, model_obj, model_filename):
                 encoded_model = base64.b64encode(f.read()).decode()
 
             model_path = model_filename
-            existing_file = repo.get_contents(model_path)
-            repo.update_file(
-                path=model_path,
-                message="🔄 Update best model",
-                content=encoded_model,
-                sha=existing_file.sha
-            )
+            # Check if file exists then upload model
+            try:
+                existing_file = repo.get_contents(model_path)
+                repo.create_file(
+                    path=model_path,
+                    message="🔄 Update best model",
+                    content=binary_content                    
+                )
+
+            except Exception:
+                # If file doesn't exist, create it
+                repo.create_file(
+                    path=model_path,
+                    message="📦 Add best model",
+                    content=binary_content
+                )
 
             #update setting.py
             # Get settings.py content
