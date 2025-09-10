@@ -167,7 +167,9 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     #st.write("Test ROC AUC:", roc_auc_score(y_test, y_proba))
 
     # Define the models to evaluate
-    date_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    sydney_tz = pytz.timezone("Australia/Sydney")
+    now_sydney = datetime.now(sydney_tz)
+    date_str = now_sydney.now().strftime("%Y%m%d_%H%M%S")
     model_name = f"logreg_model_{date_str}"
     models = {        
         model_name : best_model, # the best model with grid search HPO
