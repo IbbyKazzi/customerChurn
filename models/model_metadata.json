@@ -231,7 +231,7 @@
     "notes": "Auto-deployed via Streamlit"
   },
   {
-    "version": "Current_Model",
+    "version": "logreg_model_20250903",
     "date": "2025-09-03 19:43:40 AEST",
     "accuracy": 0.8140525195173882,
     "roc_auc": 0.8631051580113244,
