@@ -70,6 +70,28 @@ def saveToGit(name, model_obj, model_filename):
                     content=binary_content
                 )
 
+            #update setting.py
+            # Get settings.py content
+            file_path = "settings.py"
+            file = repo.get_contents(file_path)
+            content = file.decoded_content.decode()
+            new_model_path = model_path + ".pkl"
+            
+            # Replace the MODEL_PATH_T21 line
+            updated_content = []
+            for line in content.splitlines():
+                if line.strip().startswith("MODEL_PATH_T21"):
+                    updated_content.append(f'MODEL_PATH_T21 = r"{new_model_path}"')
+                else:
+                    updated_content.append(line)
+            
+            final_content = "\n".join(updated_content)
+            repo.update_file(
+                path=file_path,
+                message="🔧 Update MODEL_PATH_T21 to latest model",
+                content=final_content,
+                sha=file.sha
+            )
 
             st.success(f"📤 Updated file on GitHub: {github_path}")
     
@@ -102,6 +124,29 @@ def saveToGit(name, model_obj, model_filename):
                 message="🔄 Update best model",
                 content=encoded_model,
                 sha=existing_file.sha
+            )
+
+            #update setting.py
+            # Get settings.py content
+            file_path = "settings.py"
+            file = repo.get_contents(file_path)
+            content = file.decoded_content.decode()
+            new_model_path = model_path + ".pkl"
+            
+            # Replace the MODEL_PATH_T21 line
+            updated_content = []
+            for line in content.splitlines():
+                if line.strip().startswith("MODEL_PATH_T21"):
+                    updated_content.append(f'MODEL_PATH_T21 = r"{new_model_path}"')
+                else:
+                    updated_content.append(line)
+            
+            final_content = "\n".join(updated_content)
+            repo.update_file(
+                path=file_path,
+                message="🔧 Update MODEL_PATH_T21 to latest model",
+                content=final_content,
+                sha=file.sha
             )
             st.success(f"📤 Updated file on GitHub: {github_path}")
             
