@@ -140,7 +140,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     # Headers (token optional for public repos)
     headers = {
         "Accept": "application/vnd.github.v3+json",
-        "Authorization": st.Token  # Remove if public
+        "Authorization": st.secrets["GITHUB_TOKEN"]  # Remove if public
     }
     
     # Step 1: Get metadata and encoded content
