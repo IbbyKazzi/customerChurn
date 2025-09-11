@@ -70,8 +70,10 @@ def forward_feature_selection(X, y, max_features=None, force_include=None):
     return selected, scores
 
 # Shap feature selection
-def select_shap_top_features(X, y, num_features=10):
-    
+def select_shap_top_features(X, y, num_features=10, force_include=None):
+    if force_include is None:
+        force_include = []
+
     # Fit logistic regression
     model = LogisticRegression(solver='liblinear')
     model.fit(X, y)
@@ -84,8 +86,15 @@ def select_shap_top_features(X, y, num_features=10):
     shap_df = pd.DataFrame(shap_values.values, columns=X.columns)
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
 
-    # Select top N features
-    top_features = mean_abs_shap.head(num_features).index.tolist()
+    # Ensure forced features are included
+    forced = [f for f in force_include if f in mean_abs_shap.index]
+    remaining = mean_abs_shap.drop(forced).index.tolist()
+
+    # Select top features excluding forced ones
+    top_remaining = remaining[:max(0, num_features - len(forced))]
+
+    # Final feature list
+    top_features = forced + top_remaining
     return top_features
 
 
