@@ -70,8 +70,8 @@ def show_model_history(path=METADATA_PATH):
     
     # Number of features
     num_features = st.sidebar.number_input(
-        "Number of features to select (min 5):",
-        min_value=5,
+        "Number of features to select (min 7):",
+        min_value=7,
         max_value=50,
         value=10,
         step=1
