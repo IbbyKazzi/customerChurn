@@ -116,6 +116,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             st.session_state["new_question"] = ''
             st.session_state["show_question"] = True
             generate_response(question, customer, shap_values, contract_map, df)
+            st.session_state["show_question"] = False
         
 
 # returns a brief of the selected customer details
