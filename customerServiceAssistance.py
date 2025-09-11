@@ -97,11 +97,13 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
         from streamlit_free_text_select import st_free_text_select
 
         options = [
-            "What is the churn probability?",
-            "Show customer lifetime value",
-            "Compare churn vs retention",
-            "Segment by tenure",
-            "Highlight risky clusters"
+            "Why is this customer likely to churn?",
+            "What plan do you recommend?",
+            "What is their churn risk?",
+            "What features/factors are driving churn?",
+            "What retension strategy can be applied?",
+            "Show me full details of this customer",
+            "What is the monthly plane/charges?
         ]
         
         question = st_free_text_select(
