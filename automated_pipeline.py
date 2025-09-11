@@ -26,9 +26,12 @@ import base64
 
 
 #Using FFS logic to inhance model training and ecvaluation
-def forward_feature_selection(X, y, max_features=None):
-    selected = []
-    remaining = list(X.columns)
+def forward_feature_selection(X, y, max_features=None, force_include=None):
+    if force_include is None:
+        force_include = []
+
+    selected = list(force_include)  # Start with forced features
+    remaining = [f for f in X.columns if f not in selected]
     best_score = 0
     scores = []
 
@@ -51,11 +54,11 @@ def forward_feature_selection(X, y, max_features=None):
 
             mean_auc = np.mean(aucs)
             score_candidates.append((mean_auc, feature))
-        #st.write("Candidate scores this round:", score_candidates)
+
         score_candidates.sort(reverse=True)
         best_new_score, best_feature = score_candidates[0]
 
-        tolerance = 0.005  # Accept features that don't drop AUC by more than 0.5%
+        tolerance = 0.005
         if best_new_score >= best_score - tolerance:
             selected.append(best_feature)
             remaining.remove(best_feature)
@@ -63,7 +66,7 @@ def forward_feature_selection(X, y, max_features=None):
             scores.append(best_score)
         else:
             break
-    
+
     return selected, scores
 
 # Shap feature selection
