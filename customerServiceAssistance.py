@@ -111,13 +111,8 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             st.session_state["show_question"] = True 
         else:
            st.session_state["show_question"] = False
-
-        if "new_question" not in st.session_state:
-            st.session_state["new_question"] = ''
-        else:
-            st.session_state["new_question"] = question
             
-        if question and st.session_state["new_question"] == question:
+        if question:
             st.session_state["new_question"] = ''
             st.session_state["show_question"] = True
             generate_response(question, customer, shap_values, contract_map, df)
@@ -296,7 +291,8 @@ def showIntro(message, delay):
             # Render the full success box once, updating its content
             placeholder.info(typed_text)
             time.sleep(delay)
-def showResponse(response):
+def showResponse(response, delay):
+    st.write(st.session_state["show_question"])
     if st.session_state["show_question"] == True:
         message = response      
         # Create a placeholder for the success box
@@ -306,7 +302,7 @@ def showResponse(response):
             typed_text += char
             # Render the full success box once, updating its content
             placeholder.success(typed_text)
-            time.sleep(0.005)
+            time.sleep(0.05)
     else:
         st.success(response)
             
