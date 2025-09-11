@@ -93,6 +93,9 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
 
         if customer["churn_probability"] > 0.5:
               st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")         
+
+        if "user_selection" not in st.session_state:
+            st.session_state["user_selection"] = '' 
         
         options = [
             "Why is this customer likely to churn?",
@@ -111,6 +114,12 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             st.session_state["new_response"] = True 
         else:
            st.session_state["new_response"] = False
+
+        if question == st.session_state["user_selection"]:
+            st.session_state["new_response"] = False        
+        else:
+            st.session_state["user_selection"] = question
+            st.session_state["new_response"] = True 
             
         if question:                        
             generate_response(question, customer, shap_values, contract_map, df)            
@@ -293,8 +302,7 @@ def showIntro(message, delay):
 # Show CX eisight            
 def showResponse(response):
     st.write(st.session_state["new_response"])
-    if st.session_state["new_response"] == True:
-        st.session_state["new_response"] = False
+    if st.session_state["new_response"] == True:        
         message = response      
         # Create a placeholder for the success box
         placeholder = st.empty()      
