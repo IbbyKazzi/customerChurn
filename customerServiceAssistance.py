@@ -94,7 +94,9 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
               st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
 
 
-        predefined_questions = [
+        from streamlit_free_text_select import st_free_text_select
+
+        options = [
             "What is the churn probability?",
             "Show customer lifetime value",
             "Compare churn vs retention",
@@ -102,8 +104,13 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             "Highlight risky clusters"
         ]
         
-        selected = st.selectbox("Choose a question or type your own:", [""] + predefined_questions)
-        custom_input = st.text_input("Or enter a custom question:")
+        question = st_free_text_select(
+            label="Ask about churn or customer insights",
+            options=options,
+            placeholder="Select or enter a question"
+        )
+
+
         
         # Final question logic
         question = custom_input if custom_input else selected
