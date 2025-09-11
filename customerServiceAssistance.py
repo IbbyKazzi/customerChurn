@@ -103,7 +103,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             "What features/factors are driving churn?",
             "What retension strategy can be applied?",
             "Show me full details of this customer",
-            "What is the monthly plane/charges?"
+            "What is the monthly charges?"
         ]
         
         question = st_free_text_select(
