@@ -115,8 +115,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
         if question:
             st.session_state["new_question"] = ''
             st.session_state["show_question"] = True
-            generate_response(question, customer, shap_values, contract_map, df)
-            st.session_state["show_question"] = False
+            generate_response(question, customer, shap_values, contract_map, df)            
         
 
 # returns a brief of the selected customer details
@@ -295,6 +294,7 @@ def showIntro(message, delay):
 def showResponse(response):
     st.write(st.session_state["show_question"])
     if st.session_state["show_question"] == True:
+        st.session_state["show_question"] = False
         message = response      
         # Create a placeholder for the success box
         placeholder = st.empty()      
