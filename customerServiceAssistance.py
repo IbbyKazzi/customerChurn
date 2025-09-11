@@ -96,30 +96,39 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
 
         from streamlit_free_text_select import st_free_text_select
 
+        from streamlit_free_text_select import st_free_text_select
+        import streamlit as st
+        
         options = [
             "Why is this customer likely to churn?",
             "What plan do you recommend?",
             "What is their churn risk?",
             "What features/factors are driving churn?",
-            "What retension strategy can be applied?",
+            "What retention strategy can be applied?",
             "Show me full details of this customer",
             "What is the monthly charges?"
         ]
         
+        # Step 1: Capture input with delay to reduce reactivity
         question = st_free_text_select(
             label="Ask about churn or customer insights",
             options=options,
-            placeholder="Select or enter a question"
-        )     
+            placeholder="Select or enter a question",
+            delay=500  # Wait 500ms before updating
+        )
+        
+        # Step 2: Add a submit button to control when response is triggered
+        if st.button("Submit question"):
+            if question:
+                st.session_state["show_question"] = True
+                generate_response(question, customer, shap_values, contract_map, df)
         
         #question = st.text_input("Ask me anything about this customer or churn trends:")
         if "show_question" not in st.session_state:
             st.session_state["show_question"] = True 
         else:
            st.session_state["show_question"] = False  
-        if question:
-            st.session_state["show_question"] = True
-            generate_response(question, customer, shap_values, contract_map, df)
+        
 
 # returns a brief of the selected customer details
 def summarize_customer(customer):
