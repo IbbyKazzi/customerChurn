@@ -108,15 +108,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             label="Ask about churn or customer insights",
             options=options,
             placeholder="Select or enter a question"
-        )
-
-
-        
-        # Final question logic
-        question = custom_input if custom_input else selected
-
-
-
+        )     
         
         #question = st.text_input("Ask me anything about this customer or churn trends:")
         if "show_question" not in st.session_state:
