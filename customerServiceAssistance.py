@@ -112,7 +112,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
         else:
            st.session_state["show_question"] = False
 
-        if st.session_state["new_question"] not in st.session_state:
+        if "new_question" not in st.session_state:
             st.session_state["new_question"] = ''
         else:
             st.session_state["new_question"] = question
