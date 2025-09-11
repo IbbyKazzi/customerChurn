@@ -300,8 +300,7 @@ def showIntro(message, delay):
             time.sleep(delay)
             
 # Show CX eisight            
-def showResponse(response):
-    st.write(st.session_state["new_response"])
+def showResponse(response):    
     if st.session_state["new_response"] == True:        
         message = response      
         # Create a placeholder for the success box
