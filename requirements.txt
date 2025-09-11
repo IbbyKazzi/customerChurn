@@ -13,5 +13,4 @@ card
 streamlit_extras
 importlib
 tabulate
-streamlit-autocomplete
-
+git+https://github.com/Hodnebo/streamlit-autocomplete.git
