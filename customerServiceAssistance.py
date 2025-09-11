@@ -94,26 +94,19 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
               st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
 
 
-        # Define your suggestion list
-        suggestions = {
-            "": [
-                "What is the churn probability?",
-                "Show customer lifetime value",
-                "Compare churn vs retention",
-                "Segment by tenure",
-                "Highlight risky clusters"
-            ]
-        }
+        predefined_questions = [
+            "What is the churn probability?",
+            "Show customer lifetime value",
+            "Compare churn vs retention",
+            "Segment by tenure",
+            "Highlight risky clusters"
+        ]
         
-        # Render the autocomplete input
-        question = st_autocomplete(
-            label="Ask me anything about this customer or churn trends:",
-            value="",
-            trigger_chars=[""], 
-            suggestions=suggestions,
-            key="query_input",
-            placeholder="Type or select a question"
-        )
+        selected = st.selectbox("Choose a question or type your own:", [""] + predefined_questions)
+        custom_input = st.text_input("Or enter a custom question:")
+        
+        # Final question logic
+        question = custom_input if custom_input else selected
 
 
 
