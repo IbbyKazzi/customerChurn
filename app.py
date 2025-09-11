@@ -14,10 +14,7 @@ st.markdown("""
         html, body, [class*="css"]  {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
             background-color: #d6eaf8 !important;
-        }   
-        .main {
-            min-height: 800px;  /* Adjust this value as needed */
-        }
+        } 
 
         .navbar {
             font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
@@ -203,6 +200,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
