@@ -291,7 +291,7 @@ def showIntro(message, delay):
             # Render the full success box once, updating its content
             placeholder.info(typed_text)
             time.sleep(delay)
-def showResponse(response, delay):
+def showResponse(response):
     st.write(st.session_state["show_question"])
     if st.session_state["show_question"] == True:
         message = response      
