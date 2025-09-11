@@ -107,14 +107,12 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
         # Capture input 
         question = st.selectbox("Ask about churn or customer insights:", options)
         
-        if "show_question" not in st.session_state:
-            st.session_state["show_question"] = True 
+        if "reload_response" not in st.session_state:
+            st.session_state["reload_response"] = True 
         else:
-           st.session_state["show_question"] = False
+           st.session_state["reload_response"] = False
             
-        if question:
-            st.session_state["new_question"] = ''
-            st.session_state["show_question"] = True
+        if question:                        
             generate_response(question, customer, shap_values, contract_map, df)            
         
 
@@ -292,9 +290,9 @@ def showIntro(message, delay):
             placeholder.info(typed_text)
             time.sleep(delay)
 def showResponse(response):
-    st.write(st.session_state["show_question"])
-    if st.session_state["show_question"] == True:
-        st.session_state["show_question"] = False
+    st.write(st.session_state["reload_response"])
+    if st.session_state["reload_response"] == True:
+        st.session_state["reload_response"] = False
         message = response      
         # Create a placeholder for the success box
         placeholder = st.empty()      
