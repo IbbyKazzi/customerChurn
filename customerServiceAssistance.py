@@ -330,10 +330,10 @@ def showRecommandation(contract_map, tenure):
   st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")     
      
   #check recommandation outcome
-  st.markdown("#### Recommendation Outcome")
-  st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
-  st.text_area("Agent Notes")
-  st.button("Submit Feedback")
+  #st.markdown("#### Recommendation Outcome")
+  #st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
+  #st.text_area("Agent Notes")
+  #st.button("Submit Feedback")
 
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract):
