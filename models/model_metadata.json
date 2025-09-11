@@ -700,6 +700,35 @@
       "clf__fit_intercept": true,
       "clf__penalty": "l1"
     },
+    "active": false,
+    "notes": "Auto-deployed via Streamlit"
+  },
+  {
+    "version": "logreg_model_20250911_025301",
+    "date": "2025-09-11 12:53:40 AEST",
+    "accuracy": 0.8105039034776437,
+    "roc_auc": 0.8629240117175774,
+    "precision": 0.6709677419354839,
+    "recall": 0.5576407506702413,
+    "f1": 0.6090775988286969,
+    "brier_score": 0.12806274790199232,
+    "features": [
+      "Months",
+      "Contract",
+      "MonthlyCharges",
+      "TotalCharges",
+      "OnlineSecurity",
+      "TechSupport",
+      "PhoneService",
+      "PaperlessBilling",
+      "OnlineBackup",
+      "charge_velocity"
+    ],
+    "hyperparameters": {
+      "clf__C": 10,
+      "clf__fit_intercept": true,
+      "clf__penalty": "l2"
+    },
     "active": true,
     "notes": "Auto-deployed via Streamlit"
   }
