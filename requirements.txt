@@ -13,4 +13,5 @@ card
 streamlit_extras
 importlib
 tabulate
-st_autocomplete
+streamlit-autocomplete
+
