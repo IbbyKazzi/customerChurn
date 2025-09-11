@@ -104,17 +104,20 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             "What is the monthly charges?"
         ]
         
-        # Step 1: Capture input with delay to reduce reactivity
+        # Capture input 
         question = st.selectbox("Ask about churn or customer insights:", options)
-
         
-        #question = st.text_input("Ask me anything about this customer or churn trends:")
         if "show_question" not in st.session_state:
             st.session_state["show_question"] = True 
         else:
            st.session_state["show_question"] = False
 
-        if question:
+        if st.session_state.new_question not in st.session_state:
+            st.session_state.new_question = ''
+        else:
+            st.session_state.new_question = question
+
+        if question and st.session_state.new_question != question:
             st.session_state["show_question"] = True
             generate_response(question, customer, shap_values, contract_map, df)
         
