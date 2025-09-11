@@ -137,19 +137,27 @@ def run():
     
         # Stage 2: Feature Selection
         t0 = time.time()
+        # We need the below features for EX summary Tab1
+        must_have = [
+            "Contract", "InternetService", "TechSupport",
+            "PaymentMethod", "Months", "MonthlyCharges", "TotalCharges"
+        ]
+
         status.markdown("🧠 <span style='color:#ff7f0e'>Selecting features...</span>", unsafe_allow_html=True)
         
         if st.session_state.selection_method == "Forward Feature Selection (FFS)":
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
-                max_features=st.session_state.num_features
+                max_features=st.session_state.num_features,
+                force_include=must_have
             )
         else:
             selected_features = ap.select_shap_top_features(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
-                num_features=st.session_state.num_features
+                num_features=st.session_state.num_features,
+                force_include=must_have
             )
         
         # Timestamp and payload
