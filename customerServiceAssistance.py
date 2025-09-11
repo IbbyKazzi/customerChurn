@@ -302,7 +302,7 @@ def showResponse(response):
             typed_text += char
             # Render the full success box once, updating its content
             placeholder.success(typed_text)
-            time.sleep(0.05)
+            time.sleep(0.005)
     else:
         st.success(response)
             
