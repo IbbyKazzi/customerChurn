@@ -8,6 +8,7 @@ import shap
 import time
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
 from st_autocomplete import st_autocomplete
+from streamlit_free_text_select import st_free_text_select
 
 
 def run(customer, shap_values, X, contract_map, df, newCustomer):  
@@ -94,10 +95,9 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
               st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
 
 
-        from streamlit_free_text_select import st_free_text_select
+        
 
-        from streamlit_free_text_select import st_free_text_select
-        import streamlit as st
+        
         
         options = [
             "Why is this customer likely to churn?",
