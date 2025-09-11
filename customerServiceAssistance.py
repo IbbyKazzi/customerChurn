@@ -7,6 +7,8 @@ import pickle
 import shap
 import time
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+from st_autocomplete import st_autocomplete
+
 
 def run(customer, shap_values, X, contract_map, df, newCustomer):  
     plans = {
@@ -82,7 +84,6 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             st.session_state["show_message"] = True
         else:
             st.session_state["show_message"] = newCustomer
-
         
         if st.session_state["show_message"] == True:
             showIntro(message, 0.005)
@@ -91,8 +92,33 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
 
         if customer["churn_probability"] > 0.5:
               st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
+
+
+        # Define your suggestion list
+        suggestions = {
+            "": [
+                "What is the churn probability?",
+                "Show customer lifetime value",
+                "Compare churn vs retention",
+                "Segment by tenure",
+                "Highlight risky clusters"
+            ]
+        }
         
-        question = st.text_input("Ask me anything about this customer or churn trends:")
+        # Render the autocomplete input
+        question = st_autocomplete(
+            label="Ask me anything about this customer or churn trends:",
+            value="",
+            trigger_chars=[""], 
+            suggestions=suggestions,
+            key="query_input",
+            placeholder="Type or select a question"
+        )
+
+
+
+        
+        #question = st.text_input("Ask me anything about this customer or churn trends:")
         if "show_question" not in st.session_state:
             st.session_state["show_question"] = True 
         else:
@@ -100,10 +126,8 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
         if question:
             st.session_state["show_question"] = True
             generate_response(question, customer, shap_values, contract_map, df)
-            
-            
-          
 
+# returns a brief of the selected customer details
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
     top_factors = customer["top_features"]
@@ -120,8 +144,8 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     return  (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
         f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
-        #f"📌 **Key Factors**: {factors}\n\n"
-        #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
+        f"📌 **Key Factors**: {factors}\n\n"
+        f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
     #showResponse(response)    
 
