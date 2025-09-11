@@ -107,10 +107,10 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
         # Capture input 
         question = st.selectbox("Ask about churn or customer insights:", options)
         
-        if "reload_response" not in st.session_state:
-            st.session_state["reload_response"] = True 
+        if "new_response" not in st.session_state:
+            st.session_state["new_response"] = True 
         else:
-           st.session_state["reload_response"] = False
+           st.session_state["new_response"] = False
             
         if question:                        
             generate_response(question, customer, shap_values, contract_map, df)            
@@ -276,7 +276,7 @@ def generate_strategy(churn_risk):
           f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
-
+# Show customer's insight
 def showIntro(message, delay):
     if delay == 0:
         st.info(message)
@@ -289,10 +289,12 @@ def showIntro(message, delay):
             # Render the full success box once, updating its content
             placeholder.info(typed_text)
             time.sleep(delay)
+            
+# Show CX eisight            
 def showResponse(response):
-    st.write(st.session_state["reload_response"])
-    if st.session_state["reload_response"] == True:
-        st.session_state["reload_response"] = False
+    st.write(st.session_state["new_response"])
+    if st.session_state["new_response"] == True:
+        st.session_state["new_response"] = False
         message = response      
         # Create a placeholder for the success box
         placeholder = st.empty()      
