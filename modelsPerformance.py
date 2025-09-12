@@ -10,15 +10,14 @@ import json
 from datetime import datetime
 import os
 
-
 def run_daily():   
     
-    with open("models/model_21_V5.pkl", "rb") as f:
+    with open(MODEL_PATH_T21, "rb") as f:
         model_all = pickle.load(f)    
     
     #load the dataset
     import load_dataset
-    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with stored features  
     X_All = df_encoded.drop(['Churn'], axis=1)      
       
     y = df_encoded['Churn']
@@ -66,31 +65,8 @@ def run_daily():
         st.write("✅ JSON appended successfully.")
     
     except Exception as e:
-        st.write("❌ Error appending to JSON:", e)
-
-
-
-
-    
-    #fig, ax = plt.subplots()
-    #ax.plot(fpr, tpr, label=f"AUC = {auc_score:.2f}")
-    #ax.plot([0, 1], [0, 1], linestyle="--", color="gray")
-    #ax.set_xlabel("False Positive Rate")
-    #ax.set_ylabel("True Positive Rate")
-    #ax.set_title("ROC Curve")
-    #ax.legend()
-    
-    #st.subheader("📈 Model's ROC Curve Performance:")
-    #st.pyplot(fig)
-    delta_color = "normal"
-    if auc_score >= 0.85:
-        delta_color = "inverse"
-    elif auc_score < 0.70:
-        delta_color = "off"
-
-    #versionNo = MODEL_PATH_T21
-    #st.sidebar.header("📦 Current Modle Version: "+ versionNo)
-    #st.sidebar.metric(label="ROC AUC Score:", value=f"{auc_score * 100:.0f} %", delta=None, delta_color=delta_color)
+        st.write("❌ Error appending to JSON:", e)   
+     
 
 if __name__ == "__main__":
     run_daily()
