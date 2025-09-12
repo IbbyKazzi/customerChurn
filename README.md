@@ -15,7 +15,7 @@ This project leverages machine learning to predict customer churn based on behav
 # 📊 Usage
 ## Clone the repo
 
-git clone https://github.com/IbbyKazzi/customer-churn.git
+git clone  https://github.com/IbbyKazzi/customerChurn
 
 cd customer-churn
 
