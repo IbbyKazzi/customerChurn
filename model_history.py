@@ -57,9 +57,9 @@ def show_model_history(path=METADATA_PATH):
     auc_threshold = st.sidebar.slider("Minimum AUC Threshold", 0.5, 1.0, 0.85, step=0.01)
     st.session_state.auc_threshold = auc_threshold
     #if below threshold run the automated pipeline
-    if current_model_auc < auc_threshold:
-        st.session_state.run_pipeline = True
-        st.session_state.pipeline_ran = False  
+    #if current_model_auc < auc_threshold:
+        #st.session_state.run_pipeline = True
+        #st.session_state.pipeline_ran = False  
 
     # Add pipeline options on the UI sidebar
     st.sidebar.header("🔧 Feature Selection Options")
