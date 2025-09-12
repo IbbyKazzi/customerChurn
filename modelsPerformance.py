@@ -37,7 +37,7 @@ def run_daily():
         "model_path": MODEL_PATH_T21,
         "model_type": model_name,
         "module": type(model_all).__module__,
-        "version": "V5",
+        "version": model_name,
         "auc": auc_score   
     }
 
