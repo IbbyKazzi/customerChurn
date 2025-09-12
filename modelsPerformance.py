@@ -32,6 +32,8 @@ def run_daily():
     # Compute AUC score
     auc_score = roc_auc_score(y_test, y_probs)
     model_name = type(model_all).__name__
+    filename = os.path.basename(model_name) 
+    model_name = os.path.splitext(filename)[0]
     results = {
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "model_path": MODEL_PATH_T21,
