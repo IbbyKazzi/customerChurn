@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 #Load dataset module
 import load_dataset
 from matplotlib import rcParams
+import pickle
+import shap
 
 
 #Load OpenAI API key
@@ -113,9 +115,13 @@ def churnRateTimeline(churned_df, df):
     st.pyplot(fig)
 
 # display top 3 churn features
-def topChurnFeatures(df):
+def topChurnFeatures(df, X):
     # --- Load or simulate SHAP values ---
-    # Assuming you already have: model, X
+    # get model, X    
+    with open(MODEL_PATH_T21, "rb") as f:
+        model = pickle.load(f) 
+
+    X = df_encoded.drop(['Churn'], axis=1)   
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     
@@ -153,6 +159,7 @@ def run():
 
     #showing Churn rate overtime
     churnRateTimeline(churned_df, df)
+    topChurnFeatures(df)
        
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
