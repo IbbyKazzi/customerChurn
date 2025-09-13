@@ -150,7 +150,7 @@ def topChurnFeatures(df):
     colors = ['tomato', 'orange', 'lightgreen']
     
     # --- Bar chart ---
-    figsize = (6, 4)
+    figsize = (6, 5)
     fig, ax = plt.subplots(figsize=figsize)
     # Remove chart borders (spines)
     for spine in ['top', 'right', 'left', 'bottom']:
