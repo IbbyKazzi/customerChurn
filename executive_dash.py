@@ -14,6 +14,8 @@ from matplotlib import rcParams
 import pickle
 import shap
 from settings import MODEL_PATH_T21
+from sklearn.pipeline import Pipeline
+
 
 
 #Load OpenAI API key
@@ -123,7 +125,7 @@ def topChurnFeatures(df):
         model = pickle.load(f) 
 
     X = df.drop(['Churn'], axis=1)   
-    explainer = shap.TreeExplainer(model)
+    explainer = shap.TreeExplainer(model.predict)
     shap_values = explainer.shap_values(X)
     
     # --- Compute mean absolute SHAP values ---
