@@ -302,27 +302,27 @@ def run():
                 df = st.session_state["cluster_summary"].reset_index(drop=True)
                 df.index = [''] * len(df)  # Blank out index labels
                 st.dataframe(st.session_state["cluster_summary"], hide_index=True)
-    st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
-    st.success("GPT-Powered Segment Insights Available")
-            
-    # Display segment cards
-    for idx, row in st.session_state["cluster_summary"].iterrows():
-        st.markdown(f"### 🧠 Cluster {row['cluster']}: {row['Segment_Profile'].split(':')[0]}")
-        st.markdown(f"**📝 Description:** {row['Segment_Profile'].split(':')[1].strip()}")
-    
-        col1, col2, col3 = st.columns(3)
-        col1.metric("📉 Churn Rate", f"{row['Churn']:.2%}")
-        col2.metric("📆 Avg Tenure", f"{row['Months']:.1f} months")
-        col3.metric("💰 Monthly Charges", f"${row['MonthlyCharges']:.2f}")
-    
-        col4, col5, col6 = st.columns(3)
-        col4.metric("🌐 Fiber Usage", f"{row['InternetService_Fiber optic']*100:.1f}%")
-        col5.metric("🛠️ No Tech Support", f"{row['TechSupport_No']*100:.1f}%")
-        col6.metric("💳 Electronic Check", f"{row['PaymentMethod_Electronic check']*100:.1f}%")
-    
-        st.markdown("---")
-    
-    st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
+    #st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
+        st.success("GPT-Powered Segment Insights Available")
+                
+        # Display segment cards
+        for idx, row in st.session_state["cluster_summary"].iterrows():
+            st.markdown(f"### 🧠 Cluster {row['cluster']}: {row['Segment_Profile'].split(':')[0]}")
+            st.markdown(f"**📝 Description:** {row['Segment_Profile'].split(':')[1].strip()}")
+        
+            col1, col2, col3 = st.columns(3)
+            col1.metric("📉 Churn Rate", f"{row['Churn']:.2%}")
+            col2.metric("📆 Avg Tenure", f"{row['Months']:.1f} months")
+            col3.metric("💰 Monthly Charges", f"${row['MonthlyCharges']:.2f}")
+        
+            col4, col5, col6 = st.columns(3)
+            col4.metric("🌐 Fiber Usage", f"{row['InternetService_Fiber optic']*100:.1f}%")
+            col5.metric("🛠️ No Tech Support", f"{row['TechSupport_No']*100:.1f}%")
+            col6.metric("💳 Electronic Check", f"{row['PaymentMethod_Electronic check']*100:.1f}%")
+        
+            st.markdown("---")
+        
+        st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
     # Total revenue lost from churned customers    
     total_loss = churned_df['MonthlyCharges'].sum()
