@@ -146,7 +146,7 @@ def topChurnFeatures(df):
     top_features = mean_abs_shap.head(3)  
     
     # --- Traffic light colors: Red (most impactful), Yellow, Green ---
-    colors = ['tomato', 'lightorange', 'lightgreen']
+    colors = ['tomato', 'moccasin', 'lightgreen']
     
     # --- Bar chart ---
     fig, ax = plt.subplots()
