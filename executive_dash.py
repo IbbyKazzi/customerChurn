@@ -226,7 +226,7 @@ def run():
         """)
 
     st.markdown("**Select number of customer clusters required:**")
-    n_clusters = st.slider("", 2, 10, 5)
+    n_clusters = st.selectbox("Choose cluster count", options=list(range(2, 11)), index=3)  # default is 5
     st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
 
     
