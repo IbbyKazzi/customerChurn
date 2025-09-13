@@ -152,6 +152,10 @@ def topChurnFeatures(df):
     # --- Bar chart ---
     figsize = (6, 4)
     fig, ax = plt.subplots(figsize=figsize)
+    # Remove chart borders (spines)
+    for spine in ['top', 'right', 'left', 'bottom']:
+        ax.spines[spine].set_visible(False)
+        
     top_features.plot(kind='barh', color=colors, ax=ax)
     ax.set_xlabel("Mean |SHAP value|")
     ax.set_title("Top 3 Churn Features")
