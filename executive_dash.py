@@ -255,10 +255,8 @@ def run_risk():
         
     
     # --- Risk tier ---
-    with col2:
-        
-        risk_counts = df_encoded["risk_category"].value_counts()
-        
+    with col2:        
+        risk_counts = df_encoded["risk_category"].value_counts()        
         st.subheader("Risk Tier Distribution")
         
         for tier in ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"]:
