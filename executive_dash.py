@@ -129,34 +129,32 @@ def topChurnFeatures(df):
     # --- Sample background data ---
     background = X.sample(n=100, random_state=42)
     
-    # --- Define explainer ---
+    #  Define explainer 
     explainer = shap.Explainer(model.predict, background)
     
-    # --- Cache SHAP computation ---
+    #  Cache SHAP computation 
     @st.cache_resource
     def compute_shap_values(X_sample):
         return explainer(X_sample)
     
-    # --- Compute SHAP values ---
+    #  Compute SHAP values 
     shap_values = compute_shap_values(X[:50])
     shap_df = pd.DataFrame(shap_values.values, columns=X.columns)
     
-    # --- Get top 3 features ---
+    # Get top 3 features 
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
-    top_features = mean_abs_shap.head(3)
-
+    top_features = mean_abs_shap.head(3)  
     
-    # --- Display ---
-    st.subheader("📌 Top 3 Features Driving Churn")
-    for i, (feature, value) in enumerate(top_features.items(), 1):
-        st.markdown(f"**{i}. {feature}** — SHAP impact: `{value:.4f}`")
+    # --- Traffic light colors: Red (most impactful), Yellow, Green ---
+    colors = ['red', 'orange', 'green']
     
-    # --- Optional: Bar chart ---
+    # --- Bar chart ---
     fig, ax = plt.subplots()
-    top_features.plot(kind='barh', color='skyblue', ax=ax)
+    top_features.plot(kind='barh', color=colors, ax=ax)
     ax.set_xlabel("Mean |SHAP value|")
     ax.set_title("Top 3 Churn Features")
     st.pyplot(fig)
+
 
     
 
