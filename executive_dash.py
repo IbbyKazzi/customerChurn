@@ -231,8 +231,24 @@ def run_risk():
     col1, col2 = st.columns(2)
     # --- Churn Distribution ---
     with col1:
-        fig = px.pie(risk_counts, names="risk_category", values="count", title="Churn Risk Distribution")
-        st.plotly_chart(fig)        
+        # Define traffic light colors
+        color_map = {
+            "High Risk 🚨": "red",
+            "Medium Risk ⚠️": "orange",
+            "Low Risk ✅": "green"
+        }
+        
+        # Create pie chart with custom colors
+        fig = px.pie(
+            risk_counts,
+            names="risk_category",
+            values="count",
+            title="Churn Risk Distribution",
+            color="risk_category",
+            color_discrete_map=color_map
+        )
+        
+        st.plotly_chart(fig)       
     
     # --- Risk tier ---
     with col2:
