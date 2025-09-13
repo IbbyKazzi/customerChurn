@@ -114,6 +114,7 @@ def churnRateTimeline(churned_df, df):
     #ax.set_xlabel("Month")
     ax.grid(True, linestyle='-', alpha=0.5)
     plt.xticks(rotation=0)
+    fig.tight_layout()  # ensures consistent padding
     
     # --- Show Plot ---
     st.pyplot(fig)
@@ -159,6 +160,7 @@ def topChurnFeatures(df):
     top_features.plot(kind='barh', color=colors, ax=ax)
     ax.set_xlabel("Mean |SHAP value|")
     ax.set_title("Top 3 Churn Features")
+    fig.tight_layout()  # ensures consistent padding
     st.pyplot(fig)
 
 
