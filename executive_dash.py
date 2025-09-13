@@ -270,21 +270,20 @@ def run():
     #st.write(force_refresh)
     #if "cluster_summary" in st.session_state and st.button("🧠 Show GPT Segment Descriptions") or st.session_state["force_refresh"]:
     
-    if "cluster_summary" in st.session_state or st.session_state["force_refresh"]:
-        segment_profiles = generate_segment_profiles(
-            st.session_state["cluster_summary"],
-            force_refresh=st.session_state["force_refresh"]
-        )
-    
-        # Reset refresh flag after use
-        st.session_state["force_refresh"] = False
-    
+        
         if len(segment_profiles) != len(st.session_state["cluster_summary"]):
             #st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
             n_clusters = 0
             st.stop()
         else:
             st.session_state["force_refresh"] = True
+            if "cluster_summary" in st.session_state or st.session_state["force_refresh"]:
+                segment_profiles = generate_segment_profiles(
+                    st.session_state["cluster_summary"],
+                    force_refresh=st.session_state["force_refresh"]
+                )
+                # Reset refresh flag after use
+                st.session_state["force_refresh"] = False
             #Preview Clusters
             if "cluster_summary" in st.session_state:
                 show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
