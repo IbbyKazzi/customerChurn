@@ -93,10 +93,10 @@ def churnRateTimeline(churned_df, df):
     fig, ax = plt.subplots()
     
     # Line with circular markers
-    ax.plot(df['Month'], df['Churn Rate (%)'], color='lightblue', linewidth=1.5, marker='o', markersize=3)
+    ax.plot(df['Month'], df['Churn Rate (%)'], color='skyblue', linewidth=1.5, marker='o', markersize=3)
     
     # Shaded area below the line
-    ax.fill_between(df['Month'], df['Churn Rate (%)'], color='lightblue', alpha=0.2)
+    ax.fill_between(df['Month'], df['Churn Rate (%)'], color='skyblue', alpha=0.2)
     
     # Remove chart borders (spines)
     for spine in ['top', 'right', 'left', 'bottom']:
