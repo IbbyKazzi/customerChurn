@@ -203,8 +203,6 @@ def run_risk():
     df_encoded["churn_probability"] = churn_probs
     #Add it to the original dataset
     df["churn_probability"] = churn_probs
-
-    
         
     
     #Set the risk thresholds via streamlit slider for a dynamic input
@@ -234,8 +232,7 @@ def run_risk():
     # --- Churn Distribution ---
     with col1:
         fig = px.pie(risk_counts, names="risk_category", values="count", title="Churn Risk Distribution")
-        st.plotly_chart(fig)
-        
+        st.plotly_chart(fig)        
     
     # --- Risk tier ---
     with col2:
@@ -250,23 +247,27 @@ def run_risk():
             st.write(f"{tier}: {count} customers")
             st.progress(percent) 
     
-    #Filter customers by thier tier and allow to export data as .csv to share with the retention team
-    st.subheader("View Customers by Risk Tier")
-    selected_tier = st.selectbox("Choose a risk category", ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"])
-    filtered_df = df[df["risk_category"] == selected_tier]
+    # --- Toggle visibility ---
+    show_risk_export = st.toggle("📂 Show Risk Tier Export Panel", value=False)
     
-    st.dataframe(filtered_df)
+    if show_risk_export:
+        st.subheader("View Customers by Risk Tier")
+        
+        selected_tier = st.selectbox("Choose a risk category", ["High Risk 🚨", "Medium Risk ⚠️", "Low Risk ✅"])
+        filtered_df = df[df["risk_category"] == selected_tier]
+        
+        st.dataframe(filtered_df)
     
-    # Export data using a button
-    buffer = io.StringIO()
-    filtered_df.to_csv(buffer, index=False)
+        # Export data using a button
+        buffer = io.StringIO()
+        filtered_df.to_csv(buffer, index=False)
     
-    st.download_button(
-        label=f"Export {selected_tier} Customers",
-        data=buffer.getvalue(),
-        file_name=f"{selected_tier.replace(' ', '_').replace('🚨','').replace('⚠️','').replace('✅','').lower()}_customers.csv",
-        mime="text/csv"
-    )
+        st.download_button(
+            label=f"Export {selected_tier} Customers",
+            data=buffer.getvalue(),
+            file_name=f"{selected_tier.replace(' ', '_').replace('🚨','').replace('⚠️','').replace('✅','').lower()}_customers.csv",
+            mime="text/csv"
+        )
     
 #clustering customers
 def run_clusturing():
