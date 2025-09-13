@@ -281,6 +281,7 @@ def run():
     
         if len(segment_profiles) != len(st.session_state["cluster_summary"]):
             #st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
+            n_clusters = 0
             st.stop()
         else:
             #Preview Clusters
