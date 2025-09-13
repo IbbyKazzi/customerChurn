@@ -251,6 +251,8 @@ def run_risk():
         
         st.plotly_chart(fig)  
         high_threshold = st.slider("High Risk Threshold", min_value=0.4, max_value=0.8, value=0.5, step=0.01)
+        medium_threshold = st.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.3, step=0.01)
+        
     
     # --- Risk tier ---
     with col2:
@@ -264,7 +266,10 @@ def run_risk():
             percent = count / len(df_encoded)
             st.write(f"{tier}: {count} customers")
             st.progress(percent)
-            medium_threshold = st.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.3, step=0.01)
+            
+
+            
+    
     
     # --- Toggle visibility ---
     show_risk_export = st.toggle("📂 Show Risk Tier Export Panel", value=False)
