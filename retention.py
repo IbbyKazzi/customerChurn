@@ -126,7 +126,7 @@ def run_clusturing():
         """)
     
     #n_clusters = st.selectbox("**🧮 Select number of clusters:**", range(2, 11), 3) #selection box
-    n_clusters = st.slider("🧮 Select number of clusters:", min_value=2, max_value=10, value=5) # slider
+    n_clusters = st.sidebar.slider("🧮 Select number of clusters:", min_value=2, max_value=10, value=5) # slider
     #st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
 
     
