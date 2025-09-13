@@ -83,17 +83,14 @@ def churnRateTimeline(churned_df, df):
     
     # --- Create DataFrame ---
     df = pd.DataFrame({'Month': months, 'Churn Rate (%)': churn_rates})
-    
-    # --- Display Table ---
-    st.subheader("📅 Churn Rate Over Time")
-    st.dataframe(df.style.highlight_max(axis=0, color='lightgreen'))
+       
     
     # --- Plot ---
-    st.subheader("📉 Churn Rate Trend with Shadow")
+    st.subheader("📉 Churn Rate Trend")
     fig, ax = plt.subplots()
     
     # Line plot without markers
-    ax.plot(df['Month'], df['Churn Rate (%)'], color='red', linewidth=2)
+    ax.plot(df['Month'], df['Churn Rate (%)'], color='blue', linewidth=2)
     
     # Add shadow (confidence band)
     y = np.array(df['Churn Rate (%)'])
