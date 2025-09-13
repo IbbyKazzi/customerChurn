@@ -122,7 +122,7 @@ def topChurnFeatures(df):
     with open(MODEL_PATH_T21, "rb") as f:
         model = pickle.load(f) 
 
-    X = df_encoded.drop(['Churn'], axis=1)   
+    X = df.drop(['Churn'], axis=1)   
     explainer = shap.TreeExplainer(model)
     shap_values = explainer.shap_values(X)
     
