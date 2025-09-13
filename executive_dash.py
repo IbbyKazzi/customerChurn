@@ -271,12 +271,12 @@ def run():
     #if "cluster_summary" in st.session_state and st.button("🧠 Show GPT Segment Descriptions") or st.session_state["force_refresh"]:
 
     if "cluster_summary" in st.session_state or st.session_state["force_refresh"]:
-    # Generate segment profiles
-    segment_profiles = generate_segment_profiles(
-        st.session_state["cluster_summary"],
-        force_refresh=st.session_state["force_refresh"]
-    )
-    st.session_state["force_refresh"] = False
+        # Generate segment profiles
+        segment_profiles = generate_segment_profiles(
+            st.session_state["cluster_summary"],
+            force_refresh=st.session_state["force_refresh"]
+        )
+        st.session_state["force_refresh"] = False
 
     # Validate length before assigning
     if len(segment_profiles) != len(st.session_state["cluster_summary"]):
