@@ -67,10 +67,10 @@ def generate_segment_profiles(df_summary, force_refresh):
     return segment_profiles
 
 # Churn rate overtime
-def churnRateTimeline(churned_df):
+def churnRateTimeline(churned_df, df):
     # --- Input: Current Month Churn Rate ---
     # this is the current churn rate from our dataset
-    current_churn = len(churned_df)
+    current_churn = len(churned_df) * 100 / len(df)
     
     # --- Generate illustrative data ---
     months = pd.date_range(end=pd.Timestamp.today(), periods=7, freq='M').strftime('%b %Y').tolist()
@@ -108,7 +108,7 @@ def run():
     churned_df = df[df['Churn'] == 1]
 
     #showing Churn rate overtime
-    churnRateTimeline(churned_df)
+    churnRateTimeline(churned_df, df)
        
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
