@@ -284,6 +284,7 @@ def run():
             n_clusters = 0
             st.stop()
         else:
+            st.session_state["force_refresh"] = True
             #Preview Clusters
             if "cluster_summary" in st.session_state:
                 show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
