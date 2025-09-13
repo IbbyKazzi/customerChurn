@@ -98,6 +98,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             st.session_state["user_selection"] = '' 
         
         options = [
+            "Select a question...",  # Placeholder
             "Why is this customer likely to churn?",
             "What plan do you recommend?",
             "What is their churn risk?",
