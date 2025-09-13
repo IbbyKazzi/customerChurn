@@ -77,7 +77,7 @@ def churnRateTimeline(churned_df, df):
     
     # Simulate churn rates: trending down, but previous month has a spike
     base_rate = current_churn
-    churn_rates = [base_rate + i*1.2 for i in reversed(range(10))]  # downward trend
+    churn_rates = [base_rate + i*1.2 for i in reversed(range(5))]  # downward trend
     churn_rates += [base_rate + 2.0]  # previous month spike
     churn_rates += [base_rate]        # current month
     
