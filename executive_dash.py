@@ -13,6 +13,7 @@ import load_dataset
 from matplotlib import rcParams
 import pickle
 import shap
+from settings import MODEL_PATH_T21
 
 
 #Load OpenAI API key
