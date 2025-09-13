@@ -115,7 +115,7 @@ def churnRateTimeline(churned_df, df):
     st.pyplot(fig)
 
 # display top 3 churn features
-def topChurnFeatures(df, X):
+def topChurnFeatures(df):
     # --- Load or simulate SHAP values ---
     # get model, X    
     with open(MODEL_PATH_T21, "rb") as f:
