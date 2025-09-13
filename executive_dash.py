@@ -145,7 +145,11 @@ def topChurnFeatures(df):
     
     # Get top 3 features 
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
-    top_features = mean_abs_shap.head(3)  
+    top_features = mean_abs_shap.head(3) 
+
+    top_features_percent = (top_features / top_features.sum()) * 100
+    top_features_percent = top_features_percent.round(2)  # optional: round to 2 decimal places
+    top_features = top_features_percent
     
     # --- Traffic light colors: Tomato (most impactful), Yellow, Green ---
     colors = ['tomato', 'orange', 'lightgreen']
@@ -158,7 +162,7 @@ def topChurnFeatures(df):
         ax.spines[spine].set_visible(False)
         
     top_features.plot(kind='barh', color=colors, ax=ax)
-    ax.set_xlabel("Mean |SHAP value|")
+    ax.set_xlabel("Churn Impact (%)")
     ax.set_title("Top 3 Churn Features")
     fig.tight_layout()  # ensures consistent padding
     st.pyplot(fig)
