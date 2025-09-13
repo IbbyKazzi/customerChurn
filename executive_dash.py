@@ -83,8 +83,7 @@ def churnRateTimeline(churned_df, df):
     
     # --- Create DataFrame ---
     df = pd.DataFrame({'Month': months, 'Churn Rate (%)': churn_rates})
-       
-    
+
     # --- Plot ---
     fig, ax = plt.subplots()
     
@@ -94,6 +93,10 @@ def churnRateTimeline(churned_df, df):
     # Shaded area below the line
     ax.fill_between(df['Month'], df['Churn Rate (%)'], color='blue', alpha=0.2)
     
+    # Remove chart borders (spines)
+    for spine in ['top', 'right', 'left', 'bottom']:
+        ax.spines[spine].set_visible(False)
+    
     # Styling
     ax.set_title("Churn Trend Over Time")
     ax.set_ylabel("Churn Rate (%)")
@@ -102,8 +105,8 @@ def churnRateTimeline(churned_df, df):
     plt.xticks(rotation=0)
     
     # --- Show Plot ---
-    st.pyplot(fig)
-    
+    st.pyplot(fig)    
+       
 
 #Main App
 def run():
