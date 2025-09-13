@@ -294,7 +294,7 @@ def run():
         st.session_state["force_refresh"] = False
     
         if len(segment_profiles) != len(st.session_state["cluster_summary"]):
-            st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
+            #st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
             st.stop()
     
         st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
