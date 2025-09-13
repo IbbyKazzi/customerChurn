@@ -169,9 +169,19 @@ def run():
     df = load_dataset.run()  
     churned_df = df[df['Churn'] == 1]
 
-    #showing Churn rate overtime
-    churnRateTimeline(churned_df, df)
-    topChurnFeatures(df)
+    #showing Churn rate overtime and top 3 churn factors
+    col1, col2 = st.columns(2)
+    # --- Churn Rate Timeline ---
+    with col1:
+        st.subheader("📉 Churn Rate Timeline")
+        churnRateTimeline(churned_df, df)
+    
+    # --- Top Churn Features ---
+    with col2:
+        st.subheader("🔍 Top Churn Features")
+        topChurnFeatures(df)
+
+    
        
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
