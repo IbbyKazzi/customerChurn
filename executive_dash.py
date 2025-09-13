@@ -129,7 +129,19 @@ def topChurnFeatures(df):
     shap_values = explainer.shap_values(X)
     
     # --- Compute mean absolute SHAP values ---
-    shap_df = pd.DataFrame(shap_values, columns=X.columns)
+    # Sample background data
+    background = X_train.sample(n=100, random_state=42)
+    
+    # Define explainer outside the cached function
+    explainer = shap.Explainer(model.predict, background)
+    
+    # Cache only the SHAP computation
+    @st.cache_resource
+    def compute_shap_values(test_data):
+        return explainer(test_data)
+    
+    shap_df = compute_shap_values(X_test[:50])
+    #shap_df = pd.DataFrame(shap_values, columns=X.columns)
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
     
     # --- Get top 3 features ---
