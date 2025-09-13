@@ -208,7 +208,8 @@ def run_clusturing():
             else:
                 title, description = "Unnamed Segment", row['Segment_Profile']
     
-            st.markdown(f"### 🧠 Cluster {row['cluster']}: {title.strip()}")
+            #st.markdown(f"### 🧠 Cluster {row['cluster']}: {title.strip()}")
+            st.markdown(f"### {title.strip()}")
             st.markdown(f"**📝 Description:** {description.strip()}")
     
             col1, col2, col3 = st.columns(3)
