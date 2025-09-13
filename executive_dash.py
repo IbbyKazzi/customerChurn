@@ -140,8 +140,8 @@ def topChurnFeatures(df):
     def compute_shap_values(test_data):
         return explainer(test_data)
     
-    shap_df = compute_shap_values(X_test[:50])
-    #shap_df = pd.DataFrame(shap_values, columns=X.columns)
+    shap_values = compute_shap_values(X_test[:50])
+    shap_df = pd.DataFrame(shap_values, columns=X.columns)
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
     
     # --- Get top 3 features ---
