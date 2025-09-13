@@ -10,6 +10,8 @@ import openai
 import matplotlib.pyplot as plt
 #Load dataset module
 import load_dataset
+from matplotlib import rcParams
+
 
 #Load OpenAI API key
 openai.api_key = st.secrets["OPENAI_API_KEY"]
@@ -84,6 +86,9 @@ def churnRateTimeline(churned_df, df):
     # --- Create DataFrame ---
     df = pd.DataFrame({'Month': months, 'Churn Rate (%)': churn_rates})
 
+    rcParams['font.family'] = 'Comic Sans MS'
+    rcParams['font.size'] = 10  # Adjust size as needed
+
     # --- Plot ---
     fig, ax = plt.subplots()
     
@@ -97,7 +102,7 @@ def churnRateTimeline(churned_df, df):
     for spine in ['top', 'right', 'left', 'bottom']:
         ax.spines[spine].set_visible(False)
     
-    # Styling
+    # Styling with Comic Sans
     ax.set_title("Churn Trend Over Time")
     ax.set_ylabel("Churn Rate (%)")
     ax.set_xlabel("Month")
@@ -105,7 +110,8 @@ def churnRateTimeline(churned_df, df):
     plt.xticks(rotation=0)
     
     # --- Show Plot ---
-    st.pyplot(fig)    
+    st.pyplot(fig)
+
        
 
 #Main App
