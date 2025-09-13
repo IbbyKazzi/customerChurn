@@ -224,10 +224,9 @@ def run():
         
          Adjust the slider to explore how different segmentation levels impact churn insights and tactical recommendations.
         """)
-
-    st.markdown("**Select number of customer clusters required:**")
-    n_clusters = st.selectbox("Choose cluster count", options=list(range(2, 11)), index=3)  # default is 5
-    st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
+    
+    n_clusters = st.selectbox("**🧮 Select number of clusters:**", range(2, 11), 3)
+    #st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
 
     
     # Detect cluster count change
