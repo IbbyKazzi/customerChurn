@@ -74,7 +74,12 @@ def churnRateTimeline(churned_df, df):
     
     # --- Generate illustrative data ---
     months = pd.date_range(end=pd.Timestamp.today(), periods=7, freq='M').strftime('%b %Y').tolist()
-    churn_rates = [current_churn + i*1.5 for i in reversed(range(6))] + [current_churn]  # Trending down
+    
+    # Simulate churn rates: trending down, but previous month has a spike
+    base_rate = current_churn
+    churn_rates = [base_rate + i*1.2 for i in reversed(range(5))]  # downward trend
+    churn_rates += [base_rate + 2.0]  # previous month spike
+    churn_rates += [base_rate]        # current month
     
     # --- Create DataFrame ---
     df = pd.DataFrame({'Month': months, 'Churn Rate (%)': churn_rates})
@@ -84,15 +89,28 @@ def churnRateTimeline(churned_df, df):
     st.dataframe(df.style.highlight_max(axis=0, color='lightgreen'))
     
     # --- Plot ---
-    st.subheader("📉 Churn Rate Trend")
+    st.subheader("📉 Churn Rate Trend with Shadow")
     fig, ax = plt.subplots()
-    ax.plot(df['Month'], df['Churn Rate (%)'], marker='o', color='red')
+    
+    # Line plot without markers
+    ax.plot(df['Month'], df['Churn Rate (%)'], color='red', linewidth=2)
+    
+    # Add shadow (confidence band)
+    y = np.array(df['Churn Rate (%)'])
+    lower = y - 1.0  # arbitrary shadow range
+    upper = y + 1.0
+    ax.fill_between(df['Month'], lower, upper, color='red', alpha=0.2)
+    
+    # Styling
     ax.set_ylabel("Churn Rate (%)")
     ax.set_xlabel("Month")
     ax.set_title("Churn Rate Over Last 7 Months")
     ax.grid(True)
     plt.xticks(rotation=45)
+    
+    # --- Show Plot ---
     st.pyplot(fig)
+
 
     
 
