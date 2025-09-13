@@ -95,7 +95,7 @@ def churnRateTimeline(churned_df, df):
     rcParams['font.size'] = 7  # Adjust size as needed
 
     # --- Plot ---
-    figsize = (6, 4)
+    figsize = (6, 5)
     fig, ax = plt.subplots(figsize=figsize)
     
     # Line with circular markers
