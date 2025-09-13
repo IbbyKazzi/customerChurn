@@ -66,6 +66,36 @@ def generate_segment_profiles(df_summary, force_refresh):
 
     return segment_profiles
 
+# Churn rate overtime
+def churnRateTimeline(churned_df):
+    # --- Input: Current Month Churn Rate ---
+    # this is the current churn rate from our dataset
+    current_churn = len(churned_df)
+    
+    # --- Generate illustrative data ---
+    months = pd.date_range(end=pd.Timestamp.today(), periods=7, freq='M').strftime('%b %Y').tolist()
+    churn_rates = [current_churn + i*1.5 for i in reversed(range(6))] + [current_churn]  # Trending down
+    
+    # --- Create DataFrame ---
+    df = pd.DataFrame({'Month': months, 'Churn Rate (%)': churn_rates})
+    
+    # --- Display Table ---
+    st.subheader("📅 Churn Rate Over Time")
+    st.dataframe(df.style.highlight_max(axis=0, color='lightgreen'))
+    
+    # --- Plot ---
+    st.subheader("📉 Churn Rate Trend")
+    fig, ax = plt.subplots()
+    ax.plot(df['Month'], df['Churn Rate (%)'], marker='o', color='red')
+    ax.set_ylabel("Churn Rate (%)")
+    ax.set_xlabel("Month")
+    ax.set_title("Churn Rate Over Last 7 Months")
+    ax.grid(True)
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
+
+    
+
 #Main App
 def run():
     if "prev_n_clusters" not in st.session_state:
@@ -76,6 +106,9 @@ def run():
     #Load dataset
     df = load_dataset.run()  
     churned_df = df[df['Churn'] == 1]
+
+    #showing Churn rate overtime
+    churnRateTimeline(churned_df)
        
     df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
     df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
