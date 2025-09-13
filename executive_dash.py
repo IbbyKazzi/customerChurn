@@ -112,7 +112,33 @@ def churnRateTimeline(churned_df, df):
     # --- Show Plot ---
     st.pyplot(fig)
 
-       
+# display top 3 churn features
+def topChurnFeatures(df):
+    # --- Load or simulate SHAP values ---
+    # Assuming you already have: model, X
+    explainer = shap.TreeExplainer(model)
+    shap_values = explainer.shap_values(X)
+    
+    # --- Compute mean absolute SHAP values ---
+    shap_df = pd.DataFrame(shap_values, columns=X.columns)
+    mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
+    
+    # --- Get top 3 features ---
+    top_features = mean_abs_shap.head(3)
+    
+    # --- Display ---
+    st.subheader("📌 Top 3 Features Driving Churn")
+    for i, (feature, value) in enumerate(top_features.items(), 1):
+        st.markdown(f"**{i}. {feature}** — SHAP impact: `{value:.4f}`")
+    
+    # --- Optional: Bar chart ---
+    fig, ax = plt.subplots()
+    top_features.plot(kind='barh', color='skyblue', ax=ax)
+    ax.set_xlabel("Mean |SHAP value|")
+    ax.set_title("Top 3 Churn Features")
+    st.pyplot(fig)
+
+    
 
 #Main App
 def run():
