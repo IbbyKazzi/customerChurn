@@ -128,7 +128,7 @@ def topChurnFeatures(df):
     
     # --- Compute mean absolute SHAP values ---
     # Sample background data
-    background = X_train.sample(n=100, random_state=42)
+    background = X.sample(n=100, random_state=42)
     
     # Define explainer outside the cached function
     explainer = shap.Explainer(model.predict, background)
