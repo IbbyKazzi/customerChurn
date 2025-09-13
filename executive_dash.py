@@ -135,10 +135,10 @@ def topChurnFeatures(df):
     
     # Cache only the SHAP computation
     @st.cache_resource
-    def compute_shap_values(test_data):
-        return explainer(test_data)
+    def compute_shap_values(X):
+        return explainer(X)
     
-    shap_values = compute_shap_values(X_test[:50])
+    shap_values = compute_shap_values(X[:50])
     shap_df = pd.DataFrame(shap_values, columns=X.columns)
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
     
