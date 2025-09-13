@@ -95,7 +95,7 @@ def churnRateTimeline(churned_df, df):
     rcParams['font.size'] = 7  # Adjust size as needed
 
     # --- Plot ---
-    figsize = (6, 5)
+    figsize = (6, 4)
     fig, ax = plt.subplots(figsize=figsize)
     
     # Line with circular markers
@@ -151,7 +151,7 @@ def topChurnFeatures(df):
     colors = ['tomato', 'orange', 'lightgreen']
     
     # --- Bar chart ---
-    figsize = (6, 5)
+    figsize = (6, 4)
     fig, ax = plt.subplots(figsize=figsize)
     # Remove chart borders (spines)
     for spine in ['top', 'right', 'left', 'bottom']:
