@@ -302,8 +302,8 @@ def run():
                 df = st.session_state["cluster_summary"].reset_index(drop=True)
                 df.index = [''] * len(df)  # Blank out index labels
                 st.dataframe(st.session_state["cluster_summary"], hide_index=True)
-                #st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
-                st.success("GPT-Powered Segment Insights Available")
+    st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
+    st.success("GPT-Powered Segment Insights Available")
             
     # Display segment cards
     for idx, row in st.session_state["cluster_summary"].iterrows():
