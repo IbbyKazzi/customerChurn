@@ -271,12 +271,13 @@ def run():
     #if "cluster_summary" in st.session_state and st.button("🧠 Show GPT Segment Descriptions") or st.session_state["force_refresh"]:
 
     if "cluster_summary" in st.session_state or st.session_state["force_refresh"]:
-            segment_profiles = generate_segment_profiles(
-                st.session_state["cluster_summary"],
-                force_refresh=st.session_state["force_refresh"]
-            )
-            # Reset refresh flag after use
-            st.session_state["force_refresh"] = False
+        segment_profiles = generate_segment_profiles(
+            st.session_state["cluster_summary"],
+            force_refresh=st.session_state["force_refresh"]
+        )
+        st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
+        # Reset refresh flag after use
+        st.session_state["force_refresh"] = False
         
     if len(segment_profiles) != len(st.session_state["cluster_summary"]):
         #st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
@@ -286,7 +287,8 @@ def run():
         segment_profiles = generate_segment_profiles(
             st.session_state["cluster_summary"],
             force_refresh=st.session_state["force_refresh"]
-        )            
+        ) 
+        st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
         #Preview Clusters
         if "cluster_summary" in st.session_state:
             show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
@@ -300,7 +302,7 @@ def run():
                 df = st.session_state["cluster_summary"].reset_index(drop=True)
                 df.index = [''] * len(df)  # Blank out index labels
                 st.dataframe(st.session_state["cluster_summary"], hide_index=True)
-                st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
+                #st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
                 st.success("GPT-Powered Segment Insights Available")
             
     # Display segment cards
