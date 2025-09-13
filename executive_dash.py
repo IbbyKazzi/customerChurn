@@ -105,7 +105,7 @@ def churnRateTimeline(churned_df, df):
     # Styling with Comic Sans
     ax.set_title("Churn Trend Over Time")
     ax.set_ylabel("Churn Rate (%)")
-    ax.set_xlabel("Month")
+    #ax.set_xlabel("Month")
     ax.grid(True, linestyle='-', alpha=0.5)
     plt.xticks(rotation=0)
     
