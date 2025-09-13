@@ -87,7 +87,7 @@ def churnRateTimeline(churned_df, df):
     df = pd.DataFrame({'Month': months, 'Churn Rate (%)': churn_rates})
 
     rcParams['font.family'] = 'Comic Sans MS'
-    rcParams['font.size'] = 8  # Adjust size as needed
+    rcParams['font.size'] = 7  # Adjust size as needed
 
     # --- Plot ---
     fig, ax = plt.subplots()
