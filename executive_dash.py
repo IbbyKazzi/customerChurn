@@ -98,14 +98,11 @@ def churnRateTimeline(churned_df, df):
     ax.set_title("Churn Trend Over Time")
     ax.set_ylabel("Churn Rate (%)")
     ax.set_xlabel("Month")
-    ax.grid(True, linestyle='--', alpha=0.5)
+    ax.grid(True, linestyle='-', alpha=0.5)
     plt.xticks(rotation=0)
     
     # --- Show Plot ---
     st.pyplot(fig)
-
-
-
     
 
 #Main App
