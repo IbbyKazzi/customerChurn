@@ -124,9 +124,7 @@ def topChurnFeatures(df):
     with open(MODEL_PATH_T21, "rb") as f:
         model = pickle.load(f) 
 
-    X = df.drop(['Churn'], axis=1)   
-    explainer = shap.TreeExplainer(model.predict)
-    shap_values = explainer.shap_values(X)
+    X = df.drop(['Churn'], axis=1)      
     
     # --- Compute mean absolute SHAP values ---
     # Sample background data
