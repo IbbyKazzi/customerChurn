@@ -171,11 +171,7 @@ def topChurnFeatures(df):
     
 
 #Main App
-def run():
-    if "prev_n_clusters" not in st.session_state:
-        st.session_state["prev_n_clusters"] = None
-        st.header("📊 Segmentation Strategy Panel")
-        st.subheader("Select the granularity of customer clusters required to tailor retention insights:")
+def run():   
 
     #Load dataset
     df = load_dataset.run()  
@@ -192,6 +188,11 @@ def run():
     with col2:
         st.subheader("🔍 Top Churn Features")
         topChurnFeatures(df)
+
+    if "prev_n_clusters" not in st.session_state:
+        st.session_state["prev_n_clusters"] = None
+        st.header("📊 Segmentation Strategy Panel")
+        st.subheader("Select the granularity of customer clusters required to tailor retention insights:")
 
     
        
