@@ -95,7 +95,8 @@ def churnRateTimeline(churned_df, df):
     rcParams['font.size'] = 7  # Adjust size as needed
 
     # --- Plot ---
-    fig, ax = plt.subplots()
+    figsize = (6, 4)
+    fig, ax = plt.subplots(figsize=figsize)
     
     # Line with circular markers
     ax.plot(df['Month'], df['Churn Rate (%)'], color='skyblue', linewidth=1.5, marker='o', markersize=3)
@@ -145,11 +146,12 @@ def topChurnFeatures(df):
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
     top_features = mean_abs_shap.head(3)  
     
-    # --- Traffic light colors: Red (most impactful), Yellow, Green ---
+    # --- Traffic light colors: Tomato (most impactful), Yellow, Green ---
     colors = ['tomato', 'orange', 'lightgreen']
     
     # --- Bar chart ---
-    fig, ax = plt.subplots()
+    figsize = (6, 4)
+    fig, ax = plt.subplots(figsize=figsize)
     top_features.plot(kind='barh', color=colors, ax=ax)
     ax.set_xlabel("Mean |SHAP value|")
     ax.set_title("Top 3 Churn Features")
