@@ -239,11 +239,12 @@ def run_risk():
         }
         
         # Create pie chart with custom colors
+        st.subheader("Churn Risk Distribution")
         fig = px.pie(
             risk_counts,
             names="risk_category",
             values="count",
-            title="Churn Risk Distribution",
+            title="",
             color="risk_category",
             color_discrete_map=color_map
         )
