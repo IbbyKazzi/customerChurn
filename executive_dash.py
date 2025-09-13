@@ -210,6 +210,26 @@ def run_risk():
     
     #high_threshold = st.sidebar.slider("High Risk Threshold", min_value=0.4, max_value=0.8, value=0.5, step=0.01)
     #medium_threshold = st.sidebar.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.3, step=0.01)
+    col1, col2 = st.columns(2)
+
+    with col1:
+        high_threshold = st.slider(
+            "🔴 High Risk Threshold",
+            min_value=0.4,
+            max_value=0.8,
+            value=0.5,
+            step=0.01
+        )
+    
+    with col2:
+        medium_threshold = st.slider(
+            "🟠 Medium Risk Threshold",
+            min_value=0.2,
+            max_value=high_threshold,
+            value=0.3,
+            step=0.01
+        )
+
     
     #set risk tires and generat tags
     def categorize_risk(prob):
@@ -250,8 +270,8 @@ def run_risk():
         )
         
         st.plotly_chart(fig)  
-        high_threshold = st.slider("High Risk Threshold", min_value=0.4, max_value=0.8, value=0.5, step=0.01)
-        medium_threshold = st.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.3, step=0.01)
+        #high_threshold = st.slider("High Risk Threshold", min_value=0.4, max_value=0.8, value=0.5, step=0.01)
+        #medium_threshold = st.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.3, step=0.01)
         
     
     # --- Risk tier ---
