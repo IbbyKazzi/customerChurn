@@ -148,7 +148,7 @@ def topChurnFeatures(df):
     top_features = mean_abs_shap.head(3) 
 
     top_features_percent = (top_features / top_features.sum()) * 100
-    top_features_percent = top_features_percent.round(2)  # optional: round to 2 decimal places
+    #top_features_percent = top_features_percent.round(2)  # optional: round to 2 decimal places
     top_features = top_features_percent
     
     # --- Traffic light colors: Tomato (most impactful), Yellow, Green ---
