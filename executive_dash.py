@@ -7,7 +7,7 @@ import os
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import openai
-
+import matplotlib.pyplot as plt
 #Load dataset module
 import load_dataset
 
