@@ -263,21 +263,7 @@ def run():
 
     st.session_state["cluster_summary"] = cluster_summary
     st.session_state["df"] = df
-    #st.success("Clustering complete. Proceed to preview.")
-
-    #Preview Clusters
-    if "cluster_summary" in st.session_state:
-        show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
-    
-        if show_charts:
-            st.subheader("📈 Cluster Distribution")
-            cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
-            st.bar_chart(cluster_counts)
-    
-            st.subheader("📊 Cluster Summary")
-            df = st.session_state["cluster_summary"].reset_index(drop=True)
-            df.index = [''] * len(df)  # Blank out index labels
-            st.dataframe(st.session_state["cluster_summary"], hide_index=True)
+    #st.success("Clustering complete. Proceed to preview.")  
 
 
         
@@ -297,8 +283,21 @@ def run():
             #st.error(f"Expected {len(st.session_state['cluster_summary'])} segment profiles, but got {len(segment_profiles)}.")
             st.stop()
         else:
-            st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
-            st.success("GPT-Powered Segment Insights Available")
+            #Preview Clusters
+            if "cluster_summary" in st.session_state:
+                show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
+            
+                if show_charts:
+                    st.subheader("📈 Cluster Distribution")
+                    cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
+                    st.bar_chart(cluster_counts)
+            
+                    st.subheader("📊 Cluster Summary")
+                    df = st.session_state["cluster_summary"].reset_index(drop=True)
+                    df.index = [''] * len(df)  # Blank out index labels
+                    st.dataframe(st.session_state["cluster_summary"], hide_index=True)
+                    st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
+                    st.success("GPT-Powered Segment Insights Available")
             
             # Display segment cards
             for idx, row in st.session_state["cluster_summary"].iterrows():
