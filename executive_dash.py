@@ -249,7 +249,8 @@ def run_risk():
             color_discrete_map=color_map
         )
         
-        st.plotly_chart(fig)       
+        st.plotly_chart(fig)  
+        high_threshold = st.slider("High Risk Threshold", min_value=0.4, max_value=0.8, value=0.5, step=0.01)
     
     # --- Risk tier ---
     with col2:
@@ -262,7 +263,8 @@ def run_risk():
             count = risk_counts.get(tier, 0)
             percent = count / len(df_encoded)
             st.write(f"{tier}: {count} customers")
-            st.progress(percent) 
+            st.progress(percent)
+            medium_threshold = st.slider("Medium Risk Threshold", min_value=0.2, max_value=high_threshold, value=0.3, step=0.01)
     
     # --- Toggle visibility ---
     show_risk_export = st.toggle("📂 Show Risk Tier Export Panel", value=False)
@@ -284,148 +286,8 @@ def run_risk():
             data=buffer.getvalue(),
             file_name=f"{selected_tier.replace(' ', '_').replace('🚨','').replace('⚠️','').replace('✅','').lower()}_customers.csv",
             mime="text/csv"
-        )
-    
-#clustering customers
-def run_clusturing():
-    #Load dataset
-    df = load_dataset.run()  
-    churned_df = df[df['Churn'] == 1]
-    if "prev_n_clusters" not in st.session_state:
-        st.session_state["prev_n_clusters"] = None
-        st.header("📊 Segmentation Strategy Panel")
-        st.subheader("Select the granularity of customer clusters required to tailor retention insights:")
+        )   
 
-    
-       
-    df['Contract_Month-to-month'] = (df['Contract'] == 0).astype(int)
-    df['Contract_One_Year'] = (df['Contract'] == 1).astype(int)
-    df['InternetService_Fiber optic'] = (df['InternetService'] == 1).astype(int)
-    df['TechSupport_No'] = (df['TechSupport'] == 0).astype(int)
-    df['PaymentMethod_Electronic check'] = (df['PaymentMethod'] == 2).astype(int)
-    
-    #Feature & Cluster Selection
-    available_features = [
-        'Months', 'MonthlyCharges', 'TotalCharges',
-        'Contract_Month-to-month', 'Contract_One_Year',
-    'InternetService_Fiber optic', 'TechSupport_No',
-    'PaymentMethod_Electronic check'
-    ]
-
-    selected_features = available_features
-    #st.multiselect(
-    #    "Select features for clustering",
-    #    options=available_features,
-    #    default=['Months', 'MonthlyCharges', 'TotalCharges']
-    #)
-    with st.expander("📘 Why Cluster Granularity Matters"):
-         st.markdown("""
-         - **Fewer Clusters (2–4)**: Broad segmentation ideal for high-level strategy and executive summaries.
-         - **Moderate Clusters (5–7)**: Balanced granularity for tactical planning across departments.
-         - **More Clusters (8–10)**: Fine-grained segmentation for targeted interventions and personalized retention tactics.
-        
-         Adjust the slider to explore how different segmentation levels impact churn insights and tactical recommendations.
-        """)
-    
-    n_clusters = st.selectbox("**🧮 Select number of clusters:**", range(2, 11), 3)
-    #st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
-
-    
-    # Detect cluster count change
-    if "force_refresh" not in st.session_state:
-        st.session_state["force_refresh"] = False
-    
-    if st.session_state["prev_n_clusters"] is not None and st.session_state["prev_n_clusters"] != n_clusters:
-        st.session_state["force_refresh"] = True
-    st.session_state["prev_n_clusters"] = n_clusters
-    
-
-    if st.session_state["force_refresh"]:
-        if len(selected_features) < 2:
-            st.warning("Please select at least two features.")
-            st.stop()
-
-    X_cluster = df[selected_features]
-    X_scaled = StandardScaler().fit_transform(X_cluster)
-
-    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
-    df['cluster'] = kmeans.fit_predict(X_scaled)
-
-    cluster_summary = df.groupby('cluster').agg({
-        'Churn': 'mean',
-        'Months': 'mean',
-        'MonthlyCharges': 'mean',
-        'TotalCharges': 'mean',
-        'Contract_Month-to-month':'mean',
-        'Contract_One_Year':'mean',
-        'TechSupport_No':'mean',
-        'PaymentMethod_Electronic check':'mean',
-        'InternetService_Fiber optic':'mean'
-    }).reset_index()
-
-    st.session_state["cluster_summary"] = cluster_summary
-    st.session_state["df"] = df
-    #st.success("Clustering complete. Proceed to preview.")  
-
-
-        
-    #st.write(force_refresh)
-    #if "cluster_summary" in st.session_state and st.button("🧠 Show GPT Segment Descriptions") or st.session_state["force_refresh"]:
-
-    if "cluster_summary" in st.session_state or st.session_state["force_refresh"]:
-        # Generate segment profiles
-        segment_profiles = generate_segment_profiles(
-            st.session_state["cluster_summary"],
-            force_refresh=st.session_state["force_refresh"]
-        )
-        st.session_state["force_refresh"] = False
-
-    # Validate length before assigning
-    if len(segment_profiles) != len(st.session_state["cluster_summary"]):
-        st.error("Mismatch between number of clusters and segment profiles.")
-        st.stop()
-
-    # ✅ Safe to assign
-    st.session_state["cluster_summary"]["Segment_Profile"] = segment_profiles
-    # Preview Clusters
-    if "cluster_summary" in st.session_state:
-        show_charts = st.toggle("Show Cluster Charts and Summary", value=False)
-    
-        if show_charts:
-            st.subheader("📈 Cluster Distribution")
-            cluster_counts = st.session_state["df"]['cluster'].value_counts().sort_index()
-            st.bar_chart(cluster_counts)
-    
-            st.subheader("📊 Cluster Summary")
-            df = st.session_state["cluster_summary"].reset_index(drop=True)
-            df.index = [''] * len(df)
-            st.dataframe(df, hide_index=True)
-    
-        st.success("GPT-Powered Segment Insights Available")
-    
-        # Display segment cards
-        for idx, row in st.session_state["cluster_summary"].iterrows():
-            if ':' in row['Segment_Profile']:
-                title, description = row['Segment_Profile'].split(':', 1)
-            else:
-                title, description = "Unnamed Segment", row['Segment_Profile']
-    
-            st.markdown(f"### 🧠 Cluster {row['cluster']}: {title.strip()}")
-            st.markdown(f"**📝 Description:** {description.strip()}")
-    
-            col1, col2, col3 = st.columns(3)
-            col1.metric("📉 Churn Rate", f"{row['Churn']:.2%}")
-            col2.metric("📆 Avg Tenure", f"{row['Months']:.1f} months")
-            col3.metric("💰 Monthly Charges", f"${row['MonthlyCharges']:.2f}")
-    
-            col4, col5, col6 = st.columns(3)
-            col4.metric("🌐 Fiber Usage", f"{row['InternetService_Fiber optic']*100:.1f}%")
-            col5.metric("🛠️ No Tech Support", f"{row['TechSupport_No']*100:.1f}%")
-            col6.metric("💳 Electronic Check", f"{row['PaymentMethod_Electronic check']*100:.1f}%")
-    
-            st.markdown("---")
-    
-        st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
 
 #Main App
 def run():   
@@ -446,10 +308,7 @@ def run():
         st.subheader("🔍 Top Churn Features")
         topChurnFeatures(df)
 
-    run_risk()
-
-    #run_clusturing()
-    
+    run_risk()        
 
     # Total revenue lost from churned customers    
     total_loss = churned_df['MonthlyCharges'].sum()
