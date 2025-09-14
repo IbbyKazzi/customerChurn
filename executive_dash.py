@@ -311,6 +311,8 @@ def run_risk():
             mime="text/csv"
         )   
 
+#Show total revenue loss and prevention threshold
+def 
 
 #Main App
 def run():   
