@@ -262,21 +262,14 @@ def run():
 
     #Load dataset
     df = load_dataset.run()
-    df['ChurnDate'] = pd.to_datetime(df['ChurnDate'])
+    total_loss = churned_df['MonthlyCharges'].sum()
 
-    # Filter churned customers
-    churned_df = df[df['Churn'] == 1]
+    # Format the number for readability
+    formatted_loss = f"${total_loss:,.2f}"
     
-    # Extract month and year from churn date
-    churned_df['MonthYear'] = churned_df['ChurnDate'].dt.strftime('%B %Y')
-    
-    # Group by Month-Year and calculate total loss
-    monthly_loss = churned_df.groupby('MonthYear')['MonthlyCharges'].sum().reset_index()
-    
-    # Display each month’s loss as a KPI card
-    for _, row in monthly_loss.iterrows():
-        formatted_loss = f"${row['MonthlyCharges']:,.2f}"
-        st.metric(label=f"💸 Revenue Lost in {row['MonthYear']}", value=formatted_loss)
+    # Display as a KPI card
+    st.metric(label="💸 Total Revenue Lost from Churned Customers - August 2025", value=formatted_loss)
+
 
 
     #showing Churn rate overtime and top 3 churn factors
