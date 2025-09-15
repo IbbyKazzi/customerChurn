@@ -262,6 +262,7 @@ def run():
 
     #Load dataset
     df = load_dataset.run()
+    churned_df = df[df['Churn'] == 1] # Churned customers
     total_loss = churned_df['MonthlyCharges'].sum()
 
     # Format the number for readability
