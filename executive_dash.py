@@ -76,7 +76,7 @@ def churnRateTimeline(churned_df, df):
     st.pyplot(fig)
 
 # display top 3 churn features
-def topChurnFeatures(df):
+def topChurnFeatures(df, total_loss):
     # --- Load or simulate SHAP values ---
     # get model, X    
     with open(MODEL_PATH_T21, "rb") as f:
@@ -305,7 +305,7 @@ def run():
     # --- Top Churn Features ---
     with col2:
         st.subheader("Top Churn Features")
-        topChurnFeatures(df)
+        topChurnFeatures(df, total_loss)
 
     run_risk()        
 
