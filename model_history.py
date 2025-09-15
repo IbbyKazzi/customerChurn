@@ -38,19 +38,25 @@ def show_model_history(path=METADATA_PATH):
         m_perfomance = json.load(f)
     df_perfomance = pd.DataFrame(m_perfomance)
     
-    # Convert timestamp and format to dd/MM/yy
+    # Convert timestamp and extract date
     df_perfomance['timestamp'] = pd.to_datetime(df_perfomance['timestamp'])
     df_perfomance['date'] = df_perfomance['timestamp'].dt.strftime('%d/%m/%y')
     
     # Group by date and calculate mean AUC
     auc_history_df = df_perfomance.groupby('date', as_index=False)['auc'].mean()
     
-    # Define the toggle before using it
+    # Sort by actual datetime to ensure correct order
+    auc_history_df['sort_key'] = pd.to_datetime(auc_history_df['date'], format='%d/%m/%y')
+    auc_history_df = auc_history_df.sort_values('sort_key')
+    
+    # Optional: drop sort_key if not needed
+    auc_history_df.drop(columns='sort_key', inplace=True)
+    
+    # Display chart
     show_chart = st.toggle("📈 Show Model AUC Performance Over Time", value=False)
-
     if show_chart:
         st.subheader("Model AUC Performance Over Time")
-        st.line_chart(auc_history_df.set_index('date')['auc'])    
+        st.line_chart(auc_history_df.set_index('date')['auc']) 
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
