@@ -129,6 +129,19 @@ def run_clusturing():
     n_clusters = st.sidebar.slider("🧮 Select number of clusters:", min_value=2, max_value=10, value=5) # slider
     #st.markdown(f"🔎 You’ve selected **{n_clusters}** customer clusters.")
 
+    # Total revenue lost from churned customers    
+    total_loss = churned_df['MonthlyCharges'].sum()
+    
+
+    # Sidebar controls
+    st.sidebar.header("Churn Impact Simulator")
+    
+    retention_slider = st.sidebar.slider("Assumed retention rate (%)", 0, 100, 50)
+    
+    retained_fraction = retention_slider / 100
+    adjusted_loss = total_loss * (1 - retained_fraction)
+    
+    st.sidebar.metric("💸 Revenue Loss", f"${adjusted_loss:,.2f}")
     
     # Detect cluster count change
     if "force_refresh" not in st.session_state:
@@ -225,6 +238,7 @@ def run_clusturing():
             st.markdown("---")
     
         st.download_button("📥 Download Summary", st.session_state["cluster_summary"].to_csv(index=False), "cluster_summary.csv")
+        
 
 def run():
     run_clusturing()
