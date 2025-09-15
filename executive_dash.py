@@ -29,62 +29,6 @@ import uploadNewDataset
 import io
 
 
-
-#Load OpenAI API key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-
-#Cache path
-CACHE_PATH = "segment_profiles.json"
-
-#GPT Segment Description Generator
-def llm_cluster_description(row):
-    prompt = (
-        "You are an expert in telecommunications customer analytics. "
-        "Based on the following cluster characteristics from a telco churn dataset, "
-        "assign one short business-friendly segment name (2–4 words) and a brief description.\n"
-        f"- Average churn rate: {row['Churn']:.2f}\n"
-        f"- Average tenure: {row['Months']:.1f} months\n"
-        f"- Average monthly charges: {row['MonthlyCharges']:.2f}\n"
-        f"- % Month-to-month contract: {row['Contract_Month-to-month']*100:.1f}%\n"
-        f"- % Contract_One_Year contract: {row['Contract_One_Year']*100:.1f}%\n"
-        f"- % using Fiber: {row['InternetService_Fiber optic']*100:.1f}%\n"
-        f"- % without Tech Support: {row['TechSupport_No']*100:.1f}%\n"
-        f"- % using Electronic check: {row['PaymentMethod_Electronic check']*100:.1f}%\n\n"
-        "Use one of the following label styles if it applies: "
-        "'New Cost-Sensitive Users', 'Tech-Avoidant Casuals', 'Bundled Value Seekers', "
-        "'Contract Expiry Risks', 'Electronic-Check Churners', 'Loyal Seniors', 'Streaming-Heavy Customers'. "
-        "If none of these apply, generate a similar style. "
-        "Return output in the format: <Segment Name>: <Description>"
-    )
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return response.choices[0].message.content.strip()
-    except Exception as e:        
-        st.error(f"OpenAI error: {str(e)}")
-        return f"Error: {str(e)}"
-
-#GPT Segment Generation with Caching
-def generate_segment_profiles(df_summary, force_refresh):
-    if not force_refresh and os.path.exists(CACHE_PATH):
-        with open(CACHE_PATH, "r") as f:
-            return json.load(f)
-
-    segment_profiles = []
-    with st.spinner("Generating segment profiles..."):
-        for idx, row in df_summary.iterrows():
-            #st.write(f"Processing cluster {row['cluster']}...")
-            segment = llm_cluster_description(row)
-            segment_profiles.append(segment)
-            time.sleep(0.1)
-
-    with open(CACHE_PATH, "w") as f:
-        json.dump(segment_profiles, f)
-
-    return segment_profiles
-
 # Churn rate overtime
 def churnRateTimeline(churned_df, df):
     # --- Input: Current Month Churn Rate ---
