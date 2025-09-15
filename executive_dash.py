@@ -261,6 +261,7 @@ def run_risk():
 def run():   
 
     #Load dataset
+    df = load_dataset.run()
     df['ChurnDate'] = pd.to_datetime(df['ChurnDate'])
 
     # Filter churned customers
