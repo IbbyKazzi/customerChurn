@@ -126,8 +126,11 @@ def run():
    
     # --- Pipeline Execution ---       
         
-    start_time = time.time()
+    if "start_time" not in st.session_state:
+        st.session_state.start_time = None
+
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
+        st.session_state.start_time = time.time()
         st.session_state.run_pipeline = False  # Immediately reset to prevent rerun loop
         progress = st.progress(0)
         status = st.empty()
@@ -214,7 +217,7 @@ def run():
         stage_times.append(("Finalization", time.time() - t0))
         progress.progress(100)       
         end_time = time.time()
-        elapsed = end_time - start_time
+        elapsed = end_time - st.session_state.start_time
         stage_times.append(("Total execution time", elapsed))    
         st.session_state.stage_times = stage_times        
         status.markdown("🎉 <span style='color:green'>Pipeline completed successfully!</span>", unsafe_allow_html=True)
@@ -222,7 +225,7 @@ def run():
 
     if st.session_state.pipeline_ran: 
         end_time = time.time()
-        elapsed = end_time - start_time  
+        elapsed = end_time - st.session_state.start_time  
         if st.session_state.best_model_auc > st.session_state.auc_threshold:
             st.success(f"✅ Pipeline completed, with best model: {st.session_state.best_model} and AUC: {st.session_state.best_model_auc:.4f}")
         else:
