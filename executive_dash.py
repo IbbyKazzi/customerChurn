@@ -263,6 +263,13 @@ def run():
     #Load dataset
     df = load_dataset.run()  
     churned_df = df[df['Churn'] == 1]
+    # Total revenue lost from churned customers    
+    total_loss = churned_df['MonthlyCharges'].sum()
+    # Format the number for readability
+    formatted_loss = f"${total_loss:,.2f}"
+    
+    # Display as a KPI card
+    st.metric(label="💸 Total Revenue Lost from Churned Customers", value=formatted_loss)
 
     #showing Churn rate overtime and top 3 churn factors
     col1, col2 = st.columns(2)
@@ -278,8 +285,7 @@ def run():
 
     run_risk()        
 
-    # Total revenue lost from churned customers    
-    total_loss = churned_df['MonthlyCharges'].sum()
+    
     
 
     
