@@ -161,7 +161,7 @@ def saveToGit(name, model_obj, model_filename):
     
     
     except Exception as e:
-        st.error(f"❌ GitHub upload failed: {e}")
+        #st.error(f"❌ GitHub upload failed: {e}")
 
         
 
