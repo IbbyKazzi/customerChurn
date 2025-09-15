@@ -126,10 +126,11 @@ def topChurnFeatures(df, total_loss):
     bars = ax.barh(top_features.index, top_features.values, color=colors)
     
     # Add revenue loss labels to each bar
+    # Add revenue loss labels inside each bar
     for bar, label in zip(bars, revenue_labels):
         width = bar.get_width()
-        ax.text(width + 1, bar.get_y() + bar.get_height()/2, label,
-                va='center', ha='left', fontsize=10, color='black')
+        ax.text(width * 0.5, bar.get_y() + bar.get_height()/2, label,
+                va='center', ha='center', fontsize=10, color='white', fontweight='bold')
     
     # Axis labels and title
     ax.set_xlabel("Churn Impact (%)")
