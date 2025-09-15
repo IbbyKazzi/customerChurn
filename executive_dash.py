@@ -324,12 +324,12 @@ def run():
     col1, col2 = st.columns(2)
     # --- Churn Rate Timeline ---
     with col1:
-        st.subheader("📉 Churn Rate Timeline")
+        st.subheader("Churn Rate Timeline")
         churnRateTimeline(churned_df, df)
     
     # --- Top Churn Features ---
     with col2:
-        st.subheader("🔍 Top Churn Features")
+        st.subheader("Top Churn Features")
         topChurnFeatures(df)
 
     run_risk()        
