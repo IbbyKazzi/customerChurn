@@ -120,16 +120,19 @@ def run():
         st.session_state.selected_features = ''
     
     # --- UI Buttons ---    
-    if st.sidebar.button("🔄 Run Pipeline"):
+    run_now = st.sidebar.button("🔄 Run Pipeline")
+
+    if run_now:
         st.session_state.run_pipeline = True
-        st.session_state.pipeline_ran = False  # Reset flag    
+        st.session_state.pipeline_ran = False
+  
    
     # --- Pipeline Execution ---       
         
     if "start_time" not in st.session_state:
         st.session_state.start_time = None
 
-    if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
+    if run_now and not st.session_state.pipeline_ran:
         st.session_state.start_time = time.time()
         st.session_state.run_pipeline = False  # Immediately reset to prevent rerun loop
         progress = st.progress(0)
