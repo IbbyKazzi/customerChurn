@@ -102,6 +102,9 @@ def topChurnFeatures(df, total_loss):
     # Get top 3 features 
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
     top_features = mean_abs_shap.head(3) 
+    
+    # Replace feature name in top_features index
+    top_features.index = top_features.index.str.replace('Months', 'New Customer')
 
     top_features_percent = (top_features / top_features.sum()) * 100
     #top_features_percent = top_features_percent.round(2)  # optional: round to 2 decimal places
