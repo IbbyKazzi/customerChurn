@@ -109,19 +109,35 @@ def topChurnFeatures(df):
     
     # --- Traffic light colors: Tomato (most impactful), Yellow, Green ---
     colors = ['tomato', 'orange', 'lightgreen']
+
+    # Calculate revenue loss per feature
+    revenue_loss_per_feature = (top_features / 100) * total_loss
+    revenue_labels = [f"${val:,.0f}" for val in revenue_loss_per_feature]
     
     # --- Bar chart ---
     figsize = (6, 4)
     fig, ax = plt.subplots(figsize=figsize)
-    # Remove chart borders (spines)
+
+    # Remove chart borders
     for spine in ['top', 'right', 'left', 'bottom']:
         ax.spines[spine].set_visible(False)
-        
-    top_features.plot(kind='barh', color=colors, ax=ax)
+    
+    # Plot horizontal bar chart
+    bars = ax.barh(top_features.index, top_features.values, color=colors)
+    
+    # Add revenue loss labels to each bar
+    for bar, label in zip(bars, revenue_labels):
+        width = bar.get_width()
+        ax.text(width + 1, bar.get_y() + bar.get_height()/2, label,
+                va='center', ha='left', fontsize=10, color='black')
+    
+    # Axis labels and title
     ax.set_xlabel("Churn Impact (%)")
-    ax.set_title("Top 3 Churn Features")
-    fig.tight_layout()  # ensures consistent padding
+    ax.set_title("Top 3 Churn Features and Revenue Loss")
+    
+    fig.tight_layout()
     st.pyplot(fig)
+
 
 
 #Display churn risk distribution
