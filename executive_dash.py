@@ -269,7 +269,13 @@ def run():
     formatted_loss = f"${total_loss:,.2f}"
     
     # Display as a KPI card
-    st.metric(label="💸 Total Revenue Lost from Churned Customers - August 2025", value=formatted_loss)
+    st.markdown(f"""
+        <div style="background-color:#f9f9f9; padding:15px; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+            <h4 style="margin-bottom:5px;">💸 Total Revenue Lost from Churned Customers - August 2025</h4>
+            <h2 style="color:#d00000; margin-top:0;">{formatted_loss}</h2>
+        </div>
+    """, unsafe_allow_html=True)
+
 
 
 
