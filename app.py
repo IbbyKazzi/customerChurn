@@ -9,86 +9,134 @@ st.set_page_config(
     layout="wide"
 )
 st.markdown("""
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
-        html, body, [class*="css"]  {
-            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
-            background-color: #d6eaf8 !important;
-        } 
+<style>
 
-        .navbar {
-            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            background: #b3d8fd;
-            border-bottom: 1.5px solid #7ab8f5;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);           
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-        }
-        .navbar ul {
-            display: flex;
-            gap: 2.5rem;
-            margin: 0;
-            padding: 0.75rem 0;
-            list-style: none;
-        }
-        .navbar li {
-            font-size: 1.08rem;
-            font-weight: 600;
-            color: #22577a;
-            letter-spacing: 0.01em;
-            transition: color 0.2s, border-bottom 0.2s;
-            border-bottom: 2.5px solid transparent;
-            cursor: pointer;
-        }
-        .navbar li.selected {
-            color: #1565c0;
-            border-bottom: 2.5px solid #1565c0;
-            background: none;
-        }
-        .navbar li:hover {
-            color: #1565c0;
-        }
-        
-        .block-container { 
-            padding-top: 4.5rem; 
-            max-width: 1500px; 
-            margin: auto; 
-            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif; 
-        } 
-        
-                
-        /* Option menu customizations */
-        .st-emotion-cache-1n76uvr, .st-emotion-cache-1n76uvr * {
-            font-family: 'Comic Sans MS', 'Comic Neue', cursive, sans-serif !important;
-        }
-        div[data-testid="stHorizontalBlock"] {
-            background: #b3d8fd !important;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(21,101,192,0.08);
-            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-        }
-        .st-emotion-cache-1n76uvr button, .st-emotion-cache-1n76uvr button span {
-            color: #22577a !important;
-            background: #e6f2ff !important;
-            border-radius: 8px 8px 0 0 !important;
-            border-bottom: 3px solid transparent !important;
-            transition: color 0.18s, border-bottom 0.18s, background 0.18s;
-        }
-        .st-emotion-cache-1n76uvr button[aria-selected="true"], .st-emotion-cache-1n76uvr button[aria-selected="true"] span {
-            color: #1565c0 !important;
-            background: #e3f0fb !important;
-            border-bottom: 3px solid #1565c0 !important;
-        }
-        .st-emotion-cache-1n76uvr button:hover, .st-emotion-cache-1n76uvr button:hover span {
-            color: #1565c0 !important;
-            background: #d0e7fa !important;
-        }
-    </style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif !important;
+    background-color: #f4f9fd !important;
+    color: #2b3e51;
+    padding: 0;
+    margin: 0;
+}
+
+
+.navbar {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2rem);
+    max-width: 1200px;
+    background: #ffffff;
+    border: 1px solid #dce5ee;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+
+.navbar ul {
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-items: center;
+}
+
+
+.navbar li {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #3a4b5c;
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.navbar li:hover {
+    background: #f0f6fc;
+    color: #1565c0;
+}
+
+.navbar li.selected {
+    background: #e3f0fb;
+    color: #1565c0;
+    box-shadow: inset 0 -2px 0 #1565c0;
+}
+
+
+.block-container {
+    padding-top: 7rem;  /* height + top spacing of navbar */
+    max-width: 1200px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    padding: 2rem;
+}
+
+
+div[data-testid="stHorizontalBlock"] {
+    background: #ffffff !important;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    padding: 1rem;
+}
+
+.st-emotion-cache-1n76uvr,
+.st-emotion-cache-1n76uvr * {
+    font-family: 'Inter', sans-serif !important;
+}
+
+.st-emotion-cache-1n76uvr button,
+.st-emotion-cache-1n76uvr button span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #22577a !important;
+    background: #f4f9fd !important;
+    border-radius: 8px !important;
+    border: 1px solid transparent !important;
+    transition: all 0.2s ease;
+}
+
+.st-emotion-cache-1n76uvr button[aria-selected="true"],
+.st-emotion-cache-1n76uvr button[aria-selected="true"] span {
+    color: #1565c0 !important;
+    background: #e3f0fb !important;
+    border: 1px solid #1565c0 !important;
+}
+
+.st-emotion-cache-1n76uvr button:hover,
+.st-emotion-cache-1n76uvr button:hover span {
+    color: #1565c0 !important;
+    background: #d0e7fa !important;
+}
+
+/* SCROLLBAR STYLING (Optional but stylish) */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f4f9fd;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #c2d4e5;
+    border-radius: 10px;
+    border: 2px solid #f4f9fd;
+}
+</style>
+
 """, unsafe_allow_html=True)
 
 # Set the logo
@@ -106,27 +154,45 @@ col1, col2, col3 = st.columns([0.1, 50, 0.1])  # Wider center column
 with col2:
     
     selected = option_menu(
-        menu_title=None,
-        options=["Executive Pulse", "Revenue Intelligence", "CX Insights", "Retention Strategies", "Technical Information", "Navigation Guide"],
-        icons=["speedometer","bar-chart","person-lines-fill","shield-check", "diagram-3", "question-circle"],
-        orientation="horizontal",
-       styles={
-            "container": {"background-color": "#ADD8E6", "padding": "5px"}, 
-            "icon": {"color": "black", "font-size": "20px"},  
-            "nav-link": {
-                "background-color": "#ADD8E6", 
-                "color": "black",  
-                "font-size": "16px",  
-                "padding": "10px",  
-                "border-radius": "7px",  
-                
-            },
-            "nav-link-selected": {
-                "background-color": "#1A2A3A",  
-                "color": "white",  
-            },
-       },     
-    )
+    menu_title=None,
+    options=[
+        "Executive Pulse", "Revenue Intelligence", "CX Insights",
+        "Retention Strategies", "Technical Information", "Navigation Guide"
+    ],
+    icons=[
+        "speedometer", "bar-chart", "person-lines-fill",
+        "shield-check", "diagram-3", "question-circle"
+    ],
+    orientation="horizontal",
+    styles={
+        "container": {
+            "background-color": "#ADD8E6",
+            "padding": "10px",
+            "margin": "0px",
+            "width": "100vw",
+            "border-radius": "0px",
+        },
+        "icon": {
+            "color": "white",
+            "font-size": "20px"
+        },
+        "nav-link": {
+            "background-color": "#ADD8E6",
+            "color": "black",
+            "font-size": "16px",
+            "padding": "10px 16px",
+            "border-radius": "0px",  # Avoid inner rounding too
+            "border": "2px solid transparent"
+        },
+        "nav-link-selected": {
+            "background-color": "#1A2A3A",
+            "color": "white",
+            "border": "2px solid #1A2A3A",
+            "padding": "10px 16px",
+            "border-radius": "0px"
+        }
+    }
+)
 
     
     if selected == "Executive Pulse":
