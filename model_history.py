@@ -212,8 +212,7 @@ def run():
         target_key = st.session_state.best_model
         model_keys = list(models.keys())
         target_index = model_keys.index(target_key)
-        st.session_state.best_model_index = target_index
-        st.write(target_index)
+        st.session_state.best_model_index = target_index        
         stage_times.append(("Model Evaluation", time.time() - t0))
         progress.progress(80)
     
