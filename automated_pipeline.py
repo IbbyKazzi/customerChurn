@@ -234,11 +234,11 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     )
     
     models = {
-        "Logistic Regression - new": LogisticRegression(),
-        "Random Forest - new": RandomForestClassifier(),
-        "Gradient Boosting - new": GradientBoostingClassifier(),
-        "Stacked Model - new": stacked_model,
-        model_name : best_model, # the best model with grid search HPO
+        "Logistic Regression - Base": LogisticRegression(),
+        "Random Forest - Base": RandomForestClassifier(),
+        "Gradient Boosting - Base": GradientBoostingClassifier(),
+        "Stacked Model - Base": stacked_model,
+        "Logistic Regression - HPO" : best_model, # the best model with grid search HPO
         current_model_name : model_t21 # Our currently used model
     }
 
