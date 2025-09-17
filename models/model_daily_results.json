@@ -118,5 +118,13 @@
         "module": "sklearn.pipeline",
         "version": "Pipeline",
         "auc": 0.8602003478008841
+    },
+    {
+        "timestamp": "2025-09-17 04:50:40",
+        "model_path": "models/logreg_model_20250915_190407.pkl",
+        "model_type": "Logistic Regression",
+        "module": "sklearn.pipeline",
+        "version": "Pipeline",
+        "auc": 0.8602003478008841
     }
 ]
