@@ -22,6 +22,9 @@ import shap
 import pytz
 import requests
 import base64
+from sklearn.ensemble import StackingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
 
 
@@ -217,9 +220,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
 
     #------ combining 4 models -------------#
 
-    from sklearn.ensemble import StackingClassifier
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+    
     
     base_models = [
         ('rf', RandomForestClassifier()),
