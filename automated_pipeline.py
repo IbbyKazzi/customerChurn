@@ -222,7 +222,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     return models, grid_search
 
 #Model evaluation
-def evaluate_models_void(models, X_test, y_test):
+def evaluate_models(models, X_test, y_test):
     scores = {}
 
     for name, model in models.items():
@@ -242,7 +242,7 @@ def evaluate_models_void(models, X_test, y_test):
 
 from sklearn.metrics import roc_curve
 
-def evaluate_models(models, X_test, y_test):
+def evaluate_models_void(models, X_test, y_test):
     scores = {}
 
     for name, model in models.items():
