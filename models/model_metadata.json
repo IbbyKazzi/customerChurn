@@ -953,6 +953,47 @@
       "clf__fit_intercept": true,
       "clf__penalty": "l1"
     },
+    "active": false,
+    "notes": "Auto-deployed via Streamlit"
+  },
+  {
+    "version": "logreg_model_20250917_174245",
+    "date": "2025-09-17 17:42:51 AEST",
+    "accuracy": 0.7558552164655784,
+    "roc_auc": 0.8651585806411544,
+    "precision": 0.5236541598694943,
+    "recall": 0.8605898123324397,
+    "f1": 0.6511156186612576,
+    "brier_score": 0.12671087695850103,
+    "features": [
+      "Contract",
+      "InternetService",
+      "TechSupport",
+      "PaymentMethod",
+      "Months",
+      "MonthlyCharges",
+      "TotalCharges",
+      "OnlineSecurity",
+      "PhoneService",
+      "PaperlessBilling",
+      "OnlineBackup",
+      "charge_velocity",
+      "MultipleLines",
+      "Dependents",
+      "loyalty_band",
+      "DeviceProtection",
+      "StreamingMovies",
+      "SeniorCitizen",
+      "gender",
+      "Partner",
+      "StreamingTV",
+      "contract_stability"
+    ],
+    "hyperparameters": {
+      "clf__C": 1,
+      "clf__fit_intercept": true,
+      "clf__penalty": "l1"
+    },
     "active": true,
     "notes": "Auto-deployed via Streamlit"
   }
