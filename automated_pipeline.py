@@ -210,10 +210,39 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     now_sydney = datetime.now(sydney_tz)
     date_str = now_sydney.strftime("%Y%m%d_%H%M%S")
     model_name = f"logreg_model_{date_str}"
-    models = {        
+    #models = {        
+    #    model_name : best_model, # the best model with grid search HPO
+    #    current_model_name : model_t21 # Our currently used model
+    #}
+
+    #------ combining 4 models -------------#
+
+    from sklearn.ensemble import StackingClassifier
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+    
+    base_models = [
+        ('rf', RandomForestClassifier()),
+        ('gb', GradientBoostingClassifier())
+    ]
+    
+    stacked_model = StackingClassifier(
+        estimators=base_models,
+        final_estimator=LogisticRegression(),
+        cv=5
+    )
+    
+    models = {
+        "Logistic Regression - new": LogisticRegression(),
+        "Random Forest - new": RandomForestClassifier(),
+        "Gradient Boosting - new": GradientBoostingClassifier(),
+        "Stacked Model - new": stacked_model,
         model_name : best_model, # the best model with grid search HPO
         current_model_name : model_t21 # Our currently used model
     }
+
+
+    #--------------------------------------#
 
     for name, model in models.items():
         model.fit(X_train, y_train)
