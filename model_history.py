@@ -235,7 +235,7 @@ def run():
         end_time = time.time()
         elapsed = end_time - st.session_state.start_time  
         if st.session_state.best_model_auc > st.session_state.auc_threshold:
-            annotation = "🆕 (new model)" if st.session_state.best_model_index == 0 else ""
+            annotation = "✨ newly trained" if st.session_state.best_model_index == 0 else ""
             st.success(
                 f"✅ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}"
             )
