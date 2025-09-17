@@ -222,7 +222,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     return models, grid_search
 
 #Model evaluation
-def evaluate_models(models, X_test, y_test):
+def evaluate_models_void(models, X_test, y_test):
     scores = {}
 
     for name, model in models.items():
@@ -236,6 +236,34 @@ def evaluate_models(models, X_test, y_test):
             "Recall": recall_score(y_test, y_pred),
             "F1": f1_score(y_test, y_pred),
             "Brier Score": brier_score_loss(y_test, y_prob)
+        }
+
+    return scores
+
+from sklearn.metrics import roc_curve
+
+def evaluate_models(models, X_test, y_test):
+    scores = {}
+
+    for name, model in models.items():
+        y_prob = model.predict_proba(X_test)[:, 1]
+
+        # Optimal threshold based on Youden's J statistic
+        fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+        optimal_idx = np.argmax(tpr - fpr)
+        optimal_threshold = thresholds[optimal_idx]
+
+        # Apply threshold to get predicted labels
+        y_pred = (y_prob >= optimal_threshold).astype(int)
+
+        scores[name] = {
+            "Accuracy": accuracy_score(y_test, y_pred),
+            "AUC": roc_auc_score(y_test, y_prob),
+            "Precision": precision_score(y_test, y_pred),
+            "Recall": recall_score(y_test, y_pred),
+            "F1": f1_score(y_test, y_pred),
+            "Brier Score": brier_score_loss(y_test, y_prob),
+            "Optimal Threshold": optimal_threshold
         }
 
     return scores
