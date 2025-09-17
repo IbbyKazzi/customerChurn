@@ -209,8 +209,11 @@ def run():
         st.session_state.fig = fig
         st.session_state.best_model = ap.select_best_model(model_scores, metric="AUC")
         st.session_state.best_model_auc = model_scores[st.session_state.best_model]["AUC"]
-        st.write(models)
-        st.session_state.best_model_index = models.index(st.session_state.best_model)
+        target_key = st.session_state.best_model
+        model_keys = list(models.keys())
+        target_index = model_keys.index(target_key)
+        st.session_state.best_model_index = target_index
+        st.write(target_index)
         stage_times.append(("Model Evaluation", time.time() - t0))
         progress.progress(80)
     
