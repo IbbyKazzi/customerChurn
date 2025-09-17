@@ -209,6 +209,7 @@ def run():
         st.session_state.fig = fig
         st.session_state.best_model = ap.select_best_model(model_scores, metric="AUC")
         st.session_state.best_model_auc = model_scores[st.session_state.best_model]["AUC"]
+        st.session_state.best_model_index = model_scores.index
         stage_times.append(("Model Evaluation", time.time() - t0))
         progress.progress(80)
     
@@ -230,7 +231,10 @@ def run():
         end_time = time.time()
         elapsed = end_time - st.session_state.start_time  
         if st.session_state.best_model_auc > st.session_state.auc_threshold:
-            st.success(f"✅ Pipeline completed, with best model: {st.session_state.best_model} and AUC: {st.session_state.best_model_auc:.4f}")
+            annotation = "🆕 (new model)" if st.session_state.best_model == st.session_state.new_model else ""
+            st.success(
+                f"✅ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}"
+            )
         else:
             st.error(f"⚠️ Pipeline completed, with best model: {st.session_state.best_model} and AUC: {st.session_state.best_model_auc:.4f}")
         with st.expander("📋 Model Metrics"):            
