@@ -239,7 +239,8 @@ def run():
                 f"✅ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}"
             )
         else:
-            st.error(f"⚠️ Pipeline completed, with best model: {st.session_state.best_model} and AUC: {st.session_state.best_model_auc:.4f}")
+            annotation = "✨ newly trained" if st.session_state.best_model_index == 0 else "🎯 currently deployed"
+            st.error(f"⚠️ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
             st.plotly_chart(st.session_state.fig, use_container_width=True)
