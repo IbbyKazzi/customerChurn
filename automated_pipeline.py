@@ -228,7 +228,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     ]
     
     stacked_model = StackingClassifier(
-        estimators=best_model,
+        estimators=base_models,
         final_estimator=LogisticRegression(),
         cv=5
     )
