@@ -255,7 +255,7 @@ def run():
 
         # --- Set best model name so we can use it in deplotyment --- #
         tz_sydney = pytz.timezone("Australia/Sydney")
-        timestamp = datetime.now(tz_sydney).strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now(tz_sydney).strftime("%y%m%d_%H%M")
         dateDeployed = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         st.session_state.best_model_name = ''
         if st.session_state.best_model_index == 0:
