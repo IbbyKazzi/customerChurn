@@ -120,11 +120,10 @@ def run():
         st.session_state.selected_features = ''
     
     # --- UI Buttons ---    
-    run_now = st.sidebar.button("🔄 Run Pipeline")
-
-    if run_now:
+    if st.sidebar.button("🔄 Run Pipeline"):
         st.session_state.run_pipeline = True
         st.session_state.pipeline_ran = False
+        st.session_state.start_time = time.time()
   
    
     # --- Pipeline Execution ---       
@@ -132,9 +131,8 @@ def run():
     if "start_time" not in st.session_state:
         st.session_state.start_time = None
 
-    if run_now and not st.session_state.pipeline_ran:
-        st.session_state.start_time = time.time()
-        st.session_state.run_pipeline = False  # Immediately reset to prevent rerun loop
+    if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
+        st.session_state.start_time = time.time()        
         progress = st.progress(0)
         status = st.empty()
         stage_times = []
@@ -271,7 +269,9 @@ def run():
             st.session_state.best_model_name = f"log_reg_hpo_{timestamp}"
         else:
             st.session_state.best_model_name = st.session_state.best_model
-            
+
+        st.session_state.run_pipeline = False  # Reset pipeline execution
+        
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
             st.sidebar.success("Start saving to GitHub...")     
