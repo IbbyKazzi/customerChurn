@@ -282,15 +282,11 @@ def run():
             model_obj = st.session_state.grid_search.best_estimator_
             model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl"
             with open(model_filename, "wb") as f:
-                pickle.dump(model_obj, f)
-                
-            if "model_saved" not in st.session_state:
-                st.session_state.model_saved = True
+                pickle.dump(model_obj, f)             
             
-            if st.session_state.model_saved:
-                st.toast(f"📦 Model saved: {model_filename}", icon="💾")
-                if st.button("Dismiss Toast"):
-                    st.session_state.model_saved = False
+            
+            st.toast(f"📦 Model saved: {model_filename}", icon="💾")
+               
         
             # Update model registry            
             tz_sydney = pytz.timezone("Australia/Sydney")
@@ -333,7 +329,7 @@ def run():
             
             # Save selected features
             save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs", model_obj, model_filename)
+            saveToGit("logistic_ffs", model_obj, st.session_state.best_model_name)
             st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
