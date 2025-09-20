@@ -174,7 +174,7 @@ with col2:
     selected = option_menu(
     menu_title=None,
     options=[
-        "Executive Pulse", "Revenue Intelligence", "CX Insights",
+        "Executive Pulse", "Revenue Intelligence", "Customer Insights",
         "Retention Strategies", "Technical Information", "Navigation Guide"
     ],
     icons=[
@@ -191,7 +191,7 @@ with col2:
             "border-radius": "0px",
         },
         "icon": {
-            "color": "white",
+            "color": "blue",
             "font-size": "20px"
         },
         "nav-link": {
@@ -229,8 +229,8 @@ with col2:
         import churn_analysis
         churn_analysis.run()
     
-    elif selected == "CX Insights":
-        st.sidebar.header("👤 CX Insights")
+    elif selected == "Customer Insights":
+        st.sidebar.header("👤 Customer Insights")
         st.sidebar.subheader("Customer experience and service quality analysis")
         st.sidebar.markdown("Explore how customer service interactions, support ticket trends, and satisfaction scores correlate with churn. This tab equips Customer Experience teams with actionable insights to enhance service quality and improve customer loyalty.")
         import customerService

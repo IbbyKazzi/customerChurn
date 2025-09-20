@@ -14,7 +14,7 @@ def run():
     |--------------------------|----------------------------------------------------------------------------|
     | **Executive Pulse**      | High-level summary of churn metrics and business health                    |
     | **Revenue Intelligence** | Deep dive into revenue, channels, trends, and financial impact             |
-    | **CX Insights**          | Analysis of customer service, satisfaction, and churn                      |
+    | **Customer Insights**    | Analysis of customer service, satisfaction, and churn                      |
     | **Retention Strategies** | Interventions to reduce churn and improve loyalty                          |
     | **Technical Information**| Model performance, feature importance, version control                     |
     | **Navigation Guide**     | This guide — how to navigate and use the dashboard                         |
@@ -45,7 +45,7 @@ def run():
 • Focus retention on highest-value channels  
     """)
 
-    st.markdown("### 3️⃣ CX (Customer Experience) Insights  \n🧑 *For CX, Product, and Support Teams*")
+    st.markdown("### 3️⃣ Customer Insights  \n🧑 *For Customer Experience, Product, and Support Teams*")
     st.markdown("""
 - **Support Tickets**: Complaint trends  
 - **Satisfaction Scores (CSAT/NPS)**  
