@@ -173,7 +173,7 @@ def run():
         
         # Timestamp and payload
         tz_sydney = pytz.timezone("Australia/Sydney")
-        timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+        timestamp = datetime.now(tz_sydney).strftime("%Y%m%d_%H%M%S")
         payload = {"timestamp": timestamp, "features": selected_features}
         st.session_state.selected_features = payload
         stage_times.append(("Feature Selection", time.time() - t0))
