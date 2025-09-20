@@ -3,14 +3,8 @@ import streamlit as st
 import base64
 
 # Set page title and icon
-st.set_page_config(
-    page_title="EdgeTel by UTS Dashboard",
-    page_icon="https://cdn-icons-png.flaticon.com/512/11264/11264700.png",
-    layout="wide"
-)
 st.markdown("""
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 html, body, [class*="css"] {
@@ -20,7 +14,6 @@ html, body, [class*="css"] {
     padding: 0;
     margin: 0;
 }
-
 
 .navbar {
     position: fixed;
@@ -40,7 +33,6 @@ html, body, [class*="css"] {
     transition: all 0.3s ease-in-out;
 }
 
-
 .navbar ul {
     display: flex;
     gap: 2rem;
@@ -50,6 +42,13 @@ html, body, [class*="css"] {
     align-items: center;
 }
 
+.nav-item .icon {
+    color: black;
+}
+
+.nav-item.selected .icon {
+    color: white;
+}
 
 .navbar li {
     font-size: 0.95rem;
@@ -73,9 +72,8 @@ html, body, [class*="css"] {
     box-shadow: inset 0 -2px 0 #1565c0;
 }
 
-
 .block-container {
-    padding-top: 7rem;  /* height + top spacing of navbar */
+    padding-top: 7rem;
     max-width: 1200px;
     margin: auto;
     background: #ffffff;
@@ -83,7 +81,6 @@ html, body, [class*="css"] {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     padding: 2rem;
 }
-
 
 div[data-testid="stHorizontalBlock"] {
     background: #ffffff !important;
@@ -121,7 +118,7 @@ div[data-testid="stHorizontalBlock"] {
     background: #d0e7fa !important;
 }
 
-/* SCROLLBAR STYLING (Optional but stylish) */
+/* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -135,9 +132,25 @@ div[data-testid="stHorizontalBlock"] {
     border-radius: 10px;
     border: 2px solid #f4f9fd;
 }
-</style>
 
+/* Sidebar layout */
+section[data-testid="stSidebar"] {
+    min-width: 400px !important;
+    max-width: 400px !important;
+    height: 100vh !important;
+    overflow-y: auto;
+    padding-top: 2rem;
+    background-color: #ffffff;
+    box-shadow: 2px 0 6px rgba(0,0,0,0.05);
+}
+
+/* 🔒 Remove expand/collapse sidebar button */
+div[data-testid="stSidebarCollapseButton"] {
+    display: none !important;
+}
+</style>
 """, unsafe_allow_html=True)
+
 
 # Set the logo
 def get_base64_image(path):
@@ -145,12 +158,17 @@ def get_base64_image(path):
         return base64.b64encode(f.read()).decode()
 
 logo_base64 = get_base64_image("assets/logo2.png")
+
+
 st.sidebar.markdown(
     f"<img src='data:image/png;base64,{logo_base64}' width='120'>",
+    
     unsafe_allow_html=True
 )
 
-col1, col2, col3 = st.columns([0.1, 50, 0.1])  # Wider center column
+
+
+col2 = st.container()
 with col2:
     
     selected = option_menu(
