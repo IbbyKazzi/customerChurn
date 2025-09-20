@@ -332,7 +332,7 @@ def run():
             #st.sidebar.write(st.session_state.best_model_name)
             #st.sidebar.write(st.session_state.best_model)
             save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs", model_obj, st.session_state.best_model_name)
+            saveToGit("logistic_ffs", model_obj, st.session_state.best_model)
             st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
