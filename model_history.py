@@ -255,7 +255,7 @@ def run():
 
         # --- Set best model name so we can use it in deplotyment --- #
         tz_sydney = pytz.timezone("Australia/Sydney")
-        timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+        timestamp = datetime.now(tz_sydney).strftime("%Y%m%d_%H%M%S")
         st.session_state.best_model_name = ''
         if st.session_state.best_model_index == 0:
             st.session_state.best_model_name = f"log_reg_base_{timestamp}"
