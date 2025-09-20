@@ -1023,6 +1023,35 @@
       "clf__fit_intercept": true,
       "clf__penalty": "l1"
     },
+    "active": false,
+    "notes": "Auto-deployed via Streamlit"
+  },
+  {
+    "version": "Stacked Model - Base",
+    "date": "2025-09-20 15:32:59 AEST",
+    "accuracy": 0.801277501774308,
+    "roc_auc": 0.8570264059540198,
+    "precision": 0.6654804270462633,
+    "recall": 0.5013404825737265,
+    "f1": 0.5718654434250765,
+    "brier_score": 0.1320083870905417,
+    "features": [
+      "Contract",
+      "InternetService",
+      "TechSupport",
+      "PaymentMethod",
+      "Months",
+      "MonthlyCharges",
+      "TotalCharges",
+      "loyalty_band",
+      "gender",
+      "contract_stability"
+    ],
+    "hyperparameters": {
+      "clf__C": 100,
+      "clf__fit_intercept": true,
+      "clf__penalty": "l1"
+    },
     "active": true,
     "notes": "Auto-deployed via Streamlit"
   }
