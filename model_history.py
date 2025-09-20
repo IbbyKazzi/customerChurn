@@ -256,17 +256,19 @@ def run():
                 st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))           
 
         # --- Set best model name so we can use it in deplotyment --- #
+        tz_sydney = pytz.timezone("Australia/Sydney")
+        timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         st.session_state.best_model_name = ''
         if st.session_state.best_model_index == 0:
-            st.session_state.best_model_name = "log_reg_base"
+            st.session_state.best_model_name = f"log_reg_base_{timestamp}"
         elif st.session_state.best_model_index == 1:
-            st.session_state.best_model_name = "RF_base"
+            st.session_state.best_model_name = f"RF_base_{timestamp}"
         elif st.session_state.best_model_index == 2:
-            st.session_state.best_model_name = "GB_base"
+            st.session_state.best_model_name = f"GB_base_{timestamp}"
         elif st.session_state.best_model_index == 3:
-            st.session_state.best_model_name = "StackLR"
+            st.session_state.best_model_name = f"StackLR{timestamp}"
         elif st.session_state.best_model_index == 4:
-            st.session_state.best_model_name = "log_reg_hpo"
+            st.session_state.best_model_name = f"log_reg_hpo_{timestamp}"
         else:
             st.session_state.best_model_name = st.session_state.best_model
             
@@ -289,8 +291,7 @@ def run():
                
         
             # Update model registry            
-            tz_sydney = pytz.timezone("Australia/Sydney")
-            timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+            
         
             # Load existing registry
             if os.path.exists(METADATA_PATH):
