@@ -256,6 +256,7 @@ def run():
         # --- Set best model name so we can use it in deplotyment --- #
         tz_sydney = pytz.timezone("Australia/Sydney")
         timestamp = datetime.now(tz_sydney).strftime("%Y%m%d_%H%M%S")
+        dateDeployed = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         st.session_state.best_model_name = ''
         if st.session_state.best_model_index == 0:
             st.session_state.best_model_name = f"log_reg_base_{timestamp}"
@@ -307,7 +308,7 @@ def run():
             # Add new model entry
             new_entry = {
                 "version": st.session_state.best_model,
-                "date": timestamp,
+                "date": dateDeployed,
                 "accuracy": best_model["Accuracy"],
                 "roc_auc": best_model["AUC"],
                 "precision": best_model["Precision"],
@@ -331,8 +332,8 @@ def run():
             # Save selected features and model
             st.sidebar.write(st.session_state.best_model_name)
             st.sidebar.write(st.session_state.best_model)            
-            #save_selected_features("logistic_ffs", st.session_state.selected_features)
-            #saveToGit("logistic_ffs", model_obj, st.session_state.best_model)
+            save_selected_features("logistic_ffs", st.session_state.selected_features)
+            saveToGit("logistic_ffs", model_obj, st.session_state.best_model_name)
             st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
