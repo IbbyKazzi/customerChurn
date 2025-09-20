@@ -232,7 +232,7 @@ def run():
 
     if st.session_state.pipeline_ran: 
         end_time = time.time()
-        elapsed = end_time - st.session_state.start_time  
+        elapsed = end_time - st.session_state.start_time          
         if st.session_state.best_model_auc > st.session_state.auc_threshold:
             annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
             st.success(
@@ -254,8 +254,22 @@ def run():
             if "stage_times" in st.session_state:
                 summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
                 st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))           
-        
-       
+
+        # --- Set best model name so we can use it in deplotyment --- #
+        st.session_state.best_model_name = ''
+        if st.session_state.best_model_index == 0:
+            st.session_state.best_model_name = "log_reg_base"
+        elif st.session_state.best_model_index == 1:
+            st.session_state.best_model_name = "RF_base"
+        elif st.session_state.best_model_index == 2:
+            st.session_state.best_model_name = "GB_base"
+        elif st.session_state.best_model_index == 3:
+            st.session_state.best_model_name = "StackLR"
+        elif st.session_state.best_model_index == 4:
+            st.session_state.best_model_name = "log_reg_hpo"
+        else:
+            st.session_state.best_model_name = st.session_state.best_model
+            
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
             st.sidebar.success("Start saving to GitHub...")     
@@ -266,7 +280,7 @@ def run():
             ].iloc[0]
         
             model_obj = st.session_state.grid_search.best_estimator_
-            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model}.pkl"
+            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl"
             with open(model_filename, "wb") as f:
                 pickle.dump(model_obj, f)
                 
