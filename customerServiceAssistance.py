@@ -199,18 +199,25 @@ def generate_response(question, data, shap_values, contract_map, df):
             )
             st.markdown("### Factors of Churn")
             
-            # Generate the SHAP plot
-            fig = shap.plots.waterfall(shap_values, max_display=10, show=False)
+            # Try to generate the SHAP plot
+            try:
+                # Clear any previous Matplotlib figures
+                plt.clf()
         
-            # Auto-detect and render
-            if "plotly" in str(type(fig)).lower():
-                st.plotly_chart(fig, use_container_width=True)
-            elif "matplotlib" in str(type(fig)).lower():
-                st.pyplot(fig)
-            else:
-                st.warning("⚠️ Unsupported plot type. Please check SHAP explainer.")
-
-
+                # Generate the waterfall plot
+                result = shap.plots.waterfall(shap_values, max_display=10, show=False)
+        
+                # If result is a Plotly figure, render it
+                if result is not None and "plotly" in str(type(result)).lower():
+                    st.plotly_chart(result, use_container_width=True)
+        
+                # If result is None, assume Matplotlib and grab current figure
+                else:
+                    fig = plt.gcf()
+                    st.pyplot(fig)
+        
+            except Exception as e:
+                st.error(f"❌ Failed to render SHAP waterfall plot: {e}")
 
         showResponse(response)   
 
