@@ -261,15 +261,13 @@ def run():
         dateDeployed = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         st.session_state.best_model_name = ''
         if st.session_state.best_model_index == 0:
-            st.session_state.best_model_name = f"log_reg_base_{timestamp}"
-        elif st.session_state.best_model_index == 1:
-            st.session_state.best_model_name = f"RF_base_{timestamp}"
-        elif st.session_state.best_model_index == 2:
-            st.session_state.best_model_name = f"GB_base_{timestamp}"
-        elif st.session_state.best_model_index == 3:
-            st.session_state.best_model_name = f"StackLR{timestamp}"
-        elif st.session_state.best_model_index == 4:
             st.session_state.best_model_name = f"log_reg_hpo_{timestamp}"
+        elif st.session_state.best_model_index == 1:
+            st.session_state.best_model_name = f"RF_hpo_{timestamp}"
+        elif st.session_state.best_model_index == 2:
+            st.session_state.best_model_name = f"GB_hpo_{timestamp}"
+        elif st.session_state.best_model_index == 3:
+            st.session_state.best_model_name = f"StackLR_{timestamp}"       
         else:
             st.session_state.best_model_name = st.session_state.best_model
 
@@ -292,9 +290,7 @@ def run():
             model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl" 
             st.toast(f"📦 Model saved: {model_filename}", icon="💾")              
         
-            # Update model registry            
-            
-        
+            # Update model registry
             # Load existing registry
             if os.path.exists(METADATA_PATH):
                 with open(METADATA_PATH, "r") as f:
