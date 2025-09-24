@@ -313,13 +313,14 @@ def run():
                 "features": st.session_state.selected_features["features"],
                 "hyperparameters": st.session_state.grid_search[st.session_state.best_model],
                 "active": True,
-                "notes": "Auto-deployed via Streamlit"
+                "notes": "Auto-deployed via Streamlit App"
             }
+            st.write(new_entry)
             registry.append(new_entry)
         
             # Save updated registry
             with open(METADATA_PATH, "w") as f:
-                json.dump(registry[st.session_state.best_model], f, indent=2)
+                json.dump(registry, f, indent=2)
         
             st.sidebar.success("✅ Model registry updated and activated!")
             st.toast("📘 Registry entry saved", icon="📚", duration=10)
