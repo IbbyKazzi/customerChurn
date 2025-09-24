@@ -246,8 +246,10 @@ def run():
             st.caption("✨Features used")
             st.json(st.session_state.selected_features)
         with st.expander("🔍 View Grid search HPO"):
-            st.caption("🔧 HPO used")
-            st.write(st.session_state.grid_search.best_params_)        
+            st.caption("🔧 Best hyperparameters for each model")    
+            for model_name, grid in st.session_state.grid_search.items():
+                st.subheader(f"📌 {model_name}")
+                st.write(grid.best_params_)        
         with st.expander("⏱️ Pipeline Timing Summary"):
             if "stage_times" in st.session_state:
                 summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
