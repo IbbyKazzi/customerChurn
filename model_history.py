@@ -319,7 +319,7 @@ def run():
         
             # Save updated registry
             with open(METADATA_PATH, "w") as f:
-                json.dump(registry, f, indent=2)
+                json.dump(registry[st.session_state.best_model], f, indent=2)
         
             st.sidebar.success("✅ Model registry updated and activated!")
             st.toast("📘 Registry entry saved", icon="📚", duration=10)
