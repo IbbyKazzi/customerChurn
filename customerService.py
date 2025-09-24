@@ -41,7 +41,8 @@ def run():
     def compute_shap_values(test_data):
         return explainer(test_data)
     
-    shap_values = compute_shap_values(X_test[:50])
+    #shap_values = compute_shap_values(X_test[:50]) #Top 50
+    shap_values = compute_shap_values(X_test) #All
 
 
     
