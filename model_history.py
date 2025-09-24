@@ -284,7 +284,7 @@ def run():
                 st.session_state.scores_df["Model"] == st.session_state.best_model
             ].iloc[0]
         
-            model_obj = st.session_state.grid_search[st.session_state.best_model_index].best_estimator_
+            model_obj = st.session_state.grid_search[st.session_state.best_model].best_estimator_
             model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl"
             with open(model_filename, "wb") as f:
                 pickle.dump(model_obj, f)             
