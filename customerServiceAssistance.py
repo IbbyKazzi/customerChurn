@@ -191,15 +191,20 @@ def generate_response(question, data, shap_values, contract_map, df):
              
         # Show waterfall plot if toggle is activated
         if st.toggle("Show churn factor waterfall"):
-            response =   (
-              f"🧠 **ChurnMate:** "
-              f"Below are the 10 highest SHAP features that impact on the prediction.\n\n"
-              f"🔴Red feature value pushes the prediction towards churn.\n\n"
-              f"🔵 Blue feature value pushes the prediction away from churn."
-            )  
+            response = (
+                f"🧠 **ChurnMate:** "
+                f"Below are the 10 highest SHAP features that impact on the prediction.\n\n"
+                f"🔴 Red feature value pushes the prediction towards churn.\n\n"
+                f"🔵 Blue feature value pushes the prediction away from churn."
+            )
             st.markdown("### Factors of Churn")
-            fig, ax = plt.subplots()
-            shap.plots.waterfall(shap_values, show=True)
+            
+            # Set larger figure size
+            fig, ax = plt.subplots(figsize=(10, 6))  # Adjust width and height as needed
+            
+            # Plot SHAP waterfall into the current figure
+            shap.plots.waterfall(shap_values, max_display=10, show=False)
+            
             st.pyplot(fig)
 
         showResponse(response)   
