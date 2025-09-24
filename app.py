@@ -162,7 +162,7 @@ logo_base64 = get_base64_image("assets/logo2.png")
 # add logo and app name and  slogan
 st.sidebar.markdown(
     f"""
-    <div style='text-align: center;'>
+    <div style='text-align: left;'>
         <img src='data:image/png;base64,{logo_base64}' width='120'><br>
         <h3 style='margin-top: 5px; font-size: 18px;'>Churn Reduction App</h3>
         <p style='font-size:14px; color:gray;'>Predict. Prevent. Retain.</p>
@@ -289,6 +289,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
