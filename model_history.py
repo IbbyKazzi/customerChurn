@@ -276,10 +276,13 @@ def run():
         st.session_state.run_pipeline = False  # Reset pipeline execution
         
         # Save to GitHub
+        if "deploy_triggered" not in st.session_state:
+            st.session_state.deploy_triggered = False
+
         if st.sidebar.button("🚀 Deploy new model"):
             st.session_state.deploy_triggered = True
 
-        if st.session_state.get("deploy_triggered", False):            
+        if st.session_state.deploy_triggered:          
             st.sidebar.success("Start saving to GitHub...") 
             
             # Prepair model name to save it to the repor                 
