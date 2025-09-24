@@ -232,12 +232,12 @@ def run():
         end_time = time.time()
         elapsed = end_time - st.session_state.start_time          
         if st.session_state.best_model_auc > st.session_state.auc_threshold:
-            annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
+            annotation = "✨ newly trained" if st.session_state.best_model_index != 4 else "🎯 currently deployed"
             st.success(
                 f"✅ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}"
             )
         else:
-            annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
+            annotation = "✨ newly trained" if st.session_state.best_model_index != 4 else "🎯 currently deployed"
             st.error(f"⚠️ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
