@@ -314,8 +314,7 @@ def run():
                 "hyperparameters": st.session_state.grid_search[st.session_state.best_model].best_params_,
                 "active": True,
                 "notes": "Auto-deployed via Streamlit App"
-            }
-            st.write(new_entry)
+            }            
             registry.append(new_entry)
         
             # Save updated registry
