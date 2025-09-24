@@ -199,13 +199,9 @@ def generate_response(question, data, shap_values, contract_map, df):
             )
             st.markdown("### Factors of Churn")
             
-            # Set larger figure size
-            fig, ax = plt.subplots(figsize=(10, 6))  # Adjust width and height as needed
-            
-            # Plot SHAP waterfall into the current figure
-            shap.plots.waterfall(shap_values, max_display=10, show=False)
-            
-            st.pyplot(fig)
+            fig = shap.plots.waterfall(shap_values, max_display=10, show=False)
+            st.plotly_chart(fig, use_container_width=True)
+
 
         showResponse(response)   
 
