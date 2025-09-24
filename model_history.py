@@ -157,6 +157,7 @@ def run():
         status.markdown("🧠 <span style='color:#ff7f0e'>Selecting features...</span>", unsafe_allow_html=True)
         
         if st.session_state.selection_method == "Forward Feature Selection (FFS)":
+            st.session_state.feature_selection = "FFS" 
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
@@ -164,6 +165,7 @@ def run():
                 force_include=must_have
             )
         else:
+            st.session_state.feature_selection = "Shap values"
             selected_features = ap.select_shap_top_features(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
@@ -260,15 +262,20 @@ def run():
         timestamp = datetime.now(tz_sydney).strftime("%y%m%d_%H%M")
         dateDeployed = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         st.session_state.best_model_name = ''
+        st.session_state.best_model_type = ''
         if st.session_state.best_model_index == 0:
+            st.session_state.best_model_type = 'Logistic Regression'
             st.session_state.best_model_name = f"log_reg_hpo_{timestamp}"
         elif st.session_state.best_model_index == 1:
+            st.session_state.best_model_type = 'Random Forest'
             st.session_state.best_model_name = f"RF_hpo_{timestamp}"
         elif st.session_state.best_model_index == 2:
+            st.session_state.best_model_type = 'Gradient Boosting'
             st.session_state.best_model_name = f"GB_hpo_{timestamp}"
         elif st.session_state.best_model_index == 3:
+            st.session_state.best_model_type = 'Stacked Model'
             st.session_state.best_model_name = f"StackLR_{timestamp}"       
-        else:
+        else:            
             st.session_state.best_model_name = st.session_state.best_model
 
         st.session_state.run_pipeline = False  # Reset pipeline execution
@@ -303,6 +310,7 @@ def run():
             # Add new model entry
             new_entry = {
                 "version": st.session_state.best_model_name,
+                "model_type": 
                 "date": dateDeployed,
                 "accuracy": best_model["Accuracy"],
                 "roc_auc": best_model["AUC"],
@@ -310,8 +318,10 @@ def run():
                 "recall": best_model["Recall"],
                 "f1": best_model["F1"],
                 "brier_score": best_model["Brier Score"],
+                "feature_selection": st.session_state.feature_selection,
+                "total_features": st.session_state.selected_features.length,
                 "features": st.session_state.selected_features["features"],
-                "hyperparameters": st.session_state.grid_search[st.session_state.best_model].best_params_,
+                "hyperparameters": st.session_state.grid_search[st.session_state.best_model].best_params_,                
                 "active": True,
                 "notes": "Auto-deployed via Streamlit App"
             }            
