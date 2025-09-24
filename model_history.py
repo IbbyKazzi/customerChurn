@@ -248,7 +248,7 @@ def run():
         with st.expander("🔍 View Grid search HPO"):
             st.caption("🔧 Best hyperparameters for each model")    
             for model_name, grid in st.session_state.grid_search.items():
-                st.markdown(f"<h5 style='margin-bottom:0;'>{model_name}</h5>", unsafe_allow_html=True)
+                st.markdown(f"📌<h6 style='margin-bottom:0;'>{model_name}</h6>", unsafe_allow_html=True)
                 st.write(grid.best_params_)        
         with st.expander("⏱️ Pipeline Timing Summary"):
             if "stage_times" in st.session_state:
