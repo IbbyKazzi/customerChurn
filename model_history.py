@@ -310,7 +310,7 @@ def run():
             # Add new model entry
             new_entry = {
                 "version": st.session_state.best_model_name,
-                "model_type": 
+                "model_type":  st.session_state.best_model_type,
                 "date": dateDeployed,
                 "accuracy": best_model["Accuracy"],
                 "roc_auc": best_model["AUC"],
