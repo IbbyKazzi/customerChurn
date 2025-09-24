@@ -311,7 +311,7 @@ def run():
                 "f1": best_model["F1"],
                 "brier_score": best_model["Brier Score"],
                 "features": st.session_state.selected_features["features"],
-                "hyperparameters": st.session_state.grid_search.best_params_,
+                "hyperparameters": st.session_state.grid_search[st.session_state.best_model],
                 "active": True,
                 "notes": "Auto-deployed via Streamlit"
             }
