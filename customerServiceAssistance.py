@@ -209,11 +209,13 @@ def generate_response(question, data, shap_values, contract_map, df):
         
                 # If result is a Plotly figure, render it
                 if result is not None and "plotly" in str(type(result)).lower():
+                    st.write("ploty")
                     result.update_layout(height=300, margin=dict(t=30, b=30))
                     st.plotly_chart(result, use_container_width=True)
         
                 # If result is None, assume Matplotlib and grab current figure
                 else:
+                    st.write("Matplotlib")
                     plt.figure(figsize=(12, 8)) 
                     result = plt.gcf()
                     st.pyplot(result)
