@@ -1052,7 +1052,7 @@
       "clf__fit_intercept": true,
       "clf__penalty": "l1"
     },
-    "active": false,
+    "active": true,
     "notes": "Auto-deployed via Streamlit"
   }
 ]
