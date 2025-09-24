@@ -319,7 +319,7 @@ def run():
                 "f1": best_model["F1"],
                 "brier_score": best_model["Brier Score"],
                 "feature_selection": st.session_state.feature_selection,
-                "total_features": st.session_state.selected_features.length,
+                "total_features": len(st.session_state.selected_features["features"]),
                 "features": st.session_state.selected_features["features"],
                 "hyperparameters": st.session_state.grid_search[st.session_state.best_model].best_params_,                
                 "active": True,
