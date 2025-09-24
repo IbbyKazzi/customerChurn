@@ -22,7 +22,7 @@ def show_model_history(path=METADATA_PATH):
 
     # Display models stat 
     st.subheader("📋 Model Registry")
-    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
+    st.dataframe(df[["version", "date", "model_type", "feature_selection", "total_features", "roc_auc", "notes", "active"]])
 
     # Get current model AUC and display it
     current_model = df[df["active"] == True].iloc[0]
