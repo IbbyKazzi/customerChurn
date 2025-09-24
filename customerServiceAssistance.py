@@ -199,7 +199,7 @@ def generate_response(question, data, shap_values, contract_map, df):
             )  
             st.markdown("### Factors of Churn")
             fig, ax = plt.subplots()
-            shap.plots.waterfall(shap_values, show=False)
+            shap.plots.waterfall(shap_values, show=True)
             st.pyplot(fig)
 
         showResponse(response)   
