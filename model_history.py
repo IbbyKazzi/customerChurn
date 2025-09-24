@@ -283,7 +283,11 @@ def run():
             ].iloc[0]   
             model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl" 
             st.toast(f"📦 Model saved: {model_filename}", icon="💾")              
-        
+
+            model_obj = st.session_state.grid_search[st.session_state.best_model].best_estimator_
+            with open(model_filename, "wb") as f:
+                pickle.dump(model_obj, f)     
+                
             # Update model registry
             # Load existing registry
             if os.path.exists(METADATA_PATH):
