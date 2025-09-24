@@ -277,6 +277,9 @@ def run():
         
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
+            st.session_state.deploy_triggered = True
+
+        if st.session_state.get("deploy_triggered", False):            
             st.sidebar.success("Start saving to GitHub...") 
             
             # Prepair model name to save it to the repor                 
@@ -331,14 +334,7 @@ def run():
             saveToGit("logistic_ffs", model_filename)
             st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
-
-
-
-
-
-        
-
-            
+            st.session_state.deploy_triggered = False           
     
         
 
