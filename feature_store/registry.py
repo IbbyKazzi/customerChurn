@@ -123,7 +123,7 @@ def saveToGit(name, model_filename):
                 repo.create_file(
                     path=model_path,
                     message="🔄 Update best model",
-                    content=encoded_model                    
+                    content=binary_content                    
                 )
 
             except Exception:
@@ -131,7 +131,7 @@ def saveToGit(name, model_filename):
                 repo.create_file(
                     path=model_path,
                     message="📦 Add best model",
-                    content=encoded_model
+                    content=binary_content
                 )
 
             #update setting.py
