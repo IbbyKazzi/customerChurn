@@ -277,21 +277,14 @@ def run():
         
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
-            st.sidebar.success("Start saving to GitHub...")     
-            # Save model locally
-                 
+            st.sidebar.success("Start saving to GitHub...") 
+            
+            # Prepair model name to save it to the repor                 
             best_model = st.session_state.scores_df.loc[
                 st.session_state.scores_df["Model"] == st.session_state.best_model
-            ].iloc[0]
-        
-            model_obj = st.session_state.grid_search[st.session_state.best_model].best_estimator_
-            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl"
-            with open(model_filename, "wb") as f:
-                pickle.dump(model_obj, f)             
-            
-            
-            st.toast(f"📦 Model saved: {model_filename}", icon="💾")
-               
+            ].iloc[0]   
+            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl" 
+            st.toast(f"📦 Model saved: {model_filename}", icon="💾")              
         
             # Update model registry            
             
@@ -335,7 +328,7 @@ def run():
             #st.sidebar.write(st.session_state.best_model_name)
             #st.sidebar.write(st.session_state.best_model)            
             save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs", model_obj, model_filename)
+            saveToGit("logistic_ffs", model_filename)
             st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
