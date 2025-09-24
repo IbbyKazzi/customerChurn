@@ -3,21 +3,47 @@ import numpy as np
 import pickle
 import pandas as pd
 import shap
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+import requests
+import base64
 
 def run():
     #get the prediction model    
     with open(MODEL_PATH_T21, "rb") as f:
-        model = pickle.load(f)
+        model = pickle.load(f)   
     
     #load the dataset
     import load_dataset
     df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
     X = df_encoded.drop(['Churn'], axis=1)   
-    explainer = shap.Explainer(model, X)
-    shap_values = explainer(X)
+    #explainer = shap.Explainer(model, X)
+    #shap_values = explainer(X)
+
+    #load the dataset
+    import load_dataset
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
+    X_All = df_encoded.drop(['Churn'], axis=1)      
+      
+    y = df_encoded['Churn']
+    X_train, X_test, y_train, y_test = train_test_split(X_All, y, test_size=0.2, random_state=42)
+
+    # Sample background data
+    background = X_train.sample(n=100, random_state=42)
+    
+    # Define explainer outside the cached function
+    explainer = shap.Explainer(model.predict, background)
+    
+    # Cache only the SHAP computation
+    @st.cache_resource
+    def compute_shap_values(test_data):
+        return explainer(test_data)
+    
+    shap_values = compute_shap_values(X_test[:50])
+
+
     
     # Load your dataset to extract customer ids
     df = pd.read_csv(DATA_PATH)
@@ -58,6 +84,7 @@ def run():
     st.write(" ")
     #st.subheader(f"Customer ID: {selected_customer_id}")
     selectedCustomer = f"Customer ID: {selected_customer_id}"
+    st.session_state.prev_customer_id = selected_customer_id
     #st.metric(label="Churn Risk", value=churn_percent) # Get value of delta when runing historic models, delta="-3% from last month")    
 
     styled_metric("Churn Risk", churn_percent, selectedCustomer )

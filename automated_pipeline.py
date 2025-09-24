@@ -19,11 +19,22 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from datetime import datetime
 import shap
+import pytz
+import requests
+import base64
+from sklearn.ensemble import StackingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+
+
 
 #Using FFS logic to inhance model training and ecvaluation
-def forward_feature_selection(X, y, max_features=None):
-    selected = []
-    remaining = list(X.columns)
+def forward_feature_selection(X, y, max_features=None, force_include=None):
+    if force_include is None:
+        force_include = []
+
+    selected = list(force_include)  # Start with forced features
+    remaining = [f for f in X.columns if f not in selected]
     best_score = 0
     scores = []
 
@@ -46,11 +57,11 @@ def forward_feature_selection(X, y, max_features=None):
 
             mean_auc = np.mean(aucs)
             score_candidates.append((mean_auc, feature))
-        #st.write("Candidate scores this round:", score_candidates)
+
         score_candidates.sort(reverse=True)
         best_new_score, best_feature = score_candidates[0]
 
-        tolerance = 0.005  # Accept features that don't drop AUC by more than 0.5%
+        tolerance = 0.005
         if best_new_score >= best_score - tolerance:
             selected.append(best_feature)
             remaining.remove(best_feature)
@@ -58,12 +69,14 @@ def forward_feature_selection(X, y, max_features=None):
             scores.append(best_score)
         else:
             break
-    
+
     return selected, scores
 
 # Shap feature selection
-def select_shap_top_features(X, y, num_features=10):
-    
+def select_shap_top_features(X, y, num_features=10, force_include=None):
+    if force_include is None:
+        force_include = []
+
     # Fit logistic regression
     model = LogisticRegression(solver='liblinear')
     model.fit(X, y)
@@ -76,8 +89,15 @@ def select_shap_top_features(X, y, num_features=10):
     shap_df = pd.DataFrame(shap_values.values, columns=X.columns)
     mean_abs_shap = shap_df.abs().mean().sort_values(ascending=False)
 
-    # Select top N features
-    top_features = mean_abs_shap.head(num_features).index.tolist()
+    # Ensure forced features are included
+    forced = [f for f in force_include if f in mean_abs_shap.index]
+    remaining = mean_abs_shap.drop(forced).index.tolist()
+
+    # Select top features excluding forced ones
+    top_remaining = remaining[:max(0, num_features - len(forced))]
+
+    # Final feature list
+    top_features = forced + top_remaining
     return top_features
 
 
@@ -129,8 +149,30 @@ def load_and_preprocess(path):
 #Model Training (logistic & Current Model)
 def train_models(X_train, y_train, X_test, y_test, current_model_name):
     #load current model
-    with open(MODEL_PATH_T21, "rb") as f:
-        model_t21 = pickle.load(f)
+    # GitHub API URL for the file
+    url = "https://api.github.com/repos/IbbyKazzi/customerChurn/contents/" + MODEL_PATH_T21
+    
+    # Headers (token optional for public repos)
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": st.secrets["GITHUB_TOKEN"]  # Remove if public
+    }
+
+    # Step 1: Get metadata and encoded content
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    data = response.json()
+    
+    # Step 2: Decode base64 content
+    encoded_content = data["content"]
+    decoded_bytes = base64.b64decode(encoded_content)
+    
+    # Step 3: Unpickle the model
+    model_t21 = pickle.loads(decoded_bytes)  
+   
+
+    #with open(MODEL_PATH_T21, "rb") as f:
+    #    model_t21 = pickle.load(f)
 
 
     # Define pipeline
@@ -167,12 +209,41 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     #st.write("Test ROC AUC:", roc_auc_score(y_test, y_proba))
 
     # Define the models to evaluate
-    date_str = datetime.now().strftime("%Y%m%d")
+    sydney_tz = pytz.timezone("Australia/Sydney")
+    now_sydney = datetime.now(sydney_tz)
+    date_str = now_sydney.strftime("%Y%m%d_%H%M%S")
     model_name = f"logreg_model_{date_str}"
-    models = {        
-        model_name : best_model, # the best model with grid search HPO
+    #models = {        
+    #    model_name : best_model, # the best model with grid search HPO
+    #    current_model_name : model_t21 # Our currently used model
+    #}
+
+    #------ combining 4 models -------------#
+
+    
+    
+    base_models = [
+        ('rf', RandomForestClassifier()),
+        ('gb', GradientBoostingClassifier())
+    ]
+    
+    stacked_model = StackingClassifier(
+        estimators=base_models,
+        final_estimator=LogisticRegression(),
+        cv=5
+    )
+    
+    models = {
+        "Logistic Regression - Base": LogisticRegression(),
+        "Random Forest - Base": RandomForestClassifier(),
+        "Gradient Boosting - Base": GradientBoostingClassifier(),
+        "Stacked Model - Base": stacked_model,
+        "Logistic Regression - HPO" : best_model, # the best model with grid search HPO
         current_model_name : model_t21 # Our currently used model
     }
+
+
+    #--------------------------------------#
 
     for name, model in models.items():
         model.fit(X_train, y_train)
@@ -199,8 +270,36 @@ def evaluate_models(models, X_test, y_test):
 
     return scores
 
+from sklearn.metrics import roc_curve
+
+def evaluate_models_void(models, X_test, y_test):
+    scores = {}
+
+    for name, model in models.items():
+        y_prob = model.predict_proba(X_test)[:, 1]
+
+        # Optimal threshold based on Youden's J statistic
+        fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+        optimal_idx = np.argmax(tpr - fpr)
+        optimal_threshold = thresholds[optimal_idx]
+
+        # Apply threshold to get predicted labels
+        y_pred = (y_prob >= optimal_threshold).astype(int)
+
+        scores[name] = {
+            "Accuracy": accuracy_score(y_test, y_pred),
+            "AUC": roc_auc_score(y_test, y_prob),
+            "Precision": precision_score(y_test, y_pred),
+            "Recall": recall_score(y_test, y_pred),
+            "F1": f1_score(y_test, y_pred),
+            "Brier Score": brier_score_loss(y_test, y_prob),
+            "Optimal Threshold": optimal_threshold
+        }
+
+    return scores
+
 #Select best model
 def select_best_model(scores, metric="Accuracy"):
     best_model = max(scores.items(), key=lambda x: x[1][metric])
-    st.success(f"Best model: {best_model[0]} with {metric}: {best_model[1][metric]:.4f}")
+    #st.success(f"Best model: {best_model[0]} with {metric}: {best_model[1][metric]:.4f}")
     return best_model[0]

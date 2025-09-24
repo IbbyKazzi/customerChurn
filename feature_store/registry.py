@@ -48,19 +48,49 @@ def saveToGit(name, model_obj, model_filename):
                 sha=existing_file.sha
             )
             #save best models             
-            import base64
             with open(model_filename, "rb") as f:
-                encoded_model = base64.b64encode(f.read()).decode()
-
+                binary_content = f.read()
+            
             model_path = model_filename
-            existing_file = repo.get_contents(model_path)
-            repo.update_file(
-                path=model_path,
-                message="🔄 Update best model",
-                content=encoded_model,
-                sha=existing_file.sha
-            )
+            
+            # Check if file exists then upload model
+            try:
+                existing_file = repo.get_contents(model_path)
+                repo.create_file(
+                    path=model_path,
+                    message="🔄 Update best model",
+                    content=binary_content                    
+                )
+            except Exception:
+                # If file doesn't exist, create it
+                repo.create_file(
+                    path=model_path,
+                    message="📦 Add best model",
+                    content=binary_content
+                )
 
+            #update setting.py
+            # Get settings.py content
+            file_path = "settings.py"
+            file = repo.get_contents(file_path)
+            content = file.decoded_content.decode()
+            new_model_path = model_path
+            
+            # Replace the MODEL_PATH_T21 line
+            updated_content = []
+            for line in content.splitlines():
+                if line.strip().startswith("MODEL_PATH_T21"):
+                    updated_content.append(f'MODEL_PATH_T21 = r"{new_model_path}"')
+                else:
+                    updated_content.append(line)
+            
+            final_content = "\n".join(updated_content)
+            repo.update_file(
+                path=file_path,
+                message="🔧 Update MODEL_PATH_T21 to latest model",
+                content=final_content,
+                sha=file.sha
+            )
 
             st.success(f"📤 Updated file on GitHub: {github_path}")
     
@@ -87,19 +117,52 @@ def saveToGit(name, model_obj, model_filename):
                 encoded_model = base64.b64encode(f.read()).decode()
 
             model_path = model_filename
-            existing_file = repo.get_contents(model_path)
+            # Check if file exists then upload model
+            try:
+                existing_file = repo.get_contents(model_path)
+                repo.create_file(
+                    path=model_path,
+                    message="🔄 Update best model",
+                    content=binary_content                    
+                )
+
+            except Exception:
+                # If file doesn't exist, create it
+                repo.create_file(
+                    path=model_path,
+                    message="📦 Add best model",
+                    content=binary_content
+                )
+
+            #update setting.py
+            # Get settings.py content
+            file_path = "settings.py"
+            file = repo.get_contents(file_path)
+            content = file.decoded_content.decode()
+            new_model_path = model_path
+            
+            # Replace the MODEL_PATH_T21 line
+            updated_content = []
+            for line in content.splitlines():
+                if line.strip().startswith("MODEL_PATH_T21"):
+                    updated_content.append(f'MODEL_PATH_T21 = r"{new_model_path}"')
+                else:
+                    updated_content.append(line)
+            
+            final_content = "\n".join(updated_content)
             repo.update_file(
-                path=model_path,
-                message="🔄 Update best model",
-                content=encoded_model,
-                sha=existing_file.sha
+                path=file_path,
+                message="🔧 Update MODEL_PATH_T21 to latest model",
+                content=final_content,
+                sha=file.sha
             )
             st.success(f"📤 Updated file on GitHub: {github_path}")
             
     
     
     except Exception as e:
-        st.error(f"❌ GitHub upload failed: {e}")
+        st.write('')
+        #st.error(f"❌ GitHub upload failed: {e}")
 
         
 

@@ -15,7 +15,7 @@ This project leverages machine learning to predict customer churn based on behav
 # 📊 Usage
 ## Clone the repo
 
-git clone https://github.com/your-org/customer-churn.git
+git clone  https://github.com/IbbyKazzi/customerChurn
 
 cd customer-churn
 
@@ -27,7 +27,7 @@ streamlit run app.py
 
 
 # 👥 Team Members
-- Murray Atkins — Project Manager
+- Murray Atkin — Project Manager
 - Ibrahim Kassem — Lead Developer & Architect
 - Bradley Moore — Data Scientist
 - Preeti Sowrab — UI/UX Designer

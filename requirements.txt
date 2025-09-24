@@ -13,20 +13,6 @@ card
 streamlit_extras
 importlib
 tabulate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+git+https://github.com/Hodnebo/streamlit-autocomplete.git
+streamlit_free_text_select
 

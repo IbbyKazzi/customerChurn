@@ -7,6 +7,9 @@ import pickle
 import shap
 import time
 from settings import MODEL_PATH_T3, MODEL_PATH_T21, DATA_PATH
+from st_autocomplete import st_autocomplete
+from streamlit_free_text_select import st_free_text_select
+
 
 def run(customer, shap_values, X, contract_map, df, newCustomer):  
     plans = {
@@ -39,7 +42,7 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
     # Create a DataFrame for easy sorting
     feature_importance = pd.DataFrame({
         'feature': X.columns,
-        'importance': np.abs(shap_values.values)
+        'importance': np.abs(shap_values.values)  # Class 1 SHAP values
     }).sort_values(by='importance', ascending=False)
     
     # Display top N features
@@ -82,7 +85,6 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
             st.session_state["show_message"] = True
         else:
             st.session_state["show_message"] = newCustomer
-
         
         if st.session_state["show_message"] == True:
             showIntro(message, 0.005)
@@ -90,20 +92,41 @@ def run(customer, shap_values, X, contract_map, df, newCustomer):
            showIntro(message, 0)        
 
         if customer["churn_probability"] > 0.5:
-              st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")        
-        
-        question = st.text_input("Ask me anything about this customer or churn trends:")
-        if "show_question" not in st.session_state:
-            st.session_state["show_question"] = True 
-        else:
-           st.session_state["show_question"] = False  
-        if question:
-            st.session_state["show_question"] = True
-            generate_response(question, customer, shap_values, contract_map, df)
-            
-            
-          
+              st.warning("⚠️ **ChurnMate Alert**: This customer is at very high risk. Consider immediate outreach.")         
 
+        if "user_selection" not in st.session_state:
+            st.session_state["user_selection"] = '' 
+        
+        options = [
+            "Select a question...",  # Placeholder
+            "Why is this customer likely to churn?",
+            "What plan do you recommend?",
+            "What is their churn risk?",
+            "What features/factors are driving churn?",
+            "What retention strategy can be applied?",
+            "Show me full details of this customer",
+            "What is the monthly charges?"
+        ]
+        
+        # Capture input 
+        question = st.selectbox("Ask about churn or customer insights:", options)
+        
+        if "new_response" not in st.session_state:
+            st.session_state["new_response"] = True 
+        else:
+           st.session_state["new_response"] = False
+
+        if question == st.session_state["user_selection"]:
+            st.session_state["new_response"] = False        
+        else:
+            st.session_state["user_selection"] = question
+            st.session_state["new_response"] = True 
+            
+        if question:                        
+            generate_response(question, customer, shap_values, contract_map, df)            
+        
+
+# returns a brief of the selected customer details
 def summarize_customer(customer):
     churn_prob = customer["churn_probability"]
     top_factors = customer["top_features"]
@@ -120,8 +143,8 @@ def assistant_response(customer_name, churn_prob, top_features, plan_suggestion)
     return  (
         f"👋 Hey there! I’ve analyzed **{customer_name}**.\n\n"
         f"🔍 **Churn Risk**: {risk_level.capitalize()} ({churn_prob:.1%})\n\n"
-        #f"📌 **Key Factors**: {factors}\n\n"
-        #f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
+        f"📌 **Key Factors**: {factors}\n\n"
+        f"💡 **Suggestion**: Consider offering the **{plan_suggestion}** plan to improve retention."
     )
     #showResponse(response)    
 
@@ -263,7 +286,7 @@ def generate_strategy(churn_risk):
           f"Current touchpoints—such as monthly check-ins and personalized offers—are effectively sustaining engagement. "
           f"No immediate changes are needed, but continue monitoring for shifts in behavior."
         )
-
+# Show customer's insight
 def showIntro(message, delay):
     if delay == 0:
         st.info(message)
@@ -276,8 +299,10 @@ def showIntro(message, delay):
             # Render the full success box once, updating its content
             placeholder.info(typed_text)
             time.sleep(delay)
-def showResponse(response):
-    if st.session_state["show_question"] == True:
+            
+# Show CX eisight            
+def showResponse(response):    
+    if st.session_state["new_response"] == True:        
         message = response      
         # Create a placeholder for the success box
         placeholder = st.empty()      
@@ -310,10 +335,10 @@ def showRecommandation(contract_map, tenure):
   st.markdown(f"**Estimated Churn Probability for {override} Plan:** {new_prob:.2%}")     
      
   #check recommandation outcome
-  st.markdown("#### Recommendation Outcome")
-  st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
-  st.text_area("Agent Notes")
-  st.button("Submit Feedback")
+  #st.markdown("#### Recommendation Outcome")
+  #st.radio("Was the recommendation accepted?", ["Yes", "No", "Pending"])
+  #st.text_area("Agent Notes")
+  #st.button("Submit Feedback")
 
 #get new prob of the overrided plan
 def get_newProb(val, tenure, contract):

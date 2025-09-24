@@ -38,27 +38,34 @@ def show_model_history(path=METADATA_PATH):
         m_perfomance = json.load(f)
     df_perfomance = pd.DataFrame(m_perfomance)
     
-    # Convert timestamp and format to dd/MM/yy
+    # Convert timestamp and extract date
     df_perfomance['timestamp'] = pd.to_datetime(df_perfomance['timestamp'])
     df_perfomance['date'] = df_perfomance['timestamp'].dt.strftime('%d/%m/%y')
     
     # Group by date and calculate mean AUC
     auc_history_df = df_perfomance.groupby('date', as_index=False)['auc'].mean()
     
-    # Define the toggle before using it
+    # Sort by actual datetime to ensure correct order
+    auc_history_df['sort_key'] = pd.to_datetime(auc_history_df['date'], format='%d/%m/%y')
+    auc_history_df = auc_history_df.sort_values('sort_key')
+    
+    # Optional: drop sort_key if not needed
+    auc_history_df.drop(columns='sort_key', inplace=True)
+    
+    # Display chart
     show_chart = st.toggle("📈 Show Model AUC Performance Over Time", value=False)
-
     if show_chart:
         st.subheader("Model AUC Performance Over Time")
-        st.line_chart(auc_history_df.set_index('date')['auc'])    
+        st.line_chart(auc_history_df.set_index('date')['auc']) 
 
     # Add model threshold to be set by the user
     st.sidebar.header("Model Monitoring")
     auc_threshold = st.sidebar.slider("Minimum AUC Threshold", 0.5, 1.0, 0.85, step=0.01)
+    st.session_state.auc_threshold = auc_threshold
     #if below threshold run the automated pipeline
-    if current_model_auc < auc_threshold:
-        st.session_state.run_pipeline = True
-        st.session_state.pipeline_ran = False  
+    #if current_model_auc < auc_threshold:
+        #st.session_state.run_pipeline = True
+        #st.session_state.pipeline_ran = False  
 
     # Add pipeline options on the UI sidebar
     st.sidebar.header("🔧 Feature Selection Options")
@@ -70,8 +77,8 @@ def show_model_history(path=METADATA_PATH):
     
     # Number of features
     num_features = st.sidebar.number_input(
-        "Number of features to select (min 5):",
-        min_value=5,
+        "Number of features to select (min 7):",
+        min_value=7,
         max_value=50,
         value=10,
         step=1
@@ -115,13 +122,17 @@ def run():
     # --- UI Buttons ---    
     if st.sidebar.button("🔄 Run Pipeline"):
         st.session_state.run_pipeline = True
-        st.session_state.pipeline_ran = False  # Reset flag    
+        st.session_state.pipeline_ran = False
+        st.session_state.start_time = time.time()
+  
    
     # --- Pipeline Execution ---       
         
-    start_time = time.time()
+    if "start_time" not in st.session_state:
+        st.session_state.start_time = None
+
     if st.session_state.run_pipeline and not st.session_state.pipeline_ran:
-        st.session_state.run_pipeline = False  # Immediately reset to prevent rerun loop
+        st.session_state.start_time = time.time()        
         progress = st.progress(0)
         status = st.empty()
         stage_times = []
@@ -137,24 +148,32 @@ def run():
     
         # Stage 2: Feature Selection
         t0 = time.time()
+        # We need the below features for EX summary Tab1
+        must_have = [
+            "Contract", "InternetService", "TechSupport",
+            "PaymentMethod", "Months", "MonthlyCharges", "TotalCharges"
+        ]
+
         status.markdown("🧠 <span style='color:#ff7f0e'>Selecting features...</span>", unsafe_allow_html=True)
         
         if st.session_state.selection_method == "Forward Feature Selection (FFS)":
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
-                max_features=st.session_state.num_features
+                max_features=st.session_state.num_features,
+                force_include=must_have
             )
         else:
             selected_features = ap.select_shap_top_features(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
-                num_features=st.session_state.num_features
+                num_features=st.session_state.num_features,
+                force_include=must_have
             )
         
         # Timestamp and payload
         tz_sydney = pytz.timezone("Australia/Sydney")
-        timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+        timestamp = datetime.now(tz_sydney).strftime("%Y%m%d_%H%M%S")
         payload = {"timestamp": timestamp, "features": selected_features}
         st.session_state.selected_features = payload
         stage_times.append(("Feature Selection", time.time() - t0))
@@ -187,6 +206,11 @@ def run():
         )
         st.session_state.fig = fig
         st.session_state.best_model = ap.select_best_model(model_scores, metric="AUC")
+        st.session_state.best_model_auc = model_scores[st.session_state.best_model]["AUC"]
+        target_key = st.session_state.best_model
+        model_keys = list(models.keys())
+        target_index = model_keys.index(target_key)
+        st.session_state.best_model_index = target_index        
         stage_times.append(("Model Evaluation", time.time() - t0))
         progress.progress(80)
     
@@ -198,7 +222,7 @@ def run():
         stage_times.append(("Finalization", time.time() - t0))
         progress.progress(100)       
         end_time = time.time()
-        elapsed = end_time - start_time
+        elapsed = end_time - st.session_state.start_time
         stage_times.append(("Total execution time", elapsed))    
         st.session_state.stage_times = stage_times        
         status.markdown("🎉 <span style='color:green'>Pipeline completed successfully!</span>", unsafe_allow_html=True)
@@ -206,8 +230,15 @@ def run():
 
     if st.session_state.pipeline_ran: 
         end_time = time.time()
-        elapsed = end_time - start_time        
-        st.success(f"✅ Pipeline completed, with best model {st.session_state.best_model}")
+        elapsed = end_time - st.session_state.start_time          
+        if st.session_state.best_model_auc > st.session_state.auc_threshold:
+            annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
+            st.success(
+                f"✅ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}"
+            )
+        else:
+            annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
+            st.error(f"⚠️ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
             st.plotly_chart(st.session_state.fig, use_container_width=True)
@@ -221,11 +252,30 @@ def run():
             if "stage_times" in st.session_state:
                 summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
                 st.dataframe(summary_df.style.format({"Time (s)": "{:.2f}"}))           
+
+        # --- Set best model name so we can use it in deplotyment --- #
+        tz_sydney = pytz.timezone("Australia/Sydney")
+        timestamp = datetime.now(tz_sydney).strftime("%y%m%d_%H%M")
+        dateDeployed = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+        st.session_state.best_model_name = ''
+        if st.session_state.best_model_index == 0:
+            st.session_state.best_model_name = f"log_reg_base_{timestamp}"
+        elif st.session_state.best_model_index == 1:
+            st.session_state.best_model_name = f"RF_base_{timestamp}"
+        elif st.session_state.best_model_index == 2:
+            st.session_state.best_model_name = f"GB_base_{timestamp}"
+        elif st.session_state.best_model_index == 3:
+            st.session_state.best_model_name = f"StackLR{timestamp}"
+        elif st.session_state.best_model_index == 4:
+            st.session_state.best_model_name = f"log_reg_hpo_{timestamp}"
+        else:
+            st.session_state.best_model_name = st.session_state.best_model
+
+        st.session_state.run_pipeline = False  # Reset pipeline execution
         
-       
         # Save to GitHub
         if st.sidebar.button("🚀 Deploy new model"):
-            st.success("Start saving to GitHub...")     
+            st.sidebar.success("Start saving to GitHub...")     
             # Save model locally
                  
             best_model = st.session_state.scores_df.loc[
@@ -233,14 +283,16 @@ def run():
             ].iloc[0]
         
             model_obj = st.session_state.grid_search.best_estimator_
-            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model}.pkl"
+            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl"
             with open(model_filename, "wb") as f:
-                pickle.dump(model_obj, f)
+                pickle.dump(model_obj, f)             
+            
+            
             st.toast(f"📦 Model saved: {model_filename}", icon="💾")
+               
         
             # Update model registry            
-            tz_sydney = pytz.timezone("Australia/Sydney")
-            timestamp = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
+            
         
             # Load existing registry
             if os.path.exists(METADATA_PATH):
@@ -255,8 +307,8 @@ def run():
         
             # Add new model entry
             new_entry = {
-                "version": st.session_state.best_model,
-                "date": timestamp,
+                "version": st.session_state.best_model_name,
+                "date": dateDeployed,
                 "accuracy": best_model["Accuracy"],
                 "roc_auc": best_model["AUC"],
                 "precision": best_model["Precision"],
@@ -274,13 +326,15 @@ def run():
             with open(METADATA_PATH, "w") as f:
                 json.dump(registry, f, indent=2)
         
-            st.success("✅ Model registry updated and activated!")
+            st.sidebar.success("✅ Model registry updated and activated!")
             st.toast("📘 Registry entry saved", icon="📚", duration=10)
             
-            # Save selected features
+            # Save selected features and model
+            #st.sidebar.write(st.session_state.best_model_name)
+            #st.sidebar.write(st.session_state.best_model)            
             save_selected_features("logistic_ffs", st.session_state.selected_features)
             saveToGit("logistic_ffs", model_obj, model_filename)
-            st.success("✅ Features saved to GitHub successfully!")
+            st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
 
 
