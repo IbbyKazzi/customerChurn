@@ -1086,34 +1086,8 @@
       "clf__fit_intercept": true,
       "clf__penalty": "l1"
     },
-    "active": false,
-    "notes": "Auto-deployed via Streamlit App"
-  },
-  {
-    "version": "RF_hpo_250924_1655",
-    "date": "2025-09-24 16:55:46 AEST",
-    "accuracy": 0.815471965933286,
-    "roc_auc": 0.8608149512975252,
-    "precision": 0.6852459016393443,
-    "recall": 0.5603217158176944,
-    "f1": 0.616519174041298,
-    "brier_score": 0.1282598579008002,
-    "features": [
-      "Contract",
-      "InternetService",
-      "TechSupport",
-      "PaymentMethod",
-      "Months",
-      "MonthlyCharges",
-      "TotalCharges"
-    ],
-    "hyperparameters": {
-      "clf__max_depth": 10,
-      "clf__min_samples_leaf": 2,
-      "clf__min_samples_split": 5,
-      "clf__n_estimators": 100
-    },
     "active": true,
     "notes": "Auto-deployed via Streamlit App"
   }
+ 
 ]
