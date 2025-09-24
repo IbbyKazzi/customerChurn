@@ -156,7 +156,7 @@ def run_grid_search(pipeline, param_grid, X_train, y_train):
         n_jobs=-1
     )
     grid.fit(X_train, y_train)
-    return grid.best_estimator_, grid.best_params_
+    return grid, grid.best_estimator_
 
 
 #Model Training (logistic & Current Model)
@@ -182,7 +182,9 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     
     # Step 3: Unpickle the model
     model_t21 = pickle.loads(decoded_bytes)  
-   
+
+    grid_searches = {}
+
     # Logistic Regression HPO (already done)
     pipeline_logreg = Pipeline([
         ('scaler', StandardScaler()),
@@ -193,7 +195,9 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         'clf__C': [0.01, 0.1, 1, 10, 100],
         'clf__fit_intercept': [True, False]
     }
-    best_logreg, logreg_params = run_grid_search(pipeline_logreg, param_grid_logreg, X_train, y_train)
+    grid_logreg, best_logreg = run_grid_search(pipeline_logreg, param_grid_logreg, X_train, y_train)
+    grid_searches["Logistic Regression - HPO"] = grid_logreg
+
     
     # Random Forest HPO
     pipeline_rf = Pipeline([
@@ -206,7 +210,8 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         'clf__min_samples_split': [2, 5],
         'clf__min_samples_leaf': [1, 2]
     }
-    best_rf, rf_params = run_grid_search(pipeline_rf, param_grid_rf, X_train, y_train)
+    grid_rf, best_rf = run_grid_search(pipeline_rf, param_grid_rf, X_train, y_train)
+    grid_searches["Random Forest - HPO"] = grid_rf
 
     # Gradient Boosting HPO
     pipeline_gb = Pipeline([
@@ -218,8 +223,8 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         'clf__learning_rate': [0.01, 0.1],
         'clf__max_depth': [3, 5]
     }
-    best_gb, gb_params = run_grid_search(pipeline_gb, param_grid_gb, X_train, y_train)
-    
+    grid_gb, best_gb = run_grid_search(pipeline_gb, param_grid_gb, X_train, y_train)
+    grid_searches["Gradient Boosting - HPO"] = grid_gb   
     
 
     # Define the models to evaluate
@@ -251,9 +256,10 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         "Logistic Regression - HPO": best_logreg,
         "Random Forest - HPO": best_rf,
         "Gradient Boosting - HPO": best_gb,
-        "Stacked Model - Base": stacked_model,  # Optional to optimize
+        "Stacked Model - Base": stacked_model,
         current_model_name: model_t21
     }
+
 
 
 
@@ -263,7 +269,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         model.fit(X_train, y_train)
         models[name] = model  
 
-    return models, grid_search
+    return models, grid_searches
 
 #Model evaluation
 def evaluate_models(models, X_test, y_test):
