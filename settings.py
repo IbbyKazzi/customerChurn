@@ -1,7 +1,7 @@
 # settings.py
 
 MODEL_PATH_T3 = r"models/logreg_model_3f.pkl"
-MODEL_PATH_T21 = r"models/log_reg_hpo_250924_1615.pkl"
+MODEL_PATH_T21 = r"models/RF_hpo_250924_1655.pkl"
 DATA_PATH = r"data/customer_churn_data.csv"
 METADATA_PATH = r"models/model_metadata.json"
 MODEL_SAVE_DIR = r"models"
