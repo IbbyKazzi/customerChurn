@@ -240,19 +240,12 @@ with col2:
             "border": "2px solid #1A2A3A",
             "padding": "10px 16px",
             "border-radius": "0px"
-        }
+        },
+        .nav-link.selected i {
+        color: white !important;
+      }
     }
 )
-<style>
-  /* streamlit-option-menu wraps each item in <a class="nav-link selected"> */
-  .nav-link.selected i {
-    color: white !important;
-  }
-</style>
-
-
-    
-
     
     if selected == "Executive Pulse":
         st.sidebar.header("🧑‍💼 Executive Pulse")
@@ -367,6 +360,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
