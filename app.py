@@ -243,11 +243,13 @@ with col2:
         }
     }
 )
-<style>  
+<style>
+  /* streamlit-option-menu wraps each item in <a class="nav-link selected"> */
   .nav-link.selected i {
     color: white !important;
   }
 </style>
+
 
     
 
@@ -365,6 +367,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
