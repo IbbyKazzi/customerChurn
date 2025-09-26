@@ -222,6 +222,10 @@ with col2:
             "color": "black",
             "font-size": "20px"
         },
+        "icon-selected": {
+            "color": "white"        
+        },
+
         "nav-link": {
             "background-color": "#ADD8E6",
             "color": "black",
@@ -354,6 +358,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
