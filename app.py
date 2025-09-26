@@ -240,10 +240,7 @@ with col2:
             "border": "2px solid #1A2A3A",
             "padding": "10px 16px",
             "border-radius": "0px"
-        },
-        .nav-link.selected i {
-        color: white !important;
-      }
+        }       
     }
 )
     
@@ -360,6 +357,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
