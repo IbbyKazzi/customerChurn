@@ -73,7 +73,7 @@ html, body, [class*="css"] {
 }
 
 .block-container {
-    padding-top: 7rem;
+    padding-top: 9rem; /* ensures clearance even on mobile */
     max-width: 1200px;
     margin: auto;
     background: #ffffff;
@@ -371,6 +371,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
