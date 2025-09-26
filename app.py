@@ -153,7 +153,7 @@ section[data-testid="stSidebar"] {
     
     section[data-testid="stSidebar"] {
         visibility: hidden;
-        transform: translateX(-100%);
+        transform: translateX(0%);
         transition: transform 0.3s ease, visibility 0.3s ease;
         position: absolute;
         z-index: 999;
@@ -366,6 +366,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
