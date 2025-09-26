@@ -73,14 +73,14 @@ html, body, [class*="css"] {
 }
 
 .block-container {
-    padding-top: 3rem; /* ensures clearance even on mobile */
+    padding-top: 4rem; /* ensures clearance even on mobile */
     max-width: 1200px;
     margin: auto;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    padding: 3rem 2rem 2rem 2rem;
-    min-height: calc(100vh - 7rem); /* full viewport minus navbar height */
+    padding: 4rem 2rem 2rem 2rem;
+    min-height: calc(100vh - 4rem); /* full viewport minus navbar height */
 }
 
 div[data-testid="stHorizontalBlock"] {
@@ -372,6 +372,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
