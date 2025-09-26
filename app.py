@@ -135,7 +135,7 @@ div[data-testid="stHorizontalBlock"] {
 
 /* Sidebar layout */
 section[data-testid="stSidebar"] {
-    min-width: 400px !important;
+    /*min-width: 400px !important;*/
     max-width: 400px !important;
     height: 100vh !important;
     overflow-y: auto;
@@ -365,6 +365,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
