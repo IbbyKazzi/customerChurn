@@ -9,7 +9,7 @@ import base64
 
 FEATURES = ['loyalty_band', 'charge_velocity', 'contract_stability']
 
-def saveToGit(name, model_obj, model_filename):
+def saveToGit(name, model_filename):
     try:
         REPO_NAME = "IbbyKazzi/customerChurn"
         token = st.secrets["GITHUB_TOKEN"]
@@ -162,7 +162,7 @@ def saveToGit(name, model_obj, model_filename):
     
     except Exception as e:
         st.write('')
-        #st.error(f"❌ GitHub upload failed: {e}")
+        st.error(f"❌ GitHub upload failed: {e}")
 
         
 

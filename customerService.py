@@ -24,7 +24,7 @@ def run():
 
     #load the dataset
     import load_dataset
-    df_encoded = load_dataset.run()  #this function returnes encoded dataset with 22 features  
+    df_encoded = load_dataset.run()  #this function returnes encoded dataset with features  
     X_All = df_encoded.drop(['Churn'], axis=1)      
       
     y = df_encoded['Churn']
@@ -41,7 +41,8 @@ def run():
     def compute_shap_values(test_data):
         return explainer(test_data)
     
-    shap_values = compute_shap_values(X_test[:50])
+    #shap_values = compute_shap_values(X_test[:50]) #Top 50
+    shap_values = compute_shap_values(X_All) #All
 
 
     

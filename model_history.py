@@ -22,7 +22,7 @@ def show_model_history(path=METADATA_PATH):
 
     # Display models stat 
     st.subheader("📋 Model Registry")
-    st.dataframe(df[["version", "date", "accuracy", "roc_auc", "notes", "active"]])
+    st.dataframe(df[["version", "date", "model_type", "feature_selection", "total_features", "roc_auc", "notes", "active"]])
 
     # Get current model AUC and display it
     current_model = df[df["active"] == True].iloc[0]
@@ -157,6 +157,7 @@ def run():
         status.markdown("🧠 <span style='color:#ff7f0e'>Selecting features...</span>", unsafe_allow_html=True)
         
         if st.session_state.selection_method == "Forward Feature Selection (FFS)":
+            st.session_state.feature_selection = "FFS" 
             selected_features, ffs_scores = ap.forward_feature_selection(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
@@ -164,6 +165,7 @@ def run():
                 force_include=must_have
             )
         else:
+            st.session_state.feature_selection = "Shap values"
             selected_features = ap.select_shap_top_features(
                 pd.DataFrame(X_train_full, columns=X_df.columns),
                 y_train,
@@ -232,12 +234,12 @@ def run():
         end_time = time.time()
         elapsed = end_time - st.session_state.start_time          
         if st.session_state.best_model_auc > st.session_state.auc_threshold:
-            annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
+            annotation = "✨ newly trained" if st.session_state.best_model_index != 4 else "🎯 currently deployed"
             st.success(
                 f"✅ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}"
             )
         else:
-            annotation = "✨ newly trained" if st.session_state.best_model_index != 5 else "🎯 currently deployed"
+            annotation = "✨ newly trained" if st.session_state.best_model_index != 4 else "🎯 currently deployed"
             st.error(f"⚠️ Pipeline completed, with best model: {st.session_state.best_model} {annotation} and AUC: {st.session_state.best_model_auc:.4f}")
         with st.expander("📋 Model Metrics"):            
             st.dataframe(st.session_state.scores_df)
@@ -246,8 +248,10 @@ def run():
             st.caption("✨Features used")
             st.json(st.session_state.selected_features)
         with st.expander("🔍 View Grid search HPO"):
-            st.caption("🔧 HPO used")
-            st.write(st.session_state.grid_search.best_params_)        
+            st.caption("🔧 Best hyperparameters for each model")    
+            for model_name, grid in st.session_state.grid_search.items():
+                st.markdown(f"<h6 style='margin-bottom:0;'>📌 {model_name}</h6>", unsafe_allow_html=True)
+                st.write(grid.best_params_)        
         with st.expander("⏱️ Pipeline Timing Summary"):
             if "stage_times" in st.session_state:
                 summary_df = pd.DataFrame(st.session_state.stage_times, columns=["Stage", "Time (s)"])                
@@ -258,42 +262,40 @@ def run():
         timestamp = datetime.now(tz_sydney).strftime("%y%m%d_%H%M")
         dateDeployed = datetime.now(tz_sydney).strftime("%Y-%m-%d %H:%M:%S %Z")
         st.session_state.best_model_name = ''
+        st.session_state.best_model_type = ''
         if st.session_state.best_model_index == 0:
-            st.session_state.best_model_name = f"log_reg_base_{timestamp}"
-        elif st.session_state.best_model_index == 1:
-            st.session_state.best_model_name = f"RF_base_{timestamp}"
-        elif st.session_state.best_model_index == 2:
-            st.session_state.best_model_name = f"GB_base_{timestamp}"
-        elif st.session_state.best_model_index == 3:
-            st.session_state.best_model_name = f"StackLR{timestamp}"
-        elif st.session_state.best_model_index == 4:
+            st.session_state.best_model_type = 'Logistic Regression'
             st.session_state.best_model_name = f"log_reg_hpo_{timestamp}"
-        else:
+        elif st.session_state.best_model_index == 1:
+            st.session_state.best_model_type = 'Random Forest'
+            st.session_state.best_model_name = f"RF_hpo_{timestamp}"
+        elif st.session_state.best_model_index == 2:
+            st.session_state.best_model_type = 'Gradient Boosting'
+            st.session_state.best_model_name = f"GB_hpo_{timestamp}"
+        elif st.session_state.best_model_index == 3:
+            st.session_state.best_model_type = 'Stacked Model'
+            st.session_state.best_model_name = f"StackLR_{timestamp}"       
+        else:            
             st.session_state.best_model_name = st.session_state.best_model
 
         st.session_state.run_pipeline = False  # Reset pipeline execution
         
-        # Save to GitHub
+        # Save to GitHub        
         if st.sidebar.button("🚀 Deploy new model"):
-            st.sidebar.success("Start saving to GitHub...")     
-            # Save model locally
-                 
+            st.sidebar.success("Start saving to GitHub...") 
+            
+            # Prepair model name to save it to the repor                 
             best_model = st.session_state.scores_df.loc[
                 st.session_state.scores_df["Model"] == st.session_state.best_model
-            ].iloc[0]
-        
-            model_obj = st.session_state.grid_search.best_estimator_
-            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl"
+            ].iloc[0]   
+            model_filename = f"{MODEL_SAVE_DIR}/{st.session_state.best_model_name}.pkl" 
+            st.toast(f"📦 Model saved: {model_filename}", icon="💾")              
+
+            model_obj = st.session_state.grid_search[st.session_state.best_model].best_estimator_
             with open(model_filename, "wb") as f:
-                pickle.dump(model_obj, f)             
-            
-            
-            st.toast(f"📦 Model saved: {model_filename}", icon="💾")
-               
-        
-            # Update model registry            
-            
-        
+                pickle.dump(model_obj, f)     
+                
+            # Update model registry
             # Load existing registry
             if os.path.exists(METADATA_PATH):
                 with open(METADATA_PATH, "r") as f:
@@ -308,6 +310,7 @@ def run():
             # Add new model entry
             new_entry = {
                 "version": st.session_state.best_model_name,
+                "model_type":  st.session_state.best_model_type,
                 "date": dateDeployed,
                 "accuracy": best_model["Accuracy"],
                 "roc_auc": best_model["AUC"],
@@ -315,11 +318,13 @@ def run():
                 "recall": best_model["Recall"],
                 "f1": best_model["F1"],
                 "brier_score": best_model["Brier Score"],
+                "feature_selection": st.session_state.feature_selection,
+                "total_features": len(st.session_state.selected_features["features"]),
                 "features": st.session_state.selected_features["features"],
-                "hyperparameters": st.session_state.grid_search.best_params_,
+                "hyperparameters": st.session_state.grid_search[st.session_state.best_model].best_params_,                
                 "active": True,
-                "notes": "Auto-deployed via Streamlit"
-            }
+                "notes": "Auto-deployed via Streamlit App"
+            }            
             registry.append(new_entry)
         
             # Save updated registry
@@ -331,20 +336,11 @@ def run():
             
             # Save selected features and model
             #st.sidebar.write(st.session_state.best_model_name)
-            #st.sidebar.write(st.session_state.best_model)            
+            #st.sidebar.write(st.session_state.best_model)     
+            #st.sidebar.write(model_filename)  
             save_selected_features("logistic_ffs", st.session_state.selected_features)
-            saveToGit("logistic_ffs", model_obj, model_filename)
+            saveToGit("logistic_ffs", model_filename)
             st.sidebar.success("✅ Features saved to GitHub successfully!")
             st.toast("📁 logistic_ffs.json uploaded", icon="📤", duration=10)
-
-
-
-
-
-        
-
-            
+                     
     
-        
-
-

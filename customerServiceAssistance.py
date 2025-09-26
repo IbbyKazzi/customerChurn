@@ -191,16 +191,37 @@ def generate_response(question, data, shap_values, contract_map, df):
              
         # Show waterfall plot if toggle is activated
         if st.toggle("Show churn factor waterfall"):
-            response =   (
-              f"🧠 **ChurnMate:** "
-              f"Below are the 10 highest SHAP features that impact on the prediction.\n\n"
-              f"🔴Red feature value pushes the prediction towards churn.\n\n"
-              f"🔵 Blue feature value pushes the prediction away from churn."
-            )  
+            response = (
+                f"🧠 **ChurnMate:** "
+                f"Below are the 10 highest SHAP features that impact on the prediction.\n\n"
+                f"🔴 Red feature value pushes the prediction towards churn.\n\n"
+                f"🔵 Blue feature value pushes the prediction away from churn."
+            )
             st.markdown("### Factors of Churn")
-            fig, ax = plt.subplots()
-            shap.plots.waterfall(shap_values, show=False)
-            st.pyplot(fig)
+            
+            # Try to generate the SHAP plot
+            try:
+                # Clear any previous Matplotlib figures
+                plt.clf()
+        
+                # Generate the waterfall plot
+                result = shap.plots.waterfall(shap_values, max_display=10, show=False)
+        
+                # If result is a Plotly figure, render it
+                if result is not None and "plotly" in str(type(result)).lower():                    
+                    result.update_layout(height=300, margin=dict(t=30, b=30))
+                    st.plotly_chart(result, use_container_width=True)
+        
+                # If result is None, assume Matplotlib and grab current figure
+                else: 
+                    plt.clf()
+                    plt.figure(figsize=(12, 8)) 
+                    shap.plots.waterfall(shap_values, max_display=10, show=False)
+                    fig = plt.gcf()
+                    st.pyplot(fig)
+        
+            except Exception as e:
+                st.error(f"❌ Failed to render SHAP waterfall plot: {e}")
 
         showResponse(response)   
 

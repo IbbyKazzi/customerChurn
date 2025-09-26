@@ -9,3 +9,9 @@ features:
     transformation: MonthlyCharges / (TotalCharges + 1e-5)
     freshness: hourly
     owner: ibrahim
+  - name: contract_stability
+    source: Contract, PaymentMethod, PaperlessBilling
+    transformation: contract_stability.py
+    freshness: daily
+    owner: ibrahim
+

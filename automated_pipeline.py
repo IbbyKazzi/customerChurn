@@ -145,6 +145,19 @@ def load_and_preprocess(path):
 
     return X, y, train_test_split(X, y, test_size=0.2, random_state=42)
 
+#Grid search function
+def run_grid_search(pipeline, param_grid, X_train, y_train):
+    grid = GridSearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        scoring='roc_auc',
+        cv=5,
+        verbose=1,
+        n_jobs=-1
+    )
+    grid.fit(X_train, y_train)
+    return grid, grid.best_estimator_
+
 
 #Model Training (logistic & Current Model)
 def train_models(X_train, y_train, X_test, y_test, current_model_name):
@@ -169,44 +182,50 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     
     # Step 3: Unpickle the model
     model_t21 = pickle.loads(decoded_bytes)  
-   
 
-    #with open(MODEL_PATH_T21, "rb") as f:
-    #    model_t21 = pickle.load(f)
+    grid_searches = {}
 
-
-    # Define pipeline
-    pipeline = Pipeline([
+    # Logistic Regression HPO (already done)
+    pipeline_logreg = Pipeline([
         ('scaler', StandardScaler()),
-        ('clf', LogisticRegression(solver='liblinear'))  
+        ('clf', LogisticRegression(solver='liblinear'))
     ])
-
-    # Set Hyperparameter Grid
-    param_grid = {
+    param_grid_logreg = {
         'clf__penalty': ['l1', 'l2'],
-        'clf__C': [0.01, 0.1, 1, 10, 100],  # Regularization strength
+        'clf__C': [0.01, 0.1, 1, 10, 100],
         'clf__fit_intercept': [True, False]
     }
+    grid_logreg, best_logreg = run_grid_search(pipeline_logreg, param_grid_logreg, X_train, y_train)
+    grid_searches["Logistic Regression - HPO"] = grid_logreg
 
-    # Run Grid Search
-    grid_search = GridSearchCV(
-        estimator=pipeline,
-        param_grid=param_grid,
-        scoring='roc_auc',  # You can swap with 'accuracy', 'f1', etc.
-        cv=5,
-        verbose=1,
-        n_jobs=-1
-    )    
-    grid_search.fit(X_train, y_train)
-
-    # Evaluate Best Model
-    best_model = grid_search.best_estimator_
-    y_pred = best_model.predict(X_test)
-    y_proba = best_model.predict_proba(X_test)[:, 1]
     
-    #st.write("Grid Search Best Parameters:", grid_search.best_params_)
-    #st.write("Test Accuracy:", accuracy_score(y_test, y_pred))
-    #st.write("Test ROC AUC:", roc_auc_score(y_test, y_proba))
+    # Random Forest HPO
+    pipeline_rf = Pipeline([
+        ('scaler', StandardScaler()),  # Optional
+        ('clf', RandomForestClassifier())
+    ])
+    param_grid_rf = {
+        'clf__n_estimators': [100, 200],
+        'clf__max_depth': [None, 10, 20],
+        'clf__min_samples_split': [2, 5],
+        'clf__min_samples_leaf': [1, 2]
+    }
+    grid_rf, best_rf = run_grid_search(pipeline_rf, param_grid_rf, X_train, y_train)
+    grid_searches["Random Forest - HPO"] = grid_rf
+
+    # Gradient Boosting HPO
+    pipeline_gb = Pipeline([
+        ('scaler', StandardScaler()),  # Optional
+        ('clf', GradientBoostingClassifier())
+    ])
+    param_grid_gb = {
+        'clf__n_estimators': [100, 200],
+        'clf__learning_rate': [0.01, 0.1],
+        'clf__max_depth': [3, 5]
+    }
+    grid_gb, best_gb = run_grid_search(pipeline_gb, param_grid_gb, X_train, y_train)
+    grid_searches["Gradient Boosting - HPO"] = grid_gb   
+    
 
     # Define the models to evaluate
     sydney_tz = pytz.timezone("Australia/Sydney")
@@ -234,13 +253,14 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
     )
     
     models = {
-        "Logistic Regression - Base": LogisticRegression(),
-        "Random Forest - Base": RandomForestClassifier(),
-        "Gradient Boosting - Base": GradientBoostingClassifier(),
+        "Logistic Regression - HPO": best_logreg,
+        "Random Forest - HPO": best_rf,
+        "Gradient Boosting - HPO": best_gb,
         "Stacked Model - Base": stacked_model,
-        "Logistic Regression - HPO" : best_model, # the best model with grid search HPO
-        current_model_name : model_t21 # Our currently used model
+        current_model_name: model_t21
     }
+
+
 
 
     #--------------------------------------#
@@ -249,7 +269,7 @@ def train_models(X_train, y_train, X_test, y_test, current_model_name):
         model.fit(X_train, y_train)
         models[name] = model  
 
-    return models, grid_search
+    return models, grid_searches
 
 #Model evaluation
 def evaluate_models(models, X_test, y_test):
