@@ -145,9 +145,11 @@ section[data-testid="stSidebar"] {
 }
 
 /* 🔒 Remove expand/collapse sidebar button */
+/*
 div[data-testid="stSidebarCollapseButton"] {
     display: none !important;
 }
+*/
             
 @media screen and (max-width: 768px) {
     .block-container {
@@ -363,6 +365,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
