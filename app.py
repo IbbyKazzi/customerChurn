@@ -219,7 +219,7 @@ with col2:
             "border-radius": "0px",
         },
         "icon": {
-            "color": "#73dfec",
+            "color": "black",
             "font-size": "20px"
         },
         "nav-link": {
@@ -354,6 +354,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
