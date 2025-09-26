@@ -135,7 +135,9 @@ div[data-testid="stHorizontalBlock"] {
             
 @media screen and (max-width: 768px) {
     .block-container {
-        padding: 1rem !important;
+        padding: 1rem 1rem 2rem 1rem !important; /* top, right, bottom, left */
+        padding-top: 9rem !important; /* preserve navbar clearance */
+
     }
 
     /*
@@ -371,6 +373,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
