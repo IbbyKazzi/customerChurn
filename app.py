@@ -148,6 +148,38 @@ section[data-testid="stSidebar"] {
 div[data-testid="stSidebarCollapseButton"] {
     display: none !important;
 }
+            
+@media screen and (max-width: 768px) {
+    .block-container {
+        padding: 1rem !important;
+    }
+
+    section[data-testid="stSidebar"] {
+        max-width: 100% !important;
+        min-width: 100% !important;
+        height: auto !important;
+        padding: 1rem !important;
+        box-shadow: none !important;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .st-emotion-cache-1n76uvr button {
+        font-size: 14px !important;
+        padding: 8px 12px !important;
+    }
+}
+
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -216,6 +248,13 @@ with col2:
     if selected == "Executive Pulse":
         st.sidebar.header("🧑‍💼 Executive Pulse")
         st.sidebar.subheader("High-level summary of churn metrics and business impact")
+        st.markdown("""
+        <style>
+        .justified-text {
+            text-align: justify;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         st.sidebar.markdown("This tab provides a consolidated view of month-on-month customer churn trends, key performance indicators, and strategic signals. Designed for C-suite executives, it highlights business health, customer retention rates, and financial implications at a glance.")
         #import home_page
         #home_page.run()
@@ -225,6 +264,13 @@ with col2:
     elif selected == "Revenue Intelligence":
         st.sidebar.header("📊 Revenue Intelligence")
         st.sidebar.subheader("Sales-driven churn insights and performance breakdown")
+        st.markdown("""
+        <style>
+        .justified-text {
+            text-align: justify;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         st.sidebar.markdown("Dive into churn patterns segmented by sales channels, regions, and customer segments. This tab helps Sales leaders identify at-risk accounts, understand conversion bottlenecks, and align sales strategy with retention goals.")
         import churn_analysis
         churn_analysis.run()
@@ -232,6 +278,13 @@ with col2:
     elif selected == "Customer Insights":
         st.sidebar.header("👤 Customer Insights")
         st.sidebar.subheader("Customer experience and service quality analysis")
+        st.markdown("""
+        <style>
+        .justified-text {
+            text-align: justify;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         st.sidebar.markdown("Explore how customer service interactions, support ticket trends, and satisfaction scores correlate with churn. This tab equips Customer Experience teams with actionable insights to enhance service quality and improve customer loyalty.")
         import customerService
         customerService.run()
@@ -240,6 +293,13 @@ with col2:
     elif selected == "Retention Strategies":
         st.sidebar.header("🛡️ Retention Strategies")
         st.sidebar.subheader("Proactive strategies to reduce churn and boost loyalty")
+        st.markdown("""
+        <style>
+        .justified-text {
+            text-align: justify;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         st.sidebar.markdown("Focus on retention initiatives by analyzing the effectiveness of loyalty programs, promotional offers, and customer engagement tactics. This tab supports Marketing and Retention teams in crafting targeted campaigns to retain high-value customers.")
         import retention
         retention.run()
@@ -247,6 +307,13 @@ with col2:
     elif selected == "Technical Information":
         st.sidebar.header("🧩 Technical Dashboard")
         st.sidebar.subheader("Model performance and technical documentation")
+        st.markdown("""
+        <style>
+        .justified-text {
+            text-align: justify;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         st.sidebar.markdown("Access detailed information on the churn prediction model, including performance metrics, feature importance, and version history. This tab is tailored for Data Science and IT teams to monitor model health and ensure alignment with business objectives.")
         from model_history import run
         run();
@@ -254,6 +321,13 @@ with col2:
     elif selected == "Navigation Guide":
         st.sidebar.header("❓ Navigation Guide")
         st.sidebar.subheader("How to use the dashboard effectively")
+        st.markdown("""
+        <style>
+        .justified-text {
+            text-align: justify;
+        }
+        </style>
+        """, unsafe_allow_html=True)
         st.sidebar.markdown("This section provides a comprehensive guide on navigating the dashboard, understanding each tab's purpose, and leveraging the insights provided. Ideal for new users and stakeholders unfamiliar with the platform.")  
         from howTo import run
         run();
