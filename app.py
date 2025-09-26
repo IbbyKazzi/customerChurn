@@ -134,7 +134,9 @@ div[data-testid="stHorizontalBlock"] {
 }
 
 /* Sidebar layout */
+/*
 section[data-testid="stSidebar"] {
+    display: none !important;
     min-width: 400px !important;
     max-width: 400px !important;
     height: 100vh !important;
@@ -142,7 +144,7 @@ section[data-testid="stSidebar"] {
     padding-top: 2rem;
     background-color: #ffffff;
     box-shadow: 2px 0 6px rgba(0,0,0,0.05);
-}
+}*/
             
 @media screen and (max-width: 768px) {
     .block-container {
@@ -150,13 +152,18 @@ section[data-testid="stSidebar"] {
     }
     
     section[data-testid="stSidebar"] {
-        display: none !important;
-        max-width: 100% !important;
-        min-width: 100% !important;
-        height: auto !important;
-        padding: 1rem !important;
-        box-shadow: none !important;
+        visibility: hidden;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease, visibility 0.3s ease;
+        position: absolute;
+        z-index: 999;
+        background-color: #ffffff;
+        width: 100%;
+        height: 100vh;
+        padding: 1rem;
+        box-shadow: 2px 0 6px rgba(0,0,0,0.05);
     }
+
 
     .navbar ul {
         flex-direction: column;
@@ -359,6 +366,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
