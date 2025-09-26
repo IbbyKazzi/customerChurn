@@ -73,13 +73,13 @@ html, body, [class*="css"] {
 }
 
 .block-container {
-    padding-top: 5rem; /* ensures clearance even on mobile */
+    padding-top: 2rem; /* ensures clearance even on mobile */
     max-width: 1200px;
     margin: auto;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    padding: 5rem 2rem 2rem 2rem;
+    padding: 2rem 2rem 2rem 2rem;
 }
 
 div[data-testid="stHorizontalBlock"] {
@@ -371,6 +371,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
