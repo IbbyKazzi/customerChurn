@@ -243,6 +243,13 @@ with col2:
         }
     }
 )
+<style>  
+  .nav-link.selected i {
+    color: white !important;
+  }
+</style>
+
+    
 
     
     if selected == "Executive Pulse":
@@ -358,6 +365,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
