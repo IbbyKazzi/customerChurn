@@ -224,7 +224,7 @@ with col2:
             "border-radius": "0px",
         },
         "icon": {
-            "color": "black",
+            "color": "blue",
             "font-size": "20px"
         },
         "icon-selected": {
@@ -362,6 +362,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
