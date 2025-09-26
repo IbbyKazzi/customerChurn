@@ -168,6 +168,11 @@ div[data-testid="stHorizontalBlock"] {
         font-size: 14px !important;
         padding: 8px 12px !important;
     }
+
+    .nav-link.selected i {
+        color: white !important;
+    }
+
 }
 
 
@@ -357,6 +362,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
