@@ -248,6 +248,15 @@ with col2:
         }       
     }
 )
+    st.markdown("""
+        <style>
+        /* Center the horizontal menu items */
+        div[data-testid="option-menu-horizontal"] > ul {
+            justify-content: center !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
     
     if selected == "Executive Pulse":
         st.sidebar.header("🧑‍💼 Executive Pulse")
@@ -362,6 +371,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
