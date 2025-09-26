@@ -218,7 +218,7 @@ with col2:
     styles={
         "container": {
             "background-color": "#ADD8E6",
-            "padding": "20px",
+            "padding": "30px",
             "margin": "0px",
             "width": "100vw",
             "border-radius": "0px",
@@ -362,6 +362,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
