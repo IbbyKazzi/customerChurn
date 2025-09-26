@@ -143,20 +143,14 @@ section[data-testid="stSidebar"] {
     background-color: #ffffff;
     box-shadow: 2px 0 6px rgba(0,0,0,0.05);
 }
-
-/* 🔒 Remove expand/collapse sidebar button */
-/*
-div[data-testid="stSidebarCollapseButton"] {
-    display: none !important;
-}
-*/
             
 @media screen and (max-width: 768px) {
     .block-container {
         padding: 1rem !important;
     }
-
+    
     section[data-testid="stSidebar"] {
+        display: none !important;
         max-width: 100% !important;
         min-width: 100% !important;
         height: auto !important;
@@ -365,6 +359,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
