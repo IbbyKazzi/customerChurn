@@ -80,6 +80,7 @@ html, body, [class*="css"] {
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     padding: 3rem 2rem 2rem 2rem;
+    min-height: calc(100vh - 7rem); /* full viewport minus navbar height */
 }
 
 div[data-testid="stHorizontalBlock"] {
@@ -371,6 +372,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
