@@ -132,25 +132,13 @@ div[data-testid="stHorizontalBlock"] {
     border-radius: 10px;
     border: 2px solid #f4f9fd;
 }
-
-/* Sidebar layout */
-/*
-section[data-testid="stSidebar"] {
-    display: none !important;
-    min-width: 400px !important;
-    max-width: 400px !important;
-    height: 100vh !important;
-    overflow-y: auto;
-    padding-top: 2rem;
-    background-color: #ffffff;
-    box-shadow: 2px 0 6px rgba(0,0,0,0.05);
-}*/
             
 @media screen and (max-width: 768px) {
     .block-container {
         padding: 1rem !important;
     }
-    
+
+    /*
     section[data-testid="stSidebar"] {
         visibility: hidden;
         transform: translateX(0%);
@@ -162,7 +150,7 @@ section[data-testid="stSidebar"] {
         height: 100vh;
         padding: 1rem;
         box-shadow: 2px 0 6px rgba(0,0,0,0.05);
-    }
+    }*/
 
 
     .navbar ul {
@@ -366,6 +354,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
