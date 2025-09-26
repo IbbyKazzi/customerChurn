@@ -218,7 +218,7 @@ with col2:
     styles={
         "container": {
             "background-color": "#ADD8E6",
-            "padding": "30px",
+            "padding": "10px",
             "margin": "0px",
             "width": "100vw",
             "border-radius": "0px",
@@ -235,7 +235,7 @@ with col2:
             "background-color": "#ADD8E6",
             "color": "black",
             "font-size": "16px",
-            "padding": "10px 16px",
+            "padding": "15px 16px",
             "border-radius": "0px",  # Avoid inner rounding too
             "border": "2px solid transparent"
         },
@@ -362,6 +362,7 @@ with col2:
         "</div>",
         unsafe_allow_html=True
     )
+
 
 
 
