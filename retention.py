@@ -11,11 +11,9 @@ import matplotlib.pyplot as plt
 #Load dataset module
 import load_dataset
 from matplotlib import rcParams
-import pickle
 import shap
 from settings import MODEL_PATH_T21
 from sklearn.pipeline import Pipeline
-import pickle
 import pandas as pd
 from streamlit_plotly_events import plotly_events
 import plotly.graph_objects as go
