@@ -1118,7 +1118,7 @@
       "clf__fit_intercept": true,
       "clf__penalty": "l1"
     },
-    "active": false,
+    "active": true,
     "notes": "Auto-deployed via Streamlit App"
   },
   {
@@ -1148,7 +1148,7 @@
       "clf__min_samples_split": 2,
       "clf__n_estimators": 200
     },
-    "active": true,
+    "active": false,
     "notes": "Auto-deployed via Streamlit App"
   }
 ]
