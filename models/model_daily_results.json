@@ -1246,5 +1246,13 @@
         "module": "sklearn.pipeline",
         "version": "Pipeline",
         "auc": 0.8659038682497128
+    },
+    {
+        "timestamp": "2026-02-06 05:14:05",
+        "model_path": "models/log_reg_hpo_250929_1836.pkl",
+        "model_type": "Logistic Regression",
+        "module": "sklearn.pipeline",
+        "version": "Pipeline",
+        "auc": 0.8659038682497128
     }
 ]
